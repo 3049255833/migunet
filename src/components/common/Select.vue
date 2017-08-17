@@ -40,33 +40,17 @@
   computed:{
     optionWhatStatus(){
       return this.isShow;
-      // if(this.selectType="1"){
-      //   return this.$store.getters.getOptionState;
-      // }
-      // if(this.selectType="2"){
-      //   return this.$store.getters.getPageSizeState;
-      // }
-      
     },
-
-    
-    // defaultOption(){
-    //   return this.options[0];
-    // }
-
-    // fill:function(){
-    //   this.slected=this.optionData[0];
-    // }
   }
   ,
   methods:{
     showSelect(){
     this.isShow=!this.isShow;
       if(this.selectType=='1'){
-        this.$store.dispatch('shiftState');
+        // this.$store.dispatch('shiftState');
       }
       if(this.selectType=='2'){
-        this.$store.dispatch('changePageOption');
+        // this.$store.dispatch('changePageOption');
       }
       
     },
@@ -78,11 +62,11 @@
       this.isShow=false;
       if(this.selectType=='1'){
         // this.$store.dispatch('setOptionState',false);
-        this.$store.dispatch('changeWhichStatus',option);
+        // this.$store.dispatch('changeWhichStatus',option);
       }
       if(this.selectType=='2'){
         // this.$store.dispatch('setOptionState',false);
-        this.$store.dispatch('changePageSize',option);
+        // this.$store.dispatch('changePageSize',option);
       }
       
 

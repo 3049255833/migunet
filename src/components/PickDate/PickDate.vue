@@ -35,11 +35,11 @@ export default {
                     this.calendar3.value=value;
                     this.calendar3.display=value.join("-");
                     if(this.startTime=='true'){
-                        this.$store.dispatch('changeStartTime',this.calendar3.value.join("-"));
+                        // this.$store.dispatch('changeStartTime',this.calendar3.value.join("-"));
                     }
                     if(this.startTime=='false')
                     {
-                        this.$store.dispatch('changeEndTime',this.calendar3.value.join("-"));
+                        // this.$store.dispatch('changeEndTime',this.calendar3.value.join("-"));
                     }
                 }
             }

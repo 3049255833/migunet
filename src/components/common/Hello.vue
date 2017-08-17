@@ -2,7 +2,6 @@
   <div class="hello">
     <v-Button text="确定" w="90px"></v-Button>
     <v-Select></v-Select>
-    {{$store.state.slected}}
   </div>
 </template>
 

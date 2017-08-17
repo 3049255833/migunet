@@ -79,8 +79,8 @@ export default {
       this.$emit('searchInfo',this.selected);
     },
     searchKeyWord:function(){
-      this.$store.dispatch('changeKeyWord',this.keyWord)
-      console.log(this.keyWord);
+      // this.$store.dispatch('changeKeyWord',this.keyWord)
+      // console.log(this.keyWord);
     }
   }
 }

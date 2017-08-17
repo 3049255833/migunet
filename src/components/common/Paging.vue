@@ -16,7 +16,7 @@
         <v-Select selectType="2" v-bind:options="['7条/页','8条/页','9条/页','10条/页']"></v-Select>
 
  </span>    
- <ul class="pagination" v-on:click="sendMsgToParent">
+ <ul class="pagination">
       <li   v-show="current != 1" @click="current-- && goto(current)"><a href="javascript:void(0);" class="prev"><</a></li>
       <li   v-for="index in pages" @click="goto(index)" :class="{'active':current == index}" :key="index">
         <a href="javascript:void(0);">{{index}}</a>
@@ -79,17 +79,10 @@
       this.current = index;
       //这里可以发送ajax请求
     },
-     sendMsgToParent:function(){
-        // this.$emit("listenToChild",this.current);
-        // this.$store.dispatch('changeValue',2);
-        this.$store.dispatch('changePage',this.current);
-    },
+     
     jumpPage:function(){
-      this.$store.dispatch('changePageSelected',this.pageSelected);
+      // this.$store.dispatch('changePageSelected',this.pageSelected);
     }
-  },
-  mounted:function(){
-    this.current=this.$store.getters.getPage;
   }
   }
 </script>
