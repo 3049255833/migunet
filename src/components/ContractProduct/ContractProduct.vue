@@ -1,5 +1,5 @@
 <template>
-<div class="container" @click="hideSelectOption">
+<div class="container">
     <v-Header></v-Header>
     <div class="main-wrapper">
       <div class="nav-wrapper">
@@ -19,7 +19,6 @@
 import vHeader from '../common/Header'
 import vTable  from '../common/Table2'
 import vNav from '../common/Nav'
-import Mock from 'mockjs'
 import calendar from '../common/calendar.vue'
 import vSearch from '../common/Search'
 import vPaging from '../common/Paging'

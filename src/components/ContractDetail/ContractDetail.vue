@@ -28,7 +28,6 @@
                   <div class="pro-info">
                     <div class="pro-info-title">
                       动漫5元业务包
-                      {{item.contractProduct.name}}
                     </div>
                     <div class="pro-info-des">
                       产品名称
@@ -41,7 +40,7 @@
                   </div>
                   <div class="pro-info">
                     <div class="pro-info-title">
-                      {{item.contractProduct.productID}}
+                      动漫5元业务包
                     </div>
                     <div class="pro-info-des">
                       产品ID
@@ -86,13 +85,14 @@
                   <div  class="lay-row">
                     <span  class="lay-text"> 产品描述：</span>
               <span  class="lay-r">
-                {{item.contractProduct.contractDesc}}
+                20990000000921
               </span>
                   </div>
                   <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
                     <span  class="lay-text"> 限定发布平台：</span>
               <span  class="lay-r">
-                {{item.contractProduct.platformType}}
+                20990000000921
               </span>
                   </div>
                   <div  class="lay-row">
@@ -104,19 +104,19 @@
                   <div  class="lay-row">
                     <span  class="lay-text"> 生效时间：</span>
               <span  class="lay-r">
-                {{item.contractProduct.startTime}}
+                2017-1-1
               </span>
                   </div>
                   <div  class="lay-row">
                     <span  class="lay-text"> 创建时间：</span>
               <span  class="lay-r">
-                {{item.contractProduct.createTime}}
+                2017-1-1
               </span>
                   </div>
                   <div  class="lay-row">
                     <span  class="lay-text"> 创建用户：</span>
               <span  class="lay-r">
-                {{item.contractProduct.createUser}}
+                用户名称
               </span>
                   </div>
                 </div>
@@ -124,31 +124,31 @@
                   <div  class="lay-row">
                     <span  class="lay-text"> 搜索关键字：</span>
               <span  class="lay-r">
-                {{item.contractProduct.keyWords}}
+                用户名称
               </span>
                   </div>
                   <div  class="lay-row">
                     <span  class="lay-text"> 归属产品线：</span>
               <span  class="lay-r">
-                {{item.contractProduct.productLine}}
+                用户名称
               </span>
                   </div>
                   <div  class="lay-row">
                     <span  class="lay-text"> 短信发送时间：</span>
               <span  class="lay-r">
-                20990000000921
+                2017-1-22
               </span>
                   </div>
                   <div  class="lay-row">
                     <span  class="lay-text"> 失效时间：</span>
               <span  class="lay-r">
-                {{item.contractProduct.endTime}}
+                2017-1-22
               </span>
                   </div>
                   <div  class="lay-row">
                     <span  class="lay-text"> 更新时间：</span>
               <span  class="lay-r">
-                {{item.contractProduct.updateTime}}
+                2017-1-22
               </span>
                   </div>
                 </div>
@@ -165,13 +165,13 @@
                   <div  class="lay-row">
                     <span  class="lay-text"> BOSS计费代码：</span>
               <span  class="lay-r">
-                {{item.contractBossFeeCode.bossFee}}
+                222
               </span>
                   </div>
                   <div  class="lay-row">
                     <span  class="lay-text"> 计费类型：</span>
               <span  class="lay-r">
-                {{item.contractProduct.chargeType}}
+                1
               </span>
                   </div>
                   <div  class="lay-row">
@@ -186,13 +186,13 @@
                   <div  class="lay-row">
                     <span  class="lay-text"> 价格（分CN）：</span>
               <span  class="lay-r">
-                {{item.contractProduct.fee}}
+                112
               </span>
                   </div>
                   <div  class="lay-row">
                     <span  class="lay-text"> 支付方式：</span>
               <span  class="lay-r">
-                {{item.contractProduct.payType}}
+                刷卡
               </span>
                   </div>
 
@@ -210,7 +210,7 @@
                   <div  class="lay-row">
                     <span  class="lay-text"> BOSS计费代码：</span>
               <span  class="lay-r">
-                {{item.contractBossFeeCode.bossFee}}
+                111
               </span>
                   </div>
 
@@ -241,7 +241,6 @@
   import vHeader from '../common/Header'
   import vTable  from '../common/Table'
   import vNav from '../common/Nav'
-  import Mock from 'mockjs'
   import PickDate from '../PickDate/PickDate'
   import vPop from '../common/Pop'
   import InfoTable from '../common/InfoTable'
@@ -249,47 +248,7 @@
   import CancelBtn from '../common/Button2'
   import axios from 'axios'
 
-var jsonData1 = Mock.mock('http:www.migunet.com',{
-  "status": 200,
-  "error": "成功",
-  "message": "操作成功",
-  "data": {
-    "contractProduct": {
-      "productID": 1009920391324,
-      "productDirID": 112233,
-      "name": "产品名称",
-      "auditStatus": "上线(变更审批)",
-      "contractDesc": "全职高手",
-      "keyWords": "动漫、漫画、青少年、日本、宫崎骏",
-      "cpID": "cp标识",
-      "productLine": "产品归属线",
-      "status": "产品状态",
-      "chargeType": "计费类型",
-      "payType": "支付方式",
-      "platformType": "不限定发布平台",
-      "bossID": null,
-      "productType": null,
-      "productObjType": null,
-      "fee": null,
-      "feeType": null,
-      "testTag": null,
-      "testProductID": null,
-      "cycleUnit": null,
-      "cycleUnitNum": null,
-      "enableType": null,
-      "unsubscribeType": null,
-      "refillType": null,
-      "startTime": null,
-      "endTime": null,
-      "createTime": null,
-      "createUser": null,
-      "updateTime": null
-    },
-    "contractBossFeeCode": null,
-    "contractChannelProduct": null
-  }
 
-});
   
   export default {
     name: 'AddContractProduct',
@@ -308,20 +267,7 @@ var jsonData1 = Mock.mock('http:www.migunet.com',{
   {
     return {}
   }
-  ,
-  computed:{
-    item(){
-      return this.$store.getters.getDetailData;
-    }
-  },
-  methods:{
-    initPage(){
-      this.$store.dispatch('loadDetailData');
-    }
-  },
-  mounted(){
-    this.initPage();
-  }
+  
   }
 </script>
 
@@ -337,18 +283,7 @@ var jsonData1 = Mock.mock('http:www.migunet.com',{
     margin-top: 10px;
   }
 
-  /*.info:before{*/
-  /*content: '';*/
-  /*position: absolute;*/
-  /*left: 20px;*/
-  /*top: -10px;*/
-  /*width: 0;*/
-  /*height: 0;*/
-  /*border-style: solid;*/
-  /*border-width: 0 9.5px 19px 9.5px;*/
-  /*border-color: transparent transparent #ffffff transparent*/
 
-  /*}*/
   .info:before {
     content: '';
     position: absolute;
