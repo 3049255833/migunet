@@ -27,6 +27,7 @@
                   </div>
                   <div class="pro-info">
                     <div class="pro-info-title">
+                      动漫5元业务包
                       {{item.contractProduct.name}}
                     </div>
                     <div class="pro-info-des">

@@ -45,7 +45,6 @@ const productDetail={
        var res = res.data.data;
        context.commit("loadDetailData",res);
        console.log('table数据:',res);
-
     })
   },
   

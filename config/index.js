@@ -36,35 +36,6 @@ module.exports = {
             pathRewrite:{
                 '^/productQuery':'/productQuery'
             }
-        },
-        '/user': {
-            target: 'http://qytxl1.cytxl.com.cn/index.php',
-            changeOrigin: true
-        },
-        '/department': {
-            target: 'http://qytxl1.cytxl.com.cn/index.php',
-            changeOrigin: true
-        },
-        '/item': {
-            target: 'http://qytxl1.cytxl.com.cn/index.php',
-            changeOrigin: true
-        },
-        '/register': {
-            target: 'http://qytxl1.cytxl.com.cn/index.php',
-            changeOrigin: true
-        },
-        //上传文件
-        '/io': {
-            target: 'http://qytxl1.cytxl.com.cn/index.php',
-            changeOrigin: true
-        },
-        '/enterprise': {
-            target: 'http://qytxl1.cytxl.com.cn/index.php',
-            changeOrigin: true
-        },
-        '/contactLevelConfig': {
-            target: 'http://qytxl1.cytxl.com.cn/index.php',
-            changeOrigin: true
         }
 
     },

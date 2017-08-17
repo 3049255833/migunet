@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/common/Hello'
-import Select from '@/components/common/Select'
 import AddContractProduct from '@/components/AddContractProduct/AddContractProduct'
 import AddContractProduct2 from '@/components/AddContractProduct2/AddContractProduct2'
 import AddContractProduct3 from '@/components/AddContractProduct3/AddContractProduct3'
@@ -29,16 +27,7 @@ export default new Router({
       name: 'Product',
       component: Product
     },
-    {
-      path: '/Select',
-      name: 'Select',
-      component: Select
-    },
-    {
-      path: '/Hello',
-      name: 'Hello',
-      component: Hello
-    },
+    
     {
       path: '/AddContractProduct',
       name: 'AddContractProduct',

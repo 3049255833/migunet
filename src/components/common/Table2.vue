@@ -1,6 +1,5 @@
 <template>
   <div class="table-container">
-    <!-- <v-Search v-on:searchInfo="searchSelect"></v-Search> -->
     <div class="main-area">
     <table class="NewTable2">
       <thead>
@@ -16,23 +15,35 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="item in items">
+      <tr>
         <td>
-          <div class="l-app-name">{{item.Name}}</div>
+          <div class="l-app-name">产品名称</div>
         </td>
-        <td>{{item.ProductId}}</td>
-        <td>{{item.CpId}}</td>
-        <td>{{item.Fee}}</td>
-        <td>{{item.Fee}}</td>
-        <td><span>{{item.Status}}</span></td>
-        <td><span>{{item.Status}}</span></td>
+        <td>2233</td>
+        <td>22233</td>
+        <td>450</td>
+        <td>560</td>
+        <td><span>上线报备</span></td>
+        <td><span>上线报备失败</span></td>
+        <td class="option td-blue"><span class="td-detail td-blue" >详情</span><span class="td-detail td-blue" >变更信息</span><span class="td-detail td-blue" >更多</span>
+        </td>
+      </tr>
+       <tr>
+        <td>
+          <div class="l-app-name">产品名称</div>
+        </td>
+        <td>2233</td>
+        <td>22233</td>
+        <td>450</td>
+        <td>560</td>
+        <td><span>上线报备</span></td>
+        <td><span>上线报备失败</span></td>
         <td class="option td-blue"><span class="td-detail td-blue" >详情</span><span class="td-detail td-blue" >变更信息</span><span class="td-detail td-blue" >更多</span>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-  <!-- <v-Paging v-on:listenToChild="showMorePage"></v-Paging> -->
   </div>
   
 
@@ -40,91 +51,7 @@
 <script>
 import vSearch from '../common/Search'
 import vPaging from '../common/Paging'
-import Mock from 'mockjs'
 import axios from 'axios'
-var Random = Mock.Random
-Random.extend({
-    constellation: function(date) {
-        var constellations = ['全职高手1', '全职高手2', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座']
-        return this.pick(constellations)
-    }
-})
-Random.constellation();
-// => "水瓶座"
-var data1 = Mock.mock('http://address:port/productCenter/productDataDeclareCallback',{    
-  "ProductInfos|1-10":[
-  {
-"ProductId|988221-9009876988":0,
-"Name":"@CONSTELLATION",
-"Describe":"产品描述",
-"Keys":"关键字1，关键字2",
-"CpId|988221-9009876988":1,
-"ProductLine":"归属产品线1",
-"Status|1-7":1,
-"ChargeType":1,
-"PayType":1,
-"PlatformType":1,
-"BossId":"100001",
-"ProductType":1,
-"Fee|0-100":100,
-"EnableTag":0,
-"StartTime":"2017-07-13 19:21:00",
-"EndTime":"2017-09-01 10:00:00",
-},
-
-]
-
-});
-var data2 = Mock.mock('http://address:port/productCenter/productDataDeclareCallback?page=1&&pagesize=10',{    
-  "ProductInfos|10":[
-  {
-"ProductId|988221-9009876988":0,
-"Name":"@CONSTELLATION",
-"Describe":"产品描述",
-"Keys":"关键字1，关键字2",
-"CpId|988221-9009876988":1,
-"ProductLine":"归属产品线1",
-"Status|1-7":1,
-"ChargeType":1,
-"PayType":1,
-"PlatformType":1,
-"BossId":"100001",
-"ProductType":1,
-"Fee|0-100":100,
-"EnableTag":0,
-"StartTime":"2017-07-13 19:21:00",
-"EndTime":"2017-09-01 10:00:00",
-},
-
-]
-
-});
-var data3 = Mock.mock('http://address:port/productCenter/productDataDeclareCallback?id=100200300',{    
-  "ProductInfos|10":[
-  {
-"ProductId|988221-9009876988":0,
-"Name":"@CONSTELLATION",
-"Describe":"产品描述",
-"Keys":"关键字1，关键字2",
-"CpId|988221-9009876988":1,
-"ProductLine":"归属产品线1",
-"Status|1-7":1,
-"ChargeType":1,
-"PayType":1,
-"PlatformType":1,
-"BossId":"100001",
-"ProductType":1,
-"Fee|0-100":100,
-"EnableTag":0,
-"StartTime":"2017-07-13 19:21:00",
-"EndTime":"2017-09-01 10:00:00",
-},
-
-]
-
-});
- // console.log(JSON.stringify(data, null, 4));
-
 
 
   export default {
@@ -137,51 +64,10 @@ var data3 = Mock.mock('http://address:port/productCenter/productDataDeclareCallb
     data ()
   {
     return {
-      // items: [],
-      totalPage:1
+      
     }
   },
-  computed:{
-    items:function(){
-      return this.$store.getters.getRes;
-    }
 
-  },
-  mounted(){
-    this.$store.dispatch('loadList',1);
-    // this.items=this.$store.getters.getRes;
-    // console.log('data:'+this.items);
-
-    // axios.get('http://address:port/productCenter/productDataDeclareCallback').then((res)=>{
-    //    var res = res.data;
-    //    this.items=res.ProductInfos;
-    // })
-
-    
-    // this.$http.get('http://address:port/productCenter/productDataDeclareCallback').then((res)=>{
-    //    var res=JSON.parse(res.bodyText);
-    //    console.log(res.ProductInfos);
-    //    this.items=res.ProductInfos;
-    
-    // })
-  },
-  methods:{
-    // showMorePage:function (data) {
-    //   axios.get('http://address:port/productCenter/productDataDeclareCallback?page=1&&pagesize=10').then((res)=>{
-    //    var res = res.data;
-    //    this.items=res.ProductInfos;
-    // })
-    // },
-    searchSelect:function(data){
-      console.log(data);
-      axios.post('http://address:port/productCenter/productDataDeclareCallback?id=100200300').then((res)=>{
-       var res = res.data;
-       this.items=res.ProductInfos;
-       
-    })
-
-    }
-  }
 
   }
 </script>

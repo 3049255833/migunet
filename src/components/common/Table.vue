@@ -1,6 +1,5 @@
 <template>
   <div class="table-container">
-    <!-- <v-Search v-on:searchInfo="searchSelect"></v-Search> -->
     <div class="main-area">
     <table class="NewTable2">
       <thead>
@@ -15,22 +14,42 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="item in items">
+      <tr>
         <td>
-          <div class="l-app-name">{{item.name}}</div>
+          <div class="l-app-name">名称</div>
         </td>
-        <td>{{item.productId}}</td>
-        <td>{{item.cpId}}</td>
-        <td>{{item.fee}}</td>
-        <td><span>{{item.status}}</span></td>
-        <td><span>{{item.auditStatus}}</span></td>
-        <td class="option td-blue">详情<!-- <span class="td-detail td-blue" >详情</span> -->
+        <td>123432</td>
+        <td>343</td>
+        <td>233</td>
+        <td>上线报备中</td>
+        <td>变更报备失败</td>
+        <td class="option td-blue">详情</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="l-app-name">名称</div>
         </td>
+        <td>123432</td>
+        <td>343</td>
+        <td>233</td>
+        <td>上线报备中</td>
+        <td>变更报备失败</td>
+        <td class="option td-blue">详情</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="l-app-name">名称</div>
+        </td>
+        <td>123432</td>
+        <td>343</td>
+        <td>233</td>
+        <td>上线报备中</td>
+        <td>变更报备失败</td>
+        <td class="option td-blue">详情</td>
       </tr>
       </tbody>
     </table>
   </div>
-  <!-- <v-Paging v-on:listenToChild="showMorePage"></v-Paging> -->
   </div>
   
 
@@ -39,6 +58,9 @@
 import vSearch from '../common/Search'
 import vPaging from '../common/Paging'
 import Mock from 'mockjs'
+import axios from 'axios'
+
+
 
 
   export default {
@@ -55,66 +77,12 @@ import Mock from 'mockjs'
       totalPage:1
     }
   },
-  computed:{
-    items(){
-      let allData=this.$store.getters.getListData;
-      let list =allData.list;
-      let newList=[];
-      newList=list;
-      if(newList){
-        newList.forEach(function(e){
-        
-        if(e.status=='1'){
-          e.status='上线报备中';
-        }
-        if(e.status=='2'){
-          e.status='上线报备失败';
-        }
-        if(e.status=='3'){
-          e.status='变更报备中';
-        }
-        if(e.status=='4'){
-          e.status='变更报备失败';
-        }
-        if(e.status=='5'){
-          e.status='下线报备中';
-        }
-        if(e.status=='6'){
-          e.status='下线报备失败';
-        }
-        if(e.auditStatus=='1'){
-          e.auditStatus='上线报备中';
-        }
-        if(e.auditStatus=='2'){
-          e.auditStatus='上线报备失败';
-        }
-        if(e.auditStatus=='3'){
-          e.auditStatus='变更报备中';
-        }
-        if(e.auditStatus=='4'){
-          e.auditStatus='变更报备失败';
-        }
-        if(e.auditStatus=='5'){
-          e.auditStatus='下线报备中';
-        }
-        if(e.auditStatus=='6'){
-          e.auditStatus='下线报备失败';
-        }
-      });
-      }
-      
-      return newList;
-    }
 
-  },
-  mounted(){
-    this.$store.dispatch('loadListData');
-    
-  },
-  methods:{
-  }
+
 
   }
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
