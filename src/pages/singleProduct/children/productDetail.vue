@@ -1,254 +1,241 @@
 <template>
-    <div class="container">
-        <v-Pop></v-Pop>
-    <v-Header></v-Header>
+    <div class="product-detail">
+        <div class="main-wrapper">
+            <div class="add-product-wrapper">
+                <div class="add-main">
+                    <div class="table-wrapper">
+                        <div class="add-title">
+                            产品管理新增
+                        </div>
 
-    <div class="main-wrapper">
-        <div class="nav-wrapper">
-            <v-Nav></v-Nav>
-        </div>
-
-        <div class="add-product-wrapper">
-            <div class="bread-menu">
-              <span class="bread-link">产品管理</span>
-              >
-              <span class="bread-link">合约产品管理</span>
-              >
-              <span>产品管理新增</span>
-            </div>
-
-            <div class="add-main">
-                <div class="table-wrapper">
-                    <div class="add-title">
-                        产品管理新增
-                    </div>
-
-                    <div class="product-detail-wrapper">
-                        <div class="pro-three">
-                            <div class="pro-wrapper">
-                                <div class="pro-icon">
-                                    <img src="../../assets/status-icon.png" alt=""/>
-                                </div>
-
-                                <div class="pro-info">
-                                    <div class="pro-info-title">
-                                        动漫5元业务包
+                        <div class="product-detail-wrapper">
+                            <div class="pro-three">
+                                <div class="pro-wrapper">
+                                    <div class="pro-icon">
+                                        <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
 
-                                    <div class="pro-info-des">
-                                        产品名称
+                                    <div class="pro-info">
+                                        <div class="pro-info-title">
+                                            动漫5元业务包
+                                        </div>
+
+                                        <div class="pro-info-des">
+                                            产品名称
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="pro-wrapper">
-                                <div class="pro-icon">
-                                    <img src="../../assets/status-icon.png" alt=""/>
-                                </div>
-
-                                <div class="pro-info">
-                                    <div class="pro-info-title">
-                                        动漫5元业务包
+                                <div class="pro-wrapper">
+                                    <div class="pro-icon">
+                                        <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
 
-                                    <div class="pro-info-des">
-                                        产品ID
+                                    <div class="pro-info">
+                                        <div class="pro-info-title">
+                                            动漫5元业务包
+                                        </div>
+
+                                        <div class="pro-info-des">
+                                            产品ID
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="pro-wrapper">
-                                <div class="pro-icon">
-                                    <img src="../../assets/status-icon.png" alt=""/>
-                                </div>
-
-                                <div class="pro-info">
-                                    <div class="pro-info-title">
-                                        动漫5元业务包
+                                <div class="pro-wrapper">
+                                    <div class="pro-icon">
+                                        <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
-                                    <div class="pro-info-des">
-                                        产品状态
+
+                                    <div class="pro-info">
+                                        <div class="pro-info-title">
+                                            动漫5元业务包
+                                        </div>
+                                        <div class="pro-info-des">
+                                            产品状态
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="pro-btn-wrapper">
-                            <div class="pro-btn">
-                                <Confirm-Btn w="80px" text="变更信息"></Confirm-Btn>
+                            <div class="pro-btn-wrapper">
+                                <div class="pro-btn">
+                                    <Confirm-Btn w="80px" text="变更信息"></Confirm-Btn>
+                                </div>
+
+                                <div class="pro-btn pro-btn-another">
+                                    <Cancel-Btn w="80px" text="下线"></Cancel-Btn>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lay-wrapper-three">
+                        <div class="lay-wrapper">
+                            <div class="lay-title">
+                                基本信息
                             </div>
 
-                            <div class="pro-btn pro-btn-another">
-                                <Cancel-Btn w="80px" text="下线"></Cancel-Btn>
+                            <div class="lay-row-area">
+                                <div class="lay-row-wrapper lay-row-wrapper1">
+
+                                    <div class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+
+                                        <span class="lay-r">
+                                            20990000000921
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 产品描述：</span>
+                                        <span class="lay-text"> 限定发布平台：</span>
+                                        <span class="lay-r">
+                                            20990000000921
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 合作伙伴：</span>
+                                        <span class="lay-r">
+                                            20990000000921
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 生效时间：</span>
+                                        <span class="lay-r">
+                                            2017-1-1
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 创建时间：</span>
+                                        <span class="lay-r">
+                                            2017-1-1
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 创建用户：</span>
+                                        <span class="lay-r">
+                                            用户名称
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="lay-row-wrapper lay-row-wrapper2">
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 搜索关键字：</span>
+                                        <span class="lay-r">
+                                            用户名称
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 归属产品线：</span>
+                                        <span class="lay-r">
+                                            用户名称
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 短信发送时间：</span>
+                                        <span class="lay-r">
+                                            2017-1-22
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 失效时间：</span>
+                                        <span class="lay-r">
+                                            2017-1-22
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 更新时间：</span>
+                                        <span class="lay-r">
+                                            2017-1-22
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lay-wrapper">
+                            <div class="lay-title">
+                                资费信息
+                            </div>
+
+                            <div class="lay-row-area">
+                                <div class="lay-row-wrapper lay-row-wrapper1">
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> BOSS计费代码：</span>
+                                        <span  class="lay-r">
+                                            222
+                                        </span>
+                                    </div>
+
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 计费类型：</span>
+                                        <span  class="lay-r">
+                                            1
+                                        </span>
+                                    </div>
+
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 计费策略：</span>
+                                        <span  class="lay-r">
+                                            20990000000921
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="lay-row-wrapper lay-row-wrapper2">
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 价格（分CN）：</span>
+                                        <span  class="lay-r">
+                                            112
+                                        </span>
+                                    </div>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 支付方式：</span>
+                                        <span  class="lay-r">
+                                            刷卡
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lay-wrapper">
+                            <div class="lay-title">
+                                渠道信息
+                            </div>
+
+                            <div class="lay-row-area">
+                                <div class="lay-row-wrapper lay-row-wrapper1">
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> BOSS计费代码：</span>
+                                        <span  class="lay-r">
+                                            111
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lay-btn">
+                            <div class="lay-btn-wrapper">
+                                <Cancel-Btn text="隐藏"></Cancel-Btn>
+                            </div>
+
+                            <div class="lay-btn-wrapper">
+                                <Cancel-Btn text="注销"></Cancel-Btn>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="lay-wrapper-three">
-                    <div class="lay-wrapper">
-                        <div class="lay-title">
-                            基本信息
-                        </div>
-
-                        <div class="lay-row-area">
-                            <div class="lay-row-wrapper lay-row-wrapper1">
-
-                            <div class="lay-row">
-
-                            <span  class="lay-text"> 产品描述：</span>
-
-                            <span class="lay-r">
-                                20990000000921
-                            </span>
-                        </div>
-
-                        <div  class="lay-row">
-                            <span class="lay-text"> 产品描述：</span>
-                            <span class="lay-text"> 限定发布平台：</span>
-                            <span class="lay-r">
-                                20990000000921
-                            </span>
-                        </div>
-
-                        <div class="lay-row">
-                            <span class="lay-text"> 合作伙伴：</span>
-                            <span class="lay-r">
-                                20990000000921
-                            </span>
-                        </div>
-
-                        <div class="lay-row">
-                            <span class="lay-text"> 生效时间：</span>
-                            <span class="lay-r">
-                                2017-1-1
-                            </span>
-                        </div>
-
-                        <div class="lay-row">
-                            <span class="lay-text"> 创建时间：</span>
-                            <span class="lay-r">
-                                2017-1-1
-                            </span>
-                        </div>
-
-                        <div class="lay-row">
-                            <span class="lay-text"> 创建用户：</span>
-                            <span class="lay-r">
-                                用户名称
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="lay-row-wrapper lay-row-wrapper2">
-                        <div class="lay-row">
-                            <span class="lay-text"> 搜索关键字：</span>
-                            <span class="lay-r">
-                                用户名称
-                            </span>
-                        </div>
-
-                        <div class="lay-row">
-                            <span class="lay-text"> 归属产品线：</span>
-                            <span class="lay-r">
-                                用户名称
-                            </span>
-                        </div>
-
-                        <div class="lay-row">
-                            <span class="lay-text"> 短信发送时间：</span>
-                            <span class="lay-r">
-                                2017-1-22
-                            </span>
-                        </div>
-
-                        <div class="lay-row">
-                            <span class="lay-text"> 失效时间：</span>
-                            <span class="lay-r">
-                                2017-1-22
-                            </span>
-                        </div>
-
-                        <div class="lay-row">
-                            <span class="lay-text"> 更新时间：</span>
-                            <span class="lay-r">
-                                2017-1-22
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lay-wrapper">
-                <div class="lay-title">
-                    资费信息
-                </div>
-
-                <div class="lay-row-area">
-                    <div class="lay-row-wrapper lay-row-wrapper1">
-                        <div  class="lay-row">
-                            <span  class="lay-text"> BOSS计费代码：</span>
-                            <span  class="lay-r">
-                                222
-                            </span>
-                        </div>
-
-                        <div  class="lay-row">
-                            <span  class="lay-text"> 计费类型：</span>
-                            <span  class="lay-r">
-                                1
-                            </span>
-                        </div>
-
-                        <div  class="lay-row">
-                            <span  class="lay-text"> 计费策略：</span>
-                            <span  class="lay-r">
-                                20990000000921
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="lay-row-wrapper lay-row-wrapper2">
-                        <div  class="lay-row">
-                            <span  class="lay-text"> 价格（分CN）：</span>
-                            <span  class="lay-r">
-                                112
-                            </span>
-                        </div>
-                        <div  class="lay-row">
-                            <span  class="lay-text"> 支付方式：</span>
-                            <span  class="lay-r">
-                                刷卡
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lay-wrapper">
-                <div class="lay-title">
-                    渠道信息
-                </div>
-
-                <div class="lay-row-area">
-                    <div class="lay-row-wrapper lay-row-wrapper1">
-                        <div  class="lay-row">
-                            <span  class="lay-text"> BOSS计费代码：</span>
-                            <span  class="lay-r">
-                                111
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lay-btn">
-                <div class="lay-btn-wrapper">
-                    <Cancel-Btn text="隐藏"></Cancel-Btn>
-                </div>
-
-                <div class="lay-btn-wrapper">
-                    <Cancel-Btn text="注销"></Cancel-Btn>
                 </div>
             </div>
         </div>
@@ -256,20 +243,28 @@
 </template>
 
 <script>
-    import vHeader from '../common/Header'
-    import vTable  from '../common/Table'
-    import vNav from '../common/Nav'
-    import PickDate from '../PickDate/PickDate'
-    import vPop from '../common/Pop'
-    import InfoTable from '../common/InfoTable'
-    import ConfirmBtn from '../common/Button1'
-    import CancelBtn from '../common/Button2'
+    //import vHeader from '../common/Header'
+    //import vTable  from '../common/Table'
+    //import vNav from '../common/Nav'
+    //import PickDate from '../PickDate/PickDate'
+    //import vPop from '../common/Pop'
+    //import InfoTable from '../common/InfoTable'
+    //import ConfirmBtn from '../common/Button1'
+    //import CancelBtn from '../common/Button2'
     import axios from 'axios'
 
+    import vTable from "@/components/common/Table";
+    import vNav from "@/components/common/Nav";
+
+    import PickDate from "@/components/PickDate/PickDate";
+    import vPop from "@/components/common/Pop";
+    import InfoTable from "@/components/common/InfoTable";
+    import ConfirmBtn from "@/components/common/Button1";
+    import CancelBtn from "@/components/common/Button2";
+
     export default {
-        name: 'AddContractProduct',
+        name: 'ProductDetail',
         components: {
-            vHeader,
             vTable,
             vNav,
             PickDate,
@@ -277,7 +272,6 @@
             InfoTable,
             ConfirmBtn,
             CancelBtn
-
         },
         data () {
             return {}
@@ -286,9 +280,9 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
 
-@import url('../../less/common.less');
+<style scoped lang="less">
+    @import url('../../../less/common.less');
     .info {
         width: 808px;
         padding: 20px 0;
@@ -304,7 +298,7 @@
         top: -9px;
         width: 20px;
         height: 10px;
-        background: url("../../assets/arrow-up.png") #ffffff no-repeat;
+        background: url("../../../assets/arrow-up.png") #ffffff no-repeat;
     }
 
     .lable1 {
@@ -544,7 +538,7 @@
         padding-left: 5px;
         box-sizing: border-box;
         border: solid 1px #d6e1e5;
-        background: url("../../assets/def.png") no-repeat 97% 7px;
+        background: url("../../../assets/def.png") no-repeat 97% 7px;
         border-radius: 0;
     }
 
@@ -579,7 +573,7 @@
         padding-left: 5px;
         border-radius: 0;
         border: 1px solid #dedede;
-        background: url('../../assets/arrow-down.png') no-repeat 95% 11px;
+        background: url('../../../assets/arrow-down.png') no-repeat 95% 11px;
     }
 
     .info-left {
@@ -596,7 +590,7 @@
         font-size: 12px;
         padding-right: 6px;
         padding-left: 46px;
-        background: url('../../assets/edit.png') transparent no-repeat 17px 3px;
+        background: url('../../../assets/edit.png') transparent no-repeat 17px 3px;
         cursor: pointer;
         margin-left: 20px;
         width: 190px;
