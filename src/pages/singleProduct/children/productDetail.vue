@@ -80,51 +80,41 @@
                                 <div class="lay-row-wrapper lay-row-wrapper1">
 
                                     <div class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-text"> 产品名称：</span>
 
                                         <span class="lay-r">
-                                            20990000000921
+                                            全职高手
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 产品描述：</span>
-                                        <span class="lay-text"> 限定发布平台：</span>
-                                        <span class="lay-r">
-                                            20990000000921
-                                        </span>
+                                        <span class="lay-text"> 描述内容</span>
                                     </div>
 
                                     <div class="lay-row">
-                                        <span class="lay-text"> 合作伙伴：</span>
+                                        <span class="lay-text"> 审批状态：</span>
                                         <span class="lay-r">
-                                            20990000000921
+                                            审批状态
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 生效时间：</span>
                                         <span class="lay-r">
-                                            2017-1-1
+                                            2017/08/21 16:00
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 创建时间：</span>
                                         <span class="lay-r">
-                                            2017-1-1
-                                        </span>
-                                    </div>
-
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 创建用户：</span>
-                                        <span class="lay-r">
-                                            用户名称
+                                            2017/08/21 16:00
                                         </span>
                                     </div>
                                 </div>
 
-                                <div class="lay-row-wrapper lay-row-wrapper2">
+                                <div class="lay-row-wrapper">
                                     <div class="lay-row">
                                         <span class="lay-text"> 搜索关键字：</span>
                                         <span class="lay-r">
@@ -133,30 +123,30 @@
                                     </div>
 
                                     <div class="lay-row">
-                                        <span class="lay-text"> 归属产品线：</span>
+                                        <span class="lay-text"> 业务状态：</span>
                                         <span class="lay-r">
                                             用户名称
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
-                                        <span class="lay-text"> 短信发送时间：</span>
+                                        <span class="lay-text"> 创建用户：</span>
                                         <span class="lay-r">
-                                            2017-1-22
+                                            2017/08/21 16:00
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 失效时间：</span>
                                         <span class="lay-r">
-                                            2017-1-22
+                                            2017/08/21 16:00
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 更新时间：</span>
                                         <span class="lay-r">
-                                            2017-1-22
+                                            2017/08/21 16:00
                                         </span>
                                     </div>
                                 </div>
@@ -169,40 +159,11 @@
                             </div>
 
                             <div class="lay-row-area">
-                                <div class="lay-row-wrapper lay-row-wrapper1">
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> BOSS计费代码：</span>
-                                        <span  class="lay-r">
-                                            222
-                                        </span>
-                                    </div>
-
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 计费类型：</span>
-                                        <span  class="lay-r">
-                                            1
-                                        </span>
-                                    </div>
-
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 计费策略：</span>
-                                        <span  class="lay-r">
-                                            20990000000921
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="lay-row-wrapper lay-row-wrapper2">
+                                <div class="lay-row-wrapper">
                                     <div  class="lay-row">
                                         <span  class="lay-text"> 价格（分CN）：</span>
                                         <span  class="lay-r">
                                             112
-                                        </span>
-                                    </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 支付方式：</span>
-                                        <span  class="lay-r">
-                                            刷卡
                                         </span>
                                     </div>
                                 </div>
@@ -217,22 +178,12 @@
                             <div class="lay-row-area">
                                 <div class="lay-row-wrapper lay-row-wrapper1">
                                     <div  class="lay-row">
-                                        <span  class="lay-text"> BOSS计费代码：</span>
+                                        <span  class="lay-text"> 渠道ID：</span>
                                         <span  class="lay-r">
-                                            111
+                                            09019283763
                                         </span>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="lay-btn">
-                            <div class="lay-btn-wrapper">
-                                <Cancel-Btn text="隐藏"></Cancel-Btn>
-                            </div>
-
-                            <div class="lay-btn-wrapper">
-                                <Cancel-Btn text="注销"></Cancel-Btn>
                             </div>
                         </div>
                     </div>
@@ -411,7 +362,7 @@
 
     .add-product-wrapper {
         float: left;
-        width: 1196px;
+        width: 100%;
     }
 
     .bread-menu {
@@ -640,6 +591,7 @@
     .pro-info-des {
         font-size: 12px;
         color: #999999;
+        margin-top: 8px;
     }
 
     .pro-icon {
@@ -652,6 +604,7 @@
     .pro-info {
         display: inline-block;
         vertical-align: top;
+        margin-left: 10px;
     }
 
     .pro-wrapper {
