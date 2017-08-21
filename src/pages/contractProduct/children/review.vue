@@ -1,58 +1,69 @@
 <template>
-    <div class="product-detail">
+    <div class="container">
         <div class="main-wrapper">
             <div class="add-product-wrapper">
+                <div class="bread-menu">
+                    <span class="bread-link">产品管理</span>
+                    >
+                    <span class="bread-link">合约产品管理</span>
+                    >
+                    <span>产品管理新增</span>
+                </div>
+
                 <div class="add-main">
                     <div class="table-wrapper">
                         <div class="add-title">
                             产品管理新增
                         </div>
+                        <div class="info-table-wrapper">
 
+                        </div>
+
+                    </div>
+                </div>
+                <div class="add-main">
+                    <div class="table-wrapper">
+                        <div class="add-title">
+                            产品管理新增
+                        </div>
                         <div class="product-detail-wrapper">
                             <div class="pro-three">
                                 <div class="pro-wrapper">
                                     <div class="pro-icon">
                                         <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
-
                                     <div class="pro-info">
                                         <div class="pro-info-title">
                                             动漫5元业务包
                                         </div>
-
                                         <div class="pro-info-des">
                                             产品名称
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="pro-wrapper">
                                     <div class="pro-icon">
                                         <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
-
                                     <div class="pro-info">
                                         <div class="pro-info-title">
                                             动漫5元业务包
                                         </div>
-
                                         <div class="pro-info-des">
-                                            产品ID
+                                            产品名称
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="pro-wrapper">
                                     <div class="pro-icon">
                                         <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
-
                                     <div class="pro-info">
                                         <div class="pro-info-title">
                                             动漫5元业务包
                                         </div>
                                         <div class="pro-info-des">
-                                            产品状态
+                                            产品名称
                                         </div>
                                     </div>
                                 </div>
@@ -62,11 +73,11 @@
                                 <div class="pro-btn">
                                     <Confirm-Btn w="80px" text="变更信息"></Confirm-Btn>
                                 </div>
-
                                 <div class="pro-btn pro-btn-another">
                                     <Cancel-Btn w="80px" text="下线"></Cancel-Btn>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -75,120 +86,158 @@
                             <div class="lay-title">
                                 基本信息
                             </div>
-
                             <div class="lay-row-area">
                                 <div class="lay-row-wrapper lay-row-wrapper1">
-
-                                    <div class="lay-row">
-                                        <span  class="lay-text"> 产品名称：</span>
-
-                                        <span class="lay-r">
-                                            全职高手
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                                            20990000000921
                                         </span>
                                     </div>
-
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 产品描述：</span>
-                                        <span class="lay-text"> 描述内容</span>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                                            20990000000921
+                                          </span>
                                     </div>
-
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 审批状态：</span>
-                                        <span class="lay-r">
-                                            审批状态
-                                        </span>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
                                     </div>
-
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 生效时间：</span>
-                                        <span class="lay-r">
-                                            2017/08/21 16:00
-                                        </span>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
                                     </div>
-
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 创建时间：</span>
-                                        <span class="lay-r">
-                                            2017/08/21 16:00
-                                        </span>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
+                                    </div>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
                                     </div>
                                 </div>
-
-                                <div class="lay-row-wrapper">
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 搜索关键字：</span>
-                                        <span class="lay-r">
-                                            用户名称
-                                        </span>
+                                <div class="lay-row-wrapper lay-row-wrapper2">
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
                                     </div>
-
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 业务状态：</span>
-                                        <span class="lay-r">
-                                            用户名称
-                                        </span>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
                                     </div>
-
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 创建用户：</span>
-                                        <span class="lay-r">
-                                            2017/08/21 16:00
-                                        </span>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
                                     </div>
-
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 失效时间：</span>
-                                        <span class="lay-r">
-                                            2017/08/21 16:00
-                                        </span>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
                                     </div>
-
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 更新时间：</span>
-                                        <span class="lay-r">
-                                            2017/08/21 16:00
-                                        </span>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
+
+                        </div>
                         <div class="lay-wrapper">
                             <div class="lay-title">
                                 资费信息
                             </div>
-
                             <div class="lay-row-area">
-                                <div class="lay-row-wrapper">
+                                <div class="lay-row-wrapper lay-row-wrapper1">
                                     <div  class="lay-row">
-                                        <span  class="lay-text"> 价格（分CN）：</span>
+                                        <span  class="lay-text"> 产品描述：</span>
                                         <span  class="lay-r">
-                                            112
-                                        </span>
+                20990000000921
+              </span>
                                     </div>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
+                                    </div>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
+                                    </div>
+
+                                </div>
+                                <div class="lay-row-wrapper lay-row-wrapper2">
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
+                                    </div>
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-r">
+                20990000000921
+              </span>
+                                    </div>
+
                                 </div>
                             </div>
-                        </div>
 
+
+                        </div>
                         <div class="lay-wrapper">
                             <div class="lay-title">
                                 渠道信息
                             </div>
-
                             <div class="lay-row-area">
                                 <div class="lay-row-wrapper lay-row-wrapper1">
                                     <div  class="lay-row">
-                                        <span  class="lay-text"> 渠道ID：</span>
+                                        <span  class="lay-text"> 产品描述：</span>
                                         <span  class="lay-r">
-                                            09019283763
-                                        </span>
+                20990000000921
+              </span>
                                     </div>
+
                                 </div>
+                            </div>
+
+
+                        </div>
+                        <div class="lay-btn">
+                            <div class="lay-btn-wrapper">
+                                <Cancel-Btn text="隐藏"></Cancel-Btn>
+                            </div>
+                            <div class="lay-btn-wrapper">
+                                <Cancel-Btn text="注销"></Cancel-Btn>
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
     </div>
 </template>
@@ -197,16 +246,15 @@
     //import vHeader from '../common/Header'
     //import vTable  from '../common/Table'
     //import vNav from '../common/Nav'
+    import Mock from 'mockjs'
     //import PickDate from '../PickDate/PickDate'
     //import vPop from '../common/Pop'
     //import InfoTable from '../common/InfoTable'
     //import ConfirmBtn from '../common/Button1'
     //import CancelBtn from '../common/Button2'
-    import axios from 'axios'
 
     import vTable from "@/components/common/Table";
     import vNav from "@/components/common/Nav";
-
     import PickDate from "@/components/PickDate/PickDate";
     import vPop from "@/components/common/Pop";
     import InfoTable from "@/components/common/InfoTable";
@@ -214,7 +262,7 @@
     import CancelBtn from "@/components/common/Button2";
 
     export default {
-        name: 'ProductDetail',
+        name: 'Review',
         components: {
             vTable,
             vNav,
@@ -224,15 +272,18 @@
             ConfirmBtn,
             CancelBtn
         },
-        data () {
+        data ()
+        {
             return {}
+        },
+        methods:{
         }
     }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-
 <style scoped lang="less">
+
     @import url('../../../less/common.less');
     .info {
         width: 808px;
@@ -242,6 +293,18 @@
         margin-top: 10px;
     }
 
+    /*.info:before{*/
+    /*content: '';*/
+    /*position: absolute;*/
+    /*left: 20px;*/
+    /*top: -10px;*/
+    /*width: 0;*/
+    /*height: 0;*/
+    /*border-style: solid;*/
+    /*border-width: 0 9.5px 19px 9.5px;*/
+    /*border-color: transparent transparent #ffffff transparent*/
+
+    /*}*/
     .info:before {
         content: '';
         position: absolute;
@@ -281,6 +344,9 @@
         cursor: pointer;
     }
 
+    /*.tb-reset:hover{
+
+    }*/
     .tb-search {
         background: #46bafe;
         color: #ffffff;
@@ -323,6 +389,7 @@
     }
 
     .step-item + .step-item {
+
         margin-left: 145px;
     }
 
@@ -362,7 +429,8 @@
 
     .add-product-wrapper {
         float: left;
-        width: 100%;
+        width: 1196px;
+
     }
 
     .bread-menu {
@@ -385,11 +453,19 @@
     }
 
     .table-wrapper {
+        /*float: left;*/
+        /*margin-left: 20px;*/
+        /*width: 1050px;*/
         background: #ffffff;
         margin-top: 20px;
         padding-bottom: 30px;
     }
 
+    /*.main-wrapper:after{
+      content: '';
+      display: block;
+      clear: both;
+    }*/
     .main-wrapper:before,
     .main-wrapper:after {
         content: " ";
@@ -591,7 +667,6 @@
     .pro-info-des {
         font-size: 12px;
         color: #999999;
-        margin-top: 8px;
     }
 
     .pro-icon {
@@ -604,7 +679,6 @@
     .pro-info {
         display: inline-block;
         vertical-align: top;
-        margin-left: 10px;
     }
 
     .pro-wrapper {
@@ -630,31 +704,28 @@
         padding: 30px 0;
         background: #f2f8ff;
 
-        .pro-three {
-            float: left;
-        }
+    .pro-three {
+        float: left;
+    }
 
-        .pro-btn-wrapper {
-            float: right;
-            margin-right: 40px;
-        }
+    .pro-btn-wrapper {
+        float: right;
+        margin-right: 40px;
+    }
+
     }
 
     .lay-row-wrapper{
         float: left;
     }
-
     .lay-row-wrapper1{
     }
-
     .lay-row-wrapper2{
         margin-left: 210px;
     }
-
     .lay-row-area{
-        .clearfix();
+    .clearfix();
     }
-
     .lay-title{
         font-size: 14px;
         color: #292c31;
@@ -662,11 +733,9 @@
         line-height: 50px;
         border-bottom:solid 1px #d6e1e5;
     }
-
     .lay-row-area{
         margin-top: 20px;
     }
-
     .lay-wrapper-three{
         background: #ffffff;
         padding-left: 40px;
@@ -678,9 +747,9 @@
         margin-right: 40px;
         margin-top: 20px;
     }
-
     .lay-btn-wrapper{
         display: inline-block;
         margin-left: 16px;
+
     }
 </style>

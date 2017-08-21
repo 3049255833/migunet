@@ -13,6 +13,7 @@ import Home from '@/pages/home'
 import ContractProduct1 from '@/pages/ContractProduct'
 import SingleProduct from '@/pages/singleProduct'
 import ProductDetail from '@/pages/singleProduct/children/productDetail'
+import Review from '@/pages/contractProduct/children/review'
 import ContractProductAdd from '@/pages/contractProduct/children/contractProductAdd'
 import Step1 from '@/pages/contractProduct/children/contractProductAdd/children/step-1'
 import Step2 from '@/pages/contractProduct/children/contractProductAdd/children/step-2'
@@ -82,6 +83,13 @@ export default new Router({
                     name: 'SingleProduct',
                     components:{
                         default:SingleProduct
+                    }
+                },
+                {
+                    path: 'review',
+                    name: 'Review',
+                    components:{
+                        default:Review
                     }
                 },
                 {
