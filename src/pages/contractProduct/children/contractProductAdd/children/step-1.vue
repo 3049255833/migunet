@@ -328,7 +328,7 @@
     }
     
     .required {
-        color: red;
+        color: #C0262C;
     }
     
     #city-select {

@@ -1,8 +1,14 @@
-$rootPath: '../images';
-.icon{
-	display: inline-block;
-	vertical-align: middle;
-
-
-
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    &.icon-add-blue {
+        width: 16px;
+        height: 16px;
+        @include bg("icon-add-blue.png");
+    }
+    &.icon-del-blue{
+        width: 16px;
+        height: 16px;
+        @include bg('icon-del-blue.png');
+    }
 }

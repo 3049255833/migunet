@@ -8,16 +8,178 @@
                     <span class="right">产品名称（中文）：动漫5元包</span>
                 </p>
             </div>
+            <div class="strategy-type-content">
+                <h3><span class="required">*</span>批假策略类型</h3>
+                <div class="type-list">
+                    <article class="item">
+                        <div class="item-add-del-group">
+                            <div>
+                                <i class="icon icon-add-blue"></i>
+                            </div>
+                            <div>
+                                <i class="icon icon-del-blue"></i>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="row-left"><span class="required"></span>是否免费：</div>
+                            <div class="row-right">
+                                <div class="radio-wrapper">
+                                    <label class="radio-module w-70">
+                                        <input value="1" v-model="formData.free" name="free" type="radio">
+                                        <span></span>
+                                        <span class="txt">是</span>
+                                    </label>
+                                    <label class="radio-module w-70">
+                                        <input value="2" v-model="formData.free" name="free" type="radio">
+                                        <span></span>
+                                        <span class="txt">否</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="row-left"><span class="required"></span>资费计划：</div>
+                            <div class="row-right">
+                                <textarea placeholder="请选择" readonly></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="row-left"><span class="required"></span>条件选择：</div>
+                            <div class="row-right">
+                                <div class="select-group-item">
+                                    <div class="inline-dom mr-10">
+                                        <v-select-box w="60" selectTitle="并且" selectType="1"
+                                                      v-bind:options="['并且','或者']"></v-select-box>
+                                    </div>
+                                    <div class="inline-dom">
+                                        <v-select-box w="200" selectTitle="内容类型" selectType="1"
+                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                    </div>
+                                    <span class="row-text">等于</span>
+                                    <div class="inline-dom">
+                                        <v-select-box w="200" selectTitle="请选择" selectType="1"
+                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                    </div>
+                                    <div class="inline-dom">
+                                        <i class="icon icon-add-blue"></i>
+                                        <i class="icon icon-del-blue"></i>
+                                    </div>
+                                </div>
+                                <div class="select-group-item">
+                                    <div class="inline-dom mr-10">
+                                        <v-select-box w="60" selectTitle="并且" selectType="1"
+                                                      v-bind:options="['并且','或者']"></v-select-box>
+                                    </div>
+                                    <div class="inline-dom">
+                                        <v-select-box w="200" selectTitle="内容类型" selectType="1"
+                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                    </div>
+                                    <span class="row-text">等于</span>
+                                    <div class="inline-dom">
+                                        <v-select-box w="200" selectTitle="请选择" selectType="1"
+                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                    </div>
+                                    <div class="inline-dom">
+                                        <i class="icon icon-add-blue"></i>
+                                        <i class="icon icon-del-blue"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="item">
+                        <div class="form-row">
+                            <div class="row-left"><span class="required"></span>是否免费：</div>
+                            <div class="row-right">
+                                <div class="radio-wrapper">
+                                    <label class="radio-module w-70">
+                                        <input value="1" v-model="formData.free" name="free" type="radio">
+                                        <span></span>
+                                        <span class="txt">是</span>
+                                    </label>
+                                    <label class="radio-module w-70">
+                                        <input value="2" v-model="formData.free" name="free" type="radio">
+                                        <span></span>
+                                        <span class="txt">否</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="row-left"><span class="required"></span>资费计划：</div>
+                            <div class="row-right">
+                                <textarea placeholder="请选择" readonly></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="row-left"><span class="required"></span>条件选择：</div>
+                            <div class="row-right">
+                                <div class="select-group-item">
+                                    <div class="inline-dom mr-10">
+                                        <v-select-box w="60" selectTitle="并且" selectType="1"
+                                                      v-bind:options="['并且','或者']"></v-select-box>
+                                    </div>
+                                    <div class="inline-dom">
+                                        <v-select-box w="200" selectTitle="内容类型" selectType="1"
+                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                    </div>
+                                    <span class="row-text">等于</span>
+                                    <div class="inline-dom">
+                                        <v-select-box w="200" selectTitle="请选择" selectType="1"
+                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                    </div>
+                                    <div class="inline-dom">
+                                        <i class="icon icon-add-blue"></i>
+                                        <i class="icon icon-del-blue"></i>
+                                    </div>
+                                </div>
+                                <div class="select-group-item">
+                                    <div class="inline-dom mr-10">
+                                        <v-select-box w="60" selectTitle="并且" selectType="1"
+                                                      v-bind:options="['并且','或者']"></v-select-box>
+                                    </div>
+                                    <div class="inline-dom">
+                                        <v-select-box w="200" selectTitle="内容类型" selectType="1"
+                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                    </div>
+                                    <span class="row-text">等于</span>
+                                    <div class="inline-dom">
+                                        <v-select-box w="200" selectTitle="请选择" selectType="1"
+                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                    </div>
+                                    <div class="inline-dom">
+                                        <i class="icon icon-add-blue"></i>
+                                        <i class="icon icon-del-blue"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <div class="btn-group btn-group-center">
+                        <div class="btn btn-primary btn-middle" >确定</div>
+                        <div class="btn btn-default btn-middle" >取消</div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </template>
-
 <script>
-export default{
-
-}
+    import VSelectBox from '@/components/select-box';
+    export default{
+        data(){
+            return {
+                formData: {
+                    free: 1
+                }
+            }
+        },
+        components:{
+            VSelectBox
+        }
+    }
 </script>
-
 <style lang='scss' scoped rel='stylesheet/scss'>
     $image-base-path: '../../../../../assets/';
     @mixin bg($URI, $w: null, $h: null, $x: top, $y: center, $repeat: no-repeat) {
@@ -35,29 +197,83 @@ export default{
         box-sizing: border-box;
         
         .step-layout {
-            padding :40px 110px 40px 70px ;
-    
-           
+            padding: 40px 87px 40px 70px;
+            
         }
         
-        .product-txt{
-            width: 100%;
+        .product-txt {
             height: 54px;
             line-height: 54px;
             padding-left: 18px;
             border: 1px dotted #d6e1e5;
             margin-bottom: 25px;
-            p{
+            p {
                 font-size: 14px;
                 color: #6d7684;
-                span{
-                    &.middle{
+                span {
+                    &.middle {
                         padding: 0 37px;
                     }
                 }
             }
         }
         
+        .strategy-type-content {
+            h3 {
+                margin-bottom: 8px;
+                color: #333;
+                font-size: 14px;
+            }
+            .type-list {
+                .item {
+                    position: relative;
+                    height: auto;
+                    padding: 29px 61px;
+                    border: 1px solid #d6e1e5;
+                    border-top: 4px solid #46BAFE;
+                    border-radius: 6px;
+                    font-size: 12px;
+                    margin-bottom: 20px;
+                }
+                .select-group-item{
+                    margin-bottom: 25px;
+                    &:last-child{
+                        margin-bottom: 0;
+                    }
+                }
+                .item-add-del-group{
+                    position: absolute;
+                    bottom: 2px;
+                    right: -40px;
+                    &>div{
+                        width: 38px;
+                        height: 38px;
+                        border: 1px solid #D6E1E5;
+                        border-left: none;
+                        background-color: #F2F8FF;
+                        text-align: center;
+                        line-height: 38px;
+                        &:nth-child(2){
+                            margin-top: 10px;
+                        }
+                    }
+                }
+                span{
+                    &.row-text{
+                        padding: 0 20px;
+                    }
+                }
+                textarea {
+                    width: 465px;
+                    height: 74px;
+                    padding: 9px;
+                    cursor: pointer;
+                }
+                input {
+                    
+                }
+            }
+        }
         
         input {
             &[type='text'] {
@@ -112,10 +328,12 @@ export default{
                 background-size: 100%;
                 cursor: pointer;
             }
+            &-add-blue{
+                margin: 0 10px;
+            }
         }
         
-        
-        .btn-group{
+        .btn-group {
             margin: 100px 0 50px;
         }
     }

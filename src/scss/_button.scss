@@ -1,4 +1,12 @@
 @import 'var';
+.btn-group{
+    &.btn-group-center{
+        text-align: center;
+    }
+    .btn:nth-child(1){
+        margin-right: 20px;
+    }
+}
 
 .btn{
 	width: 100%;

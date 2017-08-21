@@ -9,6 +9,10 @@
         color: #333333;
         cursor: pointer;
         margin-right: 40px;
+        &.w-70{
+            width: 70px;
+            margin-right: 0;
+        }
         input[type='radio'] {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -23,5 +27,25 @@
         input:checked + span {
             @include bg("icon-chose-active.png", 16px, 16px);
         }
+    }
+}
+
+input {
+    &[type='text'] {
+        border-radius: 4px;
+        color: #333333;
+        &:focus {
+            box-shadow: 0 0 3px 2px #EEFAFF;
+        }
+        border: 1px solid #D6E1E5 !important;
+    }
+}
+
+textarea {
+    border-radius: 4px;
+    color: #333333;
+    border: 1px solid #D6E1E5 !important;
+    &:focus {
+        box-shadow: 0 0 3px 2px #EEFAFF;
     }
 }

@@ -1,13 +1,13 @@
 <template>
     <div class="business-area-chose">
         <div class="area-content">
-            <div class="form-row clearfix" v-for="(itemRow,rowIndex) in areaList">
+            <div class="form-row clearfix no-pd" v-for="(itemRow,rowIndex) in areaList">
                 <div class="area-code">{{itemRow.code}}</div>
                 <ul class="area-list ">
                    <li v-for="(itemArea,colIndex) in itemRow.list" :class="{'active':itemArea.active}" @click="getArea(rowIndex,colIndex,itemArea.area)">{{itemArea.area}}</li>
                 </ul>
             </div>
-            <div class="btn-group">
+            <div class="btn-group btn-group-center">
                 <div class="btn btn-primary btn-middle" :class="{'unable':businessArea.length<1}" @click="saveArea()">确定</div>
                 <div class="btn btn-default btn-middle" @click="cancel">取消</div>
             </div>

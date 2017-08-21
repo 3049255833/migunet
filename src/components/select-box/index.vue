@@ -104,7 +104,7 @@
         background: #ffffff;
         padding-left: 5px;
         font-size: 12px;
-        color: #0c0a0b;
+        color: #333;
         box-sizing: border-box;
         border: solid 1px #d6e1e5;
         border-radius: 3px;
