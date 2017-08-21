@@ -1,0 +1,10 @@
+$image-base-path: '../assets/';
+
+@mixin bg($URI, $w: null, $h: null, $x: top, $y: center, $repeat: no-repeat) {
+    @if $w and $h {
+        width: $w;
+        height: $h;
+    }
+    background: url('#{$image-base-path}#{$URI}') $repeat $x $y;
+    background-size: 100% 100%;
+}

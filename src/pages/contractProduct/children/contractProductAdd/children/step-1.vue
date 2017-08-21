@@ -367,12 +367,6 @@
     .add-step-1 {
         font-size: 14px;
         color: #333333;
-        .radio-wrapper {
-            display: inline-block;
-            width: 200px;
-            height: 32px;
-            line-height: 32px;
-        }
         .inline-dom{
             display: inline-block;
         }
@@ -431,25 +425,6 @@
             }
         }
         
-        .radio-module {
-            font-size: 14px;
-            color: #333333;
-            cursor: pointer;
-            margin-right: 40px;
-            input[type='radio'] {
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-            }
-            input + span {
-                display: inline-block;
-                vertical-align: middle;
-                @include bg("icon-chose.png", 16px, 16px);
-            }
-            input:checked + span {
-                @include bg("icon-chose-active.png", 16px, 16px);
-            }
-        }
         
         .btn-group{
             margin: 100px 0 50px;

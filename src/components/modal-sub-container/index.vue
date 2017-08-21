@@ -36,7 +36,6 @@ export default {
 </script>
 
 <style lang="scss" scoped rel="stylesheet/scss">
-	@import '../../scss/index.scss';
 	$parent-bg-color: rgba(0, 0, 0, 0.5);
 	$title-bg-color: #4d4c50;
 	$title-txt-color: #fff;
