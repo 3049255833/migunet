@@ -1,12 +1,12 @@
-<template>
+ <template>
     <div class="date-wrapper">
         <div class="flex">
             <div>
-                <input style="position:relative" placeholder="生效时间" type="text" @click="openByDrop($event)" v-model="calendar3.display" readonly>
+                <input style="position:relative"  type="text" @click="openByDrop($event)" v-model="calendar3.display" readonly>
             </div>
         </div>
         <transition name="fade">
-    <div class="calendar-dropdown" :style="{'left':(calendar3.left-260)+'px','top':(calendar3.top-80)+'px'}" v-if="calendar3.show">
+    <div class="calendar-dropdown" :style="{'left':(calendar3.left-460)+'px','top':(calendar3.top-80)+'px'}" v-if="calendar3.show">
         <calendar :zero="calendar3.zero" :lunar="calendar3.lunar" :value="calendar3.value" :begin="calendar3.begin" :end="calendar3.end" @select="calendar3.select"></calendar>
     </div>
     </transition>
@@ -18,13 +18,14 @@
 import calendar from '../common/calendar.vue'
 export default {
   name: 'PickDate',
+  props:['defaultText','startTime'],
   components:{
     calendar
   },
   data(){
         return {
             calendar3:{
-                display:"请输入日期",
+                display:this.defaultText,
                 show:false,
                 zero:true,
                 // value:[2018,2,16], //默认日期
@@ -32,7 +33,14 @@ export default {
                 select:(value)=>{
                     this.calendar3.show=false;
                     this.calendar3.value=value;
-                    this.calendar3.display=value.join("/");
+                    this.calendar3.display=value.join("-");
+                    if(this.startTime=='true'){
+                        // this.$store.dispatch('changeStartTime',this.calendar3.value.join("-"));
+                    }
+                    if(this.startTime=='false')
+                    {
+                        // this.$store.dispatch('changeEndTime',this.calendar3.value.join("-"));
+                    }
                 }
             }
         }
@@ -90,8 +98,9 @@ export default {
 }
 .flex>div>input{
     box-sizing: border-box;
+    font-size: 12px !important;
     width:100%;
-    border-radius: 2px;
+    border-radius: 4px;
     border:1px solid #dedede;
     font-size: 16px;
     background:url('../../assets/calendar.png') no-repeat 95% 7px;

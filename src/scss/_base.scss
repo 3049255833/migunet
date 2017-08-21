@@ -1,0 +1,88 @@
+.txt-l {
+    text-align: left;
+    color: red;
+}
+
+.txt-r {
+    text-align: right;
+}
+
+.clearfix {
+    zoom: 1;
+    &:after{
+        content: " ";
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        clear: both;
+        height: 0;
+    }
+}
+
+.mr-10{
+    margin-right: 10px !important;
+}
+.form{
+	$col: 12;
+	width: 100%;
+
+	.form-row{
+		width: 100%;
+	}
+	.form-col-1{
+		float: left;
+		width: (1/$col)*100 + %;
+	}
+	.form-col-2{
+		float: left;
+		width: (2/$col)*100 + %;
+	}
+	.form-col-3{
+		float: left;
+		width: (3/$col)*100 + %;
+	}
+	.form-col-4{
+		float: left;
+		width: (4/$col)*100 + %;
+	}
+	.form-col-5{
+		float: left;
+		width: (5/$col)*100 + %;
+	}
+	.form-col-6{
+		float: left;
+		width: (6/$col)*100 + %;
+	}
+	.form-col-7{
+		float: left;
+		width: (7/$col)*100 + %;
+	}
+	.form-col-8{
+		float: left;
+		width: (8/$col)*100 + %;
+	}
+	.form-col-9{
+		float: left;
+		width: (9/$col)*100 + %;
+	}
+	.form-col-10{
+		float: left;
+		width: (10/$col)*100 + %;
+	}
+	.form-col-11{
+		float: left;
+		width: (11/$col)*100 + %;
+	}
+	.form-col-12{
+		float: left;
+		width: (12/$col)*100 + %;
+	}
+}
+
+// .self-scrollbar::-webkit-scrollbar              { width: 5px; height: 5px; }
+/* .self-scrollbar::-webkit-scrollbar-button       { }*/
+/* .self-scrollbar::-webkit-scrollbar-track        { *//* 3 *//* }*/
+/* .self-scrollbar::-webkit-scrollbar-track-piece  { *//* 4 *//* }*/
+/* .self-scrollbar::-webkit-scrollbar-thumb        { *//* 5 *//* }*/
+/* .self-scrollbar::-webkit-scrollbar-corner       { display:none; }*/
+/* .self-scrollbar::-webkit-resizer                { *//* 7 *//* }*/

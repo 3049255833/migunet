@@ -168,7 +168,6 @@ var data3 = Mock.mock('http://address:port/productCenter/productDataDeclareCallb
 <style scoped lang="less">
 .table-container{
   background: #ffffff;
-  padding-bottom: 60px;
 }
   table {
     border-collapse: collapse;

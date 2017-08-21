@@ -3,7 +3,7 @@
 <!--     <v-Table v-bind:pageNum="current"></v-Table>
  -->
  <span class="perPage">
-   <select  name="s-select" width="400" id="s-select" class="s-select">
+   <!-- <select  name="s-select" width="400" id="s-select" class="s-select">
           <option>1条/页</option>
           <option>2条/页</option>
           <option>3条/页</option>
@@ -11,16 +11,19 @@
           <option>5条/页</option>
           <option>6条/页</option>
           <option>7条/页</option>
-        </select>
+        </select> -->
+
+        <v-Select selectType="2" v-bind:options="['7条/页','8条/页','9条/页','10条/页']"></v-Select>
+
  </span>    
- <ul class="pagination" v-on:click="sendMsgToParent">
+ <ul class="pagination">
       <li   v-show="current != 1" @click="current-- && goto(current)"><a href="javascript:void(0);" class="prev"><</a></li>
       <li   v-for="index in pages" @click="goto(index)" :class="{'active':current == index}" :key="index">
         <a href="javascript:void(0);">{{index}}</a>
       </li>
       <li v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)"><a href="javascript:void(0);" class="next">></a></li>
       前往
-      <li class="whichPage"><input type="text"></li>
+      <li class="whichPage"><input v-model="pageSelected"  @keyup.enter="jumpPage" type="text"></li>
       页
     </ul>
 
@@ -30,18 +33,20 @@
 
 <script>
   // import store from '../components/Table'
+  import vSelect from '../common/Select'
   export default {
     name: 'Paging',
     components:{
-      // vTable
+      vSelect
     },
 
     data ()
   {
     return {
-      current: 1,
+      current: 2,
       showItem: 5,
-      allpage: 7
+      allpage: 8,
+      pageSelected:'',
     }
   }
   ,
@@ -74,10 +79,9 @@
       this.current = index;
       //这里可以发送ajax请求
     },
-     sendMsgToParent:function(){
-        // this.$emit("listenToChild",this.current);
-        // this.$store.dispatch('changeValue',2);
-        this.$store.dispatch('changeValue',this.current);
+     
+    jumpPage:function(){
+      // this.$store.dispatch('changePageSelected',this.pageSelected);
     }
   }
   }
@@ -137,11 +141,12 @@ ul{
     font-weight: bold;
   }
   .s-select{
-    height: 23px;
+    height: 26px;
     display: block;
     background: #ffffff;
     color: #333333;
     width: 90px;
+    padding-left:5px;
   }
   .perPage{
     display: block;

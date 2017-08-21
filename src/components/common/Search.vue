@@ -4,28 +4,30 @@
     <div class="l-content-head">
       <div class="vue-left">
         <div class="l-title">
-      单品管理
+      {{title}}
       </div>
-      <div class="newAdd">
+      <div class="newAdd" v-bind:class="{addBtn:hideBtn}">
         新增产品
       </div>
       </div>
       <div class="vue-right">
         <div class="l-space input-wrapper input-wrapper1">
-      <input type="text" placeholder="关键信息搜索" />
+      <input type="text" placeholder="关键信息搜索" v-model="keyWord" @keyup.enter="searchKeyWord" />
     </div>
     <div class="l-space l-content-right">
-      <select v-model="selected.selectedItem1" name="StateSelect5" id="StateSelect5" class="StateSelect StateSelect5">
+      <!-- <select v-model="selected.selectedItem1" name="StateSelect5" id="StateSelect5" class="StateSelect StateSelect5">
         <option>待报备</option>
         <option>上线</option>
         <option>下线</option>
-      </select>
+      </select> -->
+      <v-Select selectType="1" v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-Select>
+
     </div>
     <div class="date-container">
-        <v-PickDate></v-PickDate>
+        <v-PickDate defaultText="生效时间" startTime="true"></v-PickDate>
     </div>
     <div class="date-container">
-        <v-PickDate></v-PickDate>
+        <v-PickDate defaultText="失效时间" startTime="false"></v-PickDate>
     </div>
       </div>
     
@@ -52,24 +54,33 @@
 
 <script>
 import vPickDate from '../PickDate/PickDate'
+import vSelect from '../common/Select'
 
 export default {
   name: 'hello',
+  props:['hideBtn','title'],
   components:{
-    vPickDate
+    vPickDate,
+    vSelect
   },
   data () {
     return {
       selected:{
         selectedItem1:'待报备',
         selectedItem2:'1'
-      }
+      },
+      isShow:false,
+      keyWord:''
       
     }
   },
   methods:{
     search:function(){
       this.$emit('searchInfo',this.selected);
+    },
+    searchKeyWord:function(){
+      // this.$store.dispatch('changeKeyWord',this.keyWord)
+      // console.log(this.keyWord);
     }
   }
 }
@@ -86,12 +97,7 @@ export default {
   .l-content-head {
     clear: both;
     display: block;
-    margin-top: 20px;
-    /*margin-bottom: 20px;*/
-    /*height: 20px;*/
-    padding-left: 20px;
-    padding-top:10px;
-    padding-bottom: 10px;
+   padding:10px 20px;
   }
   .l-content-head:after{
     content: '';
@@ -140,6 +146,9 @@ export default {
     width: 150px;
     height: 32px;
     background: #ffffff;
+    padding-left:5px;
+    font-size: 12px;
+    color: #0c0a0b;
   }
   .tb-reset {
     font-size: 14px;
@@ -214,7 +223,14 @@ export default {
     float: right;
   }
   .date-container{
+    width:150px;
     position:relative;
     float: left;
+    &+.date-container{
+      margin-left:20px;
+    }
+  }
+  .addBtn{
+    display: none;
   }
 </style>

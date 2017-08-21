@@ -1,6 +1,5 @@
 <template>
   <div class="table-container">
-    <!-- <v-Search v-on:searchInfo="searchSelect"></v-Search> -->
     <div class="main-area">
     <table class="NewTable2">
       <thead>
@@ -8,26 +7,49 @@
         <td width="150">产品名称</td>
         <td>产品ID</td>
         <td>CP／TP ID</td>
-        <td>资费</td>
-        <td>状态</td>
+        <td>资费(分)</td>
+        <td>业务状态</td>
+        <td>审批状态</td>
         <td>操作</td>
       </tr>
       </thead>
       <tbody>
-      <tr v-for="item in items">
+      <tr>
         <td>
-          <div class="l-app-name">{{item.Name}}</div>
+          <div class="l-app-name">名称</div>
         </td>
-        <td>{{item.ProductId}}</td><td>{{item.CpId}}</td>
-        <td>{{item.Fee}}</td>
-        <td><span>{{item.Status}}</span></td>
-        <td class="option td-blue">详情<!-- <span class="td-detail td-blue" >详情</span> -->
+        <td>123432</td>
+        <td>343</td>
+        <td>233</td>
+        <td>上线报备中</td>
+        <td>变更报备失败</td>
+        <td class="option td-blue">详情</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="l-app-name">名称</div>
         </td>
+        <td>123432</td>
+        <td>343</td>
+        <td>233</td>
+        <td>上线报备中</td>
+        <td>变更报备失败</td>
+        <td class="option td-blue">详情</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="l-app-name">名称</div>
+        </td>
+        <td>123432</td>
+        <td>343</td>
+        <td>233</td>
+        <td>上线报备中</td>
+        <td>变更报备失败</td>
+        <td class="option td-blue">详情</td>
       </tr>
       </tbody>
     </table>
   </div>
-  <!-- <v-Paging v-on:listenToChild="showMorePage"></v-Paging> -->
   </div>
   
 
@@ -37,88 +59,7 @@ import vSearch from '../common/Search'
 import vPaging from '../common/Paging'
 import Mock from 'mockjs'
 import axios from 'axios'
-var Random = Mock.Random
-Random.extend({
-    constellation: function(date) {
-        var constellations = ['全职高手1', '全职高手2', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座']
-        return this.pick(constellations)
-    }
-})
-Random.constellation();
-// => "水瓶座"
-var data1 = Mock.mock('http://address:port/productCenter/productDataDeclareCallback',{    
-  "ProductInfos|1-10":[
-  {
-"ProductId|988221-9009876988":0,
-"Name":"@CONSTELLATION",
-"Describe":"产品描述",
-"Keys":"关键字1，关键字2",
-"CpId|988221-9009876988":1,
-"ProductLine":"归属产品线1",
-"Status|1-7":1,
-"ChargeType":1,
-"PayType":1,
-"PlatformType":1,
-"BossId":"100001",
-"ProductType":1,
-"Fee|0-100":100,
-"EnableTag":0,
-"StartTime":"2017-07-13 19:21:00",
-"EndTime":"2017-09-01 10:00:00",
-},
 
-]
-
-});
-var data2 = Mock.mock('http://address:port/productCenter/productDataDeclareCallback?page=1&&pagesize=10',{    
-  "ProductInfos|10":[
-  {
-"ProductId|988221-9009876988":0,
-"Name":"@CONSTELLATION",
-"Describe":"产品描述",
-"Keys":"关键字1，关键字2",
-"CpId|988221-9009876988":1,
-"ProductLine":"归属产品线1",
-"Status|1-7":1,
-"ChargeType":1,
-"PayType":1,
-"PlatformType":1,
-"BossId":"100001",
-"ProductType":1,
-"Fee|0-100":100,
-"EnableTag":0,
-"StartTime":"2017-07-13 19:21:00",
-"EndTime":"2017-09-01 10:00:00",
-},
-
-]
-
-});
-var data3 = Mock.mock('http://address:port/productCenter/productDataDeclareCallback?id=100200300',{    
-  "ProductInfos|10":[
-  {
-"ProductId|988221-9009876988":0,
-"Name":"@CONSTELLATION",
-"Describe":"产品描述",
-"Keys":"关键字1，关键字2",
-"CpId|988221-9009876988":1,
-"ProductLine":"归属产品线1",
-"Status|1-7":1,
-"ChargeType":1,
-"PayType":1,
-"PlatformType":1,
-"BossId":"100001",
-"ProductType":1,
-"Fee|0-100":100,
-"EnableTag":0,
-"StartTime":"2017-07-13 19:21:00",
-"EndTime":"2017-09-01 10:00:00",
-},
-
-]
-
-});
- // console.log(JSON.stringify(data, null, 4));
 
 
 
@@ -136,55 +77,18 @@ var data3 = Mock.mock('http://address:port/productCenter/productDataDeclareCallb
       totalPage:1
     }
   },
-  computed:{
-    items:function(){
-      return this.$store.getters.getRes;
-    }
 
-  },
-  mounted(){
-    this.$store.dispatch('loadList',1);
-    // this.items=this.$store.getters.getRes;
-    // console.log('data:'+this.items);
 
-    // axios.get('http://address:port/productCenter/productDataDeclareCallback').then((res)=>{
-    //    var res = res.data;
-    //    this.items=res.ProductInfos;
-    // })
-
-    
-    // this.$http.get('http://address:port/productCenter/productDataDeclareCallback').then((res)=>{
-    //    var res=JSON.parse(res.bodyText);
-    //    console.log(res.ProductInfos);
-    //    this.items=res.ProductInfos;
-    
-    // })
-  },
-  methods:{
-    // showMorePage:function (data) {
-    //   axios.get('http://address:port/productCenter/productDataDeclareCallback?page=1&&pagesize=10').then((res)=>{
-    //    var res = res.data;
-    //    this.items=res.ProductInfos;
-    // })
-    // },
-    searchSelect:function(data){
-      console.log(data);
-      axios.get('http://address:port/productCenter/productDataDeclareCallback?id=100200300').then((res)=>{
-       var res = res.data;
-       this.items=res.ProductInfos;
-    })
-
-    }
-  }
 
   }
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 .table-container{
   background: #ffffff;
-  padding-bottom: 60px;
 }
   table {
     border-collapse: collapse;
@@ -250,7 +154,7 @@ var data3 = Mock.mock('http://address:port/productCenter/productDataDeclareCallb
     color: #f16767 !important;
   }
   .option{
-    text-align: left !important;
+    cursor: pointer;
   }
   .tab-wrapper{
     background: #f4f4f4;

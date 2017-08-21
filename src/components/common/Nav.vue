@@ -14,207 +14,19 @@
       </div>
       <div class="nav-row-wrapper"  :class="{'active':menu.isSubShow}">
         <div class="nav-row" v-for="childMenu in menu.title2" :class="{'active':isShow}">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            {{childMenu}}
-          </div>
+          
+          <router-link v-bind:to="childMenu.link" tag="div">
+            <span class="nav-circle"></span>
+            <div class="nav-title2" :class="{active:childMenu.isActive}">
+            {{childMenu.name}}
+            </div>
+          </router-link>
+          
         </div>
-        <!-- <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            动漫业务管理
-          </div>
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            视频业务管理
-          </div>
-
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            游戏业务管理
-          </div>
-
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            图书业务管理
-          </div>
-
-        </div> -->
-
-
       </div>
     </div>
 
-    <!-- <div class="nav-area">
-      <div class="nav-title1 active" @click="showNav(index)">
-        <div class="nav-title-icon">
-          <img src="../../assets/t1.png" alt="">
-        </div>
-        <div class="title-text">
-          产品管理
-        </div>
-
-      </div>
-      <div class="nav-row-wrapper" v-bind:style="{display:isShow}">
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            音乐业务管理
-          </div>
-        </div>
-        <div class="nav-row active">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            动漫业务管理
-          </div>
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            视频业务管理
-          </div>
-
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            游戏业务管理
-          </div>
-
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            图书业务管理
-          </div>
-
-        </div>
-
-
-      </div>
-    </div>
-    <div class="nav-area">
-      <div class="nav-title1">
-        <div class="nav-title-icon">
-          <img src="../../assets/t2.png" alt="">
-        </div>
-        <div class="title-text">
-          产品目录管理
-        </div>
-
-      </div>
-      <div class="nav-row-wrapper" v-bind:style="{display:isShow}">
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2 active">
-            音乐业务管理
-          </div>
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            动漫业务管理
-          </div>
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            视频业务管理
-          </div>
-
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            游戏业务管理
-          </div>
-
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            图书业务管理
-          </div>
-
-        </div>
-
-
-      </div>
-    </div>
-    <div class="nav-area">
-      <div class="nav-title1">
-        <div class="nav-title-icon">
-          <img src="../../assets/t2.png" alt="">
-        </div>
-        <div class="title-text">
-        BOSS计费代码管理
-        </div>
-
-      </div>
-      <div class="nav-row-wrapper" v-bind:style="{display:isShow}">
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2 active">
-            音乐业务管理
-          </div>
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            动漫业务管理
-          </div>
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            视频业务管理
-          </div>
-
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            游戏业务管理
-          </div>
-
-        </div>
-        <div class="nav-row">
-          <span class="nav-circle"></span>
-
-          <div class="nav-title2">
-            图书业务管理
-          </div>
-
-        </div>
-
-
-      </div>
-    </div> -->
+   
 
   </nav>
 </template>
@@ -226,15 +38,51 @@ var data = Mock.mock('http://address:port/menus',{
     "menus": [{
         "isSubShow":true,
         "title1": "产品管理",
-        "title2":["合约产品管理 ","单品管理"]},
+        // "title2":["合约产品管理 ","单品管理"]},
+        "title2":[
+          {
+            name:'合约产品管理',
+            link:'/',
+            isActive:false
+          },
+          {
+            name:'单品管理',
+            link:'Product',
+            isActive:false
+          },
+        ]},
         {
         "isSubShow":false,
         "title1": "产品目录管理",
-        "title2":["音乐业务管理","动漫业务管理","视频业务管理","游戏业务管理","图书业务管理"]},
+        // "title2":["合约产品管理 ","单品管理"]},
+        "title2":[
+          {
+            name:'合约产品管理',
+            link:'ContractProduct1',
+            isActive:false
+          },
+          {
+            name:'单品管理',
+            link:'Product2',
+            isActive:false
+          },
+        ]},
         {
         "isSubShow":false,
         "title1": "BOSS计费代码",
-        "title2":["音乐业务管理","动漫业务管理","视频业务管理","游戏业务管理","图书业务管理"]}
+        // "title2":["合约产品管理 ","单品管理"]},
+        "title2":[
+          {
+            name:'合约产品管理',
+            link:'ContractProduct1',
+            isActive:false
+          },
+          {
+            name:'单品管理',
+            link:'Product2',
+            isActive:false
+          },
+        ]},
         ]
 })
 
@@ -284,15 +132,12 @@ var data = Mock.mock('http://address:port/menus',{
     cursor: pointer;
     text-align: left;
     padding-left: 30px;
+
   }
 
-  .nav-row.active {
-    color: #46bafe;
-  }
+  
 
-  .nav-row.active .nav-circle {
-    background: #46bafe;
-  }
+
 
   .nav-area {
     border-bottom:solid 1px #dcdcdc;
@@ -318,7 +163,6 @@ var data = Mock.mock('http://address:port/menus',{
 
   .nav-row-wrapper {
     display: none;
-    padding-bottom: 20px;
   }
   .nav-row-wrapper.active{
     display: block;
@@ -342,9 +186,7 @@ var data = Mock.mock('http://address:port/menus',{
      border-radius:50%;*/
   }
 
-  .nav-title2.active {
-    color: #3c8efe;
-  }
+
 
   .nav-title-icon {
     float: left;
@@ -365,10 +207,10 @@ var data = Mock.mock('http://address:port/menus',{
 
   .nav-circle {
     display: inline-block;
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
     background: #666666;
-    border-radius: 50%;
+    
     margin-right: 5px;
     vertical-align: middle;
   }
@@ -384,5 +226,13 @@ var data = Mock.mock('http://address:port/menus',{
   }
   .nav-row-wrapper{
     background: #ececec;
+  }
+  .router-link-exact-active{
+    .nav-circle{
+      background: #46bafe;;
+    }
+    .nav-title2{
+    color: #46bafe;
+  }
   }
 </style>

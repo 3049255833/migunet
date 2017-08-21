@@ -22,163 +22,7 @@
             <div class="info-table-wrapper">
               <Info-Table></Info-Table>
             </div>
-            <div class="step-wrapper">
-              <div class="step">
-                <div class="step-item">
-                  <div class="step-circle active"></div>
-                  <div class="step-text">基本信息填写</div>
-                </div>
-                <div class="step-item">
-                  <div class="step-circle active"></div>
-                  <div class="step-text">批价配置</div>
-                </div>
-                <div class="step-item">
-                  <div class="step-circle active"></div>
-                  <div class="step-text">资费信息配置</div>
-                </div>
-              </div>
-            </div>
-            <div class="input-area">
-              <div class="input-row">
-                <span class="input-text"> <span class="required">*</span> BOSS计费代码：</span>
-            <span class="row-wrapper">
-              <input type="text" placeholder="请输入"/>
-            </span>
-              </div>
-              <div class="input-row">
-                <span class="input-text"> <span class="required">*</span>  租费金额（分CN）：</span>
-            <span class="row-wrapper">
-              <input type="text" placeholder="请输入"/>
-            </span>
-              </div>
-              <div class="input-row">
-                <span class="input-text"> <span class="required">*</span>企业代码：</span>
-            <span class="row-wrapper">
-             <!--  <v-Select v-on:sendSlectedValue="getSlectedValue" v-bind:optionData="optionObj"></v-Select> -->
-             <select class="typeSelect" name="" id="">
-               <option value="1">咪咕包</option>
-               <option value="2">咪咕包2</option>
-               <option value="3">咪咕包3</option>
-             </select>
-            </span>
-              </div>
-              <div class="input-row">
-                <span class="input-text"> <span class="required">*</span> 赠送的彩信业务：</span>
-            <span class="row-wrapper">
-              <input type="text" placeholder="请输入"/>
-            </span>
-              </div>
-              <div class="input-row">
-                <span class="input-text"> <span class="required">*</span>是否体验产品：</span>
-            <span class="row-wrapper row-wrapper-ta">
-              <label class="lable1"><input name="Fruit" type="radio" value=""/>是</label>
-              <label class="lable1"><input name="Fruit" type="radio" value=""/>否</label>
-              <div class="info">
-                <p class="info-head">体验版本转正式版本，订购正式版本时短信二次确认信息设置
-                  <span>(同步短搜配置)</span>：</p>
 
-                <div class="info-input">
-                  <div class="info-left">
-                    <div class="input-row">
-                      <span class="input-text input-text-new">短信订购接入码：</span>
-            <span class="row-wrapper">
-              <input type="text" placeholder="请输入"/>
-            </span>
-                    </div>
-                    <div class="input-row">
-                      <span class="input-text input-text-new"> 短信退订接入码：</span>
-            <span class="row-wrapper">
-              <input type="text" placeholder="请输入"/>
-            </span>
-                    </div>
-                  </div>
-                  <div class="info-right">
-                    <div class="input-row">
-                      <span class="input-text input-text-new">命令字：</span>
-            <span class="row-wrapper">
-              <input type="text" placeholder="请输入"/>
-            </span>
-                    </div>
-                    <div class="input-row">
-                      <span class="input-text input-text-new">命令字：</span>
-            <span class="row-wrapper">
-              <input type="text" placeholder="请输入"/>
-            </span>
-                    </div>
-                  </div>
-                  <div class="modify-wrapper">
-                    <div class="modify">
-                      修改短信发送提示语
-                    </div>
-                    <div class="des-area">
-                      <span class="des-left">短信模板ID：</span>
-                      <span class="des-right">sms.user.unsubconflict</span>
-                    </div>
-                    <div class="des-area">
-                      <span class="des-left"> 短信模版信息：</span>
-                      <span class="des-right">尊敬的用户，您还：由于您订购的动漫5元包，已赠送了《每日一笑》业务，故您之前订购的《每日一笑》
-业务将自动为您取消，敬请留意。</span>
-                    </div>
-                  </div>
-
-                  <div class="input-row">
-                    <span class="input-text input-feel"> 短信二次确认下发的<br/>
-提示短信接入码：</span>
-            <span class="row-wrapper">
-              <input type="text" placeholder="请输入"/>
-            </span>
-                  </div>
-
-
-                </div>
-
-              </div>
-            </span>
-              </div>
-              <div class="input-row input-row-spa">
-                <span class="input-text">限制发送提示短信省份：</span>
-            <span class="row-wrapper row-wrapper-new">
-              <select name="city-select" id="city-select">
-                <option>广州</option>
-                <option>深圳</option>
-                <option>北京</option>
-                <option>南京</option>
-                <option>上海</option>
-              </select>
-            </span>
-              </div>
-              <div class="input-row">
-                <span class="input-text"> 订购成功下发提示短信：</span>
-            <span class="row-wrapper row-wrapper-new">
-              <select name="city-select" id="city-select">
-                <option>广州</option>
-                <option>深圳</option>
-                <option>北京</option>
-                <option>南京</option>
-                <option>上海</option>
-              </select>
-            </span>
-              </div>
-              <div class="input-row">
-                <span class="input-text"> <span class="required">*</span>业务归属地：</span>
-            <span class="row-wrapper row-wrapper-new">
-              <select name="city-select" id="city-select">
-                <option>广州</option>
-                <option>深圳</option>
-                <option>北京</option>
-                <option>南京</option>
-                <option>上海</option>
-              </select>
-            </span>
-              </div>
-              <div class="input-row">
-                <span class="input-text">&nbsp;</span>
-            <span class="row-wrapper row-wrapper-no">
-              <span class="tb-reset l-content-w tb-search">下一步</span>
-              <span class="tb-reset l-content-w">取消</span>
-            </span>
-              </div>
-            </div>
           </div>
         </div>
         <div class="add-main">
@@ -242,6 +86,159 @@
 
             </div>
           </div>
+          <div class="lay-wrapper-three">
+            <div class="lay-wrapper">
+              <div class="lay-title">
+                基本信息
+              </div>
+              <div class="lay-row-area">
+                <div class="lay-row-wrapper lay-row-wrapper1">
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                </div>
+                <div class="lay-row-wrapper lay-row-wrapper2">
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="lay-wrapper">
+              <div class="lay-title">
+                资费信息
+              </div>
+              <div class="lay-row-area">
+                <div class="lay-row-wrapper lay-row-wrapper1">
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+
+                </div>
+                <div class="lay-row-wrapper lay-row-wrapper2">
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+            <div class="lay-wrapper">
+              <div class="lay-title">
+                渠道信息
+              </div>
+              <div class="lay-row-area">
+                <div class="lay-row-wrapper lay-row-wrapper1">
+                  <div  class="lay-row">
+                    <span  class="lay-text"> 产品描述：</span>
+              <span  class="lay-r">
+                20990000000921
+              </span>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+            <div class="lay-btn">
+              <div class="lay-btn-wrapper">
+                <Cancel-Btn text="隐藏"></Cancel-Btn>
+              </div>
+              <div class="lay-btn-wrapper">
+                <Cancel-Btn text="注销"></Cancel-Btn>
+              </div>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -287,6 +284,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
 
+@import url('../../less/common.less');
   .info {
     width: 808px;
     padding: 20px 0;
@@ -498,6 +496,12 @@
     line-height: 32px;
   }
 
+  .lay-r {
+    display: inline-block;
+    width: 200px;
+    line-height: 32px;
+  }
+
   .row-wrapper-ta {
     width: 340px;
     height: 80px;
@@ -523,6 +527,14 @@
     line-height: 32px;
     margin-right: 30px;
     text-align: right;
+    vertical-align: top;
+  }
+  .lay-text {
+    width: 170px;
+    display: inline-block;
+    line-height: 32px;
+    /*margin-right: 30px;*/
+    text-align: left;
     vertical-align: top;
   }
 
@@ -573,6 +585,7 @@
   .add-main {
     background: #f4f4f4;
     padding: 0 20px;
+    padding-bottom: 20px;
   }
 
   .input-area {
@@ -702,4 +715,41 @@
 
   }
 
+  .lay-row-wrapper{
+    float: left;
+  }
+  .lay-row-wrapper1{
+  }
+  .lay-row-wrapper2{
+    margin-left: 210px;
+  }
+  .lay-row-area{
+    .clearfix();
+  }
+.lay-title{
+  font-size: 14px;
+    color: #292c31;
+    font-weight: bold;
+    line-height: 50px;
+    border-bottom:solid 1px #d6e1e5;
+}
+.lay-row-area{
+  margin-top: 20px;
+}
+  .lay-wrapper-three{
+    background: #ffffff;
+    padding-left: 40px;
+    padding-bottom: 30px;
+  }
+
+  .lay-btn{
+    text-align: right;
+    margin-right: 40px;
+    margin-top: 20px;
+  }
+  .lay-btn-wrapper{
+    display: inline-block;
+    margin-left: 16px;
+
+  }
 </style>
