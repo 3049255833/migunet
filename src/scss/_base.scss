@@ -25,6 +25,10 @@
 .inline-dom{
     display: inline-block;
 }
+.required {
+    color: #f95a46;
+    padding-right: 6px;
+}
 
 .form{
 	$col: 12;
@@ -81,6 +85,35 @@
 		float: left;
 		width: (12/$col)*100 + %;
 	}
+}
+
+.form-row{
+    font-size: 0;
+    padding-bottom: 18px;
+    &.no-pd{
+        padding-bottom: 0;
+    }
+    &>div{
+        display: inline-block;
+        font-size: 12px;
+        color: #333;
+        line-height: 32px;
+        vertical-align: top;
+    }
+    .row-left{
+        width: 98px;
+    }
+    .row-right{
+
+    }
+    &:last-child{
+        padding-bottom: 0;
+    }
+    &.font-row-14{
+        &>div{
+            font-size: 14px;
+        }
+    }
 }
 
 // .self-scrollbar::-webkit-scrollbar              { width: 5px; height: 5px; }
