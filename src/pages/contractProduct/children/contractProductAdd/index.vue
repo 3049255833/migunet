@@ -45,7 +45,11 @@
             }
         },
         methods: {},
-        mounted () {}
+        mounted () {
+            this.bus.$on('curStep', res => {
+                this.step=parseInt(res);
+            });
+        }
         
     }
 </script>

@@ -14,6 +14,7 @@ import ContractProduct1 from '@/pages/ContractProduct'
 import SingleProduct from '@/pages/singleProduct'
 import ContractProductAdd from '@/pages/contractProduct/children/contractProductAdd'
 import Step1 from '@/pages/contractProduct/children/contractProductAdd/children/step-1'
+import Step2 from '@/pages/contractProduct/children/contractProductAdd/children/step-2'
 Vue.use(Router);
 
 export default new Router({
@@ -94,6 +95,13 @@ export default new Router({
                             name: 'Step1',
                             components:{
                                 default:Step1
+                            }
+                        },
+                        {
+                            path: 'step2',
+                            name: 'Step2',
+                            components:{
+                                default:Step2
                             }
                         }
                     ]

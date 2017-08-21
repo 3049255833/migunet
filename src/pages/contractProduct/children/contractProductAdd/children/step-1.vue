@@ -177,7 +177,8 @@
              * 跳到下一步
              * */
             nextStep(){
-                this.bus.$emit('curStep',2);
+                this.bus.$emit('curStep', 2);
+                this.$router.push({ 'name': 'Step2' });
             },
 
             /**
