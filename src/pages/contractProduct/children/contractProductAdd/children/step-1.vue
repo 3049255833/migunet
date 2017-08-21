@@ -179,6 +179,7 @@
             nextStep(){
                 this.bus.$emit('curStep', 2);
                 this.$router.push({ 'name': 'Step2' });
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
 
             /**
@@ -230,9 +231,8 @@
         background: #fff;
         line-height: 32px;
         border: 1px solid #46bafe;
-        cursor: default;
         box-sizing: border-box;
-        border-radius: 5px;
+        border-radius: 4px;
         text-align: center;
         cursor: pointer;
     }
@@ -322,9 +322,10 @@
         width: 165px;
         display: inline-block;
         line-height: 32px;
-        margin-right: 70px;
-        text-align: right;
+        margin-right: 20px;
+        text-align: left;
         vertical-align: top;
+        padding-left: 40px;
     }
     
     .required {

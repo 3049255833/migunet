@@ -155,8 +155,8 @@
                             </div>
                         </div>
                     </article>
-                    <div class="btn-group btn-group-center">
-                        <div class="btn btn-primary btn-middle" >确定</div>
+                    <div class="btn-group">
+                        <div class="btn btn-primary btn-middle" @click="nextStep" >下一步</div>
                         <div class="btn btn-default btn-middle" >取消</div>
                     </div>
                 </div>
@@ -177,6 +177,13 @@
         },
         components:{
             VSelectBox
+        },
+        methods:{
+            nextStep(){
+                this.bus.$emit('curStep', 3);
+                this.$router.push({ 'name': 'Step3' });
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
+            },
         }
     }
 </script>
@@ -335,6 +342,7 @@
         
         .btn-group {
             margin: 100px 0 50px;
+            padding-left: 160px;
         }
     }
 </style>

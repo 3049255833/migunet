@@ -8,8 +8,8 @@
                 </ul>
             </div>
             <div class="btn-group btn-group-center">
-                <div class="btn btn-primary btn-middle" :class="{'unable':businessArea.length<1}" @click="saveArea()">确定</div>
-                <div class="btn btn-default btn-middle" @click="cancel">取消</div>
+                <div class="btn btn-primary btn-middle-100" :class="{'unable':businessArea.length<1}" @click="saveArea()">确定</div>
+                <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
             </div>
         </div>
     </div>

@@ -16,6 +16,7 @@ import ProductDetail from '@/pages/singleProduct/children/productDetail'
 import ContractProductAdd from '@/pages/contractProduct/children/contractProductAdd'
 import Step1 from '@/pages/contractProduct/children/contractProductAdd/children/step-1'
 import Step2 from '@/pages/contractProduct/children/contractProductAdd/children/step-2'
+import Step3 from '@/pages/contractProduct/children/contractProductAdd/children/step-3'
 Vue.use(Router);
 
 export default new Router({
@@ -110,6 +111,13 @@ export default new Router({
                             name: 'Step2',
                             components:{
                                 default:Step2
+                            }
+                        },
+                        {
+                            path: 'step3',
+                            name: 'Step3',
+                            components:{
+                                default:Step3
                             }
                         }
                     ]
