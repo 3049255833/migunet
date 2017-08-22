@@ -77,7 +77,7 @@
 
                                     <div class="pro-info">
                                         <div class="pro-info-title">
-                                            动漫5元业务包
+                                            100922827636
                                         </div>
 
                                         <div class="pro-info-des">
@@ -93,7 +93,7 @@
 
                                     <div class="pro-info">
                                         <div class="pro-info-title">
-                                            动漫5元业务包
+                                            上线（变更审批失败）
                                         </div>
                                         <div class="pro-info-des">
                                             产品状态
@@ -446,6 +446,11 @@
 
                     td {
                         padding: 15px 0;
+
+                        .content,
+                        .mark {
+                            display: inline-block;
+                        }
                     }
                 }
             }
@@ -823,6 +828,7 @@
     .pro-info-des {
         font-size: 12px;
         color: #999999;
+        margin-top: 8px;
     }
 
     .pro-icon {
@@ -835,6 +841,7 @@
     .pro-info {
         display: inline-block;
         vertical-align: top;
+        margin-left: 10px;
     }
 
     .pro-wrapper {
