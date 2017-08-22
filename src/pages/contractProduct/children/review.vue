@@ -3,6 +3,50 @@
         <div class="main-wrapper">
             <div class="add-product-wrapper">
                 <div class="add-main">
+
+                    <div class="review-flow-box">
+                        <div class="add-title">审批工作流</div>
+
+                        <table class="review-list">
+                            <thead>
+                                <tr>
+                                    <th>提交时间</th>
+                                    <th>提交人</th>
+                                    <th>申请类型</th>
+                                    <th>审批结果</th>
+                                    <th>审批失败原因</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>2017/08/22 09:30</td>
+                                    <td>21222222</td>
+                                    <td>变更审批</td>
+                                    <td>
+                                        <div class="mark"></div>
+
+                                        <div class="content">不通过</div>
+                                    </td>
+                                    <td>价格高于审批价格</td>
+                                </tr>
+
+                                <tr>
+                                    <td>2017/08/22 09:30</td>
+                                    <td>21222222</td>
+                                    <td>上线审批</td>
+                                    <td>
+                                        <div class="mark"></div>
+
+                                        <div class="content">通过</div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
                     <div class="table-wrapper">
                         <div class="add-title">
                             产品管理新增
@@ -135,17 +179,10 @@
                                     </div>
 
                                     <div class="lay-row">
-                                        <span class="lay-text"> 失效时间：</span>
-                                        <span class="lay-r">
-                                            短信模版内容
-                                        </span>
-                                    </div>
-
-                                    <div class="lay-row">
                                         <span class="lay-text"> 互斥产品：</span>
                                         <span class="lay-r">
-                                            动漫5元包 | 200192938
-                                            南京2017音乐包合集 | 2039338228
+                                            <div>动漫5元包 | 200192938</div>
+                                            <div>南京2017音乐包合集 | 2039338228</div>
                                         </span>
                                     </div>
                                 </div>
@@ -162,13 +199,6 @@
                                         <span class="lay-text"> 失效时间：</span>
                                         <span class="lay-r">
                                             2017/08/22/ 09:30
-                                        </span>
-                                    </div>
-
-                                    <div class="lay-row">
-                                        <span class="lay-text"> 搜索关键字：</span>
-                                        <span class="lay-r">
-                                            动漫、漫画、青少年、日本
                                         </span>
                                     </div>
 
@@ -233,10 +263,80 @@
                             <div class="lay-row-area">
                                 <div class="lay-row-wrapper">
                                     <div  class="lay-row">
-                                        <span  class="lay-text"> 价格（分CN）：</span>
+                                        <span  class="lay-text"> BOOS计费代码 ：</span>
                                         <span  class="lay-r">
                                             112
                                         </span>
+                                    </div>
+
+                                    <div  class="lay-row">
+                                        <span  class="lay-text"> 计费类型 ：</span>
+                                        <span  class="lay-r">
+                                            不限定发布类型
+                                        </span>
+                                    </div>
+
+                                    <div  class="lay-row scheme-list">
+                                        <span class="lay-text"> 计费策略 ：</span>
+                                        <span class="lay-r">
+                                            <div class="scheme-item">
+                                                <h4>方案一</h4>
+
+                                                <div class="item">
+                                                    <span class="left"> 资费ID ：</span>
+                                                    <span class="right">
+                                                        E1020293873
+                                                    </span>
+                                                </div>
+
+                                                <div class="item">
+                                                    <span class="left"> 计划名称 ：</span>
+                                                    <span class="right">
+                                                        E1020293873
+                                                    </span>
+                                                </div>
+
+                                                <div class="item">
+                                                    <span class="left"> 计划说明 ：</span>
+                                                    <span class="right">
+                                                        白金会员折后优惠：满足，会员级别与(1,2,3)并且,公司级别等于(5)后者，消费金额大于300 满足条件：内容类型=漫画 并且 产品编号等于漫画（100929828）
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="scheme-item">
+                                                <h4>方案二</h4>
+
+                                                <div class="lay-row">
+                                                    免费
+                                                </div>
+
+                                                <div class="lay-row">
+                                                    <span class="lay-text"> 满足条件 ：</span>
+                                                    <span class="lay-r">
+                                                        内容类型=漫画 并且 产品编号等于漫画（100929828）
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="lay-row-area">
+                                    <div class="lay-row-wrapper">
+                                        <div  class="lay-row">
+                                            <span  class="lay-text"> 价格(分CN) ：</span>
+                                            <span  class="lay-r">
+                                                19.00
+                                            </span>
+                                        </div>
+
+                                        <div  class="lay-row">
+                                            <span  class="lay-text"> 支付方式 ：</span>
+                                            <span  class="lay-r">
+                                                第三方支付
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -250,12 +350,21 @@
                             <div class="lay-row-area">
                                 <div class="lay-row-wrapper lay-row-wrapper1">
                                     <div  class="lay-row">
-                                        <span  class="lay-text"> 渠道ID：</span>
-                                        <span  class="lay-r">
+                                        <span class="lay-text"> BOOS计费代码：</span>
+                                        <span class="lay-r">
                                             09019283763
                                         </span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="lay-btn">
+                            <div class="lay-btn-wrapper">
+                                <Cancel-Btn text="隐藏"></Cancel-Btn>
+                            </div>
+                            <div class="lay-btn-wrapper">
+                                <Cancel-Btn text="注销"></Cancel-Btn>
                             </div>
                         </div>
                     </div>
@@ -308,6 +417,51 @@
 <style scoped lang="less">
 
     @import url('../../../less/common.less');
+
+    .review-flow-box {
+        background-color: #fff;
+
+        .review-list {
+            width: 100%;
+
+            thead tr {
+                background-color: #f2f8ff;
+
+                th {
+                    padding: 20px 0;
+                    font-size: 14px;
+                    color: #4a4a4a;
+                }
+            }
+
+            tbody {
+
+                tr {
+                    text-align: center;
+                    border-bottom: 1px solid #e0e0e0;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+
+                    td {
+                        padding: 15px 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .scheme-list {
+        h4 {
+            font-weight: 600;
+        }
+
+        .item {
+
+        }
+    }
+
     .info {
         width: 808px;
         padding: 20px 0;
@@ -316,18 +470,6 @@
         margin-top: 10px;
     }
 
-    /*.info:before{*/
-    /*content: '';*/
-    /*position: absolute;*/
-    /*left: 20px;*/
-    /*top: -10px;*/
-    /*width: 0;*/
-    /*height: 0;*/
-    /*border-style: solid;*/
-    /*border-width: 0 9.5px 19px 9.5px;*/
-    /*border-color: transparent transparent #ffffff transparent*/
-
-    /*}*/
     .info:before {
         content: '';
         position: absolute;
@@ -475,19 +617,11 @@
     }
 
     .table-wrapper {
-        /*float: left;*/
-        /*margin-left: 20px;*/
-        /*width: 1050px;*/
         background: #ffffff;
         margin-top: 20px;
         padding-bottom: 30px;
     }
 
-    /*.main-wrapper:after{
-      content: '';
-      display: block;
-      clear: both;
-    }*/
     .main-wrapper:before,
     .main-wrapper:after {
         content: " ";
@@ -520,7 +654,7 @@
 
     .lay-r {
         display: inline-block;
-        width: 200px;
+        width: 290px;
         line-height: 32px;
     }
 
