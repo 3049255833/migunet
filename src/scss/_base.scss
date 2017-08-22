@@ -15,6 +15,9 @@
 
 /* padding margin  width*/
 
+.mr-3{
+    margin-right: 3px!important;
+}
 .mr-10{
     margin-right: 10px !important;
 }
@@ -36,17 +39,20 @@
 .no-bd{
     border: 0;
 }
+.w-70{
+    width: 70px!important;
+}
 .w-80{
-    width: 80px;
+    width: 80px !important;
 }
 .w-100{
-    width: 100px;
+    width: 100px !important;
 }
 .w-200{
-    width: 200px;
+    width: 200px !important;
 }
 .w-340{
-    width: 340px;
+    width: 340px !important;
 }
 
 /* layout vertical*/
@@ -103,4 +109,9 @@
 .layout-inline-middle{
     display: inline-block;
     vertical-align: middle !important;
+}
+
+/* font-size */
+.font-12{
+    font-size: 12px!important;
 }

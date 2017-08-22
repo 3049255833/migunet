@@ -25,7 +25,7 @@
                     体验产品周期：
                 </div>
                 <div class="row-right">
-                    <input class="form-input mr-10 w-80" type="text" placeholder="请输入">
+                    <input class="form-input vt-middle mr-10 w-80" type="text" placeholder="请输入">
                     <div class="layout-inline-middle">
                         <div class="inline-dom">
                             <v-select-box w="110" selectTitle="并且" selectType="1"
