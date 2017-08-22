@@ -23,7 +23,7 @@
                         <div class="form-row">
                             <div class="row-left"><span class="required"></span>是否免费：</div>
                             <div class="row-right">
-                                <div class="radio-wrapper">
+                                <div class="radio-wrap">
                                     <label class="radio-module w-70">
                                         <input value="1" v-model="formData.free" name="free" type="radio">
                                         <span></span>
@@ -91,7 +91,7 @@
                         <div class="form-row">
                             <div class="row-left"><span class="required"></span>是否免费：</div>
                             <div class="row-right">
-                                <div class="radio-wrapper">
+                                <div class="radio-wrap">
                                     <label class="radio-module w-70">
                                         <input value="1" v-model="formData.free" name="free" type="radio">
                                         <span></span>

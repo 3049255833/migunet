@@ -7,7 +7,7 @@
                     是否体验产品：
                 </div>
                 <div class="row-right">
-                    <div class="radio-wrapper">
+                    <div class="radio-wrap">
                         <label class="radio-module w-70">
                             <input value="1" v-model="formData.free" name="free" type="radio">
                             <span></span>
@@ -27,29 +27,52 @@
                     体验产品周期：
                 </div>
                 <div class="row-right">
-                    <input type="text" placeholder="请输入">
-                    <div class="inline-dom">
-                        <v-select-box w="110" selectTitle="并且" selectType="1"
-                                      v-bind:options="['并且','或者']"></v-select-box>
+                    <input class="form-input mr-10" type="text" placeholder="请输入">
+                    <div class="layout-inline-middle">
+                        <div class="inline-dom">
+                            <v-select-box w="110" selectTitle="并且" selectType="1"
+                                          v-bind:options="['并且','或者']"></v-select-box>
+                        </div>
                     </div>
                 </div>
             </div>
-           
+            <div class="form-row">
+                <div class="row-left">
+                    <span class="required">*</span>
+                    限制发送提示短信省份：
+                </div>
+                <div class="row-right">
+                    <input class="form-input pointer" @click="showAreaChoseModal" v-model="formData.businessArea" type="text" readonly
+                           placeholder="请选择"/>
+                    <i class="icon icon-select"></i>
+                </div>
+            </div>
         </div>
+    
+        <modal name="AreaChoseModal" :width="800" :height="440" @before-close="beforeClose">
+            <t-modal-sub-container :title="'选择业务归属地'" :name="'AreaChoseModal'">
+                <area-chose :modal-name="'AreaChoseModal'"></area-chose>
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 <script>
     import VSelectBox from '@/components/select-box';
+    import TModalSubContainer from "@/components/modal-sub-container";
+    import AreaChose from '@/pages/contractProduct/components/area-chose.vue'
     export default{
         data(){
             return {
                 formData: {
-                    free: 1
+                    free: 1,
+                    businessArea:''
                 }
             }
         },
         components: {
-            VSelectBox
+            VSelectBox,
+            AreaChose,
+            TModalSubContainer,
         },
         methods: {
             nextStep(){
@@ -57,6 +80,15 @@
                 this.$router.push({'name': 'Step3'});
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
+            /**
+             * 显示地方
+             * */
+            showAreaChoseModal(){
+                this.$modal.show('AreaChoseModal');
+            },
+            beforeClose(){
+                
+            }
         }
     }
 </script>
@@ -86,33 +118,7 @@
             }
         }
         
-        input {
-            &[type='text'] {
-                border-radius: 4px;
-                color: #333333;
-                &:focus {
-                    box-shadow: 0 0 3px 2px #EEFAFF;
-                }
-                border: 1px solid #D6E1E5 !important;
-            }
-        }
         
-        textarea {
-            border-radius: 4px;
-            color: #333333;
-            border: 1px solid #D6E1E5 !important;
-            &:focus {
-                box-shadow: 0 0 3px 2px #EEFAFF;
-            }
-        }
-        
-        select {
-            border-radius: 4px;
-            border: 1px solid #D6E1E5 !important;
-            &:focus {
-                box-shadow: 0 0 3px 2px #EEFAFF;
-            }
-        }
         
         .btn-group {
             margin: 100px 0 50px;

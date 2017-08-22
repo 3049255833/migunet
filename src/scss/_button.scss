@@ -6,7 +6,16 @@
     .btn:nth-child(1){
         margin-right: 20px;
     }
+    .btn{
+        display: inline-block;
+    }
 }
+
+.btn-center{
+    display: block;
+    margin: 0 auto;
+}
+
 
 .btn{
 	width: 100%;
