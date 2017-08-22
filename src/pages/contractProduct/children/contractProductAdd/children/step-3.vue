@@ -49,7 +49,7 @@
                     订购成功下发提示短信：
                 </div>
                 <div class="row-right">
-                    <textarea class="textarea-module" placeholder="请选择"></textarea>
+                    <textarea @click="showSmsListModal" class="textarea-module" placeholder="请选择"></textarea>
                     <i class="icon icon-select"></i>
                 </div>
             </div>
@@ -92,9 +92,15 @@
             </div>
         </div>
     
-        <modal name="AreaChoseModal" :width="800" :height="440" @before-close="beforeClose">
-            <t-modal-sub-container :title="'选择业务归属地'" :name="'AreaChoseModal'">
-                <area-chose :modal-name="'AreaChoseModal'"></area-chose>
+        <modal name="areaChoseModal" :width="800" :height="440" @before-close="beforeClose">
+            <t-modal-sub-container :title="'选择业务归属地'" :name="'areaChoseModal'">
+                <area-chose></area-chose>
+            </t-modal-sub-container>
+        </modal>
+    
+        <modal name="smsListModal" :width="870" :height="558" @before-close="beforeClose">
+            <t-modal-sub-container :title="'动漫包推荐短信模板选择'" :name="'smsListModal'">
+                <sms-list></sms-list>
             </t-modal-sub-container>
         </modal>
     </div>
@@ -102,6 +108,7 @@
 <script>
     import VSelectBox from '@/components/select-box';
     import TModalSubContainer from "@/components/modal-sub-container";
+    import SmsList from '@/pages/contractProduct/children/contractProductAdd/components/sms-list';
     import AreaChose from '@/pages/contractProduct/components/area-chose.vue'
     export default{
         data(){
@@ -116,6 +123,7 @@
             VSelectBox,
             AreaChose,
             TModalSubContainer,
+            SmsList
         },
         methods: {
             nextStep(){
@@ -129,8 +137,13 @@
             showAreaChoseModal(){
                 this.$modal.show('AreaChoseModal');
             },
-            beforeClose(){
-                
+            beforeClose(){},
+            
+            /**
+             * 调用短信模板弹框
+             * */
+            showSmsListModal(){
+                this.$modal.show('smsListModal');
             }
         }
     }

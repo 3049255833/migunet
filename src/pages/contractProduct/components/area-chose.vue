@@ -68,7 +68,7 @@ export default{
 
 <style lang='scss' scoped rel='stylesheet/scss'>
     .area-content{
-        padding: 22px 39px 28px 25px;
+        padding: 22px 39px 28px 30px;
         .form-row{
         }
         .area-code{

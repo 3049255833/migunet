@@ -37,9 +37,9 @@ export default {
 
 <style lang="scss" scoped rel="stylesheet/scss">
 	$parent-bg-color: rgba(0, 0, 0, 0.5);
-	$title-bg-color: #4d4c50;
-	$title-txt-color: #fff;
-	$title-height: 40px;
+	$title-bg-color: white;
+	$title-txt-color: #333;
+	$title-height: 57px;
 	$container-bg-color: #fff;
 	$min-width: 350px;
 	$min-height: 180px;
@@ -58,13 +58,18 @@ export default {
 			h2{
 				color: $title-txt-color;
 				line-height: $title-height;
-				text-indent: 10px;
 				font-size: 14px;
+                margin: 0 30px;
+                border-bottom: 1px solid #f0f0f0;
 			}
 			.btn-close{
 				position: absolute;
-				top: 14px;
-				right: 12px;
+				top: 20px;
+				right: 33px;
+                width: 15px;
+                height: 15px;
+                background: url('./btn-close.png') no-repeat;
+                cursor: pointer;
 			}
 		}
 
