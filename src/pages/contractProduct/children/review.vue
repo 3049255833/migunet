@@ -1,69 +1,58 @@
 <template>
-    <div class="container">
+    <div class="product-detail">
         <div class="main-wrapper">
             <div class="add-product-wrapper">
-                <div class="bread-menu">
-                    <span class="bread-link">产品管理</span>
-                    >
-                    <span class="bread-link">合约产品管理</span>
-                    >
-                    <span>产品管理新增</span>
-                </div>
-
                 <div class="add-main">
                     <div class="table-wrapper">
                         <div class="add-title">
                             产品管理新增
                         </div>
-                        <div class="info-table-wrapper">
 
-                        </div>
-
-                    </div>
-                </div>
-                <div class="add-main">
-                    <div class="table-wrapper">
-                        <div class="add-title">
-                            产品管理新增
-                        </div>
                         <div class="product-detail-wrapper">
                             <div class="pro-three">
                                 <div class="pro-wrapper">
                                     <div class="pro-icon">
                                         <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
+
                                     <div class="pro-info">
                                         <div class="pro-info-title">
                                             动漫5元业务包
                                         </div>
+
                                         <div class="pro-info-des">
                                             产品名称
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="pro-wrapper">
                                     <div class="pro-icon">
                                         <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
+
                                     <div class="pro-info">
                                         <div class="pro-info-title">
                                             动漫5元业务包
                                         </div>
+
                                         <div class="pro-info-des">
-                                            产品名称
+                                            产品ID
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="pro-wrapper">
                                     <div class="pro-icon">
                                         <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
+
                                     <div class="pro-info">
                                         <div class="pro-info-title">
                                             动漫5元业务包
                                         </div>
                                         <div class="pro-info-des">
-                                            产品名称
+                                            产品状态
                                         </div>
                                     </div>
                                 </div>
@@ -73,11 +62,11 @@
                                 <div class="pro-btn">
                                     <Confirm-Btn w="80px" text="变更信息"></Confirm-Btn>
                                 </div>
+
                                 <div class="pro-btn pro-btn-another">
                                     <Cancel-Btn w="80px" text="下线"></Cancel-Btn>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -86,158 +75,192 @@
                             <div class="lay-title">
                                 基本信息
                             </div>
+
                             <div class="lay-row-area">
                                 <div class="lay-row-wrapper lay-row-wrapper1">
-                                    <div  class="lay-row">
+
+                                    <div class="lay-row">
                                         <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                                            20990000000921
+
+                                        <span class="lay-r">
+                                            全职高手
                                         </span>
                                     </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                                            20990000000921
-                                          </span>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 生效时间：</span>
+                                        <span class="lay-text"> 2017/08/22/ 08:55</span>
                                     </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 业务归属地：</span>
+                                        <span class="lay-r">
+                                            中国移动
+                                        </span>
                                     </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 是否会员产品：</span>
+                                        <span class="lay-r">
+                                            非会员
+                                        </span>
                                     </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 是否体检产品：</span>
+                                        <span class="lay-r">
+                                            是
+                                        </span>
                                     </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 创建用户：</span>
+                                        <span class="lay-r">
+                                            咪咕2019
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 限定短信发送省份：</span>
+                                        <span class="lay-r">
+                                            江苏省、浙江省
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 订购成功下发送推荐短信：</span>
+                                        <span class="lay-r">
+                                            2017/08/21 16:00
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 失效时间：</span>
+                                        <span class="lay-r">
+                                            短信模版内容
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 互斥产品：</span>
+                                        <span class="lay-r">
+                                            动漫5元包 | 200192938
+                                            南京2017音乐包合集 | 2039338228
+                                        </span>
                                     </div>
                                 </div>
-                                <div class="lay-row-wrapper lay-row-wrapper2">
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
+
+                                <div class="lay-row-wrapper">
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 搜索关键字：</span>
+                                        <span class="lay-r">
+                                            动漫、漫画、青少年、日本
+                                        </span>
                                     </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 失效时间：</span>
+                                        <span class="lay-r">
+                                            2017/08/22/ 09:30
+                                        </span>
                                     </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 搜索关键字：</span>
+                                        <span class="lay-r">
+                                            动漫、漫画、青少年、日本
+                                        </span>
                                     </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 产品目录：</span>
+                                        <span class="lay-r">
+                                            目录名称(日本漫画)
+                                        </span>
                                     </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 是否重复订购：</span>
+                                        <span class="lay-r">
+                                            是
+                                        </span>
                                     </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 体验产品周期：</span>
+                                        <span class="lay-r">
+                                            20周
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 创建时间：</span>
+                                        <span class="lay-r">
+                                            2017/09/09 20:00
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 订购成功下发提示短信：</span>
+                                        <span class="lay-r">
+                                            恭喜您，成功订购<<每日一笑>>业务！
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 合作伙伴：</span>
+                                        <span class="lay-r">
+                                            内容待定
+                                        </span>
+                                    </div>
+
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 依赖产品：</span>
+                                        <span class="lay-r">
+                                            动漫5元 | 2091272726626
+                                        </span>
+                                    </div>
+
                                 </div>
                             </div>
-
-
                         </div>
+
                         <div class="lay-wrapper">
                             <div class="lay-title">
                                 资费信息
                             </div>
+
                             <div class="lay-row-area">
-                                <div class="lay-row-wrapper lay-row-wrapper1">
+                                <div class="lay-row-wrapper">
                                     <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-text"> 价格（分CN）：</span>
                                         <span  class="lay-r">
-                20990000000921
-              </span>
+                                            112
+                                        </span>
                                     </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
-                                    </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
-                                    </div>
-
-                                </div>
-                                <div class="lay-row-wrapper lay-row-wrapper2">
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
-                                    </div>
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-                                        <span  class="lay-r">
-                20990000000921
-              </span>
-                                    </div>
-
                                 </div>
                             </div>
-
-
                         </div>
+
                         <div class="lay-wrapper">
                             <div class="lay-title">
                                 渠道信息
                             </div>
+
                             <div class="lay-row-area">
                                 <div class="lay-row-wrapper lay-row-wrapper1">
                                     <div  class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
+                                        <span  class="lay-text"> 渠道ID：</span>
                                         <span  class="lay-r">
-                20990000000921
-              </span>
+                                            09019283763
+                                        </span>
                                     </div>
-
                                 </div>
-                            </div>
-
-
-                        </div>
-                        <div class="lay-btn">
-                            <div class="lay-btn-wrapper">
-                                <Cancel-Btn text="隐藏"></Cancel-Btn>
-                            </div>
-                            <div class="lay-btn-wrapper">
-                                <Cancel-Btn text="注销"></Cancel-Btn>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     </div>
 </template>
@@ -429,8 +452,7 @@
 
     .add-product-wrapper {
         float: left;
-        width: 1196px;
-
+        width: 100%;
     }
 
     .bread-menu {
