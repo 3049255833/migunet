@@ -127,7 +127,7 @@
         z-index: 88;
         background: #ffffff;
         
-        & :before {
+        &:before {
             position: absolute;
             right: 10%;
             top: -11px;
@@ -136,7 +136,7 @@
             border-bottom-color: #d6e1e5;
         }
         
-        & :after {
+        &:after {
             position: absolute;
             right: 10%;
             top: -10px;
@@ -144,7 +144,6 @@
             border: 5px solid rgba(0, 0, 0, 0);
             border-bottom-color: #fff;
         }
-        
     }
     
     .option-item {
@@ -157,9 +156,7 @@
         &:hover {
             color: #ffffff;
             background: #46bafe;
-            
         }
-        
     }
     
     .opMask {

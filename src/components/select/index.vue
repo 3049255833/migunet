@@ -1,82 +1,75 @@
 <template>
-    <div class="s-wrapper">
-        <div class="s-select" :style="{width:this.w+'px'}" @click.stop="showSelect">{{selectTitle}}</div>
-        <div class="option-mask" :style="{width:this.w+'px'}" v-bind:class="{opMask:optionWhatStatus}">
+    <div class="s-wrapper" >
+        <div class="s-select" @click.stop="showSelect">{{selected}}</div>
+
+        <div class="option-mask" v-bind:class="{opMask:optionWhatStatus}">
+
             <div class="option-item" @click.stop="selectItem(option)" v-for="option in options">{{option}}</div>
-            <!--<div class="option-item">222</div>-->
-            <!--<div class="option-item">333</div>-->
+
         </div>
+
     </div>
-    </select>
-    <!-- <select v-model="$store.state.selected">
-    <option v-for="option in $store.state.options" v-bind:value="option.value">
-      {{option.text }}
-    </option>
-  </select> -->
 </template>
+
 <script>
     export default {
         name: 'Select',
-        props: ['selectTitle','text', 'w', 'h', 'bg', 'color', 'options', 'selectType'],
+        props: ['text', 'w', 'h', 'bg', 'color', 'options','selectType'],
         data ()
         {
             return {
                 style: {
-                    width: this.w + 'px',
-                    height: this.h + 'px',
+                    width: this.w,
+                    height: this.h,
                     background: this.bg,
                     lineHeight: this.height,
                     color: this.color,
                     optionData: this.optionData
                 },
-                isShow: false
+                isShow:false,
                 // options:['上线报备中','上线报备失败','变更报备中'],
+                selected:'11',
 
             }
         }
         ,
-        computed: {
+        computed:{
             optionWhatStatus(){
                 return this.isShow;
             },
-            selectStyle(){
-                return {}
-            }
         }
         ,
-        methods: {
+        methods:{
             showSelect(){
-                this.isShow = !this.isShow;
-                if (this.selectType == '1') {
+                this.isShow=!this.isShow;
+                if(this.selectType=='1'){
                     // this.$store.dispatch('shiftState');
                 }
-                if (this.selectType == '2') {
+                if(this.selectType=='2'){
                     // this.$store.dispatch('changePageOption');
                 }
 
             },
             hideSelect(){
-                this.isShow = false;
+                this.isShow=false;
             },
             selectItem(option){
-                this.selected = option;
-                this.isShow = false;
-                if (this.selectType == '1') {
+                this.selected=option;
+                this.isShow=false;
+                if(this.selectType=='1'){
                     // this.$store.dispatch('setOptionState',false);
                     // this.$store.dispatch('changeWhichStatus',option);
                 }
-                if (this.selectType == '2') {
+                if(this.selectType=='2'){
                     // this.$store.dispatch('setOptionState',false);
                     // this.$store.dispatch('changePageSize',option);
                 }
-
-
             },
 
             documentHideOption(){
-                let that = this;
-                document.addEventListener('click', function () {
-                    that.isShow = false;
+                let that=this;
+                document.addEventListener('click',function(){
+                    that.isShow=false;
                 });
             }
 
@@ -86,8 +79,12 @@
         }
     }
 </script>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss" rel="stylesheet/scss">
+<style lang="less" rel="stylesheet/scss">
+
+    @import url("../../less/common.less");
+
     #select1 {
         width: 200px;
         height: 30px;
@@ -95,73 +92,68 @@
         padding-left: 5px;
         border-radius: 0;
         border: 1px solid #dedede;
-        background: url('../../assets/arrow-down.png') no-repeat 90% 11px;
+        background: url('../../assets/arrow-down.png') no-repeat 95% 11px;
     }
-    
+
     .s-select {
-        width: 150px;
+        width: 100px;
         height: 32px;
         background: #ffffff;
-        padding-left: 5px;
         font-size: 12px;
         color: #0c0a0b;
         box-sizing: border-box;
         border: solid 1px #d6e1e5;
         border-radius: 3px;
-        font-size: 12px;
         line-height: 28px;
-        background: url('../../assets/arrow-down.png') no-repeat 90% 12px;
+        background: url('../../assets/arrow-down.png') no-repeat 88% 12px;
         cursor: pointer;
+        padding-left: 10px;
     }
-    
+
     .option-mask {
-        width: 150px;
+        width: 100px;
         box-sizing: border-box;
         position: relative;
         border: solid 1px #d6e1e5;
-        margin-top: 12px;
+        margin-top: 6px;
         border-radius: 3px;
         display: none;
-        position: relative;
         z-index: 88;
         background: #ffffff;
-        
-        & :before {
+
+        &:before {
             position: absolute;
-            right: 10%;
+            left: 89%;
             top: -10px;
             content: "";
             border: 5px solid rgba(0, 0, 0, 0);
             border-bottom-color: #d6e1e5;
         }
-        
-        & :after {
-            position: absolute;
-            right: 10%;
-            top: -9px;
-            content: "";
-            border: 5px solid rgba(0, 0, 0, 0);
-            border-bottom-color: #fff;
+
+        &:after {
+             position: absolute;
+             left: 89%;
+             top: -9px;
+             content: "";
+             border: 5px solid rgba(0, 0, 0, 0);
+             border-bottom-color: #fff;
         }
-        
     }
-    
+
     .option-item {
         text-align: center;
         font-size: 12px;
         color: #0c0a0b;
         line-height: 34px;
         cursor: pointer;
-        
-        & :hover {
+
+        &:hover {
             color: #ffffff;
-            background: #46bafe;
-            
+            background: @color;
         }
-        
     }
-    
-    .opMask {
+
+    .opMask{
         display: block;
     }
 </style>
