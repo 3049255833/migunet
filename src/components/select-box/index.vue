@@ -1,6 +1,6 @@
 <template>
     <div class="s-wrapper">
-        <div class="select-show" :style="{width:this.w+'px'}" @click.stop="showSelect">{{selected}}<i class="icon layout-center-y icon-arrow-down"></i></div>
+        <div class="select-show" :class="{'active':isShow}" :style="{width:this.w+'px'}" @click.stop="showSelect">{{selected}}<i class="icon layout-center-y icon-arrow-down"></i></div>
         <div class="option-mask" :style="{width:this.w+'px'}" v-bind:class="{opMask:optionWhatStatus}">
             <div class="option-item" @click.stop="selectItem(option)" v-for="option in options">{{option}}</div>
             <!--<div class="option-item">222</div>-->
@@ -114,6 +114,10 @@
         .icon{
             right: 8px;
         }
+        &.active{
+            box-shadow: 0 0 3px 2px #EEFAFF;
+        }
+        transition: all .3s ease ;
     }
     
     .option-mask {
@@ -129,7 +133,7 @@
         
         &:before {
             position: absolute;
-            right: 10%;
+            right: 8px;
             top: -11px;
             content: "";
             border: 5px solid rgba(0, 0, 0, 0);
@@ -138,7 +142,7 @@
         
         &:after {
             position: absolute;
-            right: 10%;
+            right: 8px;
             top: -10px;
             content: "";
             border: 5px solid rgba(0, 0, 0, 0);
@@ -147,8 +151,9 @@
     }
     
     .option-item {
-        text-align: center;
+        text-align: left;
         font-size: 12px;
+        padding-left: 10px;
         color: #0c0a0b;
         line-height: 34px;
         cursor: pointer;

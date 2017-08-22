@@ -19,7 +19,8 @@
                     搜索关键字：
                 </div>
                 <div class="row-right">
-                    <textarea class="textarea-module w-340" type="text" placeholder="搜索关键字将用于用户搜索功能，请输入断句，逗号 ‘，’隔开，例：‘漫画，青少年’"></textarea>
+                    <textarea class="textarea-module w-340" type="text"
+                              placeholder="搜索关键字将用于用户搜索功能，请输入断句，逗号 ‘，’隔开，例：‘漫画，青少年’"></textarea>
                 </div>
             </div>
             <div class="form-row">
@@ -39,11 +40,12 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="row-left">
+                <div class="row-left required">
                     业务归属地：
                 </div>
                 <div class="row-right">
-                    <input @click="showBusinessAreaModal " class="form-input w-200 pointer" v-model="formData.businessArea" type="text" readonly
+                    <input @click="showBusinessAreaModal " class="form-input w-200 pointer"
+                           v-model="formData.businessArea" type="text" readonly
                            placeholder="请输入"/>
                     <i class="icon icon-select"></i>
                 </div>
@@ -83,12 +85,12 @@
                 <div class="row-right">
                     <div class="radio-wrap">
                         <label class="radio-module w-70">
-                            <input value="1"  name="repeat" type="radio">
+                            <input value="1" name="repeat" type="radio">
                             <span class="mr-3"></span>
                             <span class="txt">是</span>
                         </label>
                         <label class="radio-module">
-                            <input value="2"  name="repeat" type="radio">
+                            <input value="2" name="repeat" type="radio">
                             <span class="mr-3"></span>
                             <span class="txt">否</span>
                         </label>
@@ -122,12 +124,161 @@
                 </div>
                 <div class="row-right">
                     <div class="type-area">
-                        <div class="item"></div>
-                        <div class="item"></div>
+                        <div class="item">
+                            <div class="item-head ">
+                                <label class="checkbox-module">
+                                    <input type="checkbox" name="payType">
+                                    <span></span>
+                                    <span class="txt">话费支付</span>
+                                </label>
+                                <i class="icon-recommend layout-center-y"></i>
+                            </div>
+                            <div class="form-wrap">
+                                <div class="form-row pb-18">
+                                    <div class="row-left w-200 required">使用业务代码：</div>
+                                    <div class="row-right">
+                                        <div class="radio-wrap">
+                                            <label class="radio-module w-70">
+                                                <input value="1" v-model="formData.free" name="free" type="radio">
+                                                <span></span>
+                                                <span class="txt">是</span>
+                                            </label>
+                                            <label class="radio-module w-70">
+                                                <input value="2" v-model="formData.free" name="free" type="radio">
+                                                <span></span>
+                                                <span class="txt">否</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="row-left w-200 required">业务代码选择：</div>
+                                    <div class="row-right">
+                                        <input class="form-input w-200 pointer" type="text" readonly
+                                               placeholder="业务代码选择">
+                                        <i class="icon-select icon"></i>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="row-left w-200 required">资费类型</div>
+                                    <div class="row-right">
+                                        <p class="txt font-14">包月</p>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="row-left w-200 required">是否重复订购</div>
+                                    <div class="row-right">
+                                        <div class="radio-wrap">
+                                            <label class="radio-module w-70">
+                                                <input value="1" v-model="formData.free" name="free" type="radio">
+                                                <span></span>
+                                                <span class="txt">是</span>
+                                            </label>
+                                            <label class="radio-module w-70">
+                                                <input value="2" v-model="formData.free" name="free" type="radio">
+                                                <span></span>
+                                                <span class="txt">否</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row ">
+                                    <div class="row-left w-200 required">产品周期</div>
+                                    <div class="row-right">
+                                        <p class="txt font-14">永久有效</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="item-head ">
+                                <label class="checkbox-module">
+                                    <input type="checkbox" name="payType">
+                                    <span></span>
+                                    <span class="txt">第三方支付</span>
+                                </label>
+                            </div>
+                            <div class="form-wrap">
+                                <div class="form-row">
+                                    <div class="row-left w-200 required">资费金额（分）：</div>
+                                    <div class="row-right">
+                                        <input type="text" class="form-input w-200" v-model="formData.channelId"
+                                               placeholder="请输入"/>
+                                        <i class="icon icon-close-round" @click="remove('channelId')"></i>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="row-left w-200 required">消费类型：</div>
+                                    <div class="row-right">
+                                        <p class="txt font-14">点播</p>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="row-left w-200 required">是否重复订购：</div>
+                                    <div class="row-right">
+                                        <div class="radio-wrap">
+                                            <label class="radio-module w-70">
+                                                <input value="1" v-model="formData.free" name="free" type="radio">
+                                                <span></span>
+                                                <span class="txt">是</span>
+                                            </label>
+                                            <label class="radio-module w-70">
+                                                <input value="2" v-model="formData.free" name="free" type="radio">
+                                                <span></span>
+                                                <span class="txt">否</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="row-left w-200 required">是否重复订购</div>
+                                    <div class="row-right">
+                                        <div class="radio-wrap">
+                                            <label class="radio-module w-70">
+                                                <input value="1" v-model="formData.free" name="free" type="radio">
+                                                <span></span>
+                                                <span class="txt">是</span>
+                                            </label>
+                                            <label class="radio-module w-70">
+                                                <input value="2" v-model="formData.free" name="free" type="radio">
+                                                <span></span>
+                                                <span class="txt">否</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row ">
+                                    <div class="row-left w-200 required">产品周期：</div>
+                                    <div class="row-right">
+                                        <div class="block-dom pb-20">
+                                            <v-select-box w="200" selectTitle="有限" selectType="1"
+                                                          v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                        </div>
+                                        <div class="block-dom ">
+                                            <input value="1" type="text" class="mr-10 form-input w-80 vt-middle">
+                                            <div class="layout-inline-middle">
+                                                <v-select-box w="110" selectTitle="月" selectType="1"
+                                                              v-bind:options="['并且','或者']"></v-select-box>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="row-left"></div>
+                    <div class="row-right">
+                        <div class="btn-group">
+                            <div class="btn btn-primary btn-middle"  @click="nextStep">下一步</div>
+                            <div class="btn btn-default btn-middle" >取消</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     
         <modal name="businessAreaModal" :width="800" :height="440" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'businessAreaModal'">
@@ -151,7 +302,7 @@
                     businessArea: '',
                     vipProduct: '1',
                     repeatBuy: '1',
-                    useCode:'1'
+                    useCode: '1'
                 }
             }
         },
@@ -170,13 +321,13 @@
             beforeClose (event) {
                 //todo:
             },
-            
+
             /**
              * 跳到下一步
              * */
             nextStep(){
                 this.bus.$emit('curStep', 2);
-                this.$router.push({ 'name': 'Step2' });
+                this.$router.push({'name': 'Step2'});
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
 
@@ -220,38 +371,43 @@
         background-size: 100% 100%;
     }
     
-    
     .add-step-1 {
         font-size: 14px;
         color: #333333;
-        .inline-dom{
-            display: inline-block;
+        box-sizing: border-box;
+        
+        .form-wrap {
+            padding: 40px 110px;
+            .form-row {
+                padding-bottom: 20px;
+            }
+            .row-left {
+                width: 193px;
+            }
+            .row-right {
+                
+            }
+            
         }
-        input {
-            &[type='text'] {
-                border-radius: 4px;
-                color: #333333;
-                &:focus {
-                    box-shadow: 0 0 3px 2px #EEFAFF;
+        
+        .type-area {
+            width: 700px;
+            border: 1px solid #D6E1E5;
+            border-radius: 4px;
+            .item {
+                padding: 16px 19px;
+                &:nth-child(1) {
+                    border-bottom: 1px solid #d6e1e5;
                 }
-                border: 1px solid #D6E1E5 !important;
-            }
-        }
-        
-        textarea {
-            border-radius: 4px;
-            color: #333333;
-            border: 1px solid #D6E1E5 !important;
-            &:focus {
-                box-shadow: 0 0 3px 2px #EEFAFF;
-            }
-        }
-        
-        select {
-            border-radius: 4px;
-            border: 1px solid #D6E1E5 !important;
-            &:focus {
-                box-shadow: 0 0 3px 2px #EEFAFF;
+                .item-head {
+                    position: relative;
+                }
+                .form-wrap {
+                    padding: 30px 76px 0;
+                    .form-row {
+                        padding-bottom: 15px;
+                    }
+                }
             }
         }
         
@@ -268,45 +424,13 @@
                 background-size: 100%;
                 cursor: pointer;
             }
+            &-recommend {
+                position: absolute;
+                left: 110px;
+                @include bg("icon-recommend.png", 57px, 26px);
+            }
         }
         
-        
-        .btn-group{
-            margin: 100px 0 50px;
-        }
-    }
-    
-    .add-step-1{
-        font-size: 14px;
-        color: #333333;
-        box-sizing: border-box;
-    
-        .form-wrap {
-            padding: 40px 110px;
-            .form-row{
-                padding-bottom: 20px;
-            }
-            .row-left {
-                width: 193px;
-            }
-            .row-right {
-            
-            }
-            
-        }
-        
-        .type-area{
-            width: 700px;
-            padding: 16px 19px;
-            border: 1px solid #D6E1E5;
-            border-radius: 4px;
-            .item{
-                
-            }
-        }
-    
-    
-    
         .btn-group {
             margin: 25px 0 50px;
         }

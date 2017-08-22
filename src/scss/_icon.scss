@@ -22,4 +22,10 @@
         height: 19px;
         @include bg("def.png");
     }
+    &-check {
+        @include bg('icon-checkbox.png',16px,16px);
+        &.active{
+            @include bg('icon-checkbox-active.png',16px,16px);
+        }
+    }
 }
