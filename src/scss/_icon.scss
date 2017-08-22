@@ -8,6 +8,11 @@
         @include bg("icon-add-blue.png");
     }
 
+    &.icon-batch-lead-in-white {
+        width: 16px;
+        height: 16px;
+    }
+
     &.icon-del-blue{
         width: 16px;
         height: 16px;
@@ -21,6 +26,7 @@
     &.icon-edit-gray {
         width: 16px;
         height: 16px;
+        @include bg('edit.png');
     }
 
     &.icon-del-gray {
@@ -38,6 +44,7 @@
     }
     &-check {
         @include bg('icon-checkbox.png',16px,16px);
+
         &.active{
             @include bg('icon-checkbox-active.png',16px,16px);
         }

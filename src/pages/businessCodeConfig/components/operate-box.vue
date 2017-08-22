@@ -6,14 +6,20 @@
             </div>
 
             <div class="batch-lead-in-btn">
+                <i class="icon icon-batch-lead-in-white"></i>
+
                 批量导入
             </div>
 
             <div class="new-add-code-btn">
+                <i class="icon icon-add-blue"></i>
+
                 新增代码
             </div>
 
             <div class="batch-delete-btn">
+                <i class="icon icon-del-blue"></i>
+
                 批量删除
             </div>
         </div>
@@ -63,9 +69,13 @@
             .new-add-code-btn,
             .batch-delete-btn {
                 display: inline-block;
-                padding: 10px 15px;
+                padding: 8px 10px;
                 margin: 0 5px;
                 border-radius: 4px;
+
+                i {
+                    vertical-align: sub;
+                }
             }
 
             .batch-lead-in-btn {
