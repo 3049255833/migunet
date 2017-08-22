@@ -36,11 +36,23 @@
     padding-bottom: 18px;
 
     .row-left{
+        position: relative;
         width: 220px;
+        padding-left: 12px;
         font-size: 14px;
     }
     .row-right{
         position: relative;
+    }
+    .required{
+        &:before{
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: '*';
+            color: #f95a46;
+            font-weight: bold;
+        }
     }
 
     &.no-pd{
@@ -62,6 +74,19 @@
         }
     }
 
+}
+
+.textarea-module{
+    width: 340px;
+    min-height: 78px;
+    padding: 10px;
+    border: 1px solid #D6E1E5;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #333333;
+    font-size: 12px;
+    line-height: 1.8;
+    box-sizing: border-box;
 }
 
 input {
@@ -86,6 +111,7 @@ input {
         }
         border: 1px solid #D6E1E5 !important;
     }
+
     transition: all .3s ease ;
 }
 

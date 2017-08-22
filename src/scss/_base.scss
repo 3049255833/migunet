@@ -13,7 +13,7 @@
     }
 }
 
-/* padding margin */
+/* padding margin  width*/
 
 .mr-10{
     margin-right: 10px !important;
@@ -35,6 +35,18 @@
 }
 .no-bd{
     border: 0;
+}
+.w-80{
+    width: 80px;
+}
+.w-100{
+    width: 100px;
+}
+.w-200{
+    width: 200px;
+}
+.w-340{
+    width: 340px;
 }
 
 /* layout vertical*/
@@ -73,10 +85,7 @@
 
 /* tip */
 
-.required {
-    color: #f95a46;
-    padding-right: 6px;
-}
+
 .pointer{
     cursor: pointer!important;
 }

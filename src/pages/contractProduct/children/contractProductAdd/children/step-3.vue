@@ -2,8 +2,7 @@
     <div class="add-step-3">
         <div class="form-wrap ">
             <div class="form-row">
-                <div class="row-left">
-                    <span class="required">*</span>
+                <div class="row-left required">
                     是否体验产品：
                 </div>
                 <div class="row-right">
@@ -22,12 +21,11 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="row-left">
-                    <span class="required">*</span>
+                <div class="row-left required">
                     体验产品周期：
                 </div>
                 <div class="row-right">
-                    <input class="form-input mr-10" type="text" placeholder="请输入">
+                    <input class="form-input mr-10 w-80" type="text" placeholder="请输入">
                     <div class="layout-inline-middle">
                         <div class="inline-dom">
                             <v-select-box w="110" selectTitle="并且" selectType="1"
@@ -38,13 +36,58 @@
             </div>
             <div class="form-row">
                 <div class="row-left">
-                    <span class="required">*</span>
                     限制发送提示短信省份：
                 </div>
                 <div class="row-right">
-                    <input class="form-input pointer" @click="showAreaChoseModal" v-model="formData.businessArea" type="text" readonly
+                    <input class="form-input pointer w-200" @click="showAreaChoseModal" v-model="formData.businessArea" type="text" readonly
                            placeholder="请选择"/>
                     <i class="icon icon-select"></i>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="row-left">
+                    订购成功下发提示短信：
+                </div>
+                <div class="row-right">
+                    <textarea class="textarea-module" placeholder="请选择"></textarea>
+                    <i class="icon icon-select"></i>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="row-left">
+                    订购成功下发推荐短信：
+                </div>
+                <div class="row-right">
+                    <textarea class="textarea-module" placeholder="请选择"></textarea>
+                    <i class="icon icon-select"></i>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="row-left">
+                    互斥产品添加：
+                </div>
+                <div class="row-right">
+                    <textarea class="textarea-module" placeholder="请选择"></textarea>
+                    <i class="icon icon-select"></i>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="row-left">
+                    依赖产品：
+                </div>
+                <div class="row-right">
+                    <input class="form-input w-340" placeholder="请选择" readonly>
+                    <i class="icon icon-select"></i>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="row-left">
+                </div>
+                <div class="row-right">
+                    <div class="btn-group">
+                        <div class="btn btn-primary btn-middle" @click="nextStep" >完成</div>
+                        <div class="btn btn-default btn-middle" >取消</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,8 +164,7 @@
         
         
         .btn-group {
-            margin: 100px 0 50px;
-            padding-left: 160px;
+            margin: 25px 0 50px;
         }
     }
 </style>
