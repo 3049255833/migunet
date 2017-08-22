@@ -1,6 +1,6 @@
 <template>
     <div class="s-wrapper">
-        <div class="s-select" :style="{width:this.w+'px'}" @click.stop="showSelect">{{selected}}</div>
+        <div class="select-show" :style="{width:this.w+'px'}" @click.stop="showSelect">{{selected}}<i class="icon layout-center-y icon-arrow-down"></i></div>
         <div class="option-mask" :style="{width:this.w+'px'}" v-bind:class="{opMask:optionWhatStatus}">
             <div class="option-item" @click.stop="selectItem(option)" v-for="option in options">{{option}}</div>
             <!--<div class="option-item">222</div>-->
@@ -98,19 +98,22 @@
         background: url('../../assets/arrow-down.png') no-repeat 90% 11px;
     }
     
-    .s-select {
+    .select-show {
+        position: relative;
+        box-sizing: border-box;
         width: 150px;
-        height: 32px;
-        background: #ffffff;
+        height: 34px;
         padding-left: 5px;
+        background: #ffffff;
         font-size: 12px;
         color: #333;
-        box-sizing: border-box;
         border: solid 1px #d6e1e5;
         border-radius: 3px;
-        line-height: 28px;
-        background: url('../../assets/arrow-down.png') no-repeat 90% 12px;
+        line-height: 34px;
         cursor: pointer;
+        .icon{
+            right: 8px;
+        }
     }
     
     .option-mask {
@@ -127,7 +130,7 @@
         & :before {
             position: absolute;
             right: 10%;
-            top: -10px;
+            top: -11px;
             content: "";
             border: 5px solid rgba(0, 0, 0, 0);
             border-bottom-color: #d6e1e5;
@@ -136,7 +139,7 @@
         & :after {
             position: absolute;
             right: 10%;
-            top: -9px;
+            top: -10px;
             content: "";
             border: 5px solid rgba(0, 0, 0, 0);
             border-bottom-color: #fff;

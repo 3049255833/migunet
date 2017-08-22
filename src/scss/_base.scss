@@ -1,11 +1,5 @@
-.txt-l {
-    text-align: left;
-    color: red;
-}
 
-.txt-r {
-    text-align: right;
-}
+/* clear float */
 
 .clearfix {
     zoom: 1;
@@ -19,107 +13,85 @@
     }
 }
 
+/* padding margin */
+
 .mr-10{
     margin-right: 10px !important;
 }
-.inline-dom{
-    display: inline-block;
+.mr-15{
+    margin-right: 15px;
 }
+.mr-20{
+    margin-right: 20px;
+}
+.pb-25{
+    padding-bottom: 25px!important;
+}
+.no-pd{
+    padding: 0!important;
+}
+.no-mg{
+    margin: 0 !important;
+}
+.no-bd{
+    border: 0;
+}
+
+/* layout vertical*/
+
+.vt-middle{
+    vertical-align: middle !important;
+}
+.vt-top{
+    vertical-align: top;
+}
+.vt-top{
+    vertical-align: baseline;
+}
+
+/* display */
+
+.inline-dom{
+    display: inline-block !important;
+}
+.block-dom{
+    display: block !important;
+}
+
+/* text-align */
+
+.txt-l {
+    text-align: left;
+    color: red;
+}
+.txt-r {
+    text-align: right;
+}
+.txt-center {
+    text-align: center;
+}
+
+/* tip */
+
 .required {
     color: #f95a46;
     padding-right: 6px;
 }
-
-.form{
-	$col: 12;
-	width: 100%;
-
-	.form-row{
-		width: 100%;
-	}
-	.form-col-1{
-		float: left;
-		width: (1/$col)*100 + %;
-	}
-	.form-col-2{
-		float: left;
-		width: (2/$col)*100 + %;
-	}
-	.form-col-3{
-		float: left;
-		width: (3/$col)*100 + %;
-	}
-	.form-col-4{
-		float: left;
-		width: (4/$col)*100 + %;
-	}
-	.form-col-5{
-		float: left;
-		width: (5/$col)*100 + %;
-	}
-	.form-col-6{
-		float: left;
-		width: (6/$col)*100 + %;
-	}
-	.form-col-7{
-		float: left;
-		width: (7/$col)*100 + %;
-	}
-	.form-col-8{
-		float: left;
-		width: (8/$col)*100 + %;
-	}
-	.form-col-9{
-		float: left;
-		width: (9/$col)*100 + %;
-	}
-	.form-col-10{
-		float: left;
-		width: (10/$col)*100 + %;
-	}
-	.form-col-11{
-		float: left;
-		width: (11/$col)*100 + %;
-	}
-	.form-col-12{
-		float: left;
-		width: (12/$col)*100 + %;
-	}
+.pointer{
+    cursor: pointer!important;
 }
 
-.form-row{
-    font-size: 0;
-    padding-bottom: 18px;
-    &.no-pd{
-        padding-bottom: 0;
-    }
-    &>div{
-        display: inline-block;
-        font-size: 12px;
-        color: #333;
-        line-height: 32px;
-        vertical-align: top;
-    }
-    .row-left{
-        width: 98px;
-    }
-    .row-right{
+/* layout */
 
-    }
-    &:last-child{
-        padding-bottom: 0;
-    }
-    &.font-row-14{
-        &>div{
-            font-size: 14px;
-        }
-    }
+.layout-center-y{
+    @include centerY();
 }
-
-// .self-scrollbar::-webkit-scrollbar              { width: 5px; height: 5px; }
-/* .self-scrollbar::-webkit-scrollbar-button       { }*/
-/* .self-scrollbar::-webkit-scrollbar-track        { *//* 3 *//* }*/
-/* .self-scrollbar::-webkit-scrollbar-track-piece  { *//* 4 *//* }*/
-/* .self-scrollbar::-webkit-scrollbar-thumb        { *//* 5 *//* }*/
-/* .self-scrollbar::-webkit-scrollbar-corner       { display:none; }*/
-/* .self-scrollbar::-webkit-resizer                { *//* 7 *//* }*/
+.layout-center-x{
+    position: absolute;
+    left: 50%;
+    transform:translateX(-50%);
+}
+.layout-inline-middle{
+    display: inline-block;
+    vertical-align: middle !important;
+}

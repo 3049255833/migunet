@@ -8,3 +8,8 @@ $image-base-path: '../assets/';
     background: url('#{$image-base-path}#{$URI}') $repeat $x $y;
     background-size: 100% 100%;
 }
+@mixin centerY(){
+    position: absolute;
+    top: 50%;
+    transform:translateY(-50%);
+}

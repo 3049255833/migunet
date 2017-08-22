@@ -55,7 +55,7 @@
             </div>
             <div class="input-row">
                 <span class="input-text"> <span class="required">*</span> 是否会员产品：</span>
-                <div class="radio-wrapper">
+                <div class="radio-wrap">
                     <label class="radio-module">
                         <input value="1" v-model="formData.vipProduct" name="vipProduct" type="radio">
                         <span></span>
@@ -70,7 +70,7 @@
             </div>
             <div class="input-row">
                 <span class="input-text"> <span class="required">*</span> 是否重复订购：</span>
-                <div class="radio-wrapper">
+                <div class="radio-wrap">
                     <label class="radio-module">
                         <input value="1" v-model="formData.repeatBuy" name="repeatBuy" type="radio">
                         <span></span>
@@ -105,7 +105,7 @@
             </div>
             <div class="input-row">
                 <span class="input-text"> <span class="required">*</span> 是否使用业务代码：</span>
-                <div class="radio-wrapper">
+                <div class="radio-wrap">
                     <label class="radio-module">
                         <input value="1" v-model="formData.useCode" name="useCode" type="radio">
                         <span></span>
@@ -135,7 +135,7 @@
         </div>
         <modal name="businessArea" :width="800" :height="440" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'businessArea'">
-                <business-area-chose :modal-name="'businessArea'"></business-area-chose>
+                <area-chose :modal-name="'businessArea'"></area-chose>
             </t-modal-sub-container>
         </modal>
     </div>
@@ -143,7 +143,7 @@
 <script>
     import PickDate from '@/components/PickDate/PickDate'
     import TModalSubContainer from "@/components/modal-sub-container";
-    import BusinessAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/business-area-chose.vue'
+    import AreaChose from '@/pages/contractProduct/components/area-chose.vue'
     import VSelectBox from '@/components/select-box'
 
     export default{
@@ -162,7 +162,7 @@
         components: {
             PickDate,
             TModalSubContainer,
-            BusinessAreaChose,
+            AreaChose,
             VSelectBox
         },
         methods: {
@@ -179,6 +179,7 @@
             nextStep(){
                 this.bus.$emit('curStep', 2);
                 this.$router.push({ 'name': 'Step2' });
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
 
             /**
@@ -230,9 +231,8 @@
         background: #fff;
         line-height: 32px;
         border: 1px solid #46bafe;
-        cursor: default;
         box-sizing: border-box;
-        border-radius: 5px;
+        border-radius: 4px;
         text-align: center;
         cursor: pointer;
     }
@@ -322,9 +322,10 @@
         width: 165px;
         display: inline-block;
         line-height: 32px;
-        margin-right: 70px;
-        text-align: right;
+        margin-right: 20px;
+        text-align: left;
         vertical-align: top;
+        padding-left: 40px;
     }
     
     .required {
@@ -399,18 +400,6 @@
         }
         
         .icon {
-            &-select {
-                position: absolute;
-                right: 7px;
-                top: 10px;
-                display: inline-block;
-                vertical-align: middle;
-                width: 20px;
-                height: 19px;
-                background: url("#{$image-base-path}def.png");
-                background-size: 100%;
-                cursor: pointer;
-            }
             &-close-round {
                 position: absolute;
                 right: 10px;
