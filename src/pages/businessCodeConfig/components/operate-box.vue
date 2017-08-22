@@ -72,6 +72,7 @@
                 padding: 8px 10px;
                 margin: 0 5px;
                 border-radius: 4px;
+                cursor: pointer;
 
                 i {
                     vertical-align: sub;
