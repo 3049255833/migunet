@@ -103,7 +103,7 @@
         box-sizing: border-box;
         width: 150px;
         height: 34px;
-        padding-left: 5px;
+        padding-left: 10px;
         background: #ffffff;
         font-size: 12px;
         color: #333;

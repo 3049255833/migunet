@@ -1,141 +1,137 @@
 <template>
     <div class="add-step-1">
-        <div class="input-area">
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span> 产品名称（中文）：</span>
-                <span class="row-wrapper">
-              <input type="text" placeholder="请输入"/>
-            </span>
+        <div class="form-wrap ">
+            <div class="form-row">
+                <div class="row-left required">产品名称（中文）：</div>
+                <div class="row-right">
+                    <input class="form-input pointer w-200" type="text"
+                           placeholder="请输入"/>
+                </div>
             </div>
-            <div class="input-row">
-                <span class="input-text">  产品描述（中文）：</span>
-                <span class="row-wrapper row-wrapper-ta">
-              <textarea placeholder="请输入"></textarea>
-            </span>
+            <div class="form-row">
+                <div class="row-left">产品描述（中文）：</div>
+                <div class="row-right">
+                    <textarea class="textarea-module w-340" type="text" placeholder="请输入"></textarea>
+                </div>
             </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span>搜索关键字：</span>
-                <span class="row-wrapper row-wrapper-ta">
-              <textarea placeholder="请输入"></textarea>
-            </span>
+            <div class="form-row">
+                <div class="row-left required">
+                    搜索关键字：
+                </div>
+                <div class="row-right">
+                    <textarea class="textarea-module w-340" type="text" placeholder="搜索关键字将用于用户搜索功能，请输入断句，逗号 ‘，’隔开，例：‘漫画，青少年’"></textarea>
+                </div>
             </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span>生效时间：</span>
-                <span class="row-wrapper">
-              <pick-date></pick-date>
-            </span>
+            <div class="form-row">
+                <div class="required row-left">
+                    生效时间：
+                </div>
+                <div class="row-right">
+                    <v-date :class="'w-200'"></v-date>
+                </div>
             </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span>失效时间：</span>
-                <span class="row-wrapper">
-              <pick-date></pick-date>
-            </span>
+            <div class="form-row">
+                <div class="required row-left">
+                    失效时间：
+                </div>
+                <div class="row-right">
+                    <v-date :class="'w-200'"></v-date>
+                </div>
             </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span>业务归属地：</span>
-                <div class="row-wrapper row-wrapper-new">
-                    <input @click="showBusinessAreaModal" v-model="formData.businessArea" type="text" readonly
+            <div class="form-row">
+                <div class="row-left">
+                    业务归属地：
+                </div>
+                <div class="row-right">
+                    <input @click="showBusinessAreaModal " class="form-input w-200 pointer" v-model="formData.businessArea" type="text" readonly
                            placeholder="请输入"/>
                     <i class="icon icon-select"></i>
                 </div>
             </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span> 渠道ID：</span>
-                <span class="row-wrapper">
-              <input type="text" v-model="formData.channelId" placeholder="请输入"/>
-                    <i class="icon icon-close-round" @click="remove('channelId')"></i>
-            </span>
-            </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span> 产品目录：</span>
-                <div class="row-wrapper row-wrapper-new">
+            <div class="form-row">
+                <div class="row-left required">
+                    产品目录：
+                </div>
+                <div class="row-right">
                     <v-select-box w="200" selectTitle="产品目录" selectType="1"
                                   v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                 </div>
             </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span> 是否会员产品：</span>
-                <div class="radio-wrap">
-                    <label class="radio-module">
-                        <input value="1" v-model="formData.vipProduct" name="vipProduct" type="radio">
-                        <span></span>
-                        <span class="txt">会员</span>
-                    </label>
-                    <label class="radio-module">
-                        <input value="2" v-model="formData.vipProduct" name="vipProduct" type="radio">
-                        <span></span>
-                        <span class="txt">非会员</span>
-                    </label>
+            <div class="form-row">
+                <div class="row-left required">
+                    是否会员产品
                 </div>
-            </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span> 是否重复订购：</span>
-                <div class="radio-wrap">
-                    <label class="radio-module">
-                        <input value="1" v-model="formData.repeatBuy" name="repeatBuy" type="radio">
-                        <span></span>
-                        <span class="txt">是</span>
-                    </label>
-                    <label class="radio-module">
-                        <input value="2" v-model="formData.repeatBuy" name="repeatBuy" type="radio">
-                        <span></span>
-                        <span class="txt">否</span>
-                    </label>
-                </div>
-            </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span> 产品周期：</span>
-                <div class="row-wrapper row-wrapper-new">
-                    <v-select-box selectType="1" w="200" selectTitle="有效周期"
-                                  v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
-                </div>
-            </div>
-            <div class="input-row">
-                <span class="input-text"></span>
-                <div class="row-wrapper row-wrapper-w">
-                    <div class="inline-dom mr-10">
-                        <v-select-box selectType="1" w='80' selectTitle="默认1"
-                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
-                    </div>
-                    <div class="inline-dom">
-                        <v-select-box selectType="1" w="110" selectTitle="默认月"
-                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                <div class="row-right">
+                    <div class="radio-wrap">
+                        <label class="radio-module w-70">
+                            <input value="1" v-model="formData.vipProduct" name="vipProduct" type="radio">
+                            <span class="mr-3"></span>
+                            <span class="txt">会员</span>
+                        </label>
+                        <label class="radio-module">
+                            <input value="2" v-model="formData.vipProduct" name="vipProduct" type="radio">
+                            <span class="mr-3"></span>
+                            <span class="txt">非会员</span>
+                        </label>
                     </div>
                 </div>
             </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span> 是否使用业务代码：</span>
-                <div class="radio-wrap">
-                    <label class="radio-module">
-                        <input value="1" v-model="formData.useCode" name="useCode" type="radio">
-                        <span></span>
-                        <span class="txt">是</span>
-                    </label>
-                    <label class="radio-module">
-                        <input value="2" v-model="formData.useCode" name="useCode" type="radio">
-                        <span></span>
-                        <span class="txt">否</span>
-                    </label>
+            <div class="form-row">
+                <div class="row-left required">
+                    是否重复订购
+                </div>
+                <div class="row-right">
+                    <div class="radio-wrap">
+                        <label class="radio-module w-70">
+                            <input value="1"  name="repeat" type="radio">
+                            <span class="mr-3"></span>
+                            <span class="txt">是</span>
+                        </label>
+                        <label class="radio-module">
+                            <input value="2"  name="repeat" type="radio">
+                            <span class="mr-3"></span>
+                            <span class="txt">否</span>
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div class="input-row">
-                <span class="input-text"> <span class="required">*</span> 业务代码选择：</span>
-                <div class="row-wrapper row-wrapper-new">
-                    <v-select-box selectType="1" w="200" selectTitle="业务代码选择"
-                                  v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+            <div class="form-row">
+                <div class="row-left required">
+                    产品周期
+                </div>
+                <div class="row-right">
+                    <input value="1" type="text" class="mr-10 form-input w-80 vt-middle">
+                    <div class="layout-inline-middle">
+                        <v-select-box w="110" selectTitle="并且" selectType="1"
+                                      v-bind:options="['并且','或者']"></v-select-box>
+                    </div>
                 </div>
             </div>
-            <div class="input-row btn-group">
-                <span class="input-text">&nbsp;</span>
-                <span class="row-wrapper row-wrapper-no">
-              <span class="tb-reset l-content-w tb-search" @click="nextStep">下一步</span>
-              <span class="tb-reset l-content-w">取消</span>
-            </span>
+            <div class="form-row">
+                <div class="row-left required">
+                    渠道ID：
+                </div>
+                <div class="row-right">
+                    <input type="text" class="form-input w-200" v-model="formData.channelId" placeholder="请输入"/>
+                    <i class="icon icon-close-round" @click="remove('channelId')"></i>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="row-left required">
+                    支付方式：
+                </div>
+                <div class="row-right">
+                    <div class="type-area">
+                        <div class="item"></div>
+                        <div class="item"></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <modal name="businessArea" :width="800" :height="440" @before-close="beforeClose">
-            <t-modal-sub-container :title="'选择业务归属地'" :name="'businessArea'">
-                <area-chose :modal-name="'businessArea'"></area-chose>
+    
+        <modal name="businessAreaModal" :width="800" :height="440" @before-close="beforeClose">
+            <t-modal-sub-container :title="'选择业务归属地'" :name="'businessAreaModal'">
+                <area-chose :modal-name="'businessAreaModal'"></area-chose>
             </t-modal-sub-container>
         </modal>
     </div>
@@ -145,6 +141,7 @@
     import TModalSubContainer from "@/components/modal-sub-container";
     import AreaChose from '@/pages/contractProduct/components/area-chose.vue'
     import VSelectBox from '@/components/select-box'
+    import VDate from '@/components/date'
 
     export default{
         data(){
@@ -163,7 +160,8 @@
             PickDate,
             TModalSubContainer,
             AreaChose,
-            VSelectBox
+            VSelectBox,
+            VDate
         },
         methods: {
             /**
@@ -186,7 +184,7 @@
              * 显示业务归属地弹框
              * */
             showBusinessAreaModal(){
-                this.$modal.show('businessArea');
+                this.$modal.show('businessAreaModal');
             },
 
             /**
@@ -222,148 +220,6 @@
         background-size: 100% 100%;
     }
     
-    .tb-reset {
-        display: inline-block;
-        font-size: 14px;
-        color: #46bafe;
-        width: 74px;
-        height: 32px;
-        background: #fff;
-        line-height: 32px;
-        border: 1px solid #46bafe;
-        box-sizing: border-box;
-        border-radius: 4px;
-        text-align: center;
-        cursor: pointer;
-    }
-    
-    /*.tb-reset:hover{
-      
-    }*/
-    .l-content-w {
-        margin-right: 20px;
-    }
-    
-    .tb-search {
-        background: #46bafe;
-        color: #ffffff;
-    }
-    
-    .table-wrapper {
-        /*float: left;*/
-        /*margin-left: 20px;*/
-        /*width: 1050px;*/
-        background: #ffffff;
-        padding-bottom: 30px;
-    }
-    
-    /*.main-wrapper:after{
-      content: '';
-      display: block;
-      clear: both;
-    }*/
-    .main-wrapper:before,
-    .main-wrapper:after {
-        content: " ";
-        display: table;
-    }
-    
-    .main-wrapper:after {
-        clear: both;
-    }
-    
-    .date-wrapper {
-        
-    }
-    
-    .bread-link:hover {
-        color: #46bafe;
-        cursor: pointer;
-    }
-    
-    .input-row {
-        position: relative;
-    }
-    
-    .input-row + .input-row {
-        margin-top: 18px;
-    }
-    
-    .row-wrapper {
-        position: relative;
-        display: inline-block;
-        width: 200px;
-        background: #ffffff;
-        &.row-wrapper-w{
-            width: auto;
-        }
-    }
-    
-    .row-wrapper-ta {
-        width: 340px;
-        height: 80px;
-    }
-    
-    .row-wrapper textarea {
-        width: 340px;
-        height: 80px;
-        box-sizing: border-box;
-    }
-    
-    .row-wrapper input[type='text'] {
-        width: 200px;
-        height: 32px;
-        padding-left: 5px;
-        box-sizing: border-box;
-        border: solid 1px #d6e1e5;
-    }
-    
-    .input-text {
-        width: 165px;
-        display: inline-block;
-        line-height: 32px;
-        margin-right: 20px;
-        text-align: left;
-        vertical-align: top;
-        padding-left: 40px;
-    }
-    
-    .required {
-        color: #C0262C;
-    }
-    
-    #city-select {
-        background: #ffffff;
-        width: 200px;
-        height: 32px;
-        padding-left: 5px;
-        box-sizing: border-box;
-        border: solid 1px #d6e1e5;
-        background: url("#{$image-base-path}def.png") no-repeat 97% 7px;
-        border-radius: 0;
-    }
-    
-    .row-wrapper-no {
-        background: transparent;
-        margin-top: 10px;
-    }
-    
-    .add-title {
-        font-size: 14px;
-        color: #292c31;
-        font-weight: bold;
-        line-height: 50px;
-        padding-left: 20px;
-    }
-    
-    .add-main {
-        background: #f4f4f4;
-    }
-    
-    .input-area {
-        margin-top: 30px;
-        padding-left: 40px;
-    }
     
     .add-step-1 {
         font-size: 14px;
@@ -417,6 +273,42 @@
         
         .btn-group{
             margin: 100px 0 50px;
+        }
+    }
+    
+    .add-step-1{
+        font-size: 14px;
+        color: #333333;
+        box-sizing: border-box;
+    
+        .form-wrap {
+            padding: 40px 110px;
+            .form-row{
+                padding-bottom: 20px;
+            }
+            .row-left {
+                width: 193px;
+            }
+            .row-right {
+            
+            }
+            
+        }
+        
+        .type-area{
+            width: 700px;
+            padding: 16px 19px;
+            border: 1px solid #D6E1E5;
+            border-radius: 4px;
+            .item{
+                
+            }
+        }
+    
+    
+    
+        .btn-group {
+            margin: 25px 0 50px;
         }
     }
 </style>
