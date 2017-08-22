@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="row-left"><span class="required"></span>是否免费：</div>
+                            <div class="row-left required">是否免费：</div>
                             <div class="row-right">
                                 <div class="radio-wrap">
                                     <label class="radio-module w-70">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="row-left"><span class="required"></span>资费计划：</div>
+                            <div class="row-left required">资费计划：</div>
                             <div class="row-right">
                                 <textarea placeholder="请选择" readonly></textarea>
                             </div>
