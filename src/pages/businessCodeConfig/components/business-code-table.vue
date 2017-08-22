@@ -1,56 +1,37 @@
 <template>
-    <div class="table-container">
-        <div class="main-area">
-            <table class="NewTable2">
-                <thead>
-                <tr>
-                    <td width="150">产品名称</td>
-                    <td>产品ID</td>
-                    <td>CP／TP ID</td>
-                    <td>资费(分)</td>
-                    <td>业务状态</td>
-                    <td>审批状态</td>
-                    <td>操作</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <div class="l-app-name">名称</div>
-                    </td>
-                    <td>123432</td>
-                    <td>343</td>
-                    <td>233</td>
-                    <td>上线报备中</td>
-                    <td>变更报备失败</td>
-                    <td class="option td-blue">详情</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="l-app-name">名称</div>
-                    </td>
-                    <td>123432</td>
-                    <td>343</td>
-                    <td>233</td>
-                    <td>上线报备中</td>
-                    <td>变更报备失败</td>
-                    <td class="option td-blue">详情</td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="l-app-name">名称</div>
-                    </td>
-                    <td>123432</td>
-                    <td>343</td>
-                    <td>233</td>
-                    <td>上线报备中</td>
-                    <td>变更报备失败</td>
-                    <td class="option td-blue">详情</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>业务代码ID</th>
+                <th>企业代码</th>
+                <th>业务代码名称</th>
+                <th>业务代码描述</th>
+                <th>分成类型</th>
+                <th>消费金额（分）</th>
+                <th>是否管理员</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    <div class="l-app-name">10000293</div>
+                </td>
+                <td>200090</td>
+                <td>动漫项目计费</td>
+                <td>动漫业务包</td>
+                <td>分成</td>
+                <td>12,000</td>
+                <td>是</td>
+                <td class="operation">
+                    <div class="edit icon icon-edit-gray"></div>
+
+                    <div class="delete icon icon-del-gray"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </template>
 
 <script>
@@ -74,99 +55,44 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
-    .table-container{
-        background: #ffffff;
-    }
     table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-
-    .NewTable2 {
         width: 100%;
-        font-size: 14px;
-        color: #333;
-        border-top: solid 1px #e1e1e1;
-        padding-top: 20px;
-    }
 
-    .NewTable2 thead {
-        background: #f2f8ff;
-    }
+        thead tr {
+            background-color: #f2f8ff;
 
-    legend, td, th {
-        padding: 0;
-    }
+            th {
+                padding: 20px 0;
+                font-size: 14px;
+                color: #4a4a4a;
+            }
+        }
 
-    .NewTable2 td, .dialog-ctn, .l-content-button, .nl-table, .tb-reset {
-        text-align: center;
-    }
+        tbody {
 
-    .NewTable2 td {
-        padding: 20px 0;
-        /*border-right: solid 1px #e1e1e1;*/
-        border-bottom: solid 1px #e1e1e1;
-    }
-    .NewTable2 tbody tr:hover{
-        background: #f7f7f7;
-    }
+            tr {
+                text-align: center;
+                border-bottom: 1px solid #ddd;
 
-    .btn, .l-app-name {
-        white-space: nowrap;
-    }
+                td {
+                    padding: 15px 0;
+                }
 
-    .l-app-name {
-        width: 143px;
-        display: block;
-        word-wrap: normal;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
+                .operation {
+                    /*.edit, .delete {
+                        width: 16px;
+                        height: 16px;
+                    }
 
-    .td-detail, .td-edit {
-        margin-right: 15px;
-        cursor: default;
-    }
+                    .delete {
+                        @include bg('icon-del-blue.png');
+                    }
 
-    .l-go, .td-delete, .td-detail, .td-edit {
-        display: inline-block;
-    }
-
-    .td-blue {
-        color: #46BAFE !important;
-    }
-
-    .td-red {
-        color: #f16767 !important;
-    }
-    .option{
-        cursor: pointer;
-    }
-    .tab-wrapper{
-        background: #f4f4f4;
-    }
-    .tab-wrapper:after{
-        content:'';
-        display: block;
-        clear: both;
-    }
-    .tab-item{
-        float: left;
-        line-height: 46px;
-        margin-right: 10px;
-        color:#1e1e1e;
-        font-size:14px;
-        background: #e5e6e8;
-        padding: 0 10px;
-        cursor: pointer;
-    }
-    .tab-item.active{
-        background: #ffffff;
-    }
-    input{
-        border-radius: 4px;
-        &:focus{
-
+                    .edit {
+                        @include bg("icon-add-blue.png");
+                    }*/
+                }
+            }
         }
     }
 </style>
