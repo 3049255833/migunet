@@ -22,7 +22,7 @@
 </template>
 <script>
     import VHeader from "@/components/header";
-    import VSideBar from "@/pages/home/children/sidebar";
+    import VSideBar from "@/pages/home/components/sidebar";
     import BreadNav from '@/pages/home/components/bread-nav';
 
 
