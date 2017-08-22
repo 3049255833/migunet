@@ -12,6 +12,7 @@ import Product from '@/components/Product/Product'
 import Home from '@/pages/home'
 import ContractProduct1 from '@/pages/ContractProduct'
 import SingleProduct from '@/pages/singleProduct'
+import BusinessCodeConfig from '@/pages/businessCodeConfig'
 import ProductDetail from '@/pages/singleProduct/children/productDetail'
 import Review from '@/pages/contractProduct/children/review'
 import ContractProductAdd from '@/pages/contractProduct/children/contractProductAdd'
@@ -83,6 +84,13 @@ export default new Router({
                     name: 'SingleProduct',
                     components:{
                         default:SingleProduct
+                    }
+                },
+                {
+                    path: 'business_code_config',
+                    name: 'BusinessCodeConfig',
+                    components:{
+                        default:BusinessCodeConfig
                     }
                 },
                 {
