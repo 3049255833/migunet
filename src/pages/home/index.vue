@@ -1,15 +1,23 @@
 <template>
     <div class="product-center">
+
         <v-header></v-header>
+
         <div class="product-center-content clearfix">
+
             <v-side-bar></v-side-bar>
+
             <div class="product-center-right">
-                <bread-nav></bread-nav>
+                <!--<bread-nav></bread-nav>-->
+
                 <div class="right-content">
+
                     <router-view></router-view>
+
                 </div>
             </div>
         </div>
+
     </div>
 </template>
 <script>
@@ -61,8 +69,10 @@
         position: relative;
         background: #f4f4f4;
         min-height: 700px;
+
         .product-center-right {
             margin: 0 auto 0 170px ;
+
             .right-content{
                 padding: 20px 20px 50px 20px;
                 background:#f4f4f4;

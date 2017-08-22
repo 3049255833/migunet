@@ -100,7 +100,7 @@
     .l-content-head {
         clear: both;
         display: block;
-        padding: 10px 20px;
+        padding: 14px 20px;
     }
     
     .l-content-head:after {
@@ -217,7 +217,7 @@
     }
     
     .l-space {
-        margin-right: 20px;
+        margin-right: 10px;
     }
     
     .date-wrapper {

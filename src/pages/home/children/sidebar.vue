@@ -6,14 +6,17 @@
                     <img v-show="menu.isSubShow" src="../../../images/t1.png" alt="">
                     <img v-show="!menu.isSubShow" src="../../../images/t2.png" alt="">
                 </div>
+
                 <div class="title-text">
                     {{menu.title1}}
                 </div>
             </div>
+
             <div class="nav-row-wrapper" :class="{'active':menu.isSubShow}">
                 <div class="nav-row" v-for="childMenu in menu.title2" :class="{'active':isShow}">
                     <router-link v-bind:to="childMenu.link" tag="div">
                         <span class="nav-circle"></span>
+
                         <div class="nav-title2" :class="{active:childMenu.isActive}">
                             {{childMenu.name}}
                         </div>
@@ -23,9 +26,11 @@
         </div>
     </nav>
 </template>
+
 <script>
     import Mock from 'mockjs'
     import axios from 'axios'
+
     var data = Mock.mock('http://address:port/menus', {
         "menus": [{
             "isSubShow": true,
@@ -63,6 +68,10 @@
             },
             {
                 "isSubShow": false,
+                "title1": "业务代码配置"
+            },
+            {
+                "isSubShow": false,
                 "title1": "BOSS计费代码",
                 // "title2":["合约产品管理 ","单品管理"]},
                 "title2": [
@@ -83,8 +92,7 @@
 
     export default {
         name: 'nav',
-        data ()
-        {
+        data () {
             return {
                 isShow: false,
                 menus: [],
@@ -97,7 +105,6 @@
                 // console.log(res.bodyText);
                 var res = res.data;
                 this.menus = res.menus;
-
             })
         },
         methods: {
@@ -129,7 +136,6 @@
         cursor: pointer;
         text-align: left;
         padding-left: 30px;
-        
     }
     
     .nav-area {
@@ -164,19 +170,10 @@
     .nav-title2 {
         display: inline-block;
         vertical-align: middle;
-        
     }
     
     .nav-title2:before {
-        /* content: '';
-         display: block;
-         clear: both;
-         width: 6px;
-         height: 6px;
-         left: 0px;
-         top: 0px;
-         background: #666666;
-         border-radius:50%;*/
+
     }
     
     .nav-title-icon {
@@ -201,7 +198,6 @@
         width: 4px;
         height: 4px;
         background: #666666;
-        
         margin-right: 5px;
         vertical-align: middle;
     }
@@ -219,9 +215,7 @@
     .nav-row-wrapper {
         background: #ececec;
     }
-    
-    /* .router-link-exact-active {*/
-    
+
     .nav-circle {
         background: #46bafe;
     }
@@ -229,6 +223,4 @@
     .nav-title2 {
         color: #46bafe;
     }
-
-
 </style>
