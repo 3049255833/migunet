@@ -5,6 +5,7 @@ import Home from '@/pages/home'
 import ContractProduct from '@/pages/ContractProduct'
 import SingleProduct from '@/pages/singleProduct'
 import BusinessCodeConfig from '@/pages/businessCodeConfig'
+import productCatalogManage from '@/pages/productCatalogManage'
 import SingleProductDetail from '@/pages/singleProduct/children/single-product-detail'
 import ContractProductDetail from '@/pages/contractProduct/children/contract-product-detail'
 import ContractProductAdd from '@/pages/contractProduct/children/contractProductAdd'
@@ -53,6 +54,13 @@ export default new Router({
                     name: 'SingleProductDetail',
                     components:{
                         default:SingleProductDetail
+                    }
+                },
+                {
+                    path: 'product_catalog_manage',
+                    name: 'productCatalogManage',
+                    components:{
+                        default:productCatalogManage
                     }
                 },
                 {

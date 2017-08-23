@@ -66,7 +66,7 @@
                         "isSubShow": false,
                         "title": "产品目录管理",
                         "haveChildrens": false,
-                        "url": ""
+                        "url": "/product_catalog_manage"
                     },
                     {
                         "isSubShow": false,
