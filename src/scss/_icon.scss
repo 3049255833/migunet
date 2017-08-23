@@ -1,19 +1,39 @@
 .icon {
     display: inline-block;
     vertical-align: middle;
+
     &.icon-add-blue {
         width: 16px;
         height: 16px;
         @include bg("icon-add-blue.png");
     }
+
+    &.icon-batch-lead-in-white {
+        width: 16px;
+        height: 16px;
+    }
+
     &.icon-del-blue{
         width: 16px;
         height: 16px;
         @include bg('icon-del-blue.png');
     }
+
     &.icon-arrow-down{
         @include bg('arrow-down.png',9px,5px);
     }
+
+    &.icon-edit-gray {
+        width: 16px;
+        height: 16px;
+        @include bg('edit.png');
+    }
+
+    &.icon-del-gray {
+        width: 16px;
+        height: 16px;
+    }
+
     &-select {
         position: absolute;
         right: 7px;
@@ -24,6 +44,7 @@
     }
     &-check {
         @include bg('icon-checkbox.png',16px,16px);
+
         &.active{
             @include bg('icon-checkbox-active.png',16px,16px);
         }

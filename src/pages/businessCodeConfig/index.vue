@@ -1,6 +1,8 @@
 <template>
     <div class="business-code-config-container">
-        <v-search hideBtn="true" title="单品管理"></v-search>
+        <!--<v-search hideBtn="true" title="单品管理"></v-search>-->
+
+        <operate-box title="业务代码管理"></operate-box>
 
         <business-code-table></business-code-table>
 
@@ -10,15 +12,15 @@
 
 <script>
     import Mock from 'mockjs'
-    import BusinessCodeTable from '@/pages/businessCodeConfig/components/business-code-table.vue'
-    import VSearch from '@/components/search'
+    import BusinessCodeTable from '@/pages/businessCodeConfig/components/business-code-table'
+    import OperateBox from '@/pages/businessCodeConfig/components/operate-box'
     import VPaging from '@/components/paging'
 
     export default{
         name: 'BusinessCodeConfig',
         components:{
             BusinessCodeTable,
-            VSearch,
+            OperateBox,
             VPaging
         }
     }
@@ -33,5 +35,14 @@
         }
         background: url('#{$image-base-path}#{$URI}') $repeat $x $y;
         background-size: 100% 100%;
+    }
+
+    .business-code-config-container {
+        background-color: #fff;
+
+        .pageNum {
+            margin: 0;
+            padding: 25px 0;
+        }
     }
 </style>
