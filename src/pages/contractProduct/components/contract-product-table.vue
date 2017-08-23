@@ -3,7 +3,7 @@
         <table class="table-module">
             <thead>
             <tr>
-                <td>产品名称</td>
+                <td class="td-pl-68">产品名称</td>
                 <td>产品ID</td>
                 <td>CP／TP ID</td>
                 <td>子产品类型</td>
@@ -26,7 +26,7 @@
                 <td>上线报备失败</td>
                 <td>
                     <div class="operate-list">
-                        <span @click="showContractProductDetail" class="mr-30 cl-blue">详情</span><span class="mr-30 cl-blue">变更信息</span><span class="mr-30 cl-blue">更多</span>
+                        <span @click="showContractProductDetail" class="mr-30 cl-blue">详情</span><span class="mr-30 cl-blue">变更信息</span><span class="mr-30 cl-blue">更多<i class="icon icon-arrow-down-blue"></i></span>
                     </div>
                 </td>
             </tr>
@@ -68,14 +68,23 @@
             return {}
         },
         
-
+        methods:{
+            showContractProductDetail(){
+                this.$router.push({'name': 'ContractProductDetail'});
+            }
+        }
 
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style scoped lang="scss" rel="stylesheet/scss">
     .table-wrap {
-        
+        td:nth-child(1){
+            padding-left: 68px!important;
+        }
+        th:nth-child(1){
+            padding-left: 68px!important;
+        }
     }
     
 </style>

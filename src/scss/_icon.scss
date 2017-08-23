@@ -58,4 +58,22 @@
         height: 15px;
         @include bg('icon-add-white.png');
     }
+    &-arrow-down-blue {
+        width: 8px;
+        height: 5px;
+        @include bg('icon-arrow-down-blue.png');
+        margin-left: 3px;
+    }
+    &-pass{
+        width: 16px;
+        height: 16px;
+        @include bg('icon-pass.png');
+
+    }
+    &-fail-pass{
+        width: 16px;
+        height: 16px;
+        @include bg('icon-fail-pass.png');
+
+    }
 }

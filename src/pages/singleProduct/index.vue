@@ -1,25 +1,22 @@
 <template>
     <div class="single-product">
         <div class="table-wrapper">
-            <v-search hideBtn="true" title="单品管理"></v-search>
-            <single-product-table></single-product-table>
+            <v-table-operate-head hideBtn="true" title="单品管理"></v-table-operate-head>
+            <v-single-product-table></v-single-product-table>
             <v-paging></v-paging>
         </div>
     </div>
 </template>
 <script>
-   
-    import Mock from 'mockjs'
-    import SingleProductTable from '@/pages/singleProduct/components/single-product-table.vue'
-    import VSearch from '@/components/search'
+    
+    import VSingleProductTable from '@/pages/singleProduct/components/single-product-table.vue'
     import VPaging from '@/components/paging'
-
-
+    import VTableOperateHead from '@/pages/singleProduct/components/table-operate-head'
     export default {
         name: 'Home',
         components: {
-            SingleProductTable,
-            VSearch,
+            VSingleProductTable,
+            VTableOperateHead,
             VPaging
         }
 

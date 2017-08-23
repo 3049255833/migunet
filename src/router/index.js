@@ -5,8 +5,8 @@ import Home from '@/pages/home'
 import ContractProduct from '@/pages/ContractProduct'
 import SingleProduct from '@/pages/singleProduct'
 import BusinessCodeConfig from '@/pages/businessCodeConfig'
-import ProductDetail from '@/pages/singleProduct/children/productDetail'
-import Review from '@/pages/contractProduct/children/review'
+import SingleProductDetail from '@/pages/singleProduct/children/single-product-detail'
+import ContractProductDetail from '@/pages/contractProduct/children/contract-product-detail'
 import ContractProductAdd from '@/pages/contractProduct/children/contractProductAdd'
 import Step1 from '@/pages/contractProduct/children/contractProductAdd/children/step-1'
 import Step2 from '@/pages/contractProduct/children/contractProductAdd/children/step-2'
@@ -28,6 +28,13 @@ export default new Router({
                     }
                 },
                 {
+                    path: 'contract_product_detail',
+                    name: 'ContractProductDetail',
+                    components:{
+                        default:ContractProductDetail
+                    }
+                },
+                {
                     path: 'single_product',
                     name: 'SingleProduct',
                     components:{
@@ -42,17 +49,10 @@ export default new Router({
                     }
                 },
                 {
-                    path: 'review',
-                    name: 'Review',
+                    path: 'single_product_detail',
+                    name: 'SingleProductDetail',
                     components:{
-                        default:Review
-                    }
-                },
-                {
-                    path: 'product_detail',
-                    name: 'ProductDetail',
-                    components:{
-                        default:ProductDetail
+                        default:SingleProductDetail
                     }
                 },
                 {

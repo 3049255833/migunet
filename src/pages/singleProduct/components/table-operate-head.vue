@@ -1,27 +1,17 @@
 <template>
-    <div>
+    <div class="table-operate-head">
         <div class="l-content-head">
             <div class="vue-left">
                 <div class="l-title">
                     {{title}}
                 </div>
-                <div class="btn-add" @click="addContractProduct" v-bind:class="{addBtn:hideBtn}">
-                    <i class="icon icon-add-white"></i>新增产品
-                </div>
             </div>
             <div class="vue-right">
                 <div class="l-space input-wrapper input-wrapper1">
-                    <input  type="text" placeholder="关键信息搜索" v-model="keyWord" @keyup.enter="searchKeyWord"/>
+                    <input type="text" class="form-input" placeholder="关键信息搜索" v-model="keyWord" @keyup.enter="searchKeyWord"/>
                 </div>
                 <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="70" selectTitle="草稿" v-bind:options="['1','2','3']"></v-select-box>
-                </div>
-                <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="90" selectTitle="上线审批"
-                              v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
-                </div>
-                <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="130" selectTitle="产品目录1" v-bind:options="['1','2','3']"></v-select-box>
+                    <v-select-box selectType="1" :w="130" selectTitle="待报备" v-bind:options="['1','2','3']"></v-select-box>
                 </div>
                 <div class="date-container mr-10">
                     <v-date defaultText="生效时间" startTime="true"></v-date>
@@ -135,17 +125,10 @@
     }
     
     .l-content-right {
-        height: 32px;
+        height: 34px;
     }
     
-    .l-content-right select {
-        width: 150px;
-        height: 32px;
-        background: #ffffff;
-        padding-left: 5px;
-        font-size: 12px;
-        color: #0c0a0b;
-    }
+   
     
     .tb-reset {
         font-size: 14px;
@@ -252,4 +235,3 @@
         }
     }
 </style>
-

@@ -109,7 +109,7 @@
         color: #333;
         border: solid 1px #d6e1e5;
         border-radius: 3px;
-        line-height: 34px;
+        line-height: 32px;
         cursor: pointer;
         .icon{
             right: 8px;

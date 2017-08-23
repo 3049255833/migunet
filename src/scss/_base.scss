@@ -18,8 +18,12 @@
 .radius-2{
     border-radius: 2px!important;
 }
+
 .mr-3{
     margin-right: 3px!important;
+}
+.mr-5{
+    margin-right: 5px!important;
 }
 .mr-6{
     margin-right: 6px!important;
@@ -146,4 +150,10 @@
 }
 .link{
     cursor: pointer;
+}
+.cl-pass{
+    color: #82B75B!important;
+}
+.cl-fail-pass{
+    color: #DB7B7B;
 }

@@ -1,96 +1,84 @@
 <template>
-    <div class="product-detail">
+    <div class="contract-product-detail">
         <div class="main-wrapper">
             <div class="add-product-wrapper">
                 <div class="add-main">
-
                     <div class="review-flow-box">
                         <div class="add-title">审批工作流</div>
-
-                        <table class="review-list">
+                        <table class="table-module">
                             <thead>
-                                <tr>
-                                    <th>提交时间</th>
-                                    <th>提交人</th>
-                                    <th>申请类型</th>
-                                    <th>审批结果</th>
-                                    <th>审批失败原因</th>
-                                </tr>
+                            <tr>
+                                <td width="240">提交时间</td>
+                                <td>提交人</td>
+                                <td>申请类型</td>
+                                <td>审批结果</td>
+                                <td>审批失败原因</td>
+                            </tr>
                             </thead>
-
                             <tbody>
-                                <tr>
-                                    <td>2017/08/22 09:30</td>
-                                    <td>21222222</td>
-                                    <td>变更审批</td>
-                                    <td>
-                                        <div class="mark"></div>
-
-                                        <div class="content">不通过</div>
-                                    </td>
-                                    <td>价格高于审批价格</td>
-                                </tr>
-
-                                <tr>
-                                    <td>2017/08/22 09:30</td>
-                                    <td>21222222</td>
-                                    <td>上线审批</td>
-                                    <td>
-                                        <div class="mark"></div>
-
-                                        <div class="content">通过</div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-
+                            <tr>
+                                <td>2017/08/22 09:30</td>
+                                <td>21222222</td>
+                                <td>变更审批</td>
+                                <td>
+                                    <div class=" review-fail-pass">
+                                        <i class="icon icon-fail-pass mr-5"></i>
+                                        <span class="cl-fail-pass vt-middle">不通过</span>
+                                    </div>
+                                </td>
+                                <td>价格高于审批价格</td>
+                            </tr>
+                            <tr>
+                                <td>2017/08/22 09:30</td>
+                                <td>21222222</td>
+                                <td>变更审批</td>
+                                <td>
+                                    <div class=" review-pass">
+                                        <i class="icon icon-pass mr-5"></i>
+                                        <span class="cl-pass vt-middle">通过</span>
+                                    </div>
+                                </td>
+                                <td>价格高于审批价格</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
-
                     <div class="table-wrapper">
                         <div class="add-title">
                             产品管理新增
                         </div>
-
                         <div class="product-detail-wrapper">
                             <div class="pro-three">
                                 <div class="pro-wrapper">
                                     <div class="pro-icon">
                                         <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
-
                                     <div class="pro-info">
                                         <div class="pro-info-title">
                                             动漫5元业务包
                                         </div>
-
                                         <div class="pro-info-des">
                                             产品名称
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="pro-wrapper">
                                     <div class="pro-icon">
                                         <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
-
                                     <div class="pro-info">
                                         <div class="pro-info-title">
                                             100922827636
                                         </div>
-
                                         <div class="pro-info-des">
                                             产品ID
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="pro-wrapper">
                                     <div class="pro-icon">
                                         <img src="../../../assets/status-icon.png" alt=""/>
                                     </div>
-
                                     <div class="pro-info">
                                         <div class="pro-info-title">
                                             上线（变更审批失败）
@@ -101,83 +89,69 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="pro-btn-wrapper">
                                 <div class="pro-btn">
                                     <Confirm-Btn w="80px" text="变更信息"></Confirm-Btn>
                                 </div>
-
                                 <div class="pro-btn pro-btn-another">
                                     <Cancel-Btn w="80px" text="下线"></Cancel-Btn>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="lay-wrapper-three">
                         <div class="lay-wrapper">
                             <div class="lay-title">
                                 基本信息
                             </div>
-
                             <div class="lay-row-area">
                                 <div class="lay-row-wrapper lay-row-wrapper1">
-
                                     <div class="lay-row">
-                                        <span  class="lay-text"> 产品描述：</span>
-
+                                        <span class="lay-text"> 产品描述：</span>
                                         <span class="lay-r">
                                             全职高手
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 生效时间：</span>
                                         <span class="lay-text"> 2017/08/22/ 08:55</span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 业务归属地：</span>
                                         <span class="lay-r">
                                             中国移动
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 是否会员产品：</span>
                                         <span class="lay-r">
                                             非会员
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 是否体检产品：</span>
                                         <span class="lay-r">
                                             是
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 创建用户：</span>
                                         <span class="lay-r">
                                             咪咕2019
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 限定短信发送省份：</span>
                                         <span class="lay-r">
                                             江苏省、浙江省
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 订购成功下发送推荐短信：</span>
                                         <span class="lay-r">
                                             2017/08/21 16:00
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 互斥产品：</span>
                                         <span class="lay-r">
@@ -186,7 +160,6 @@
                                         </span>
                                     </div>
                                 </div>
-
                                 <div class="lay-row-wrapper">
                                     <div class="lay-row">
                                         <span class="lay-text"> 搜索关键字：</span>
@@ -194,89 +167,76 @@
                                             动漫、漫画、青少年、日本
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 失效时间：</span>
                                         <span class="lay-r">
                                             2017/08/22/ 09:30
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 产品目录：</span>
                                         <span class="lay-r">
                                             目录名称(日本漫画)
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 是否重复订购：</span>
                                         <span class="lay-r">
                                             是
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 体验产品周期：</span>
                                         <span class="lay-r">
                                             20周
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 创建时间：</span>
                                         <span class="lay-r">
                                             2017/09/09 20:00
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 订购成功下发提示短信：</span>
                                         <span class="lay-r">
-                                            恭喜您，成功订购<<每日一笑>>业务！
+                                            恭喜您，成功订购每日一笑业务！
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 合作伙伴：</span>
                                         <span class="lay-r">
                                             内容待定
                                         </span>
                                     </div>
-
                                     <div class="lay-row">
                                         <span class="lay-text"> 依赖产品：</span>
                                         <span class="lay-r">
                                             动漫5元 | 2091272726626
                                         </span>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-
                         <div class="lay-wrapper">
                             <div class="lay-title">
                                 资费信息
                             </div>
-
                             <div class="lay-row-area">
                                 <div class="lay-row-wrapper">
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> BOOS计费代码 ：</span>
-                                        <span  class="lay-r">
+                                    <div class="lay-row">
+                                        <span class="lay-text"> BOOS计费代码 ：</span>
+                                        <span class="lay-r">
                                             112
                                         </span>
                                     </div>
-
-                                    <div  class="lay-row">
-                                        <span  class="lay-text"> 计费类型 ：</span>
-                                        <span  class="lay-r">
+                                    <div class="lay-row">
+                                        <span class="lay-text"> 计费类型 ：</span>
+                                        <span class="lay-r">
                                             不限定发布类型
                                         </span>
                                     </div>
-
-                                    <div  class="lay-row scheme-list">
+                                    <div class="lay-row scheme-list">
                                         <span class="lay-text"> 计费策略 ：</span>
                                         <span class="lay-r">
                                             <div class="scheme-item">
@@ -321,19 +281,17 @@
                                         </span>
                                     </div>
                                 </div>
-
                                 <div class="lay-row-area">
                                     <div class="lay-row-wrapper">
-                                        <div  class="lay-row">
-                                            <span  class="lay-text"> 价格(分CN) ：</span>
-                                            <span  class="lay-r">
+                                        <div class="lay-row">
+                                            <span class="lay-text"> 价格(分CN) ：</span>
+                                            <span class="lay-r">
                                                 19.00
                                             </span>
                                         </div>
-
-                                        <div  class="lay-row">
-                                            <span  class="lay-text"> 支付方式 ：</span>
-                                            <span  class="lay-r">
+                                        <div class="lay-row">
+                                            <span class="lay-text"> 支付方式 ：</span>
+                                            <span class="lay-r">
                                                 第三方支付
                                             </span>
                                         </div>
@@ -341,15 +299,13 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="lay-wrapper">
-                            <div class="lay-title">
+                            <div class="lay-title" >
                                 渠道信息
                             </div>
-
                             <div class="lay-row-area">
                                 <div class="lay-row-wrapper lay-row-wrapper1">
-                                    <div  class="lay-row">
+                                    <div class="lay-row">
                                         <span class="lay-text"> BOOS计费代码：</span>
                                         <span class="lay-r">
                                             09019283763
@@ -358,7 +314,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="lay-btn">
                             <div class="lay-btn-wrapper">
                                 <Cancel-Btn text="隐藏"></Cancel-Btn>
@@ -373,11 +328,7 @@
         </div>
     </div>
 </template>
-
 <script>
-   
-
-    import vTable from "@/components/common/Table";
     import vNav from "@/components/common/Nav";
     import vPop from "@/components/common/Pop";
     import InfoTable from "@/components/common/InfoTable";
@@ -388,73 +339,42 @@
         name: 'Review',
         components: {
             vPop,
-            InfoTable,
             ConfirmBtn,
             CancelBtn
         },
-        data ()
-        {
-            return {}
+        data (){
+            return {
+                
+            }
         },
-        methods:{
+        methods: {
+            
         }
     }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
-
     @import url('../../../less/common.less');
-
+    
     .review-flow-box {
         background-color: #fff;
-
+        
         .review-list {
             width: 100%;
-
-            thead tr {
-                background-color: #f2f8ff;
-
-                th {
-                    padding: 20px 0;
-                    font-size: 14px;
-                    color: #4a4a4a;
-                }
-            }
-
-            tbody {
-
-                tr {
-                    text-align: center;
-                    border-bottom: 1px solid #e0e0e0;
-
-                    &:last-child {
-                        border-bottom: none;
-                    }
-
-                    td {
-                        padding: 15px 0;
-
-                        .content,
-                        .mark {
-                            display: inline-block;
-                        }
-                    }
-                }
-            }
+            
         }
     }
-
+    
     .scheme-list {
         h4 {
             font-weight: 600;
         }
-
+        
         .item {
-
+            
         }
     }
-
+    
     .info {
         width: 808px;
         padding: 20px 0;
@@ -462,7 +382,7 @@
         position: relative;
         margin-top: 10px;
     }
-
+    
     .info:before {
         content: '';
         position: absolute;
@@ -472,20 +392,20 @@
         height: 10px;
         background: url("../../../assets/arrow-up.png") #ffffff no-repeat;
     }
-
+    
     .lable1 {
         width: 30px;
         display: inline;
         margin-right: 20px;
     }
-
+    
     .lable1 > input {
         display: inline-block;
         width: 15px;
         height: 15px;
         box-sizing: border-box;
     }
-
+    
     .tb-reset {
         display: inline-block;
         font-size: 14px;
@@ -501,7 +421,7 @@
         text-align: center;
         cursor: pointer;
     }
-
+    
     /*.tb-reset:hover{
 
     }*/
@@ -509,22 +429,22 @@
         background: #46bafe;
         color: #ffffff;
     }
-
+    
     .l-content-w {
         margin-right: 20px;
     }
-
+    
     .step-wrapper {
         padding: 20px 0;
         background: #f2f8ff;
     }
-
+    
     .step {
         width: 483px;
         margin: 0 auto;
         position: relative;
     }
-
+    
     .step:before {
         content: '';
         width: 420px;
@@ -535,29 +455,29 @@
         left: 30px;
         top: 23px;
     }
-
+    
     .step:after {
         content: '';
         clear: both;
         display: block;
     }
-
+    
     .step-item {
         float: left;
     }
-
+    
     .step-item + .step-item {
-
+        
         margin-left: 145px;
     }
-
+    
     .step-text {
         text-align: center;
         color: #171717;
         font-size: 12px;
         margin-top: 8px;
     }
-
+    
     .step-circle {
         width: 45px;
         height: 45px;
@@ -567,7 +487,7 @@
         margin: 0 auto;
         background: #f2f8ff;
     }
-
+    
     .step-circle:after {
         content: '';
         position: absolute;
@@ -580,88 +500,88 @@
         margin-top: -12px;
         border-radius: 50%;
     }
-
+    
     .step-circle.active:after {
         background: #46bafe;
     }
-
+    
     .add-product-wrapper {
         float: left;
         width: 100%;
     }
-
+    
     .bread-menu {
         font-size: 12px;
         color: #666666;
         padding: 16px 0 20px 16px;
         background: #ffffff;
     }
-
+    
     .container {
         width: 100%;
     }
-
+    
     .main-wrapper {
         background: #f4f4f4;
     }
-
+    
     .nav-wrapper {
         float: left;
     }
-
+    
     .table-wrapper {
         background: #ffffff;
         margin-top: 20px;
         padding-bottom: 30px;
     }
-
+    
     .main-wrapper:before,
     .main-wrapper:after {
         content: " ";
         display: table;
     }
-
+    
     .main-wrapper:after {
         clear: both;
     }
-
+    
     .date-wrapper {
-
+        
     }
-
+    
     .bread-link:hover {
         color: #46bafe;
         cursor: pointer;
     }
-
+    
     .input-row + .input-row {
         margin-top: 18px;
     }
-
+    
     .row-wrapper {
         display: inline-block;
         width: 200px;
         background: #ffffff;
         line-height: 32px;
     }
-
+    
     .lay-r {
         display: inline-block;
         width: 290px;
         line-height: 32px;
     }
-
+    
     .row-wrapper-ta {
         width: 340px;
         height: 80px;
     }
-
+    
     .row-wrapper textarea {
         width: 340px;
         height: 80px;
         box-sizing: border-box;
     }
-
+    
     .row-wrapper > input {
         width: 200px;
         height: 32px;
@@ -669,7 +589,7 @@
         box-sizing: border-box;
         border: solid 1px #d6e1e5;
     }
-
+    
     .input-text {
         width: 185px;
         display: inline-block;
@@ -678,6 +598,7 @@
         text-align: right;
         vertical-align: top;
     }
+    
     .lay-text {
         width: 170px;
         display: inline-block;
@@ -686,7 +607,7 @@
         text-align: left;
         vertical-align: top;
     }
-
+    
     .des-left {
         width: 165px;
         display: inline-block;
@@ -695,18 +616,18 @@
         vertical-align: top;
         line-height: 18px;
     }
-
+    
     .des-right {
         display: inline-block;
         vertical-align: top;
         width: 500px;
         line-height: 18px;
     }
-
+    
     .required {
         color: red;
     }
-
+    
     #city-select {
         background: #ffffff;
         width: 200px;
@@ -717,12 +638,12 @@
         background: url("../../../assets/def.png") no-repeat 97% 7px;
         border-radius: 0;
     }
-
+    
     .row-wrapper-no {
         background: transparent;
         margin-top: 10px;
     }
-
+    
     .add-title {
         font-size: 14px;
         color: #292c31;
@@ -730,18 +651,18 @@
         line-height: 50px;
         padding-left: 20px;
     }
-
+    
     .add-main {
         background: #f4f4f4;
         padding: 0 20px;
         padding-bottom: 20px;
     }
-
+    
     .input-area {
         margin-top: 30px;
         padding-left: 40px;
     }
-
+    
     .typeSelect {
         width: 200px;
         height: 30px;
@@ -751,15 +672,15 @@
         border: 1px solid #dedede;
         background: url('../../../assets/arrow-down.png') no-repeat 95% 11px;
     }
-
+    
     .info-left {
         display: inline-block;
     }
-
+    
     .info-right {
         display: inline-block;
     }
-
+    
     .modify {
         border-radius: 2px;
         color: #46bafe;
@@ -775,12 +696,12 @@
         border: solid 1px #d6e1e5;
         margin-bottom: 20px;
     }
-
+    
     .des-area {
         color: #6d7684;
         font-size: 12px;
     }
-
+    
     .modify-wrapper {
         background: #f2f8ff;
         margin-top: 20px;
@@ -788,123 +709,138 @@
         padding-bottom: 30px;
         margin-bottom: 20px;
     }
-
+    
     .input-feel {
         line-height: 19px;
         text-align: center;
         width: 165px;
         padding-left: 15px;
     }
-
+    
     .input-text-new {
         width: 150px;
     }
-
+    
     .input-row-spa {
         margin-top: 50px !important;
     }
-
+    
     .info-head {
         padding-left: 20px;
     }
-
+    
     .pro-info-title {
         font-size: 18px;
         color: #6d7684;
     }
-
+    
     .pro-info-des {
         font-size: 12px;
         color: #999999;
         margin-top: 8px;
     }
-
+    
     .pro-icon {
         width: 40px;
         height: 40px;
         display: inline-block;
         vertical-align: top;
     }
-
+    
     .pro-info {
         display: inline-block;
         vertical-align: top;
         margin-left: 10px;
     }
-
+    
     .pro-wrapper {
         display: inline-block;
         margin-left: 42px;
     }
-
+    
     .pro-btn {
         display: inline-block;
     }
-
+    
     .pro-btn-another {
         margin-left: 10px;
     }
-
+    
     .product-detail-wrapper:after {
         content: '';
         display: block;
         clear: both;
     }
-
+    
     .product-detail-wrapper {
         padding: 30px 0;
         background: #f2f8ff;
-
-    .pro-three {
+        
+        .pro-three {
+            float: left;
+        }
+        
+        .pro-btn-wrapper {
+            float: right;
+            margin-right: 40px;
+        }
+        
+    }
+    
+    .lay-row-wrapper {
         float: left;
     }
-
-    .pro-btn-wrapper {
-        float: right;
-        margin-right: 40px;
+    
+    .lay-row-wrapper1 {
     }
-
-    }
-
-    .lay-row-wrapper{
-        float: left;
-    }
-    .lay-row-wrapper1{
-    }
-    .lay-row-wrapper2{
+    
+    .lay-row-wrapper2 {
         margin-left: 210px;
     }
-    .lay-row-area{
-        &:after{
-            content:'';
+    
+    .lay-row-area {
+        &:after {
+            content: '';
             display: block;
             clear: both;
         }
     }
-    .lay-title{
+    
+    .lay-title {
         font-size: 14px;
         color: #292c31;
         font-weight: bold;
         line-height: 50px;
-        border-bottom:solid 1px #d6e1e5;
+        border-bottom: solid 1px #d6e1e5;
     }
-    .lay-row-area{
+    
+    .lay-row-area {
         margin-top: 20px;
     }
-    .lay-wrapper-three{
+    
+    .lay-wrapper-three {
         background: #ffffff;
         padding-left: 40px;
         padding-bottom: 30px;
     }
-
-    .lay-btn{
+    
+    .lay-btn {
         text-align: right;
         margin-right: 40px;
         margin-top: 20px;
     }
-    .lay-btn-wrapper{
+    
+    .lay-btn-wrapper {
         display: inline-block;
         margin-left: 16px;
-
+        
+    }
+    
+    .contract-product-detail {
+        .table-module {
+            td:nth-child(1) {
+                padding-left: 70px;
+            }
+        }
     }
 </style>
