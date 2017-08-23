@@ -22,21 +22,17 @@
 </template>
 <script>
     import VHeader from "@/components/header";
-    import VSideBar from "@/pages/home/components/sidebar";
+    import VSideBar from "@/components/sidebar";
     import BreadNav from '@/pages/home/components/bread-nav';
 
-
     export default {
-
         name: 'ProductCenter',
-
         components: {
             VHeader,
             VSideBar,
             BreadNav
             
         },
-
         data () {
             return {
                 id: this.$route.params.id,
@@ -44,13 +40,10 @@
                 ztreeItems: []
             };
         },
-
         methods: {},
-
         mounted () {
             
         },
-
         watch: {}
     };
 </script>

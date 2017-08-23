@@ -1,20 +1,32 @@
 <template>
     <nav class="sidebar">
         <div class="nav-area" v-for="(menu,index) in menus" :key="menu.title1">
-            <div class="nav-title1" @click="controlState(menu)" :class="{'active':menu.isSubShow}">
+            <div v-if="menu.haveChildrens" class="nav-title1" @click="controlState(menu)" :class="{'active':menu.isSubShow}">
                 <div class="nav-title-icon">
-                    <img v-show="menu.isSubShow" src="../../../images/t1.png" alt="">
-                    <img v-show="!menu.isSubShow" src="../../../images/t2.png" alt="">
+                    <img v-show="menu.isSubShow" src="../../assets/t1.png" alt="">
+                    <img v-show="!menu.isSubShow" src="../../assets/t2.png" alt="">
                 </div>
 
                 <div class="title-text">
-                    {{menu.title1}}
+                    {{menu.title}}
                 </div>
+            </div>
+            <div v-else class="nav-title1">
+                <router-link v-bind:to="menu.url" tag="a">
+                    <div class="nav-title-icon">
+                        <img v-show="menu.isSubShow" src="../../assets/t1.png" alt="">
+                        <img v-show="!menu.isSubShow" src="../../assets/t2.png" alt="">
+                    </div>
+
+                    <div class="title-text">
+                        {{menu.title}}
+                    </div>
+                </router-link>
             </div>
 
             <div class="nav-row-wrapper" :class="{'active':menu.isSubShow}">
-                <div class="nav-row" v-for="childMenu in menu.title2" :class="{'active':isShow}">
-                    <router-link v-bind:to="childMenu.link" tag="div">
+                <div class="nav-row" v-for="childMenu in menu.childrens" :class="{'active':isShow}">
+                    <router-link v-bind:to="childMenu.link" tag="a">
                         <span class="nav-circle"></span>
 
                         <div class="nav-title2" :class="{active:childMenu.isActive}">
@@ -28,84 +40,44 @@
 </template>
 
 <script>
-    import Mock from 'mockjs'
-    import axios from 'axios'
-
-    var data = Mock.mock('http://address:port/menus', {
-        "menus": [{
-            "isSubShow": true,
-            "title1": "产品管理",
-            // "title2":["合约产品管理 ","单品管理"]},
-            "title2": [
-                {
-                    name: '合约产品管理',
-                    link: '/',
-                    isActive: false
-                },
-                {
-                    name: '单品管理',
-                    link: 'Product',
-                    isActive: false
-                },
-            ]
-        },
-            {
-                "isSubShow": false,
-                "title1": "产品目录管理",
-                // "title2":["合约产品管理 ","单品管理"]},
-                "title2": [
-                    {
-                        name: '合约产品管理',
-                        link: 'ContractProduct1',
-                        isActive: false
-                    },
-                    {
-                        name: '单品管理',
-                        link: 'Product2',
-                        isActive: false
-                    },
-                ]
-            },
-            {
-                "isSubShow": false,
-                "title1": "业务代码配置"
-            },
-            {
-                "isSubShow": false,
-                "title1": "BOSS计费代码",
-                // "title2":["合约产品管理 ","单品管理"]},
-                "title2": [
-                    {
-                        name: '合约产品管理',
-                        link: 'ContractProduct1',
-                        isActive: false
-                    },
-                    {
-                        name: '单品管理',
-                        link: 'Product2',
-                        isActive: false
-                    },
-                ]
-            },
-        ]
-    })
-
     export default {
-        name: 'nav',
+        name: 'sideBar',
         data () {
             return {
-                isShow: false,
-                menus: [],
+                isShow: true,
+                menus: [{
+                    "isSubShow": true,
+                    "title": "产品管理",
+                    "haveChildrens": true,
+                    "childrens": [
+                        {
+                            name: '合约产品管理',
+                            link: '/contract_product',
+                            isActive: false
+                        },
+                        {
+                            name: '单品管理',
+                            link: '/single_product',
+                            isActive: false
+                        },
+                    ]
+                },
+                    {
+                        "isSubShow": false,
+                        "title": "产品目录管理",
+                        "haveChildrens": false,
+                        "url": ""
+                    },
+                    {
+                        "isSubShow": false,
+                        "title": "业务代码配置",
+                        "haveChildrens": false,
+                        "url": "/business_code_config"
+                    }
+                ],
                 titleState: true,
                 ShowWrapper: true
             }
-        },
-        created(){
-            axios.get('http://address:port/menus').then((res) => {
-                // console.log(res.bodyText);
-                var res = res.data;
-                this.menus = res.menus;
-            })
         },
         methods: {
             showNav: function () {
@@ -166,16 +138,22 @@
     .nav-row-wrapper.active {
         display: block;
     }
-    
+
+    .router-link-active {
+        .nav-title2 {
+            color: #46bafe;
+        }
+
+        .nav-circle {
+            background: #46bafe;
+        }
+    }
+
     .nav-title2 {
         display: inline-block;
         vertical-align: middle;
     }
-    
-    .nav-title2:before {
 
-    }
-    
     .nav-title-icon {
         float: left;
         margin-top: 12px;
@@ -206,7 +184,7 @@
         margin-top: -7px;
         width: 12px;
         height: 8px;
-        background: url('../../../images/arrow.png') no-repeat;
+        background: url('../../assets/arrow.png') no-repeat;
         position: absolute;
         right: 10px;
         top: 24px;
@@ -216,11 +194,7 @@
         background: #ececec;
     }
 
-    .nav-circle {
-        background: #46bafe;
-    }
+
     
-    .nav-title2 {
-        color: #46bafe;
-    }
+
 </style>
