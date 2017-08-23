@@ -55,9 +55,9 @@ export default new Router({
 
                 },
                 {
-                    path: 'contract_product_add',
+                    path: 'contract_product/contract_product_add',
                     name: 'ContractProductAdd',
-                    redirect: 'contract_product_add/step1',
+                    redirect: 'contract_product/contract_product_add/step1',
                     components:{
                         default:ContractProductAdd
                     },

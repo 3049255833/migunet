@@ -68,7 +68,7 @@
              * 新增产品
              * */
             addContractProduct(){
-                location.hash = '/contract_product_add'
+                this.$router.push({'name': 'Step1'});
             }
         }
     }

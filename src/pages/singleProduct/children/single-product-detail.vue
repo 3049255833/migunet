@@ -81,35 +81,34 @@
 
                                     <div class="lay-row">
                                         <span  class="lay-text"> 产品名称：</span>
-
                                         <span class="lay-r">
-                                            全职高手
+                                            {{productDetail.product.productName}}
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 产品描述：</span>
-                                        <span class="lay-text"> 描述内容</span>
+                                        <span class="lay-text"> {{productDetail.product.describe}}</span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 审批状态：</span>
                                         <span class="lay-r">
-                                            审批状态
+                                            {{productDetail.product.approveStatus}}
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 生效时间：</span>
                                         <span class="lay-r">
-                                            2017/08/21 16:00
+                                            {{productDetail.product.effectivetime}}
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 创建时间：</span>
                                         <span class="lay-r">
-                                            2017/08/21 16:00
+                                           {{productDetail.product.gmtcreate}}
                                         </span>
                                     </div>
                                 </div>
@@ -118,35 +117,35 @@
                                     <div class="lay-row">
                                         <span class="lay-text"> 搜索关键字：</span>
                                         <span class="lay-r">
-                                            用户名称
+                                           {{productDetail.product.keys}}
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 业务状态：</span>
                                         <span class="lay-r">
-                                            用户名称
+                                            {{productDetail.product.status}}
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 创建用户：</span>
                                         <span class="lay-r">
-                                            2017/08/21 16:00
+                                           {{productDetail.product.createUser}}
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 失效时间：</span>
                                         <span class="lay-r">
-                                            2017/08/21 16:00
+                                            {{productDetail.product.expiretime}}
                                         </span>
                                     </div>
 
                                     <div class="lay-row">
                                         <span class="lay-text"> 更新时间：</span>
                                         <span class="lay-r">
-                                            2017/08/21 16:00
+                                           {{productDetail.product.gmtmodified}}
                                         </span>
                                     </div>
                                 </div>
@@ -163,7 +162,7 @@
                                     <div  class="lay-row">
                                         <span  class="lay-text"> 价格（分CN）：</span>
                                         <span  class="lay-r">
-                                            112
+                                            {{productDetail.serviceCode.fee}}
                                         </span>
                                     </div>
                                 </div>
@@ -180,7 +179,7 @@
                                     <div  class="lay-row">
                                         <span  class="lay-text"> 渠道ID：</span>
                                         <span  class="lay-r">
-                                            09019283763
+                                            {{productDetail.channel.channelId}}
                                         </span>
                                     </div>
                                 </div>
@@ -215,9 +214,14 @@
         data () {
             return {
                 productCode:this.$route.params.productCode,
+                productDetail:{
+                    product:'',
+                    channelId:'',
+                    serviceCode:''
+                }
             }
         },
-        mounted(){
+        created(){
             this.getSingleProductDetail(this.productCode);
         },
         methods:{
@@ -235,8 +239,10 @@
                     let res = response.body;
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
-                        this.productDetail=res.productDetail;
-                        
+                        this.productDetail.product =res.product;
+                        this.productDetail. serviceCode=res.serviceCode;
+                        this.productDetail.channel=res.channel;
+                        console.log(this.productDetail.product)
                     }else{}
                 })
             }

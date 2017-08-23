@@ -8,7 +8,7 @@
             <v-side-bar></v-side-bar>
 
             <div class="product-center-right">
-                <!--<bread-nav></bread-nav>-->
+                <bread-nav></bread-nav>
 
                 <div class="right-content">
 
