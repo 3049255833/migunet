@@ -23,7 +23,7 @@
                 <div class="l-space l-content-right">
                     <v-select-box selectType="1" :w="130" selectTitle="产品目录1" v-bind:options="['1','2','3']"></v-select-box>
                 </div>
-                <div class="date-container">
+                <div class="date-container mr-10">
                     <v-date defaultText="生效时间" startTime="true"></v-date>
                 </div>
                 <div class="date-container">
@@ -83,7 +83,7 @@
              * 新增产品
              * */
             addContractProduct(){
-                location.hash = '/home/contract_product_add'
+                location.hash = '/contract_product_add'
             }
         }
     }
@@ -222,7 +222,7 @@
     
     .date-wrapper {
         float: left;
-        margin-right: 20px;
+        margin-right: 10px;
     }
     
     .btn-add {
@@ -238,12 +238,7 @@
         cursor: pointer;
         .icon-add-white {
             margin-right: 6px;
-            
-            width: 15px;
-            height: 15px;
-            background: url('./icon-add-white.png') no-repeat;
             background-size: 100% 100%;
-            
         }
     }
     
@@ -256,12 +251,9 @@
     }
     
     .date-container {
-        width: 150px;
         position: relative;
         float: left;
-        & + .date-container {
-            margin-left: 20px;
-        }
+        & + .date-container { }
     }
     
     .addBtn {

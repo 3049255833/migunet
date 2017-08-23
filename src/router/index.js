@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from '@/pages/home'
-import ContractProduct1 from '@/pages/ContractProduct'
+import ContractProduct from '@/pages/ContractProduct'
 import SingleProduct from '@/pages/singleProduct'
 import BusinessCodeConfig from '@/pages/businessCodeConfig'
 import ProductDetail from '@/pages/singleProduct/children/productDetail'
@@ -22,9 +22,9 @@ export default new Router({
             children: [
                 {
                     path: 'contract_product',
-                    name: 'ContractProduct1',
+                    name: 'ContractProduct',
                     components:{
-                        default:ContractProduct1
+                        default:ContractProduct
                     }
                 },
                 {

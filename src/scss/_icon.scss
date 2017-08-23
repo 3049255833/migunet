@@ -53,4 +53,9 @@
         @include bg('icon-search.png',14px,14px);
 
     }
+    &-add-white {
+        width: 15px;
+        height: 15px;
+        @include bg('icon-add-white.png');
+    }
 }
