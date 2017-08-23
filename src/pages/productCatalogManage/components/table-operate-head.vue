@@ -64,6 +64,11 @@
                 border: 1px solid #46BAFE;
                 color: #46BAFE
             }
+
+            .new-add-code-btn {
+                background-color: #46bafe;
+                color: #fff;
+            }
         }
     }
 </style>

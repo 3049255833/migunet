@@ -2,28 +2,40 @@
     <table>
         <thead>
             <tr>
-                <th>业务代码ID</th>
-                <th>企业代码</th>
-                <th>业务代码名称</th>
-                <th>业务代码描述</th>
-                <th>分成类型</th>
-                <th>消费金额（分）</th>
-                <th>是否管理员</th>
-                <th>操作</th>
+                <th class="first">选择</th>
+                <th class="sencod">目录列表</th>
+                <th></th>
             </tr>
         </thead>
 
         <tbody>
             <tr>
-                <td>
-                    <div class="l-app-name">10000293</div>
+                <td class="first">
+                    <label class="checkbox-module">
+                        <input type="checkbox">
+                        <span></span>
+                    </label>
                 </td>
-                <td>200090</td>
-                <td>动漫项目计费</td>
-                <td>动漫业务包</td>
-                <td>分成</td>
-                <td>12,000</td>
-                <td>是</td>
+
+                <td class="sencod">漫画类型</td>
+
+                <td class="operation">
+                    <div class="edit icon icon-edit-gray"></div>
+
+                    <div class="delete icon icon-del-gray"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="first">
+                    <label class="checkbox-module">
+                        <input type="checkbox">
+                        <span></span>
+                    </label>
+                </td>
+
+                <td class="sencod">漫画类型</td>
+
                 <td class="operation">
                     <div class="edit icon icon-edit-gray"></div>
 
@@ -62,35 +74,45 @@
             background-color: #f2f8ff;
 
             th {
-                padding: 20px 0;
+                padding: 22px 0;
                 font-size: 14px;
                 color: #4a4a4a;
+                text-align: left;
+            }
+
+            .first {
+                width: 19%;
+                padding-left: 70px;
             }
         }
 
         tbody {
 
             tr {
-                text-align: center;
                 border-bottom: 1px solid #ddd;
+
+                &:hover {
+                    background-color: #f7f7f7;
+
+                    .operation {
+                        .edit, .delete {
+                            visibility: visible;
+                        }
+                    }
+                }
 
                 td {
                     padding: 15px 0;
                 }
 
+                .first {
+                    padding-left: 70px;
+                }
+
                 .operation {
-                    /*.edit, .delete {
-                        width: 16px;
-                        height: 16px;
+                    .edit, .delete {
+                        visibility: hidden;
                     }
-
-                    .delete {
-                        @include bg('icon-del-blue.png');
-                    }
-
-                    .edit {
-                        @include bg("icon-add-blue.png");
-                    }*/
                 }
             }
         }
