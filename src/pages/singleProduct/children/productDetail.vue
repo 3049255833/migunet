@@ -194,20 +194,10 @@
 </template>
 
 <script>
-    //import vHeader from '../common/Header'
-    //import vTable  from '../common/Table'
-    //import vNav from '../common/Nav'
-    //import PickDate from '../PickDate/PickDate'
-    //import vPop from '../common/Pop'
-    //import InfoTable from '../common/InfoTable'
-    //import ConfirmBtn from '../common/Button1'
-    //import CancelBtn from '../common/Button2'
-    import axios from 'axios'
-
     import vTable from "@/components/common/Table";
     import vNav from "@/components/common/Nav";
 
-    import PickDate from "@/components/PickDate/PickDate";
+    import VDate from "@/components/date";
     import vPop from "@/components/common/Pop";
     import InfoTable from "@/components/common/InfoTable";
     import ConfirmBtn from "@/components/common/Button1";
@@ -216,9 +206,7 @@
     export default {
         name: 'ProductDetail',
         components: {
-            vTable,
-            vNav,
-            PickDate,
+            VDate,
             vPop,
             InfoTable,
             ConfirmBtn,

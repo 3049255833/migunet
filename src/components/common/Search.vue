@@ -24,10 +24,10 @@
 
     </div>
     <div class="date-container">
-        <v-PickDate defaultText="生效时间" startTime="true"></v-PickDate>
+        <v-date defaultText="生效时间" startTime="true"></v-date>
     </div>
     <div class="date-container">
-        <v-PickDate defaultText="失效时间" startTime="false"></v-PickDate>
+        <v-date defaultText="失效时间" startTime="false"></v-date>
     </div>
       </div>
     
@@ -53,14 +53,14 @@
 </template>
 
 <script>
-import vPickDate from '../PickDate/PickDate'
+import VDate from '@/components/date'
 import vSelect from '../common/Select'
 
 export default {
   name: 'hello',
   props:['hideBtn','title'],
   components:{
-    vPickDate,
+    VDate,
     vSelect
   },
   data () {

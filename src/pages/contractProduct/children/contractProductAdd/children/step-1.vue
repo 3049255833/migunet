@@ -288,7 +288,6 @@
     </div>
 </template>
 <script>
-    import PickDate from '@/components/PickDate/PickDate'
     import TModalSubContainer from "@/components/modal-sub-container";
     import AreaChose from '@/pages/contractProduct/components/area-chose.vue'
     import VSelectBox from '@/components/select-box'
@@ -308,11 +307,11 @@
         },
         name: 'AddStep1',
         components: {
-            PickDate,
+            VDate,
             TModalSubContainer,
             AreaChose,
             VSelectBox,
-            VDate
+           
         },
         methods: {
             /**

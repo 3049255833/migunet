@@ -375,19 +375,10 @@
 </template>
 
 <script>
-    //import vHeader from '../common/Header'
-    //import vTable  from '../common/Table'
-    //import vNav from '../common/Nav'
-    import Mock from 'mockjs'
-    //import PickDate from '../PickDate/PickDate'
-    //import vPop from '../common/Pop'
-    //import InfoTable from '../common/InfoTable'
-    //import ConfirmBtn from '../common/Button1'
-    //import CancelBtn from '../common/Button2'
+   
 
     import vTable from "@/components/common/Table";
     import vNav from "@/components/common/Nav";
-    import PickDate from "@/components/PickDate/PickDate";
     import vPop from "@/components/common/Pop";
     import InfoTable from "@/components/common/InfoTable";
     import ConfirmBtn from "@/components/common/Button1";
@@ -396,9 +387,6 @@
     export default {
         name: 'Review',
         components: {
-            vTable,
-            vNav,
-            PickDate,
             vPop,
             InfoTable,
             ConfirmBtn,
@@ -414,7 +402,7 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
+<style scoped lang="scss" rel="stylesheet/scss">
 
     @import url('../../../less/common.less');
 
@@ -887,7 +875,11 @@
         margin-left: 210px;
     }
     .lay-row-area{
-    .clearfix();
+        &:after{
+            content:'';
+            display: block;
+            clear: both;
+        }
     }
     .lay-title{
         font-size: 14px;

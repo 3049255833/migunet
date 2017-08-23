@@ -33,11 +33,11 @@
 </template>
 <script>
     /*   import Mock from 'mockjs'*/
-    import PickDate from '@/components/PickDate/PickDate'
+    import VDate from '@/components/date'
     export default {
         name: 'ContractProductAdd',
         components: {
-            PickDate
+            VDate
         },
         data () {
             return {

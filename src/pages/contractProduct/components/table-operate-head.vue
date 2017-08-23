@@ -24,10 +24,10 @@
                     <v-select-box selectType="1" :w="130" selectTitle="产品目录1" v-bind:options="['1','2','3']"></v-select-box>
                 </div>
                 <div class="date-container">
-                    <v-PickDate defaultText="生效时间" startTime="true"></v-PickDate>
+                    <v-date defaultText="生效时间" startTime="true"></v-date>
                 </div>
                 <div class="date-container">
-                    <v-PickDate defaultText="失效时间" startTime="false"></v-PickDate>
+                    <v-date defaultText="失效时间" startTime="false"></v-date>
                 </div>
             </div>
             <!-- <div class="l-space input-wrapper">
@@ -49,14 +49,14 @@
     </div>
 </template>
 <script>
-    import vPickDate from '@/components/PickDate/PickDate'
+    import VDate from '@/components/date'
     import VSelectBox from '@/components/select-box'
 
     export default {
         name: 'hello',
         props: ['hideBtn', 'title'],
         components: {
-            vPickDate,
+            VDate,
             VSelectBox
         },
         data () {

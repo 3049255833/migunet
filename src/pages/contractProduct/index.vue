@@ -1,7 +1,7 @@
 <template>
     <div class="contract-product">
         <div class="table-wrapper">
-            <v-Search title="合约产品管理"></v-Search>
+            <v-table-operate-head title="合约产品管理"></v-table-operate-head>
             <contract-product-table></contract-product-table>
             <v-Paging></v-Paging>
         </div>
@@ -14,14 +14,14 @@
      import vPaging from '../common/Paging'*/
 
     import ContractProductTable from './components/contract-product-table'
-    import VSearch from '@/pages/contractProduct/components/search'
+    import VTableOperateHead from '@/pages/contractProduct/components/table-operate-head'
     import VPaging from '@/components/paging'
 
     export default {
         name: 'ContractProduct',
         components: {
             ContractProductTable,
-            VSearch,
+            VTableOperateHead,
             VPaging
         }
 
