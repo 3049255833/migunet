@@ -9,7 +9,7 @@
         </thead>
 
         <tbody>
-            <tr>
+            <tr v-for="item in items">
                 <td class="first">
                     <label class="checkbox-module">
                         <input type="checkbox">
@@ -17,29 +17,21 @@
                     </label>
                 </td>
 
-                <td class="sencod">漫画类型</td>
+                <td class="sencod">
+                    <div class="content">{{item.message}}</div>
 
-                <td class="operation">
-                    <div class="edit icon icon-edit-gray"></div>
-
-                    <div class="delete icon icon-del-gray"></div>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="first">
-                    <label class="checkbox-module">
-                        <input type="checkbox">
-                        <span></span>
-                    </label>
+                    <div class="search-wrap hide">
+                        <input v-model="item.message" class="form-input  w-200 radius-2 mr-6" type="text" placeholder="请输入">
+                        <div class="search vt-middle" @click="confirm">
+                            确认
+                        </div>
+                    </div>
                 </td>
 
-                <td class="sencod">漫画类型</td>
-
                 <td class="operation">
-                    <div class="edit icon icon-edit-gray"></div>
+                    <div class="edit icon icon-edit-gray" @click="editBtn"></div>
 
-                    <div class="delete icon icon-del-gray"></div>
+                    <div class="delete icon icon-del-blue" @click="deleteBtn"></div>
                 </td>
             </tr>
         </tbody>
@@ -58,15 +50,64 @@
         },
         data () {
             return {
-                // items: [],
-                totalPage:1
+                items: [
+                    {
+                        message: "漫画类型1"
+                    },
+                    {
+                        message: "漫画类型2"
+                    }
+                ],
             }
         },
+        methods: {
+            editBtn(event) {
+                event.currentTarget.parentNode.parentNode.children[1].children[0].style.display="none";
+
+                event.currentTarget.parentNode.parentNode.children[1].children[1].style.display="block";
+            },
+
+            deleteBtn(event) {
+                event.currentTarget.parentNode.parentNode.remove();
+            },
+
+            confirm(event) {
+                event.currentTarget.parentNode.style.display="none";
+
+                event.currentTarget.parentNode.parentNode.children[0].style.display="block";
+            }
+        }
     }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
+    .search-wrap {
+        display: none;
+
+        input {
+            border-radius: 4px;
+            font-size: 12px;
+            height: 34px;
+            padding: 0 10px;
+            line-height: 32px;
+            color: #333333;
+            border: 1px solid #D6E1E5 !important
+        }
+
+        .search {
+            display: inline-block;
+            width: 80px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            border-radius: 3px;
+            background: #46BAFE;
+            color: #fff;
+            cursor: pointer;
+        }
+    }
+
     table {
         width: 100%;
 
