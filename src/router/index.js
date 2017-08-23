@@ -49,11 +49,10 @@ export default new Router({
                     }
                 },
                 {
-                    path: 'single_product_detail',
+                    path: 'single_product_detail/:productCode',
                     name: 'SingleProductDetail',
-                    components:{
-                        default:SingleProductDetail
-                    }
+                    component:SingleProductDetail
+
                 },
                 {
                     path: 'contract_product_add',

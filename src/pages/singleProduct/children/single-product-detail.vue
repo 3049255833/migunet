@@ -213,7 +213,33 @@
             CancelBtn
         },
         data () {
-            return {}
+            return {
+                productCode:this.$route.params.productCode,
+            }
+        },
+        mounted(){
+            this.getSingleProductDetail(this.productCode);
+        },
+        methods:{
+            /**
+             * 获取单品详情
+             * @param productCode 产品id string
+             * */
+            getSingleProductDetail(productCode){
+                this.$http.get(this.api.getSingleProductDetail,
+                    {
+                        params:{
+                            productCode:productCode||''
+                        }
+                    }).then(response => {
+                    let res = response.body;
+                    if(res.result.resultCode=='00000000'){
+                        //todo: 注意，返回的字段这里list小写
+                        this.productDetail=res.productDetail;
+                        
+                    }else{}
+                })
+            }
         }
     }
 </script>

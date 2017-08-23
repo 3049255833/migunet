@@ -3,7 +3,7 @@
 
         <span class="perPage">
 
-            <select-box selectType="2" v-if="!showElement" v-bind:options="['7条 / 页','8条 / 页','9条 / 页','10条 / 页']"></select-box>
+            <select-box selectType="2" selectTitle="8条 / 页" v-if="!showElement" :w="90" v-bind:options="['7条 / 页','8条 / 页','9条 / 页','10条 / 页']"></select-box>
 
         </span>
 

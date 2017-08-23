@@ -13,22 +13,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>
-                    产品名称
-                </td>
-                <td>2233</td>
-                <td>22233</td>
-                <td>450</td>
-                <td>上线报备</td>
-                <td>上线报备失败</td>
+            <tr v-for="(product,index) in productList">
+                <td>{{product.productName}}</td>
+                <td>{{product.productCode}}</td>
+                <td>{{product.cpCode}}</td>
+                <td>{{product.fee}}</td>
+                <td>{{product.status}}</td>
+                <td>{{product.approveStatus}}</td>
                 <td>
                     <div class="operate-list">
-                        <span @click="showSingleProductDetail" class="mr-30 cl-blue">详情</span>
+                        <span @click="showSingleProductDetail(product.productCode)" class="pointer mr-30 cl-blue">详情</span>
                     </div>
                 </td>
             </tr>
-         
             </tbody>
         </table>
     </div>
@@ -41,6 +38,9 @@
 
     export default {
         name: 'ContractProductTable',
+        props:{
+            productList: Array,
+        },
         components: {
             VSearch,
             VPaging
@@ -51,23 +51,23 @@
             return {}
         },
 
-        methods:{
-            showSingleProductDetail(){
-                this.$router.push({'name': 'ContractProductDetail'});
+        methods: {
+            showSingleProductDetail(productCode){
+                this.$router.push({'name': 'SingleProductDetail',params:{'productCode':productCode}});
+                /*this.$router.push({name: 'ContactList', params: {'id': cache.userInfo.data.enterpriseId}});*/
             }
         }
 
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style scoped lang="scss" rel="stylesheet/scss">
     .table-wrap {
-    td:nth-child(1){
-        padding-left: 68px!important;
+        td:nth-child(1) {
+            padding-left: 68px !important;
+        }
+        th:nth-child(1) {
+            padding-left: 68px !important;
+        }
     }
-    th:nth-child(1){
-        padding-left: 68px!important;
-    }
-    }
-
 </style>
