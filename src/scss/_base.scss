@@ -13,10 +13,16 @@
     }
 }
 
-/* padding margin  width*/
+/* padding margin  width border*/
 
+.radius-2{
+    border-radius: 2px!important;
+}
 .mr-3{
     margin-right: 3px!important;
+}
+.mr-6{
+    margin-right: 6px!important;
 }
 .mr-10{
     margin-right: 10px !important;
@@ -47,6 +53,9 @@
 }
 .no-bd{
     border: 0;
+}
+.w-150{
+    width: 150px!important;
 }
 .w-70{
     width: 70px!important;

@@ -98,7 +98,7 @@
             </t-modal-sub-container>
         </modal>
     
-        <modal name="smsListModal" :width="870" :height="558" @before-close="beforeClose">
+        <modal name="smsListModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'动漫包推荐短信模板选择'" :name="'smsListModal'">
                 <sms-list></sms-list>
             </t-modal-sub-container>
@@ -110,6 +110,7 @@
     import TModalSubContainer from "@/components/modal-sub-container";
     import SmsList from '@/pages/contractProduct/children/contractProductAdd/components/sms-list';
     import AreaChose from '@/pages/contractProduct/components/area-chose.vue'
+    import Paging from '@/components/paging'
     export default{
         data(){
             return {
@@ -123,7 +124,8 @@
             VSelectBox,
             AreaChose,
             TModalSubContainer,
-            SmsList
+            SmsList,
+            Paging
         },
         methods: {
             nextStep(){

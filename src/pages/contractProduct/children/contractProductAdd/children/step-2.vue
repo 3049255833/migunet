@@ -40,7 +40,7 @@
                         <div class="form-row">
                             <div class="row-left font-12 required w-100">资费计划：</div>
                             <div class="row-right">
-                                <textarea placeholder="请选择" readonly></textarea>
+                                <textarea placeholder="请选择" @click="showProductCodeModal" readonly></textarea>
                             </div>
                         </div>
                         <div class="form-row">
@@ -163,10 +163,18 @@
             </div>
             
         </div>
+    
+        <modal name="productCodeModal" :width="870" :height="570" @before-close="beforeClose">
+            <t-modal-sub-container :title="'产品选择'" :name="'productCodeModal'">
+                <v-product-code></v-product-code>
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 <script>
     import VSelectBox from '@/components/select-box';
+    import VProductCode from '../components/product-code.vue';
+    import TModalSubContainer from "@/components/modal-sub-container";
     export default{
         data(){
             return {
@@ -176,7 +184,9 @@
             }
         },
         components:{
-            VSelectBox
+            VSelectBox,
+            VProductCode,
+            TModalSubContainer
         },
         methods:{
             nextStep(){
@@ -184,6 +194,12 @@
                 this.$router.push({ 'name': 'Step3' });
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
+            showProductCodeModal(){
+                this.$modal.show('productCodeModal');
+            },
+            beforeClose(){
+                
+            }
         }
     }
 </script>

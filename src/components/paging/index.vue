@@ -3,7 +3,7 @@
 
         <span class="perPage">
 
-            <v-Select selectType="2" v-bind:options="['7条 / 页','8条 / 页','9条 / 页','10条 / 页']"></v-Select>
+            <select-box selectType="2" v-if="!showElement" v-bind:options="['7条 / 页','8条 / 页','9条 / 页','10条 / 页']"></select-box>
 
         </span>
 
@@ -16,10 +16,10 @@
 
             <li v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)"><a href="javascript:void(0);" class="next">></a></li>
 
-            <li class="travel-to">前往</li>
+            <li v-if="!showElement" class="travel-to">前往</li>
 
-            <li class="whichPage"><input v-model="pageSelected"  @keyup.enter="jumpPage" type="text"></li>
-            页
+            <li v-if="!showElement" class="whichPage"><input v-model="pageSelected"  @keyup.enter="jumpPage" type="text"></li>
+            <li v-if="!showElement">页</li>
         </ul>
     
     </div>
@@ -27,13 +27,14 @@
 </template>
 
 <script>
-    import vSelect from "@/components/select";
+    import SelectBox from "@/components/select-box";
 
     export default {
         name: 'Paging',
         components:{
-            vSelect
+            SelectBox
         },
+        props:['type'],
         data () {
             return {
                 current: 2,
@@ -62,6 +63,11 @@
                     }
                 }
                 return pag
+            },
+            showElement(){
+                if (this.type||this.type=='simple'){
+                    return true;
+                }
             }
         },
         methods:{

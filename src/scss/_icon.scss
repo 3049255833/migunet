@@ -28,4 +28,8 @@
             @include bg('icon-checkbox-active.png',16px,16px);
         }
     }
+    &-search {
+        @include bg('icon-search.png',14px,14px);
+
+    }
 }

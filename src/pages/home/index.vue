@@ -48,7 +48,7 @@
         methods: {},
 
         mounted () {
-
+            
         },
 
         watch: {}
