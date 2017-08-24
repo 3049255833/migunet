@@ -344,11 +344,52 @@
         },
         data (){
             return {
-                
+                contractCode: this.$route.params.contractCode,
+                contractProductDetail: {
+                    contractProduct: '',
+                    boss: '',
+                    serviceCode: '',
+                    experiencePack: '',
+                    channel: ''
+                }
             }
         },
+        created(){
+            this.getContractProductDetail(this.contractCode);
+        },
         methods: {
-            
+            /**
+             * 获取单品详情
+             * @param contractCode 产品id string
+             * */
+            getContractProductDetail(contractCode) {
+                this.$http.get(this.api.contractProductDetail,
+                    {
+                        params: {
+                            contractCode: contractCode || ''
+                        }
+                    }).then(response => {
+
+                        let res = response.body;
+
+                        if (res.result.resultCode == '00000000') {
+                            //todo: 注意，返回的字段这里list小写
+                            this.contractProductDetail.contractProduct = res.contractProduct;
+
+                            this.contractProductDetail.boss = res.contractProductDetail;
+
+                            this.contractProductDetail.serviceCode = res.serviceCode;
+
+                            this.contractProductDetail.experiencePack = res.experiencePack;
+
+                            this.contractProductDetail.channel = res.channel;
+
+                            console.log(this.contractProductDetail);
+                        } else {
+
+                        }
+                })
+            }
         }
     }
 </script>
