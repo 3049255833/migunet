@@ -11,22 +11,22 @@
 
         <modal name="addProductCatalogModal" :width="320" :height="200" @before-close="beforeClose">
             <t-modal-sub-container :title="'新增目录'" :name="'addProductCatalogModal'">
-                <v-add-product-catalog></v-add-product-catalog>
+                <v-add-product-catalog-modal></v-add-product-catalog-modal>
             </t-modal-sub-container>
         </modal>
     </div>
 </template>
 
 <script>
-    import VAddProductCatalog from './add-product-catalog'
+    import VAddProductCatalogModal from './add-product-catalog-modal'
     import TModalSubContainer from "@/components/modal-sub-container"
 
     export default {
         name: 'TableOperateHead',
         props:['title'],
         components: {
-          VAddProductCatalog,
-          TModalSubContainer
+            VAddProductCatalogModal,
+            TModalSubContainer
         },
         methods:{
             addCatalogBtn() {

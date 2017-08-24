@@ -1,8 +1,6 @@
 <template>
     <div class="business-code-config-container">
-        <!--<v-search hideBtn="true" title="单品管理"></v-search>-->
-
-        <operate-box title="业务代码管理"></operate-box>
+        <v-table-operate-head title="业务代码管理"></v-table-operate-head>
 
         <business-code-table></business-code-table>
 
@@ -13,14 +11,14 @@
 <script>
     import Mock from 'mockjs'
     import BusinessCodeTable from '@/pages/businessCodeConfig/components/business-code-table'
-    import OperateBox from '@/pages/businessCodeConfig/components/operate-box'
+    import VTableOperateHead from '@/pages/businessCodeConfig/components/table-operate-head'
     import VPaging from '@/components/paging'
 
     export default{
         name: 'BusinessCodeConfig',
         components:{
             BusinessCodeTable,
-            OperateBox,
+            VTableOperateHead,
             VPaging
         }
     }

@@ -5,19 +5,31 @@
                 {{title}}
             </div>
             <button class="btn btn-import-module mr-10">批量导入</button>
-            <button class="btn btn-add-module-white mr-10">新增代码</button>
+            <button class="btn btn-add-module-white mr-10" @click="addBusinessCode">新增代码</button>
             <button class="btn btn-import-module mr-10">批量删除</button>
         </div>
         <div class="right">
             <input type="text" placeholder="关键信息搜索" @keyup.enter="searchKeyWord"/>
         </div>
+
+        <modal name="addBusinessCodeModal" :width="600" :height="560" @before-close="beforeClose">
+            <t-modal-sub-container :title="'新增业务代码'" :name="'addBusinessCodeModal'">
+                <v-add-business-code-modal></v-add-business-code-modal>
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 <script>
+    import VAddBusinessCodeModal from './add-business-code-modal'
+    import TModalSubContainer from "@/components/modal-sub-container"
+
     export default {
         name: 'OperateBox',
         props: ['title'],
-        components: {},
+        components: {
+            VAddBusinessCodeModal,
+            TModalSubContainer
+        },
         methods: {
             search: function () {
                 this.$emit('searchInfo', this.selected);
@@ -25,6 +37,12 @@
             searchKeyWord: function () {
                 // this.$store.dispatch('changeKeyWord',this.keyWord)
                 // console.log(this.keyWord);
+            },
+            addBusinessCode() {
+                this.$modal.show('addBusinessCodeModal');
+            },
+            beforeClose() {
+
             }
         }
     }
