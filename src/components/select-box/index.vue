@@ -4,7 +4,7 @@
             <span class="select-show-txt" v-if="selectText">{{selectText}}</span>
             <span class="select-show-txt default-text" v-else>{{defaultText}}</span><i class="icon layout-center-y icon-arrow-down"></i>
         </div>
-        <div class="option-mask" :style="{minWidth:this.w+'px'}" v-bind:class="{opMask:optionWhatStatus}">
+        <div class="option-mask" :style="{minWidth:this.w+'px'}"  :class="{opMask:optionWhatStatus}">
             <div class="option-item" @click.stop="selectItem(option)" v-for="(option,index) in options">{{option.optionText}}</div>
         </div>
     </div>

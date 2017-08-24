@@ -4,14 +4,16 @@
             <div class="form-row">
                 <div class="row-left required">产品名称（中文）：</div>
                 <div class="row-right">
-                    <input class=" form-input pointer w-200" type="text"
+                    <input class=" form-input pointer w-200"
+                           v-module="formData.productName" type="text"
                            placeholder="请输入"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="row-left">产品描述（中文）：</div>
                 <div class="row-right">
-                    <textarea class="textarea-module w-340" type="text" placeholder="请输入"></textarea>
+                    <textarea class="textarea-module w-340" type="text" v-module="formData.productDesc"
+                              placeholder="请输入"></textarea>
                 </div>
             </div>
             <div class="form-row">
@@ -20,7 +22,20 @@
                 </div>
                 <div class="row-right">
                     <textarea class="textarea-module w-340" type="text"
+                              v-model="formData.searchKey"
                               placeholder="搜索关键字将用于用户搜索功能，请输入断句，逗号 ‘，’隔开，例：‘漫画，青少年’"></textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="row-left required">
+                    生效方式：
+                </div>
+                <div class="row-right">
+                    <v-select-box :w="'200'"
+                                  :selectTitle="'立即生效'"
+                                  :selectValue="''"
+                                  :options="selectBoxList.effectiveWayList">
+                    </v-select-box>
                 </div>
             </div>
             <div class="form-row">
@@ -271,15 +286,13 @@
                     <div class="row-left"></div>
                     <div class="row-right">
                         <div class="btn-group">
-                            <div class="btn btn-primary btn-middle"  @click="nextStep">下一步</div>
-                            <div class="btn btn-default btn-middle" >取消</div>
+                            <div class="btn btn-primary btn-middle" @click="nextStep">下一步</div>
+                            <div class="btn btn-default btn-middle">取消</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-    
         <modal name="businessAreaModal" :width="800" :height="440" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'businessAreaModal'">
                 <area-chose :modal-name="'businessAreaModal'"></area-chose>
@@ -297,11 +310,31 @@
         data(){
             return {
                 formData: {
+                    productName: '',       //产品名称
+                    productDesc: '',       //产品描述
+                    searchKey: '',         //搜索关键字
+                    effectiveWay: '',      //生效方式
                     channelId: '',
                     businessArea: '',
                     vipProduct: '1',
                     repeatBuy: '1',
                     useCode: '1'
+                },
+                selectBoxList: {
+                    effectiveWayList: [
+                        {
+                            optionText: '立即生效',
+                            optionValue: '1'
+                        },
+                        {
+                            optionText: '下周生效',
+                            optionValue: '2'
+                        },
+                        {
+                            optionText: '下月生效',
+                            optionValue: '3'
+                        }
+                    ]
                 }
             }
         },
@@ -311,7 +344,7 @@
             TModalSubContainer,
             AreaChose,
             VSelectBox,
-           
+
         },
         methods: {
             /**
@@ -341,10 +374,7 @@
              * 清空单项表单
              * */
             remove(item){
-                /*this.formData[item]='';
-                 console.log(item)*/
                 this.formData[item] = '';
-
             }
         },
         mounted () {

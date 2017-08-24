@@ -618,17 +618,7 @@
         padding-bottom: 30px;
     }
     
-    .lay-btn {
-        text-align: right;
-        margin-right: 40px;
-        margin-top: 20px;
-    }
-    
-    .lay-btn-wrapper {
-        display: inline-block;
-        margin-left: 16px;
-    }
-    
+   
     .single-product-detail {
         .product-detail-head {
             position: relative;

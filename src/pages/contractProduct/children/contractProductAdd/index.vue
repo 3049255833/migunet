@@ -84,7 +84,7 @@
     }
     
     .step-wrapper {
-        padding: 20px 0;
+        padding: 15px 0;
         background: #f2f8ff;
     }
     
@@ -128,10 +128,10 @@
     }
     
     .step-circle {
-        width: 45px;
-        height: 45px;
-        border: solid 1px #d6e1e5;
         position: relative;
+        width: 40px;
+        height: 40px;
+        border: solid 1px #d6e1e5;
         border-radius: 50%;
         margin: 0 auto;
         background: #f2f8ff;
@@ -142,14 +142,14 @@
         position: absolute;
         left: 50%;
         top: 50%;
-        width: 24px;
-        height: 24px;
+        width: 23px;
+        height: 23px;
         color: white;
+        font-size: 12px;
         text-align: center;
-        line-height: 24px;
+        line-height: 23px;
         background: #d6e1e5;
-        margin-left: -12px;
-        margin-top: -12px;
+        transform: translate(-50%,-50%);
         border-radius: 50%;
     }
     

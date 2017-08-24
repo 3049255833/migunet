@@ -82,7 +82,7 @@
 .textarea-module{
     width: 340px;
     min-height: 78px;
-    padding: 8px 10px;
+    padding: 5px 10px;
     border: 1px solid #D6E1E5;
     border-radius: 4px;
     cursor: pointer;
@@ -154,7 +154,7 @@ input {
         line-height: 32px;
         color: #333333;
         &:focus {
-            box-shadow: 0 0 4px 3px #E6F8FF;
+            box-shadow: 0 0 3px 2px #E6F8FF;
         }
         border: 1px solid #D6E1E5 !important;
         &.error{
@@ -175,7 +175,7 @@ textarea {
     color: #333333;
     border: 1px solid #D6E1E5 !important;
     &:focus {
-        box-shadow: 0 0 4px 3px #EEFAFF;
+        box-shadow: 0 0 3px 2px #EEFAFF;
     }
     &::-webkit-input-placeholder {
         color: #D6E1E5;
