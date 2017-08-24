@@ -5,9 +5,9 @@
                 <div class="l-title">
                     {{title}}
                 </div>
-                <div class="btn-add" @click="addContractProduct" v-bind:class="{addBtn:hideBtn}">
-                    <i class="icon icon-add-white"></i>新增产品
-                </div>
+                <button class="ml-24 btn btn-add-module-blue" @click="addContractProduct" v-bind:class="{addBtn:hideBtn}">
+                    新增产品
+                </button>
             </div>
             <div class="vue-right">
                 <div class="l-space input-wrapper input-wrapper1">
@@ -85,7 +85,7 @@
     .l-content-head {
         clear: both;
         display: block;
-        padding: 14px 20px;
+        padding: 13px 20px;
     }
     
     .l-content-head:after {

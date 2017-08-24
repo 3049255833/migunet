@@ -34,6 +34,9 @@
 .mr-15{
     margin-right: 15px;
 }
+.ml-24{
+    margin-left: 24px;
+}
 .mr-20{
     margin-right: 20px;
 }
@@ -69,6 +72,9 @@
 }
 .w-80{
     width: 80px !important;
+}
+.w-50{
+    width: 50% !important;
 }
 .w-100{
     width: 100px !important;
@@ -156,4 +162,12 @@
 }
 .cl-fail-pass{
     color: #DB7B7B;
+}
+
+/* float */
+.fl{
+    float: left !important;
+}
+.fr{
+    float: right !important;
 }
