@@ -2,7 +2,7 @@
     <div class="business-code-config-container">
         <v-table-operate-head title="业务代码管理"></v-table-operate-head>
 
-        <business-code-table></business-code-table>
+        <business-code-table :businessCodeList="businessCodeList"></business-code-table>
 
         <v-paging></v-paging>
     </div>
@@ -20,7 +20,41 @@
             BusinessCodeTable,
             VTableOperateHead,
             VPaging
-        }
+        },
+        data () {
+            return {
+                businessCodeList: [
+                    {
+                        id: 1001,
+                        enterPriseCode: 2009,
+                        codeName: '动漫计费功能',
+                        codeDes: '动漫业务包',
+                        type: '分成',
+                        amount: '12.00',
+                        isAdmin: true
+                    },
+                    {
+                        id: 1002,
+                        enterPriseCode: 2009,
+                        codeName: '动漫计费功能',
+                        codeDes: '动漫业务包',
+                        type: '分成',
+                        amount: '12.00',
+                        isAdmin: false
+                    },
+                    {
+                        id: 1003,
+                        enterPriseCode: 2009,
+                        codeName: '动漫计费功能',
+                        codeDes: '动漫业务包',
+                        type: '分成',
+                        amount: '12.00',
+                        isAdmin: false
+                    }
+                ],
+                totalPage:1
+            }
+        },
     }
 </script>
 

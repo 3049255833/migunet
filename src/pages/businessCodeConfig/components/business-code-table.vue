@@ -14,7 +14,7 @@
         </thead>
 
         <tbody>
-            <tr v-for="(item, index) in items">
+            <tr v-for="(item, index) in businessCodeList">
                 <td>
                     <div class="l-app-name">{{item.id}}</div>
                 </td>
@@ -42,43 +42,12 @@
 
     export default {
         name: 'Table',
+        props:{
+            businessCodeList: Array,
+        },
         components: {
             VSearch,
             VPaging
-        },
-        data () {
-            return {
-                items: [
-                    {
-                        id: 1001,
-                        enterPriseCode: 2009,
-                        codeName: '动漫计费功能',
-                        codeDes: '动漫业务包',
-                        type: '分成',
-                        amount: '12.00',
-                        isAdmin: true
-                    },
-                    {
-                        id: 1002,
-                        enterPriseCode: 2009,
-                        codeName: '动漫计费功能',
-                        codeDes: '动漫业务包',
-                        type: '分成',
-                        amount: '12.00',
-                        isAdmin: false
-                    },
-                    {
-                        id: 1003,
-                        enterPriseCode: 2009,
-                        codeName: '动漫计费功能',
-                        codeDes: '动漫业务包',
-                        type: '分成',
-                        amount: '12.00',
-                        isAdmin: false
-                    }
-                ],
-                totalPage:1
-            }
         },
         methods: {
             deleteBtn(index) {
