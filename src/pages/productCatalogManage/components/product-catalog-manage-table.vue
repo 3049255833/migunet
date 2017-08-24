@@ -9,7 +9,7 @@
         </thead>
 
         <tbody>
-            <tr v-for="item in items">
+            <tr v-for="(item, index) in items">
                 <td class="first">
                     <label class="checkbox-module">
                         <input type="checkbox">
@@ -31,7 +31,7 @@
                 <td class="operation">
                     <div class="edit icon icon-edit-gray" @click="editBtn"></div>
 
-                    <div class="delete icon icon-del-blue" @click="deleteBtn"></div>
+                    <div class="delete icon icon-del-blue" @click="deleteBtn(index)"></div>
                 </td>
             </tr>
         </tbody>
@@ -56,6 +56,12 @@
                     },
                     {
                         message: "漫画类型2"
+                    },
+                    {
+                        message: "漫画类型3"
+                    },
+                    {
+                        message: "漫画类型4"
                     }
                 ],
             }
@@ -67,8 +73,8 @@
                 event.currentTarget.parentNode.parentNode.children[1].children[1].style.display="block";
             },
 
-            deleteBtn(event) {
-                event.currentTarget.parentNode.parentNode.remove();
+            deleteBtn(index) {
+                this.items.splice(index, 1);
             },
 
             confirm(event) {
@@ -92,7 +98,8 @@
             padding: 0 10px;
             line-height: 32px;
             color: #333333;
-            border: 1px solid #D6E1E5 !important
+            border: 1px solid #D6E1E5 !important;
+            vertical-align: middle;
         }
 
         .search {
