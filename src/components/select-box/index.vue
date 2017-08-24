@@ -57,8 +57,7 @@
             selectStyle(){
                 return {}
             }
-        }
-        ,
+        },
         methods: {
             showSelect(){
                 this.isShow = !this.isShow;

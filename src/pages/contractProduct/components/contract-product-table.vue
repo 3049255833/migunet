@@ -24,14 +24,23 @@
                     <td> {{cProduct.status}} </td>
                     <td> {{cProduct.approveStatus}} </td>
                     <td>
-                        <div class="operate-list">
-                            <span @click="showContractProductDetail(cProduct.contractCode)" class="mr-30 pointer cl-blue">详情</span>
-                            <span class="mr-30 pointer cl-blue">变更信息</span>
+                        <div class="operate-list clearfix">
+                            <div @click="showContractProductDetail(cProduct.contractCode)" class="mr-30 pointer cl-blue">详情</div>
 
-                            <span class="pointer mr-30 cl-blue">
+                            <div class="mr-30 pointer cl-blue">变更信息</div>
+
+                            <div class="pointer mr-30 cl-blue">
                                 更多
-                                <i class="icon icon-arrow-down-blue"></i>
-                            </span>
+                                <i class="icon icon-arrow-down-blue" :class="{'active':isShow}" @click.stop="showSelect"></i>
+                            </div>
+                        </div>
+
+                        <div class="option-mask" v-bind:class="{opMask:optionWhatStatus}">
+                            <div class="option-item">下线</div>
+
+                            <div class="option-item">隐藏</div>
+
+                            <div class="option-item">注销</div>
                         </div>
                     </td>
                 </tr>
@@ -46,22 +55,44 @@
 
     export default {
         name: 'ContractProductTable',
-        props:{
+        /*props:{
             contractProductList: Array,
-        },
+        },*/
         components: {
             VSearch,
             VPaging
         },
-        data ()
+        data()
         {
-            return {}
+            return {
+                isShow: false,
+                contractProductList: [
+                    {
+                        "contractCode":"产品ID",
+                        "contractName":"产品名称",
+                        "childProductType":"子产品类型",
+                        "cpCode":"CP代码",
+                        "status":"业务状态",
+                        "approveStatus":"审批状态",
+                        "fee":"资费"
+                    }
+                ]
+            }
+        },
+        computed: {
+            optionWhatStatus(){
+                return this.isShow;
+            }
         },
         methods:{
             showContractProductDetail(contractCode){
-                this.$router.push({'name': 'ContractProductDetail'});
-
                 this.$router.push({'name': 'ContractProductDetail',params:{'contractCode':contractCode}});
+            },
+            showSelect(){
+                this.isShow = !this.isShow;
+            },
+            hideSelect(){
+                this.isShow = false;
             }
         }
     }
@@ -74,6 +105,60 @@
         }
         th:nth-child(1){
             padding-left: 68px!important;
+        }
+    }
+
+    .pointer {
+        float: left;
+    }
+
+    .option-mask {
+        box-sizing: border-box;
+        position: absolute;
+        border: solid 1px #d6e1e5;
+        margin-top: 12px;
+        border-radius: 3px;
+        display: none;
+        z-index: 88;
+        background: #ffffff;
+        width: 80px;
+        margin-left: 125px;
+
+        &.opMask {
+            display: block;
+        }
+
+        &:before {
+            position: absolute;
+            right: 30px;
+            top: -11px;
+            content: "";
+            border: 5px solid rgba(0, 0, 0, 0);
+            border-bottom-color: #d6e1e5;
+        }
+
+        &:after {
+            position: absolute;
+            right: 30px;
+            top: -10px;
+            content: "";
+            border: 5px solid rgba(0, 0, 0, 0);
+            border-bottom-color: #fff;
+        }
+
+        .option-item {
+            font-size: 12px;
+            padding-left: 10px;
+            color: #0c0a0b;
+            line-height: 34px;
+            cursor: pointer;
+            padding-right: 10px;
+            text-align: center;
+
+            &:hover {
+                color: #ffffff;
+                background: #46bafe;
+            }
         }
     }
     
