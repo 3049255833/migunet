@@ -52,8 +52,6 @@
                 /*console.log(this.postData);*/
                 this.getSingleProductList();
             });
-            
-            
             /**
              * 接收分页信息
              * */
