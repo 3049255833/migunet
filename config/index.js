@@ -1,7 +1,9 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path');
 
-var proxy_service = 'http://10.5.2.47:8080';
+var proxy_service_xhw = 'http://10.5.2.47:8080';
+var proxy_service_ljy = 'http://10.5.2.119:8080';
+
 
 var proxy_service_q = 'http://10.5.2.119:8080';
 
@@ -42,17 +44,21 @@ module.exports = {
 
         proxyTable: {
             '/product/getProductList': {  /*单品列表*/
-                target: proxy_service,
-                changeOrigin: true
-            },
-            '/product/getProductDetail': {   /*单品详情的IP*/
-                target: proxy_service,
+                target: proxy_service_xhw,
                 changeOrigin: true
             },
             '/product/getContractProductList': {   /*合约产品列表的IP*/
                 target: proxy_service_q,
                 changeOrigin: true
-            }
+            },
+            '/product/getProductDetail': {   /*合约产品详情的IP*/
+                target: proxy_service_xhw,
+                changeOrigin: true
+            },
+            '/product/getContractProductList': {  /*单品列表*/
+                target: proxy_service_ljy,
+                changeOrigin: true
+            },
         },
         // CSS Sourcemaps off by default because relative paths are "buggy"
         // with this option, according to the CSS-Loader README

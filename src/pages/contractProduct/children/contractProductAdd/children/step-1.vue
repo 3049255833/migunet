@@ -43,7 +43,7 @@
                     生效时间：
                 </div>
                 <div class="row-right">
-                    <v-date :class="'w-200'"></v-date>
+                    <v-date :class="'w-200'" :dateName="" ></v-date>
                 </div>
             </div>
             <div class="form-row">
