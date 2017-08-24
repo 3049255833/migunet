@@ -4,7 +4,7 @@
             <div class="form-row">
                 <div class="row-left required">产品名称（中文）：</div>
                 <div class="row-right">
-                    <input class="form-input pointer w-200" type="text"
+                    <input class=" form-input pointer w-200" type="text"
                            placeholder="请输入"/>
                 </div>
             </div>

@@ -6,8 +6,7 @@
                     {{title}}
                 </div>
                 <button class="ml-24 btn btn-add-module-blue" @click="addContractProduct"
-                        v-bind:class="{addBtn:hideBtn}">
-                    新增产品
+                        v-bind:class="{addBtn:hideBtn}">新增产品
                 </button>
             </div>
             <div class="vue-right">

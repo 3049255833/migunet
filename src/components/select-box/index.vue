@@ -128,7 +128,7 @@
             right: 8px;
         }
         &.active{
-            box-shadow: 0 0 3px 2px #EEFAFF;
+            box-shadow: 0 0 4px 3px #EEFAFF;
         }
         transition: all .3s ease ;
     }
