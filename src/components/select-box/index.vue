@@ -1,6 +1,7 @@
 <template>
     <div class="s-wrapper">
-        <div class="select-show" :class="{'active':isShow}" :style="{width:this.w+'px'}" @click.stop="showSelect">{{selected}}<i class="icon layout-center-y icon-arrow-down"></i></div>
+        <div class="select-show" :class="{'active':isShow}" :style="{width:this.w+'px'}" @click.stop="showSelect">
+            <span class="select-show-txt" v-if="selected">{{selected}}</span><span class="select-show-txt default-text" v-else>{{defaultText}}</span><i class="icon layout-center-y icon-arrow-down"></i></div>
         <div class="option-mask" :style="{width:this.w+'px'}" v-bind:class="{opMask:optionWhatStatus}">
             <div class="option-item" @click.stop="selectItem(option)" v-for="option in options">{{option}}</div>
             <!--<div class="option-item">222</div>-->
@@ -17,7 +18,7 @@
 <script>
     export default {
         name: 'Select',
-        props: ['selectTitle','text', 'w', 'h', 'bg', 'color', 'options', 'selectType'],
+        props: ['selectTitle','defaultTitle','text', 'w', 'h', 'bg', 'color', 'options', 'selectType'],
         data ()
         {
             return {
@@ -32,6 +33,7 @@
                 isShow: false,
                 // options:['上线报备中','上线报备失败','变更报备中'],
                 selected:this.selectTitle,
+                defaultText:this.defaultTitle
             }
         }
         ,
@@ -111,6 +113,13 @@
         border-radius: 3px;
         line-height: 32px;
         cursor: pointer;
+        padding-right: 9px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        .default-text{
+            color: #d6e1e5;
+        }
         .icon{
             right: 8px;
         }

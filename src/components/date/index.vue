@@ -2,7 +2,8 @@
     <div class="date-wrapper">
         <div class="flex">
             <div>
-                <input style="position:relative"  type="text" @click="openByDrop($event)" v-model="calendar3.display" readonly>
+                <input v-if="defaultText=='生效时间'" style="position:relative"  type="text" @click="openByDrop($event)" placeholder="生效时间"  v-model="calendar3.display" readonly>
+                <input v-else style="position:relative"  type="text" @click="openByDrop($event)" placeholder="失效时间"  v-model="calendar3.display" readonly>
             </div>
         </div>
         <transition name="fade">
@@ -25,7 +26,7 @@
         data(){
             return {
                 calendar3:{
-                    display:this.defaultText,
+                    display:'',
                     show:false,
                     zero:true,
                     // value:[2018,2,16], //默认日期
@@ -72,6 +73,21 @@
         width: 100%;
         position: relative;
         
+    }
+    input{
+        cursor: pointer;
+        &::-webkit-input-placeholder {
+            color: #D6E1E5;
+        }
+        &:-moz-placeholder  {
+            color: #D6E1E5;
+        }
+        &::-moz-placeholder  {
+            color: #D6E1E5;
+        }
+        &:-ms-input-placeholder  {
+            color: #D6E1E5;
+        }
     }
     .flex{
         /*width:150px;*/

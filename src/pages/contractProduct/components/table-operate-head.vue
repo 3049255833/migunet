@@ -14,14 +14,14 @@
                     <input  type="text" placeholder="关键信息搜索" v-model="keyWord" @keyup.enter="searchKeyWord"/>
                 </div>
                 <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="70" selectTitle="草稿" v-bind:options="['1','2','3']"></v-select-box>
+                    <v-select-box selectType="1" :w="70" defaultTitle="草稿" v-bind:options="['1','2','3']"></v-select-box>
                 </div>
                 <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="90" selectTitle="上线审批"
+                    <v-select-box selectType="1" :w="90" defaultTitle="上线审批"
                               v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                 </div>
                 <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="130" selectTitle="产品目录1" v-bind:options="['1','2','3']"></v-select-box>
+                    <v-select-box selectType="1" :w="130" defaultTitle="产品目录" v-bind:options="['1','2','3']"></v-select-box>
                 </div>
                 <div class="date-container mr-10">
                     <v-date defaultText="生效时间" startTime="true"></v-date>
