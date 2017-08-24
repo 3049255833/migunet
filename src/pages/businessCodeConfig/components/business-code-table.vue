@@ -1,5 +1,5 @@
 <template>
-    <table>
+    <table class="table-module">
         <thead>
             <tr>
                 <th>业务代码ID</th>
@@ -56,43 +56,9 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
     table {
-        width: 100%;
 
         thead tr {
-            background-color: #f2f8ff;
-
-            th {
-                padding: 20px 0;
-                font-size: 14px;
-                color: #4a4a4a;
-            }
-        }
-
-        tbody {
-
-            tr {
-                text-align: center;
-                border-bottom: 1px solid #ddd;
-
-                td {
-                    padding: 15px 0;
-                }
-
-                .operation {
-                    /*.edit, .delete {
-                        width: 16px;
-                        height: 16px;
-                    }
-
-                    .delete {
-                        @include bg('icon-del-blue.png');
-                    }
-
-                    .edit {
-                        @include bg("icon-add-blue.png");
-                    }*/
-                }
-            }
+            text-align: left;
         }
     }
 </style>
