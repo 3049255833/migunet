@@ -161,9 +161,9 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
-    
+
         <modal name="productCodeModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'产品选择'" :name="'productCodeModal'">
                 <v-product-code></v-product-code>
@@ -198,7 +198,7 @@
                 this.$modal.show('productCodeModal');
             },
             beforeClose(){
-                
+
             }
         }
     }
@@ -213,17 +213,17 @@
         background: url('#{$image-base-path}#{$URI}') $repeat $x $y;
         background-size: 100% 100%;
     }
-    
+
     .add-step-2 {
         font-size: 14px;
         color: #333333;
         box-sizing: border-box;
-        
+
         .step-layout {
             padding: 40px 87px 40px 70px;
-            
+
         }
-        
+
         .product-txt {
             height: 54px;
             line-height: 54px;
@@ -240,7 +240,7 @@
                 }
             }
         }
-        
+
         .strategy-type-content {
             h3 {
                 margin-bottom: 8px;
@@ -293,11 +293,11 @@
                     cursor: pointer;
                 }
                 input {
-                    
+
                 }
             }
         }
-        
+
         input {
             &[type='text'] {
                 border-radius: 4px;
@@ -308,7 +308,7 @@
                 border: 1px solid #D6E1E5 !important;
             }
         }
-        
+
         textarea {
             border-radius: 4px;
             color: #333333;
@@ -317,7 +317,7 @@
                 box-shadow: 0 0 3px 2px #EEFAFF;
             }
         }
-        
+
         select {
             border-radius: 4px;
             border: 1px solid #D6E1E5 !important;
@@ -325,7 +325,7 @@
                 box-shadow: 0 0 3px 2px #EEFAFF;
             }
         }
-        
+
         .icon {
             &-select {
                 position: absolute;
@@ -355,7 +355,7 @@
                 margin: 0 10px;
             }
         }
-        
+
         .btn-group {
             margin: 100px 0 50px;
             padding-left: 160px;
