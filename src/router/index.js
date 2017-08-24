@@ -29,7 +29,7 @@ export default new Router({
                     }
                 },
                 {
-                    path: 'contract_product_detail',
+                    path: 'contract_product/contract_product_detail/:contractCode',
                     name: 'ContractProductDetail',
                     components: {
                         default: ContractProductDetail
@@ -53,7 +53,6 @@ export default new Router({
                     path: 'single_product/single_product_detail/:productCode',
                     name: 'SingleProductDetail',
                     component: SingleProductDetail
-
                 },
                 {
                     path: 'product_catalog_manage',
