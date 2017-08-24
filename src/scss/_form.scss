@@ -128,10 +128,22 @@ input {
     &[type='text'] {
         border-radius: 4px;
         color: #333333;
+        border: 1px solid #D6E1E5 !important;
         &:focus {
             box-shadow: 0 0 3px 2px #EEFAFF;
         }
-        border: 1px solid #D6E1E5 !important;
+        &::-webkit-input-placeholder {
+            color: #D6E1E5;
+        }
+        &:-moz-placeholder  {
+            color: #D6E1E5;
+        }
+        &::-moz-placeholder  {
+            color: #D6E1E5;
+        }
+        &:-ms-input-placeholder  {
+            color: #D6E1E5;
+        }
     }
     &.form-input {
         box-sizing: border-box;
@@ -156,6 +168,18 @@ textarea {
     border: 1px solid #D6E1E5 !important;
     &:focus {
         box-shadow: 0 0 3px 2px #EEFAFF;
+    }
+    &::-webkit-input-placeholder {
+        color: #D6E1E5;
+    }
+    &:-moz-placeholder  {
+        color: #D6E1E5;
+    }
+    &::-moz-placeholder  {
+        color: #D6E1E5;
+    }
+    &:-ms-input-placeholder  {
+        color: #D6E1E5;
     }
 }
 
