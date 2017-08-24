@@ -159,4 +159,16 @@ textarea {
     }
 }
 
+.layout-row{
+    padding-bottom: 20px;
+
+    .row-left{
+        display: inline-block;
+        width: 136px;
+    }
+    .row-right{
+        display: inline-block;
+    }
+}
+
 

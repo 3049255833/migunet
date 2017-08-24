@@ -26,7 +26,7 @@
                 <td>上线报备失败</td>
                 <td>
                     <div class="operate-list">
-                        <span @click="showContractProductDetail" class="mr-30 cl-blue">详情</span><span class="mr-30 cl-blue">变更信息</span><span class="mr-30 cl-blue">更多<i class="icon icon-arrow-down-blue"></i></span>
+                        <span @click="showContractProductDetail" class="mr-30 pointer cl-blue">详情</span><span class="mr-30 pointer cl-blue">变更信息</span><span class="pointer mr-30 cl-blue">更多<i class="icon icon-arrow-down-blue"></i></span>
                     </div>
                 </td>
             </tr>

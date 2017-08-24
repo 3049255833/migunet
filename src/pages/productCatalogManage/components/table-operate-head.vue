@@ -5,17 +5,9 @@
                 {{title}}
             </div>
 
-            <div class="new-add-code-btn">
-                <i class="icon icon-add-blue"></i>
-
-                新增目录
-            </div>
-
-            <div class="batch-delete-btn">
-                <i class="icon icon-del-blue"></i>
-
-                批量删除
-            </div>
+            <button class="mr-10 btn btn-add-module-blue">新增目录</button>
+            <button class="btn btn-del-module">批量目录</button>
+            
         </div>
     </div>
 </template>
@@ -38,13 +30,15 @@
         .title {
             font-size: 14px;
             color: #292c31;
-            line-height: 32px;
+            line-height: 34px;
             display: inline-block;
-            margin-right: 20px;
+            margin-right: 24px;
+            vertical-align: middle;
         }
 
         .left {
             float: left;
+            font-size: 0;
 
             .new-add-code-btn,
             .batch-delete-btn {

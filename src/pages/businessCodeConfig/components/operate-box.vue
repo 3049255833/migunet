@@ -4,67 +4,49 @@
             <div class="title">
                 {{title}}
             </div>
-
-            <div class="batch-lead-in-btn">
-                <i class="icon icon-batch-lead-in-white"></i>
-
-                批量导入
-            </div>
-
-            <div class="new-add-code-btn">
-                <i class="icon icon-add-blue"></i>
-
-                新增代码
-            </div>
-
-            <div class="batch-delete-btn">
-                <i class="icon icon-del-blue"></i>
-
-                批量删除
-            </div>
+            <button class="btn btn-import-module mr-10">批量导入</button>
+            <button class="btn btn-add-module-white mr-10">新增代码</button>
+            <button class="btn btn-import-module mr-10">批量删除</button>
         </div>
-
         <div class="right">
-            <input type="text" placeholder="关键信息搜索" @keyup.enter="searchKeyWord" />
+            <input type="text" placeholder="关键信息搜索" @keyup.enter="searchKeyWord"/>
         </div>
     </div>
 </template>
-
 <script>
     export default {
         name: 'OperateBox',
-        props:['title'],
-        components:{
-
-        },
-        methods:{
-            search:function(){
-                this.$emit('searchInfo',this.selected);
+        props: ['title'],
+        components: {},
+        methods: {
+            search: function () {
+                this.$emit('searchInfo', this.selected);
             },
-            searchKeyWord:function(){
+            searchKeyWord: function () {
                 // this.$store.dispatch('changeKeyWord',this.keyWord)
                 // console.log(this.keyWord);
             }
         }
     }
 </script>
-
 <style scoped lang="scss" rel="stylesheet/scss">
     .operate-box {
         overflow: hidden;
         padding: 13px 20px;
-
+        
         .title {
             font-size: 14px;
             color: #292c31;
-            line-height: 32px;
+            line-height: 34px;
             display: inline-block;
-            margin-right: 20px;
+            margin-right: 24px;
+            vertical-align: middle;
         }
-
+        
         .left {
             float: left;
-
+            font-size: 0;
+            
             .batch-lead-in-btn,
             .new-add-code-btn,
             .batch-delete-btn {
@@ -73,27 +55,27 @@
                 margin: 0 5px;
                 border-radius: 4px;
                 cursor: pointer;
-
+                
                 i {
                     vertical-align: sub;
                 }
             }
-
+            
             .batch-lead-in-btn {
                 background-color: #46BAFE;
                 color: #fff;
             }
-
+            
             .batch-delete-btn,
             .new-add-code-btn {
                 border: 1px solid #46BAFE;
                 color: #46BAFE
             }
         }
-
+        
         .right {
             float: right;
-
+            
             input {
                 width: 150px;
                 height: 32px;

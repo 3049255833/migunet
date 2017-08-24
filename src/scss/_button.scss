@@ -133,22 +133,12 @@
 		line-height: $btnHeight;
 	}
 
-	&.btn-sm{
-		@include btn-size(12px, 18px);
-	}
-	&.btn-md{
-		@include btn-size(12px, 26px);
-	}
-	&.btn-lg{
-		@include btn-size(14px, 34px);
-	}
-
 	@mixin type($color, $bgColor, $unableBgColor) {
 		color: $color;
 		background-color: $bgColor;
 
 		&.unable{
-			background-color: $unableBgColor;
+			background-color: $unableBgColor!important;
 		}
 
 		&.outline{
@@ -159,26 +149,166 @@
 	}
 
 	&.btn-default{
-		@include type($color-primary, white, none);
+		@include type($color-primary, transparent, none);
 
         border: 1px solid $color-primary;
 
-        height: 32px;
-        line-height: 30px;
+        height: 34px;
+        line-height: 32px;
 		&.outline{
 			border-color: #eee;
 		}
+        &:hover {
+            border: 1px solid #46BAFE;
+            background-color: #46BAFE;
+            color: white;
+        }
+        &:active{
+            border: 1px solid #46BAFE;
+            background-color: #46BAFE;
+            color: white;
+        }
 	}
 
 	&.btn-primary{
 		@include type(#fff, $color-primary, $color-primary-unable);
-        height: 32px;
-        line-height: 32px;
+        height: 34px;
+        line-height: 34px;
+        &:hover{
+            background-color: #1D9AD2;
+        }
+        &:active{
+            background-color: #1D9AD2;
+        }
 	}
 
-	&.btn-danger{
-		@include type(#fff, $color-danger, none);
-	}
+    &.btn-middle{
+        width: 78px;
+    }
+
+    &.btn-middle-100{
+        width: 100px;
+    }
+
+    &.btn-add-module-blue{
+        width: 88px;
+        height: 34px;
+        line-height: 34px;
+        padding: 0;
+        background-color: #46BAFE;
+        color: white;
+        font-size: 12px;
+        vertical-align: middle;
+        &:before{
+            content:'';
+            display: inline-block;
+            vertical-align: sub;
+            @include bg("icon-add-white.png",15px,15px);
+            margin: 0 6px 0 0;
+        }
+        &:hover{
+            background-color: #1D9AD2;
+
+        }
+        &:active{
+            background-color: #1D9AD2;
+
+        }
+    }
+
+    &.btn-add-module-white{
+        width: 88px;
+        height: 34px;
+        padding: 0;
+        line-height: 32px;
+        border: 1px solid #46bafe;
+        color:  #46BAFE;
+        font-size: 12px;
+        background-color: white;
+        vertical-align: middle;
+        &:before{
+            content:'';
+            display: inline-block;
+            vertical-align: sub;
+            @include bg("icon-add-blue.png",15px,15px);
+            margin: 0 6px 0 0;
+        }
+        &:hover{
+            background-color: #46BAFE;
+            color: white;
+            &:before{
+                @include bg("icon-add-white.png",15px,15px);
+            }
+        }
+        &:active{
+            background-color: #46BAFE;
+            color: white;
+            &:before{
+                @include bg("icon-add-white.png",15px,15px);
+            }
+        }
+    }
+
+    &.btn-import-module{
+        width: 88px;
+        height: 34px;
+        padding: 0;
+        line-height: 34px;
+        background-color: #46BAFE;
+        color: white;
+        font-size: 12px;
+        vertical-align: middle;
+        &:before{
+            content:'';
+            display: inline-block;
+            vertical-align: sub;
+            @include bg("icon-import.png",16px,16px);
+            margin: 0 6px 0 0;
+        }
+        &:hover{
+            background-color: #1D9AD2;
+
+        }
+        &:active{
+            background-color: #1D9AD2;
+
+        }
+    }
+
+    &.btn-del-module{
+        width: 88px;
+        height: 34px;
+        line-height: 32px;
+        padding: 0;
+        border: 1px solid #46bafe;
+        color:  #46BAFE;
+        font-size: 12px;
+        background-color: white;
+        vertical-align: middle;
+        &:before{
+            content:'';
+            display: inline-block;
+            vertical-align:sub;
+            @include bg("icon-del.png",15px,15px);
+            margin: 0 6px 0 0;
+        }
+        &:hover{
+            background-color: #46BAFE;
+            color:white;
+            &:before{
+                @include bg("icon-add-white.png",15px,15px);
+            }
+        }
+        &:active{
+            background-color: #46BAFE;
+            color:white;
+            &:before{
+                @include bg("icon-add-white.png",15px,15px);
+            }
+        }
+    }
+
+
 }
 
 

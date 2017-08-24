@@ -75,7 +75,7 @@
     .l-content-head {
         clear: both;
         display: block;
-        padding: 14px 20px;
+        padding: 13px 20px;
     }
     
     .l-content-head:after {
