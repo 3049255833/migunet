@@ -24,14 +24,15 @@
     }
 
     &.icon-edit-gray {
-        width: 16px;
-        height: 16px;
-        @include bg('edit.png');
+        width: 22px;
+        height: 22px;
+        @include bg('icon-edit-round-gray.png');
     }
 
     &.icon-del-gray {
-        width: 16px;
-        height: 16px;
+        width: 22px;
+        height: 22px;
+        @include bg('icon-del-round-gray.png');
     }
 
     &-select {

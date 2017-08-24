@@ -5,19 +5,36 @@
                 {{title}}
             </div>
 
-            <button class="mr-10 btn btn-add-module-blue">新增目录</button>
+            <button class="mr-10 btn btn-add-module-blue" @click="addCatalogBtn">新增目录</button>
             <button class="btn btn-del-module">批量目录</button>
-            
         </div>
+
+        <modal name="addProductCatalogModal" :width="320" :height="200" @before-close="beforeClose">
+            <t-modal-sub-container :title="'新增目录'" :name="'addProductCatalogModal'">
+                <v-add-product-catalog-modal></v-add-product-catalog-modal>
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 
 <script>
-    export default {
-        name: 'OperateBox',
-        props:['title'],
-        components:{
+    import VAddProductCatalogModal from './add-product-catalog-modal'
+    import TModalSubContainer from "@/components/modal-sub-container"
 
+    export default {
+        name: 'TableOperateHead',
+        props:['title'],
+        components: {
+            VAddProductCatalogModal,
+            TModalSubContainer
+        },
+        methods:{
+            addCatalogBtn() {
+                this.$modal.show('addProductCatalogModal');
+            },
+            beforeClose() {
+
+            }
         }
     }
 </script>

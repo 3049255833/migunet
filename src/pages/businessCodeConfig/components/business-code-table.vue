@@ -1,5 +1,5 @@
 <template>
-    <table>
+    <table class="table-module">
         <thead>
             <tr>
                 <th>业务代码ID</th>
@@ -14,20 +14,22 @@
         </thead>
 
         <tbody>
-            <tr>
+            <tr v-for="(item, index) in businessCodeList">
                 <td>
-                    <div class="l-app-name">10000293</div>
+                    <div class="l-app-name">{{item.id}}</div>
                 </td>
-                <td>200090</td>
-                <td>动漫项目计费</td>
-                <td>动漫业务包</td>
-                <td>分成</td>
-                <td>12,000</td>
-                <td>是</td>
+                <td>{{item.enterPriseCode}}</td>
+                <td>{{item.codeName}}</td>
+                <td>{{item.codeDes}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.amount}}</td>
+                <td v-if="item.isAdmin">是</td>
+                <td v-else>否</td>
+
                 <td class="operation">
                     <div class="edit icon icon-edit-gray"></div>
 
-                    <div class="delete icon icon-del-gray"></div>
+                    <div class="delete icon icon-del-gray" @click="deleteBtn(index)"></div>
                 </td>
             </tr>
         </tbody>
@@ -40,58 +42,32 @@
 
     export default {
         name: 'Table',
+        props:{
+            businessCodeList: Array,
+        },
         components: {
             VSearch,
             VPaging
         },
-        data () {
-            return {
-                // items: [],
-                totalPage:1
-            }
-        },
+        methods: {
+            deleteBtn(index) {
+                this.items.splice(index, 1);
+            },
+        }
     }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
     table {
-        width: 100%;
 
         thead tr {
-            background-color: #f2f8ff;
-
-            th {
-                padding: 20px 0;
-                font-size: 14px;
-                color: #4a4a4a;
-            }
+            text-align: left;
         }
 
         tbody {
-
-            tr {
-                text-align: center;
-                border-bottom: 1px solid #ddd;
-
-                td {
-                    padding: 15px 0;
-                }
-
-                .operation {
-                    /*.edit, .delete {
-                        width: 16px;
-                        height: 16px;
-                    }
-
-                    .delete {
-                        @include bg('icon-del-blue.png');
-                    }
-
-                    .edit {
-                        @include bg("icon-add-blue.png");
-                    }*/
-                }
+            .edit {
+                margin-right: 10px;
             }
         }
     }

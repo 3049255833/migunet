@@ -31,7 +31,7 @@
                 <td class="operation">
                     <div class="edit icon icon-edit-gray" @click="editBtn"></div>
 
-                    <div class="delete icon icon-del-blue" @click="deleteBtn(index)"></div>
+                    <div class="delete icon icon-del-gray" @click="deleteBtn(index)"></div>
                 </td>
             </tr>
         </tbody>
@@ -41,6 +41,7 @@
 <script>
     import VSearch from '@/components/search'
     import VPaging from '@/components/paging'
+    import Bus from './bus'
 
     export default {
         name: 'Table',
@@ -82,6 +83,11 @@
 
                 event.currentTarget.parentNode.parentNode.children[0].style.display="block";
             }
+        },
+        created() {
+            Bus.$on('addCatalog', target => {
+                this.items.push({message: target});
+            });
         }
     }
 </script>
