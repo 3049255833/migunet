@@ -14,20 +14,22 @@
         </thead>
 
         <tbody>
-            <tr>
+            <tr v-for="(item, index) in items">
                 <td>
-                    <div class="l-app-name">10000293</div>
+                    <div class="l-app-name">{{item.id}}</div>
                 </td>
-                <td>200090</td>
-                <td>动漫项目计费</td>
-                <td>动漫业务包</td>
-                <td>分成</td>
-                <td>12,000</td>
-                <td>是</td>
+                <td>{{item.enterPriseCode}}</td>
+                <td>{{item.codeName}}</td>
+                <td>{{item.codeDes}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.amount}}</td>
+                <td v-if="item.isAdmin">是</td>
+                <td v-else>否</td>
+
                 <td class="operation">
                     <div class="edit icon icon-edit-gray"></div>
 
-                    <div class="delete icon icon-del-gray"></div>
+                    <div class="delete icon icon-del-gray" @click="deleteBtn(index)"></div>
                 </td>
             </tr>
         </tbody>
@@ -46,10 +48,43 @@
         },
         data () {
             return {
-                // items: [],
+                items: [
+                    {
+                        id: 1001,
+                        enterPriseCode: 2009,
+                        codeName: '动漫计费功能',
+                        codeDes: '动漫业务包',
+                        type: '分成',
+                        amount: '12.00',
+                        isAdmin: true
+                    },
+                    {
+                        id: 1002,
+                        enterPriseCode: 2009,
+                        codeName: '动漫计费功能',
+                        codeDes: '动漫业务包',
+                        type: '分成',
+                        amount: '12.00',
+                        isAdmin: false
+                    },
+                    {
+                        id: 1003,
+                        enterPriseCode: 2009,
+                        codeName: '动漫计费功能',
+                        codeDes: '动漫业务包',
+                        type: '分成',
+                        amount: '12.00',
+                        isAdmin: false
+                    }
+                ],
                 totalPage:1
             }
         },
+        methods: {
+            deleteBtn(index) {
+                this.items.splice(index, 1);
+            },
+        }
     }
 </script>
 
@@ -59,6 +94,12 @@
 
         thead tr {
             text-align: left;
+        }
+
+        tbody {
+            .edit {
+                margin-right: 10px;
+            }
         }
     }
 </style>

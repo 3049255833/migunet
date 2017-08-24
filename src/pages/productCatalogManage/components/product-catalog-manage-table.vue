@@ -31,7 +31,7 @@
                 <td class="operation">
                     <div class="edit icon icon-edit-gray" @click="editBtn"></div>
 
-                    <div class="delete icon icon-del-blue" @click="deleteBtn(index)"></div>
+                    <div class="delete icon icon-del-gray" @click="deleteBtn(index)"></div>
                 </td>
             </tr>
         </tbody>
