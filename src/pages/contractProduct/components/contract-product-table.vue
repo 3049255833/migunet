@@ -35,7 +35,7 @@
                             </div>
                         </div>
 
-                        <div class="option-mask" v-bind:class="{opMask:optionWhatStatus}">
+                        <div class="option-mask" :class="{opMask:optionWhatStatus}">
                             <div class="option-item">下线</div>
 
                             <div class="option-item">隐藏</div>
@@ -161,5 +161,4 @@
             }
         }
     }
-    
 </style>
