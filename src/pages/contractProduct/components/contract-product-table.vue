@@ -55,9 +55,9 @@
 
     export default {
         name: 'ContractProductTable',
-        /*props:{
+        props:{
             contractProductList: Array,
-        },*/
+        },
         components: {
             VSearch,
             VPaging
@@ -65,18 +65,7 @@
         data()
         {
             return {
-                isShow: false,
-                contractProductList: [
-                    {
-                        "contractCode":"产品ID",
-                        "contractName":"产品名称",
-                        "childProductType":"子产品类型",
-                        "cpCode":"CP代码",
-                        "status":"业务状态",
-                        "approveStatus":"审批状态",
-                        "fee":"资费"
-                    }
-                ]
+                isShow: false
             }
         },
         computed: {

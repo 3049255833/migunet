@@ -617,8 +617,7 @@
         padding-left: 40px;
         padding-bottom: 30px;
     }
-    
-   
+
     .single-product-detail {
         .product-detail-head {
             position: relative;

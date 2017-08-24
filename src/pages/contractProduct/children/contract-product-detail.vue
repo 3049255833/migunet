@@ -395,7 +395,16 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
-    @import url('../../../less/common.less');
+
+    $image-base-path: '../../../assets/';
+    @mixin bg($URI, $w: null, $h: null, $x: top, $y: center, $repeat: no-repeat) {
+        @if $w and $h {
+            width: $w;
+            height: $h;
+        }
+        background: url('#{$image-base-path}#{$URI}') $repeat $x $y;
+        background-size: 100% 100%;
+    }
     
     .review-flow-box {
         background-color: #fff;
@@ -881,6 +890,91 @@
         .table-module {
             td:nth-child(1) {
                 padding-left: 70px;
+            }
+        }
+    }
+
+    .contract-product-detail {
+
+        .product-detail-head {
+            position: relative;
+            width: 100%;
+            height: 110px;
+            padding: 30px 0;
+            background: #f2f8ff;
+
+            .item {
+                width: 224px;
+
+                .item-img{
+                    margin-right: 10px;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+
+                &:nth-child(1) {
+                    left: 40px;
+
+                    .item-img{
+                        @include bg("item-1.png",40px,40px);
+                    }
+                }
+
+                &:nth-child(2) {
+                    left: 264px;
+
+                    .item-img{
+                        @include bg("item-2.png",40px,40px);
+                    }
+                }
+
+                &:nth-child(3) {
+                    left: 495px;
+
+                    .item-img{
+                        @include bg("item-3.png",40px,40px);
+                    }
+                }
+
+                .item-txt{
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 165px;
+
+                    p{
+                        width: 100%;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+
+                    p:nth-child(1){
+                        font-size: 18px;
+                        margin-bottom: 11px;
+                        color: #6d7684;
+                    }
+
+                    p:nth-child(2){
+                        font-size: 12px;
+                        color: #999;
+                    }
+                }
+            }
+
+            .btn-group{
+                right: 40px;
+            }
+        }
+
+        .info-wrap{
+            padding: 30px 0 40px;
+
+            .row-left{
+                color: #666666;
+            }
+
+            .row-right{
+                color: #333333;
             }
         }
     }

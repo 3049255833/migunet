@@ -67,13 +67,16 @@
                         }
                     }).then(response => {
                     let res = response.body;
+
+                    console.log("contractProductList1: " + res);
+
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
-                        this.contractProductList=res.contractProductList;
 
-                        console.log("contractProductList: " + this.contractProductList)
+                        console.log("contractProductList2: " + res.contractProductList);
 
-                    }else{
+                        this.contractProductList = res.contractProductList;
+                    } else {
 
                     }
                 })

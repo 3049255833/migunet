@@ -3,6 +3,8 @@ var path = require('path');
 
 var proxy_service = 'http://10.5.2.47:8080';
 
+var proxy_service_q = 'http://10.5.2.119:8080';
+
 /*switch (argv[0]) {
     case 'xhw':
         proxy_service = 'http://192.168.155.1';
@@ -43,8 +45,12 @@ module.exports = {
                 target: proxy_service,
                 changeOrigin: true
             },
-            '/product/getProductDetail': {   /*合约产品详情的IP*/
+            '/product/getProductDetail': {   /*单品详情的IP*/
                 target: proxy_service,
+                changeOrigin: true
+            },
+            '/product/getContractProductList': {   /*合约产品列表的IP*/
+                target: proxy_service_q,
                 changeOrigin: true
             }
         },
