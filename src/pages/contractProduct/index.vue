@@ -2,29 +2,83 @@
     <div class="contract-product">
         <div class="table-wrapper">
             <v-table-operate-head title="合约产品管理"></v-table-operate-head>
-            <contract-product-table></contract-product-table>
+
+            <v-contract-product-table :contractProductList="contractProductList"></v-contract-product-table>
             <v-Paging></v-Paging>
         </div>
     </div>
 </template>
-<script>
-    /*import vTable  from '../common/Table2'
-     import calendar from '../common/calendar.vue'
-     import vSearch from '../common/Search'
-     import vPaging from '../common/Paging'*/
 
-    import ContractProductTable from './components/contract-product-table'
+<script>
+    import VContractProductTable from './components/contract-product-table'
     import VTableOperateHead from '@/pages/contractProduct/components/table-operate-head'
     import VPaging from '@/components/paging'
 
     export default {
         name: 'ContractProduct',
         components: {
-            ContractProductTable,
+            VContractProductTable,
             VTableOperateHead,
             VPaging
-        }
+        },
+        data() {
+            return{
+                contractProductList:[],
+                postData:{
+                    keys:'',
+                    status:1,
+                    productCatalog:1,
+                    effectivetime:'',
+                    expiretime:'',
+                    pageSize:'8',
+                    pageNumber:'1'
+                }
+            }
+        },
+        created(){
+            /**
+             * 初始请求
+             * */
+            this.getContractProductList();
+        },
+        methods: {
+            /**
+             * 获取单品产品列表
+             * @param obj object , 为获取列表传入的数据
+             * keys 搜索关键字 string
+             * status 产品状态 string
+             * productCatalog 产品目录 string
+             * effectivetime 生效时间 string
+             * expiretime 失效时间 string
+             * pageSize 每页条数 string
+             * pageNumber 页码数 string
+             * */
+            getContractProductList(){
+                this.$http.get(this.api.getContractProductList,
+                    {
+                        params:{
+                            keys:this.postData.keys||'',
+                            status:this.postData.status||'',
+                            productCatalog:this.postData.approveStatus||'',
+                            effectivetime:this.postData.effectivetime||'',
+                            expiretime:this.postData.expiretime||'',
+                            pageSize:this.postData.pageSize||'',
+                            pageNumber:this.postData.pageNumber||''
+                        }
+                    }).then(response => {
+                    let res = response.body;
+                    if(res.result.resultCode=='00000000'){
+                        //todo: 注意，返回的字段这里list小写
+                        this.contractProductList=res.contractProductList;
 
+                        console.log("contractProductList: " + this.contractProductList)
+
+                    }else{
+
+                    }
+                })
+            }
+        }
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

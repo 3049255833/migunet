@@ -40,8 +40,6 @@
              * 初始请求
              * */
             this.getSingleProductList();
-            
-            
             /**
              * 接收来自操作头部的信息
              * */

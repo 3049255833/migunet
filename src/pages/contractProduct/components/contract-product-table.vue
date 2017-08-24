@@ -2,50 +2,39 @@
     <div class="table-wrap">
         <table class="table-module">
             <thead>
-            <tr>
-                <td class="td-pl-68">产品名称</td>
-                <td>产品ID</td>
-                <td>CP／TP ID</td>
-                <td>子产品类型</td>
-                <td>资费(分)</td>
-                <td>业务状态</td>
-                <td>审批状态</td>
-                <td>操作</td>
-            </tr>
+                <tr>
+                    <td class="td-pl-68">产品名称</td>
+                    <td>产品ID</td>
+                    <td>CP／TP ID</td>
+                    <td>子产品类型</td>
+                    <td>资费(分)</td>
+                    <td>业务状态</td>
+                    <td>审批状态</td>
+                    <td>操作</td>
+                </tr>
             </thead>
+
             <tbody>
-            <tr>
-                <td>
-                    产品名称
-                </td>
-                <td>2233</td>
-                <td>22233</td>
-                <td>450</td>
-                <td>560</td>
-                <td>上线报备</td>
-                <td>上线报备失败</td>
-                <td>
-                    <div class="operate-list">
-                        <span @click="showContractProductDetail" class="mr-30 pointer cl-blue">详情</span><span class="mr-30 pointer cl-blue">变更信息</span><span class="pointer mr-30 cl-blue">更多<i class="icon icon-arrow-down-blue"></i></span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    产品名称
-                </td>
-                <td>2233</td>
-                <td>22233</td>
-                <td>450</td>
-                <td>560</td>
-                <td>上线报备</td>
-                <td>上线报备失败</td>
-                <td>
-                    <div class="operate-list">
-                        <span class="mr-30 cl-blue">详情</span><span class="mr-30 cl-blue">变更信息</span><span class="mr-30 cl-blue">更多</span>
-                    </div>
-                </td>
-            </tr>
+                <tr v-for="(cProduct, index) in contractProductList">
+                    <td> {{cProduct.contractName}} </td>
+                    <td> {{cProduct.contractCode}} </td>
+                    <td> {{cProduct.cpCode}} </td>
+                    <td> {{cProduct.childProductType}} </td>
+                    <td> {{cProduct.fee}} </td>
+                    <td> {{cProduct.status}} </td>
+                    <td> {{cProduct.approveStatus}} </td>
+                    <td>
+                        <div class="operate-list">
+                            <span @click="showContractProductDetail(cProduct.contractCode)" class="mr-30 pointer cl-blue">详情</span>
+                            <span class="mr-30 pointer cl-blue">变更信息</span>
+
+                            <span class="pointer mr-30 cl-blue">
+                                更多
+                                <i class="icon icon-arrow-down-blue"></i>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -55,25 +44,26 @@
     import VPaging from '@/components/paging'
     import axios from 'axios'
 
-
     export default {
         name: 'ContractProductTable',
+        props:{
+            contractProductList: Array,
+        },
         components: {
             VSearch,
             VPaging
-
         },
         data ()
         {
             return {}
         },
-        
         methods:{
-            showContractProductDetail(){
+            showContractProductDetail(contractCode){
                 this.$router.push({'name': 'ContractProductDetail'});
+
+                this.$router.push({'name': 'ContractProductDetail',params:{'contractCode':contractCode}});
             }
         }
-
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
