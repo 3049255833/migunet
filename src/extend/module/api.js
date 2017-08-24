@@ -12,7 +12,8 @@ let path = location.hostname === 'localhost'
 
 let api = {
     getSingleProductList:'product/getProductList',        //获取单品列表
-    getSingleProductDetail:'product/getProductDetail'     //获取单品详情
+    getSingleProductDetail:'product/getProductDetail',    //获取单品详情
+    getContractProductList:'product/getContractProductList'   //获取合约产品列表
 };
 
 for (let key in api) {

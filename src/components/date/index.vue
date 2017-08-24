@@ -150,7 +150,6 @@
         width:100%;
         border-radius: 4px;
         border:1px solid #dedede;
-        font-size: 16px;
         background:url('../../assets/calendar.png') no-repeat 95% 7px;
         padding-left: 10px;
         color:#666;
