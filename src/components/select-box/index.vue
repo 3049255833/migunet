@@ -1,11 +1,11 @@
 <template>
     <div class="s-wrapper">
         <div class="select-show" :class="{'active':isShow}" :style="{width:this.w+'px'}" @click.stop="showSelect">
-            <span class="select-show-txt" v-if="selected">{{selected}}</span><span class="select-show-txt default-text" v-else>{{defaultText}}</span><i class="icon layout-center-y icon-arrow-down"></i></div>
-        <div class="option-mask" :style="{width:this.w+'px'}" v-bind:class="{opMask:optionWhatStatus}">
-            <div class="option-item" @click.stop="selectItem(option)" v-for="option in options">{{option}}</div>
-            <!--<div class="option-item">222</div>-->
-            <!--<div class="option-item">333</div>-->
+            <span class="select-show-txt" v-if="selectText">{{selectText}}</span>
+            <span class="select-show-txt default-text" v-else>{{defaultText}}</span><i class="icon layout-center-y icon-arrow-down"></i>
+        </div>
+        <div class="option-mask" :style="{minWidth:this.w+'px'}" v-bind:class="{opMask:optionWhatStatus}">
+            <div class="option-item" @click.stop="selectItem(option)" v-for="(option,index) in options">{{option.optionText}}</div>
         </div>
     </div>
     </select>
@@ -15,10 +15,19 @@
     </option>
   </select> -->
 </template>
+
 <script>
+    /**
+     * 下拉框组件
+     * 对内传入selectTitle：默认的选项文案，selectValue：默认的选项的值（包括任何id或者code）
+     * 对外输出selectOption 对象，可获取到文案和value
+     * 需诸如 ref 子组件名
+     * 通过vm.$ref.selectName.selectOption获取值
+     * */
+    
     export default {
         name: 'Select',
-        props: ['selectTitle','defaultTitle','text', 'w', 'h', 'bg', 'color', 'options', 'selectType'],
+        props: ['selectTitle','selectValue','defaultTitle', 'w', 'options',],
         data ()
         {
             return {
@@ -31,9 +40,12 @@
                     optionData: this.optionData
                 },
                 isShow: false,
-                // options:['上线报备中','上线报备失败','变更报备中'],
-                selected:this.selectTitle,
-                defaultText:this.defaultTitle
+                selectText:this.selectTitle,
+                defaultText:this.defaultTitle,
+                selectOption:{
+                    optionText:this.selectTitle,
+                    optionValue:this.selectValue
+                }
             }
         }
         ,
@@ -49,30 +61,17 @@
         methods: {
             showSelect(){
                 this.isShow = !this.isShow;
-                if (this.selectType == '1') {
-                    // this.$store.dispatch('shiftState');
-                }
-                if (this.selectType == '2') {
-                    // this.$store.dispatch('changePageOption');
-                }
-
             },
             hideSelect(){
                 this.isShow = false;
             },
+            /**
+             * 将获取的选项暴露出去
+             * */
             selectItem(option){
-                this.selected = option;
+                this.selectText = option.optionText;
                 this.isShow = false;
-                if (this.selectType == '1') {
-                    // this.$store.dispatch('setOptionState',false);
-                    // this.$store.dispatch('changeWhichStatus',option);
-                }
-                if (this.selectType == '2') {
-                    // this.$store.dispatch('setOptionState',false);
-                    // this.$store.dispatch('changePageSize',option);
-                }
-
-
+                this.selectOption=option;
             },
 
             documentHideOption(){
@@ -130,7 +129,6 @@
     }
     
     .option-mask {
-        width: 150px;
         box-sizing: border-box;
         position: absolute;
         border: solid 1px #d6e1e5;
@@ -139,6 +137,7 @@
         display: none;
         z-index: 88;
         background: #ffffff;
+        padding-right: 10px;
         
         &:before {
             position: absolute;

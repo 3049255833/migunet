@@ -5,23 +5,27 @@
                 <div class="l-title">
                     {{title}}
                 </div>
-                <button class="ml-24 btn btn-add-module-blue" @click="addContractProduct" v-bind:class="{addBtn:hideBtn}">
+                <button class="ml-24 btn btn-add-module-blue" @click="addContractProduct"
+                        v-bind:class="{addBtn:hideBtn}">
                     新增产品
                 </button>
             </div>
             <div class="vue-right">
                 <div class="l-space input-wrapper input-wrapper1">
-                    <input  type="text" placeholder="关键信息搜索" v-model="keyWord" @keyup.enter="searchKeyWord"/>
+                    <input type="text" placeholder="关键信息搜索" v-model="keyWord" @keyup.enter="searchKeyWord"/>
                 </div>
                 <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="70" defaultTitle="草稿" v-bind:options="['1','2','3']"></v-select-box>
+                    <v-select-box selectType="1" :w="70" :selectTitle="'草稿'" :selectValue="''"
+                                  v-bind:options="statusOperateList"></v-select-box>
                 </div>
                 <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="90" defaultTitle="上线审批"
-                              v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                    <v-select-box selectType="1" :w="90" :selectTitle="'上线审批中'"
+                                  selectValue="''"
+                                  v-bind:options="approveStatusOperateList"></v-select-box>
                 </div>
                 <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="130" defaultTitle="产品目录" v-bind:options="['1','2','3']"></v-select-box>
+                    <v-select-box selectType="1" :w="130" :defaultTitle="'产品目录'" :selectValue="''"
+                                  v-bind:options="distOperateList"></v-select-box>
                 </div>
                 <div class="date-container mr-10">
                     <v-date defaultText="生效时间" startTime="true"></v-date>
@@ -51,8 +55,87 @@
                     selectedItem2: '1'
                 },
                 isShow: false,
-                keyWord: ''
+                keyWord: '',
 
+                statusOperateList: [
+                    {
+                        optionText: '草稿',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '全部',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '上线',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '下线',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '隐藏',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '注销',
+                        optionValue: ''
+                    }
+                ],
+                approveStatusOperateList: [
+                    {
+                        optionText: '上线审批中',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '全部',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '上线审批失败',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '变更审批中',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '变更审批失败',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '变更报备中',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '变更报备失败',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '下线报备报备中',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '下线报备失败',
+                        optionValue: ''
+                    }
+                ],
+                distOperateList:[
+                    {
+                        optionText: '全部',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '目录1',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '目录2',
+                        optionValue: ''
+                    }
+                    
+                ]
             }
         },
         methods: {
@@ -238,7 +321,8 @@
     .date-container {
         position: relative;
         float: left;
-        & + .date-container { }
+        & + .date-container {
+        }
     }
     
     .addBtn {
