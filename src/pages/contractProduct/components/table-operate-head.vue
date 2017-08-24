@@ -19,7 +19,7 @@
                                   v-bind:options="statusOperateList"></v-select-box>
                 </div>
                 <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="90" :selectTitle="'上线审批中'"
+                    <v-select-box selectType="1" :w="90" :selectTitle="'全部'"
                                   selectValue="''"
                                   v-bind:options="approveStatusOperateList"></v-select-box>
                 </div>
@@ -85,11 +85,11 @@
                 ],
                 approveStatusOperateList: [
                     {
-                        optionText: '上线审批中',
+                        optionText: '全部',
                         optionValue: ''
                     },
                     {
-                        optionText: '全部',
+                        optionText: '上线审批中',
                         optionValue: ''
                     },
                     {

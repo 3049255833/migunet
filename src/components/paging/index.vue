@@ -3,48 +3,69 @@
 
         <span class="perPage">
 
-            <select-box selectType="2" selectTitle="8条 / 页" v-if="!showElement" :w="90" v-bind:options="['7条 / 页','8条 / 页','9条 / 页','10条 / 页']"></select-box>
+            <select-box v-if="!showElement" :w="90"
+                        :selectBoxName="'pageSizeSelectBox'"
+                        :selectTitle="'8条 / 页'"
+                        :selectValue="'8'"
+                        v-bind:options="pageSizeOperateList"></select-box>
 
         </span>
-
         <ul class="pagination">
-            <li v-show="current != 1" @click="current-- && goto(current)"><a href="javascript:void(0);" class="prev"><</a></li>
-
+            <li v-show="current != 1" @click="current-- && goto(current--)"><span class="prev"><</span></li>
             <li v-for="index in pages" @click="goto(index)" :class="{'active':current == index}" :key="index">
                 <a href="javascript:void(0);">{{index}}</a>
             </li>
-
-            <li v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)"><a href="javascript:void(0);" class="next">></a></li>
-
+            <li v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)"><a
+                    href="javascript:void(0);" class="next">></a></li>
             <li v-if="!showElement" class="travel-to">前往</li>
-
-            <li v-if="!showElement" class="whichPage"><input v-model="pageSelected"  @keyup.enter="jumpPage" type="text"></li>
+            <li v-if="!showElement" class="whichPage"><input v-model="pageSelected" @keyup.enter="jumpPage" type="text">
+            </li>
             <li v-if="!showElement">页</li>
         </ul>
-    
     </div>
-
 </template>
-
 <script>
     import SelectBox from "@/components/select-box";
 
     export default {
         name: 'Paging',
-        components:{
+        components: {
             SelectBox
         },
-        props:['type'],
+        props: ['type', 'maxPage'],
         data () {
             return {
-                current: 2,
+                current: 1,
                 showItem: 5,
-                allpage: 8,
-                pageSelected:'',
+                pageSize:8,
+                allpage: parseInt(this.maxPage),
+                pageSelected: '',
+                pageSizeOperateList: [
+                    {
+                        optionText: '5条 / 页 ',
+                        optionValue: '5'
+                    },
+                    {
+                        optionText: '8条 / 页 ',
+                        optionValue: '8'
+                    },
+                    {
+                        optionText: '10条 / 页 ',
+                        optionValue: '10'
+                    },
+                    {
+                        optionText: '15条 / 页 ',
+                        optionValue: '15'
+                    },
+                    {
+                        optionText: '20条 / 页 ',
+                        optionValue: '15'
+                    }
+                ]
             }
         },
-        computed:{
-            pages:function () {
+        computed: {
+            pages: function () {
                 var pag = [];
                 if (this.current < this.showItem) { //如果当前的激活的项 小于要显示的条数
                     //总页数和要显示的条数那个大就显示多少条
@@ -65,42 +86,69 @@
                 return pag
             },
             showElement(){
-                if (this.type||this.type=='simple'){
+                if (this.type || this.type == 'simple') {
                     return true;
                 }
             }
         },
-        methods:{
-            goto:function (index) {
+        methods: {
+            goto: function (index) {
                 if (index == this.current) return;
                 this.current = index;
-                //这里可以发送ajax请求
+                //触发分页bus
+                this.bus.$emit('pagingBus', {
+                    pagingSize:this.pageSize,
+                    pagingValue: this.current
+                })
             },
 
-            jumpPage:function(){
-                // this.$store.dispatch('changePageSelected',this.pageSelected);
+            jumpPage: function () {
+                if (this.pageSelected > this.allpage) {
+                    alert('超过最大页码数');
+                } else {
+                    this.current = this.pageSelected;
+                    this.bus.$emit('pagingBus', {
+                        pagingValue: this.current
+                    })
+                }
             }
+
+        },
+        created(){
+            /**
+             * 监听分页条数下拉框选择
+             * */
+            this.bus.$on('selectBoxBus', res => {
+                //分页条数下拉框
+                if (res.selectBoxName=='pageSizeSelectBox'){
+                    this.current=1;
+                    this.pageSize=res.selectOption.optionValue;
+                    this.bus.$emit('pagingBus', {
+                        pagingSize:this.pageSize,
+                        pagingValue: 1
+                    })
+                }
+            });
         }
     }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style type="text/scss" lang="scss" rel="stylesheet/scss" scoped>
-    .pageNum:after{
+    .pageNum:after {
         content: '';
         display: block;
         clear: both;
     }
-
-    .pageNum{
+    
+    .pageNum {
         margin-top: 30px;
-
-        .perPage{
+        
+        .perPage {
             display: block;
             float: left;
             margin-left: 20px;
         }
-
+        
         .pagination {
             position: relative;
             text-align: right;
@@ -109,22 +157,22 @@
             font-size: 10px;
             color: #333;
             margin: 0;
-
-            .whichPage input{
+            
+            .whichPage input {
                 width: 29px;
                 height: 30px;
                 text-align: center;
                 border-radius: 0;
                 margin-right: 5px;
             }
-
+            
             li {
                 display: inline;
-
+                
                 &.travel-to {
                     margin: 0 4px 0 10px;
                 }
-
+                
                 a {
                     position: relative;
                     float: left;
@@ -135,22 +183,42 @@
                     text-decoration: none;
                     background-color: #fff;
                     border: 1px solid #ddd;
-
+                    
                     &:hover {
                         background: #eee;
                     }
-
-                    &.prev{
-                        color:#999999;
+                    
+                    &.prev {
+                        color: #999999;
                         font-weight: bold;
                     }
-
-                    &.next{
-                        color:#999999;
+                    
+                    &.next {
+                        color: #999999;
                         font-weight: bold;
                     }
                 }
-
+                
+                .prev {
+                    
+                    position: relative;
+                    float: left;
+                    padding: 6px 10px;
+                    margin-left: -1px;
+                    line-height: 1.42857143;
+                    color: #999999;
+                    text-decoration: none;
+                    background-color: #fff;
+                    border: 1px solid #ddd;
+                    
+                    &:hover {
+                        background: #eee;
+                    }
+                    
+                    font-weight: bold;
+                    
+                }
+                
                 &.active a {
                     background: #46bafe;
                     color: #fff;
@@ -158,13 +226,13 @@
             }
         }
     }
-
+    
     .s-select {
         height: 26px;
         display: block;
         background: #ffffff;
         color: #333333;
         width: 90px;
-        padding-left:5px;
+        padding-left: 5px;
     }
 </style>

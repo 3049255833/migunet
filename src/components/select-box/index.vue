@@ -19,6 +19,7 @@
 <script>
     /**
      * 下拉框组件
+     * 对内传入selectBoxName string 作为下拉框的名字，在监听数据的时候，通过name来触发
      * 对内传入selectTitle：默认的选项文案，selectValue：默认的选项的值（包括任何id或者code）
      * 对外输出selectOption 对象，可获取到文案和value
      * 需诸如 ref 子组件名
@@ -27,7 +28,7 @@
     
     export default {
         name: 'Select',
-        props: ['selectTitle','selectValue','defaultTitle', 'w', 'options',],
+        props: ['selectTitle','selectBoxName','selectValue','defaultTitle', 'w', 'options',],
         data ()
         {
             return {
@@ -72,6 +73,10 @@
                 this.selectText = option.optionText;
                 this.isShow = false;
                 this.selectOption=option;
+                this.bus.$emit('selectBoxBus',{
+                    selectBoxName:this.selectBoxName,
+                    selectOption:this.selectOption
+                })
             },
 
             documentHideOption(){
@@ -137,7 +142,6 @@
         display: none;
         z-index: 88;
         background: #ffffff;
-        padding-right: 10px;
         
         &:before {
             position: absolute;
@@ -165,6 +169,7 @@
         color: #0c0a0b;
         line-height: 34px;
         cursor: pointer;
+        padding-right: 10px;
         
         &:hover {
             color: #ffffff;

@@ -2,8 +2,25 @@
     <div class="date-wrapper">
         <div class="flex">
             <div>
-                <input v-if="defaultText=='生效时间'" style="position:relative"  type="text" @click="openByDrop($event)" placeholder="生效时间"  v-model="calendar3.display" readonly>
-                <input v-else style="position:relative"  type="text" @click="openByDrop($event)" placeholder="失效时间"  v-model="calendar3.display" readonly>
+                <input v-if="defaultText=='生效时间'"
+                       style="position:relative"
+                       type="text"
+                       @click="openByDrop($event)"
+                       placeholder="生效时间"
+                       v-model="calendar3.display"
+                       readonly>
+                <input v-else-if="defaultText=='失效时间'" style="position:relative"
+                       type="text"
+                       @click="openByDrop($event)"
+                       placeholder="失效时间"
+                       v-model="calendar3.display"
+                       readonly>
+                <input v-else style="position:relative"
+                       type="text"
+                       @click="openByDrop($event)"
+                       placeholder="选择时间"
+                       v-model="calendar3.display"
+                       readonly>
             </div>
         </div>
         <transition name="fade">
@@ -19,7 +36,7 @@
     import calendar from '../common/calendar.vue'
     export default {
         name: 'PickDate',
-        props:['defaultText','startTime'],
+        props:['defaultText','startTime','dateName'],
         components:{
             calendar
         },
@@ -61,8 +78,23 @@
                     },false);
                 },1000)
             },
+            
+            sendDate(){
+            }
 
+        },
+        watch:{
+            /**
+             * 监听选择的日期
+             * */
+            'calendar3.display' (a, b) {
+                this.bus.$emit('dateBus',{
+                    dateName:this.dateName,
+                    dateValue:this.calendar3.display
+                })
+            },
         }
+        
     }
 </script>
 

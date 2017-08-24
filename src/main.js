@@ -5,6 +5,7 @@
  * */
 import Vue from 'vue'
 
+
 /**
  * 页面唯一入口
  * */
@@ -36,6 +37,17 @@ import Api from '@/extend/module/api.js'
  */
 import Utils from '@/extend/module/utils.js'
 
+/**
+ * vue.prototype
+ */
+import VueExtend from '@/extend/module/vue.prototype.extend.js';
+Object.keys(VueExtend).forEach(function (context) {
+    var options = VueExtend[context];
+    Vue.prototype[context]=options
+});
+
+
+
 
 /**
  * css reset
@@ -48,6 +60,7 @@ import './scss/index.scss';
  * https://github.com/euvl/vue-js-modal
  */
 import Vmodal from 'vue-js-modal'
+
 
 
 /**
@@ -69,16 +82,14 @@ Vue.prototype.utils = Utils;
 
 
 
-
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
+    el: '#app',
+    router,
+    template: '<App/>',
+    components: {App}
 });
 
 Vue.component('modal-self', resolve => require(['@/components/modal-self'], resolve));

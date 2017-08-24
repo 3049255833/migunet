@@ -3,7 +3,7 @@
         <div class="table-wrapper">
             <v-table-operate-head hideBtn="true" title="单品管理"></v-table-operate-head>
             <v-single-product-table :productList="productList"></v-single-product-table>
-            <v-paging></v-paging>
+            <v-paging :maxPage="'30'"></v-paging>
         </div>
     </div>
 </template>
@@ -15,7 +15,18 @@
         name: 'Home',
         data(){
             return{
-                productList:[]
+                formData:{},
+                productList:[],
+                operateHeadData:{},
+                postData:{
+                    keys:'',
+                    status:1,
+                    approveStatus:1,
+                    pageSize:'8',
+                    pageNumber:'1',
+                    effectivetime:'',
+                    expiretime:''
+                }
             }
         },
         components: {
@@ -23,35 +34,62 @@
             VTableOperateHead,
             VPaging
         },
-        mounted(){
-
-        },
+        mounted(){},
         created(){
-            //初始请求
-            this.getSingleProductList()
+            /**
+             * 初始请求
+             * */
+            this.getSingleProductList();
+            
+            
+            /**
+             * 接收来自操作头部的信息
+             * */
+            this.bus.$on('sendOperateDataBus', res => {
+                this.postData.keys=res.keys;
+                this.postData.status=res.status;
+                this.postData.approveStatus=res.approveStatus;
+                this.postData.effectivetime=res.effectivetime;
+                this.postData.expiretime=res.expiretime;
+                /*console.log(this.postData);*/
+                this.getSingleProductList();
+            });
+            
+            
+            /**
+             * 接收分页信息
+             * */
+            this.bus.$on('pagingBus', res => {
+                this.postData.pageNumber=res.pagingValue;
+                this.postData.pageSize=res.pagingSize;
+
+                this.getSingleProductList();
+            });
         },
+        
         methods: {
             /**
              * 获取单品产品列表
-             * @param keys 搜索关键字 string
-             * @param status 产品状态 string
-             * @param approveStatus 审批状态 string
-             * @param pageSize 每页条数 string
-             * @param pageNumber 页码数 string
-             * @param effectivetime 生效时间 string
-             * @param expiretime 失效时间 string
+             * @param obj object , 为获取列表传入的数据
+             * keys 搜索关键字 string
+             * status 产品状态 string
+             * approveStatus 审批状态 string
+             * pageSize 每页条数 string
+             * pageNumber 页码数 string
+             * effectivetime 生效时间 string
+             * expiretime 失效时间 string
              * */
-            getSingleProductList(keys, status, approveStatus, pageSize, pageNumber, effectivetime, expiretime){
+            getSingleProductList(){
                 this.$http.get(this.api.getSingleProductList,
                     {
                         params:{
-                            keys:keys||'',
-                            status:status||'',
-                            approveStatus:approveStatus||'',
-                            pageSize:pageSize||'',
-                            pageNumber:pageNumber||'',
-                            effectivetime:effectivetime||'',
-                            expiretime:expiretime||''
+                            keys:this.postData.keys||'',
+                            status:this.postData.status||'',
+                            approveStatus:this.postData.approveStatus||'',
+                            pageSize:this.postData.pageSize||'',
+                            pageNumber:this.postData.pageNumber||'',
+                            effectivetime:this.postData.effectivetime||'',
+                            expiretime:this.postData.expiretime||''
                         }
                     }).then(response => {
                     let res = response.body;

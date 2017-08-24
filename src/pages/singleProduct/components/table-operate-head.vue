@@ -8,22 +8,40 @@
             </div>
             <div class="vue-right">
                 <div class="l-space input-wrapper input-wrapper1">
-                    <input type="text" class="form-input" placeholder="关键信息搜索" v-model="keyWord" @keyup.enter="searchKeyWord"/>
+                    <input type="text" class="form-input" placeholder="关键信息搜索"
+                           v-model="operateData.keys"
+                           @keyup.enter="sendOperateData"/>
                 </div>
                 <div class="l-space l-content-right">
-                    <v-select-box selectType="1" :w="130" selectTitle="待报备" v-bind:options="['1','2','3']"></v-select-box>
+                    <v-select-box :selectBoxName="'statusSelectBox'"
+                                  :w="70"
+                                  :selectTitle="'全部'"
+                                  :selectValue="'1'"
+                                  v-bind:options="statusOperateList"></v-select-box>
+                </div>
+                <div class="l-space l-content-right">
+                    <v-select-box selectType="1" :w="90" :selectTitle="'全部'"
+                                  selectValue="''"
+                                  :selectBoxName="'approveStatusSelectBox'"
+                                  v-bind:options="approveStatusOperateList"></v-select-box>
                 </div>
                 <div class="date-container mr-10">
-                    <v-date defaultText="生效时间" startTime="true"></v-date>
+                    
+                    <v-date :dateName="'effectivetime'" defaultText="生效时间" startTime="true"></v-date>
                 </div>
                 <div class="date-container">
-                    <v-date defaultText="失效时间" startTime="false"></v-date>
+                    <v-date :dateName="'expiretime'" defaultText="失效时间" startTime="false"></v-date>
                 </div>
             </div>
         </div>
     </div>
 </template>
-<script>
+
+<script type="es6">
+    /**
+     * 该组件主要提供keys,status,approveStatus,effectivetime,expiretime
+     *
+     * */
     import VDate from '@/components/date'
     import VSelectBox from '@/components/select-box'
 
@@ -36,22 +54,89 @@
         },
         data () {
             return {
-                selected: {
-                    selectedItem1: '待报备',
-                    selectedItem2: '1'
+                operateData:{
+                    keys:'',                  //关键字
+                    status:'1',                //产品状态
+                    approveStatus:'1',         //审批状态
+                    effectivetime:'',         //生效时间
+                    expiretime:''             //失效时间
                 },
                 isShow: false,
-                keyWord: ''
+                keyWord: '',
+                approveStatusOperateList: [
+                    {
+                        optionText: '全部',
+                        optionValue: '1'
+                    },
+                    {
+                        optionText: '上线审批中',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '上线审批失败',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '变更审批中',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '变更审批失败',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '变更报备中',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '变更报备失败',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '下线报备报备中',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '下线报备失败',
+                        optionValue: ''
+                    }
+                ],
+                statusOperateList: [
+                    {
+                        optionText: '全部',
+                        optionValue: '1'
+                    },
+                    {
+                        optionText: '草稿',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '上线',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '下线',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '隐藏',
+                        optionValue: ''
+                    },
+                    {
+                        optionText: '注销',
+                        optionValue: ''
+                    }
+                ]
 
             }
         },
         methods: {
-            search: function () {
-                this.$emit('searchInfo', this.selected);
-            },
-            searchKeyWord: function () {
-                // this.$store.dispatch('changeKeyWord',this.keyWord)
-                // console.log(this.keyWord);
+           /**
+            * 触发事件，将封装的数据传给index
+            * 该组件内可以调用该方法传数据
+            * */
+            sendOperateData(){
+                this.bus.$emit('sendOperateDataBus',this.operateData);
             },
 
             /**
@@ -60,10 +145,36 @@
             addContractProduct(){
                 location.hash = '/contract_product_add'
             }
+        },
+        mounted(){
+            /**
+             * promise
+             * 获取下拉框的值
+             * */
+            this.getSelectOption('statusSelectBox',this).then((res)=>{
+                this.operateData.status=res.selectOption.optionValue;
+                this.sendOperateData();
+            });
+            this.getSelectOption('approveStatusSelectBox',this).then((res)=>{
+                this.operateData.approveStatus=res.selectOption.optionValue;
+                this.sendOperateData();
+            });
+            /**
+             * promise
+             * 获取日历的值
+             * */
+            this.getDate('effectivetime',this).then((res)=>{
+                this.operateData.effectivetime=res.dateValue;
+                this.sendOperateData();
+            });
+            this.getDate('expiretime',this).then((res)=>{
+                this.operateData.expiretime=res.dateValue;
+                this.sendOperateData();
+            });
         }
     }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped lang="scss" rel="stylesheet/scss">
     .l-title {
         float: left;

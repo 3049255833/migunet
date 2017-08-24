@@ -139,8 +139,9 @@ let utils = {
 
     hasClass: function(ele, cls) {
       return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
-    }
+    },
+
     
-}
+};
 
 export default utils;
