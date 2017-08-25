@@ -26,8 +26,8 @@
                 contractProductList:[],
                 postData:{
                     keys:'',
-                    status:1,
-                    approveStatus: '',
+                    onlineStatus:1,
+                    detailStatus: '',
                     productCatalog:1,
                     effectivetime:'',
                     expiretime:'',
@@ -47,7 +47,8 @@
              * */
             this.bus.$on('sendOperateDataBus', res => {
                 this.postData.keys = res.keys;
-                this.postData.status = res.status;
+                this.postData.onlineStatus = res.onlineStatus;
+                this.postData.detailStatus = res.detailStatus;
                 this.postData.productCatalog = res.productCatalog;
                 this.postData.effectivetime = res.effectivetime;
                 this.postData.expiretime = res.expiretime;
@@ -86,7 +87,8 @@
                     {
                         params:{
                             keys:this.postData.keys||'',
-                            status:this.postData.status||'',
+                            onlineStatus:this.postData.onlineStatus||'',
+                            detailStatus:this.postData.detailStatus||'',
                             productCatalog:this.postData.approveStatus||'',
                             effectivetime:this.postData.effectivetime||'',
                             expiretime:this.postData.expiretime||'',
