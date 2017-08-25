@@ -8,4 +8,7 @@ Array.prototype.contains = function ( needle ) {
     if (this[i] == needle) return true;
   }
   return false;
-}
+};
+/**
+ * 通过某个特定属性判断数组中是否含有
+ * */

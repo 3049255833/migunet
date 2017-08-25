@@ -4,7 +4,7 @@
             <div class="form-row clearfix no-pd" v-for="(itemRow,rowIndex) in areaList">
                 <div class="area-code">{{itemRow.code}}</div>
                 <ul class="area-list ">
-                   <li v-for="(itemArea,colIndex) in itemRow.list" :class="{'active':itemArea.active}" @click="getArea(rowIndex,colIndex,itemArea.area)">{{itemArea.area}}</li>
+                   <li v-for="(itemArea,colIndex) in itemRow.list" :class="{'active':itemArea.active}" @click="getArea(rowIndex,colIndex,itemArea.area,itemArea.code)">{{itemArea.area}}</li>
                 </ul>
             </div>
             <div class="btn-group btn-group-center">
@@ -23,15 +23,17 @@ export default{
     },
     data(){
         return{
+            areaNum:0,
             businessArea:'',
+            areaSelectList:[],
             areaList:[
-                { code:'ABCDEFG',list:[{area:'安徽省',active:false},{area:'福建省',active:false},{area:'甘肃省',active:false},{area:'广东省',active:false},{area:'广西省',active:false},{area:'贵州省',active:false}]},
-                { code:'HIJKLMN',list:[{area:'海南省',active:false},{area:'河北省',active:false},{area:'河南省',active:false},{area:'黑龙江省',active:false},{area:'湖北省',active:false},{area:'湖南省',active:false},{area:'吉林省',active:false}
-                    ,{area:'江苏省',active:false},{area:'江西省',active:false},{area:'辽宁省',active:false},{area:'内蒙古省',active:false}
+                { code:'ABCDEFG',list:[{area:'安徽省',code:'551',active:false},{area:'福建省',code:'591',active:false},{area:'甘肃省',code:'931',active:false},{area:'广东省',code:'200',active:false},{area:'广西省',code:'771',active:false},{area:'贵州省',code:'851',active:false}]},
+                { code:'HIJKLMN',list:[{area:'海南省',code:'898',active:false},{area:'河北省',code:'311',active:false},{area:'河南省',code:'371',active:false},{area:'黑龙江省',code:'451',active:false},{area:'湖北省',code:'270',active:false},{area:'湖南省',code:'731',active:false},{area:'吉林省',code:'431',active:false}
+                    ,{area:'江苏省',code:'250',active:false},{area:'江西省',code:'791',active:false},{area:'辽宁省',code:'240',active:false},{area:'内蒙古省',code:'471',active:false}
                 ]},
-                { code:'OPQRST',list:[{area:'青海省',active:false},{area:'山东省',active:false},{area:'山西省',active:false},{area:'陕西省',active:false},{area:'四川省',active:false}]},
-                { code:'UVWXYZ',list:[{area:'云南省',active:false},{area:'浙江省',active:false}]},
-                { code:'全国',list:[{area:'全国',active:false}]}
+                { code:'OPQRST',list:[{area:'青海省',code:'971',active:false},{area:'山东省',code:'531',active:false},{area:'山西省',code:'351',active:false},{area:'陕西省',code:'290',active:false},{area:'四川省',code:'280',active:false}]},
+                { code:'UVWXYZ',list:[{area:'云南省',code:'871',active:false},{area:'浙江省',code:'571',active:false}]},
+                { code:'全国',list:[{area:'全国',active:false,code:'000'}]}
             ]
             
         }
@@ -40,14 +42,32 @@ export default{
         /**
          * 获取选中的归属地
          * */
-        getArea(rowIndex,colIndex,areaName){
-            this.areaList.forEach(function(item){
+        getArea(rowIndex,colIndex,areaName,areaCode){
+            //单选下才执行
+            /*this.areaList.forEach(function(item){
                item.list.forEach(function(area){
                    area.active=false;
                })
-            });
+            });*/
             this.areaList[rowIndex].list[colIndex].active=!this.areaList[rowIndex].list[colIndex].active;
             this.businessArea=areaName;
+            
+            //点击push或移除某一项
+            if(this.areaList[rowIndex].list[colIndex].active){
+                this.areaSelectList.push({
+                    areaName:areaName,
+                    areaCode:areaCode
+                });
+            }else{
+                //获取当前数组所在的位置
+                this.areaSelectList.forEach(function(item,index){
+                    if(item.areaCode==areaCode){
+                        this.areaSelectList.splice(index,1);
+                        return
+                    }
+                })
+              
+            }
         },
         /**
          * 取消选择归属地
@@ -59,7 +79,7 @@ export default{
          * 保存归属地
          * */
         saveArea(){
-            this.bus.$emit('getBusinessArea',this.businessArea);
+            this.bus.$emit('areaChoseBus',this.areaSelectList);
             this.$modal.hide(this.modalName);
         }
     }

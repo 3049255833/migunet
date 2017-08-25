@@ -5,14 +5,14 @@
                 <div class="row-left required">产品名称（中文）：</div>
                 <div class="row-right">
                     <input class=" form-input pointer w-200"
-                           v-module="formData.productName" type="text"
+                           v-model="formData.productName" type="text"
                            placeholder="请输入"/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="row-left">产品描述（中文）：</div>
                 <div class="row-right">
-                    <textarea class="textarea-module w-340" type="text" v-module="formData.productDesc"
+                    <textarea class="textarea-module w-340" type="text" v-model="formData.productDesc"
                               placeholder="请输入"></textarea>
                 </div>
             </div>
@@ -43,7 +43,9 @@
                     生效时间：
                 </div>
                 <div class="row-right">
-                    <v-date :class="'w-200'" :dateName="" ></v-date>
+                    <v-date :class="'w-200'"
+                            :dateName="'effectiveTime '"
+                            :defaultText="'生效时间'"></v-date>
                 </div>
             </div>
             <div class="form-row">
@@ -51,7 +53,9 @@
                     失效时间：
                 </div>
                 <div class="row-right">
-                    <v-date :class="'w-200'"></v-date>
+                    <v-date :class="'w-200'"
+                            :dateName="'expireTime '"
+                            :defaultText="'失效时间'"></v-date>
                 </div>
             </div>
             <div class="form-row">
@@ -59,8 +63,11 @@
                     业务归属地：
                 </div>
                 <div class="row-right">
-                    <input @click="showBusinessAreaModal " class="form-input w-200 pointer"
-                           v-model="formData.businessArea" type="text" readonly
+                    <input @click="showBusinessAreaModal "
+                           class="form-input w-200 pointer"
+                           v-model="formData.attributionText"
+                           type="text"
+                           readonly
                            placeholder="请输入"/>
                     <i class="icon icon-select"></i>
                 </div>
@@ -302,7 +309,7 @@
 </template>
 <script>
     import TModalSubContainer from "@/components/modal-sub-container";
-    import AreaChose from '@/pages/contractProduct/components/area-chose.vue'
+    import AreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose.vue'
     import VSelectBox from '@/components/select-box'
     import VDate from '@/components/date'
 
@@ -314,6 +321,12 @@
                     productDesc: '',       //产品描述
                     searchKey: '',         //搜索关键字
                     effectiveWay: '',      //生效方式
+                    effectiveTime:'',      //生效时间
+                    expireTime:'',         //失效时间
+                    attributionCode:'',    //归属地编码
+                    attributionText:'',    //归属地名称
+
+
                     channelId: '',
                     businessArea: '',
                     vipProduct: '1',
@@ -378,11 +391,20 @@
             }
         },
         mounted () {
-
-            this.bus.$on('getBusinessArea', res => {
-
+            /**
+             * 获取归属地，返回[{areaName:'',areaCode:''}]
+             * */
+            this.bus.$on('areaChoseBus', res => {
                 if (res) {
-                    this.formData.businessArea = res;
+                    //拼接字符窜
+                    let areaNameArr=[];
+                    let areaCodeArr=[];
+                    res.forEach(function(item,index){
+                        areaNameArr.push(item.areaName);
+                        areaCodeArr.push(item.areaCode);
+                    });
+                    this.formData.attributionText=areaNameArr.join('|');
+                    this.formData.attributionCode=areaCodeArr.join('|');
                 }
 
             });
