@@ -40,6 +40,31 @@
              * 初始请求
              * */
             this.getContractProductList();
+
+            /**
+             * 接收来自操作头部的信息
+             * */
+            this.bus.$on('sendOperateDataBus', res => {
+                this.postData.keys = res.keys;
+                this.postData.status = res.status;
+                this.postData.productCatalog = res.productCatalog;
+                this.postData.effectivetime = res.effectivetime;
+                this.postData.expiretime = res.expiretime;
+
+                console.log("postData: " + JSON.stringify(this.postData));
+
+                this.getContractProductList();
+            });
+
+            /**
+             * 接收分页信息
+             * */
+            this.bus.$on('pagingBus', res => {
+                this.postData.pageNumber = res.pagingValue;
+                this.postData.pageSize = res.pagingSize;
+
+                this.getContractProductList();
+            });
         },
         methods: {
             /**
@@ -77,6 +102,7 @@
                         this.contractProductList = res.contractProductList;
                     } else {
 
+                        console.log("res: " + JSON.stringify(res));
                     }
                 })
             }
