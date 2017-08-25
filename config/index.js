@@ -6,11 +6,11 @@ var proxy_service_ljy = 'http://10.5.2.119:8080';
 var proxy_service_xl = 'http://10.5.2.19:8080';
 
 /*switch (argv[0]) {
-    case 'xhw':
-        proxy_service = 'http://192.168.155.1';
-        console.log('/!****************** 当前连接徐洪伟环境 参数dds *******************!/');
-        break;
-}*/
+ case 'xhw':
+ proxy_service = 'http://192.168.155.1';
+ console.log('/!****************** 当前连接徐洪伟环境 参数dds *******************!/');
+ break;
+ }*/
 
 module.exports = {
     build: {
@@ -40,19 +40,25 @@ module.exports = {
         assetsPublicPath: '/',
 
         proxyTable: {
-            '/product/getProductList': {  /*单品列表*/
+            '/product/getProductList': {
+                /*单品列表*/
                 target: proxy_service_xhw,
                 changeOrigin: true
             },
-            '/product/getProductDetail': {   /*单品详情的IP*/
+            '/product/getProductDetail': {
+                /*单品详情的IP*/
                 target: proxy_service_xhw,
                 changeOrigin: true
             },
 
-            '/contractProduct/findProductCatalog': {  /*获取产品目录*/
+            '/contractProduct/findProductCatalog': {
+                /*获取产品目录*/
                 target: proxy_service_xl,
+                changeOrigin: true
+            },
 
-            '/product/getContractProductList': {  /*合约产品列表的IP*/
+            '/product/getContractProductList': {
+                /*合约产品列表的IP*/
                 target: proxy_service_ljy,
                 changeOrigin: true
             }
@@ -64,4 +70,5 @@ module.exports = {
         // just be aware of this issue when enabling this option.
         cssSourceMap: false
     }
+}
 }
