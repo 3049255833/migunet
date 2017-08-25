@@ -66,14 +66,13 @@
                             pageNumber:this.postData.pageNumber||''
                         }
                     }).then(response => {
-                    let res = response.body;
 
-                    console.log("contractProductList1: " + res);
+                    let res = response.body;
 
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
 
-                        console.log("contractProductList2: " + res.contractProductList);
+                        console.log("contractProductList2: " + JSON.stringify(res.contractProductList));
 
                         this.contractProductList = res.contractProductList;
                     } else {
@@ -86,18 +85,18 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-    
-    
+
+
     .table-wrapper {
     }
-    
+
     .main-wrapper:after {
         content: '';
         display: block;
         clear: both;
     }
-    
-   
+
+
     .contract-product{
         background-color: white;
         padding-bottom: 50px;
