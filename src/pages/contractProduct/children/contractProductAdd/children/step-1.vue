@@ -164,27 +164,28 @@
                 </div>
                 <div class="row-right">
                     <div class="type-area">
+                        <!--话费支付-->
                         <div class="item">
-                            <div class="item-head ">
+                            <div  class="item-head ">
                                 <label class="checkbox-module">
-                                    <input type="checkbox" name="payType">
+                                    <input type="checkbox"  value="1" v-model="formData.payType">
                                     <span></span>
                                     <span class="txt">话费支付</span>
                                 </label>
                                 <i class="icon-recommend layout-center-y"></i>
                             </div>
-                            <div class="form-wrap">
+                            <div v-if="formData.payType.contains('1')" class="form-wrap">
                                 <div class="form-row pb-18">
                                     <div class="row-left w-200 required">使用业务代码：</div>
                                     <div class="row-right">
                                         <div class="radio-wrap">
                                             <label class="radio-module w-70">
-                                                <input value="1" v-model="formData.free" name="free" type="radio">
+                                                <input value="1" v-model="formData.ifUseBusinessCode" type="radio">
                                                 <span></span>
                                                 <span class="txt">是</span>
                                             </label>
                                             <label class="radio-module w-70">
-                                                <input value="2" v-model="formData.free" name="free" type="radio">
+                                                <input value="0" v-model="formData.ifUseBusinessCode" name="free" type="radio">
                                                 <span></span>
                                                 <span class="txt">否</span>
                                             </label>
@@ -230,15 +231,17 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!--第三方支付-->
                         <div class="item">
                             <div class="item-head ">
                                 <label class="checkbox-module">
-                                    <input type="checkbox" name="payType">
+                                    <input type="checkbox" value="2" v-model="formData.payType">
                                     <span></span>
                                     <span class="txt">第三方支付</span>
                                 </label>
                             </div>
-                            <div class="form-wrap">
+                            <div  v-if="formData.payType.contains('2')" class="form-wrap">
                                 <div class="form-row">
                                     <div class="row-left w-200 required">资费金额（分）：</div>
                                     <div class="row-right">
@@ -307,17 +310,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="row-left"></div>
-                    <div class="row-right">
-                        <div class="btn-group">
-                            <div class="btn btn-primary btn-middle" @click="nextStep">下一步</div>
-                            <div class="btn btn-default btn-middle">取消</div>
-                        </div>
+            </div>
+            <!--支付方式 end-->
+            <div class="form-row">
+                <div class="row-left"></div>
+                <div class="row-right">
+                    <div class="btn-group">
+                        <div class="btn btn-primary btn-middle" @click="nextStep">下一步</div>
+                        <div class="btn btn-default btn-middle">取消</div>
                     </div>
                 </div>
             </div>
-            <!--支付方式 end-->
             
         </div>
         <modal name="businessAreaModal" :width="800" :height="440" @before-close="beforeClose">
@@ -353,6 +356,10 @@
                     isExperience: '1',       //是否体验产品 1：是 0 ：正式产品
                     experiencePeriodUnitNum:'', //体验产品周期数
                     experiencePeriodUnit:'0', //体验产品周期单位 0：天 1：周 2：月 3：年
+                    payType:[],               //支付方式 1：话费支付 2：第三方支付
+                    ifUseBusinessCode:'',     //是否使用业务代码
+                    
+                    
 
                     businessArea: '',
                     vipProduct: '1',
@@ -421,6 +428,9 @@
         watch: {
             'formData.isExperience': (a, b) => {
                 console.log(a)
+            },
+            'formData.ifUseBusinessCode': (a, b) => {
+                console.log(a)
             }
         },
         mounted () {
@@ -454,7 +464,18 @@
              * */
             this.getSelectOption('experiencePeriodUnitListSelectBox', this).then((res) => {
                 this.formData.experiencePeriodUnit = res.optionValue;
-                
+            });
+            /**
+             * promise
+             * 获取日历的值
+             * */
+            this.getDate('effectiveTime',this).then((res)=>{
+                this.operateData.effectiveTime=res.dateValue;
+                this.sendOperateData();
+            });
+            this.getDate('expireTime',this).then((res)=>{
+                this.operateData.expireTime=res.dateValue;
+                this.sendOperateData();
             });
         }
     }
