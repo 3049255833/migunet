@@ -306,13 +306,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="lay-btn">
-                            <div class="lay-btn-wrapper">
-                                <Cancel-Btn text="隐藏"></Cancel-Btn>
-                            </div>
-                            <div class="lay-btn-wrapper">
-                                <Cancel-Btn text="注销"></Cancel-Btn>
-                            </div>
+
+                        <div class="button-box">
+                            <button class="btn btn-default btn-middle">隐藏</button>
+                            <button class="btn-default btn btn-middle">注销</button>
                         </div>
                     </div>
                 </div>
@@ -402,7 +399,14 @@
 
         .review-list {
             width: 100%;
+        }
+    }
 
+    .button-box {
+        text-align: right;
+
+        button {
+            margin-right: 20px;
         }
     }
 

@@ -609,7 +609,7 @@
     }
     
     .layout-row-area {
-        margin-top: 20px;
+        margin-top: 30px;
     }
     
     .lay-wrapper-three {
