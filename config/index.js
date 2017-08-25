@@ -3,6 +3,7 @@ var path = require('path');
 
 var proxy_service_xhw = 'http://10.5.2.47:8080';
 var proxy_service_ljy = 'http://10.5.2.119:8080';
+var proxy_service_xl = 'http://10.5.2.19:8080';
 
 
 var proxy_service_q = 'http://10.5.2.119:8080';
@@ -55,8 +56,8 @@ module.exports = {
                 target: proxy_service_xhw,
                 changeOrigin: true
             },
-            '/product/getContractProductList': {  /*单品列表*/
-                target: proxy_service_ljy,
+            '/contractProduct/findProductCatalog': {  /*单品列表*/
+                target: proxy_service_xl,
                 changeOrigin: true
             },
         },

@@ -24,7 +24,8 @@
                             </div>
                         </div>
                     </div>
-                    <router-view>
+                    <router-view :productDistList="initData.productDistList"
+                                 :experiencePeriodUnitList="initData.experiencePeriodUnitList">
                     </router-view>
                 </div>
             </div>
@@ -41,16 +42,65 @@
         },
         data () {
             return {
-                step: parseInt(this.$route.name.substr(this.$route.name.length-1,1))
+                step: parseInt(this.$route.name.substr(this.$route.name.length - 1, 1)),
+                initData: {
+                    productDistList: [],    //产品目录列表
+                    experiencePeriodUnitList: [
+                        {
+                            optionText: '天', optionValue: '0'
+                        }, {
+                            optionText: '周', optionValue: '1'
+                        }, {
+                            optionText: '月', optionValue: '2'
+                        }, {
+                            optionText: '年', optionValue: '3'
+                        }
+                    ]    //体验产品周期单位列表
+                }
             }
         },
-        methods: {},
+        methods: {
+            /**
+             * 获取产品目录列表
+             * */
+            getProductDistList(){
+                let vm = this;
+                this.$http.get(this.api.getProductDist,
+                    {params: {}}).then(response => {
+                    let res = response.body;
+                    if (res.result.resultCode == '00000000') {
+                        //todo:
+                        let _resData = res.data;
+                        if (_resData) {
+                            _resData.forEach(function (item, index) {
+                                vm.initData.productDistList.push({
+                                    optionText: item.catalogName,
+                                    optionValue: item.catalogId
+                                })
+                            });
+                        }
+
+                    } else {
+
+                    }
+
+                })
+            }
+        },
         mounted () {
+            /**
+             * 初始化获取产品目录数据
+             * */
+            this.getProductDistList();
+
+            /**
+             * 监听当前的步骤
+             * */
             this.bus.$on('curStep', res => {
-                this.step=parseInt(res);
+                this.step = parseInt(res);
             });
         }
-        
+
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -149,7 +199,7 @@
         text-align: center;
         line-height: 23px;
         background: #d6e1e5;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         border-radius: 50%;
     }
     
