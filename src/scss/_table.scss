@@ -2,32 +2,40 @@
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;
+
     thead {
         tr {
             width: 100%;
             height: 56px;
             line-height: 56px;
             background: #F2F8FF;
+            text-align: left;
         }
+
         td ,th{
             color: #6d7684;
-            padding: 0 28px;
+            padding: 0 20px;
+
             &:nth-child(1) {
                 padding-left: 37px;
             }
         }
     }
+
     tbody {
         tr {
             border-bottom: 1px solid #EEEEEE;
             background: white;
+
             &:hover {
                 background: #f7f7f7;
             }
         }
+
         td {
             color: #6d7684;
-            padding: 18px 28px;
+            padding: 18px 20px;
+
             &:nth-child(1) {
                 padding-left: 37px;
             }

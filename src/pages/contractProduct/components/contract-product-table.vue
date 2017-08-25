@@ -3,14 +3,14 @@
         <table class="table-module">
             <thead>
                 <tr>
-                    <td class="td-pl-68">产品名称</td>
-                    <td>产品ID</td>
-                    <td>CP／TP ID</td>
-                    <td>子产品类型</td>
-                    <td>资费(分)</td>
-                    <td>业务状态</td>
-                    <td>审批状态</td>
-                    <td>操作</td>
+                    <th class="td-pl-68">产品名称</th>
+                    <th>产品ID</th>
+                    <th>CP／TP ID</th>
+                    <th>产品状态</th>
+                    <th>资费(分)</th>
+                    <th>业务状态</th>
+                    <th>审批状态</th>
+                    <th>操作</th>
                 </tr>
             </thead>
 
@@ -19,10 +19,53 @@
                     <td> {{cProduct.contractName}} </td>
                     <td> {{cProduct.contractCode}} </td>
                     <td> {{cProduct.cpCode}} </td>
-                    <td> {{cProduct.childProductType}} </td>
+                    <td> <!--{{cProduct.childProductType}}--> 动漫包业务</td>
                     <td> {{cProduct.fee}} </td>
-                    <td> {{cProduct.status}} </td>
-                    <td> {{cProduct.approveStatus}} </td>
+
+                    <td v-if="cProduct.status == 0">
+                        草稿
+                    </td>
+                    <td v-else-if="cProduct.status == 1">
+                        上线
+                    </td>
+                    <td v-else-if="cProduct.status == 2">
+                        隐藏
+                    </td>
+                    <td v-else-if="cProduct.status == 3">
+                        下线
+                    </td>
+                    <td v-else-if="cProduct.status == 4">
+                        注销
+                    </td>
+                    <td v-else-if="cProduct.status == 5">
+                        删除
+                    </td>
+
+                    <td v-if="cProduct.approveStatus == 1">
+                        上线审批中
+                    </td>
+                    <td v-else-if="cProduct.approveStatus == 2">
+                        上线审批驳回
+                    </td>
+                    <td v-else-if="cProduct.approveStatus == 3">
+                        新增报备中
+                    </td>
+                    <td v-else-if="cProduct.approveStatus == 4">
+                        新增报备失败
+                    </td>
+                    <td v-else-if="cProduct.approveStatus == 5">
+                        变更审批中
+                    </td>
+                    <td v-else-if="cProduct.approveStatus == 6">
+                        变更审批驳回
+                    </td>
+                    <td v-else-if="cProduct.approveStatus == 7">
+                        变更报备中
+                    </td>
+                    <td v-else-if="cProduct.approveStatus == 8">
+                        变更报备失败
+                    </td>
+
                     <td>
                         <div class="operate-list clearfix">
                             <div @click="showContractProductDetail(cProduct.contractCode)" class="mr-30 pointer cl-blue">详情</div>

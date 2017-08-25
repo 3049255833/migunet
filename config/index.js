@@ -5,9 +5,6 @@ var proxy_service_xhw = 'http://10.5.2.47:8080';
 var proxy_service_ljy = 'http://10.5.2.119:8080';
 var proxy_service_xl = 'http://10.5.2.19:8080';
 
-
-var proxy_service_q = 'http://10.5.2.119:8080';
-
 /*switch (argv[0]) {
     case 'xhw':
         proxy_service = 'http://192.168.155.1';
@@ -42,24 +39,23 @@ module.exports = {
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
 
-
         proxyTable: {
             '/product/getProductList': {  /*单品列表*/
                 target: proxy_service_xhw,
                 changeOrigin: true
             },
-            '/product/getContractProductList': {   /*合约产品列表的IP*/
-                target: proxy_service_q,
-                changeOrigin: true
-            },
-            '/product/getProductDetail': {   /*合约产品详情的IP*/
+            '/product/getProductDetail': {   /*单品详情的IP*/
                 target: proxy_service_xhw,
                 changeOrigin: true
             },
-            '/contractProduct/findProductCatalog': {  /*单品列表*/
+
+            '/contractProduct/findProductCatalog': {  /*获取产品目录*/
                 target: proxy_service_xl,
+
+            '/product/getContractProductList': {  /*合约产品列表的IP*/
+                target: proxy_service_ljy,
                 changeOrigin: true
-            },
+            }
         },
         // CSS Sourcemaps off by default because relative paths are "buggy"
         // with this option, according to the CSS-Loader README

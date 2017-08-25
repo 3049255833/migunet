@@ -4,7 +4,7 @@
             <v-table-operate-head title="合约产品管理"></v-table-operate-head>
 
             <v-contract-product-table :contractProductList="contractProductList"></v-contract-product-table>
-            <v-Paging></v-Paging>
+            <v-Paging :maxPage="'30'"></v-Paging>
         </div>
     </div>
 </template>
@@ -40,6 +40,33 @@
              * 初始请求
              * */
             this.getContractProductList();
+
+            /**
+             * 接收来自操作头部的信息
+             * */
+            this.bus.$on('sendOperateDataBus', res => {
+                this.postData.keys = res.keys;
+                this.postData.status = res.status;
+                this.postData.productCatalog = res.productCatalog;
+                this.postData.effectivetime = res.effectivetime;
+                this.postData.expiretime = res.expiretime;
+
+                console.log("postData: " + JSON.stringify(this.postData));
+
+                this.getContractProductList();
+            });
+
+            /**
+             * 接收分页信息
+             * */
+            this.bus.$on('pagingBus', res => {
+                this.postData.pageNumber = res.pagingValue;
+                this.postData.pageSize = res.pagingSize;
+
+                console.log("postData: " + JSON.stringify(this.postData));
+
+                this.getContractProductList();
+            });
         },
         methods: {
             /**
@@ -66,18 +93,18 @@
                             pageNumber:this.postData.pageNumber||''
                         }
                     }).then(response => {
-                    let res = response.body;
 
-                    console.log("contractProductList1: " + res);
+                    let res = response.body;
 
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
 
-                        console.log("contractProductList2: " + res.contractProductList);
+                        console.log("contractProductList2: " + JSON.stringify(res.contractProductList));
 
                         this.contractProductList = res.contractProductList;
                     } else {
 
+                        console.log("res: " + JSON.stringify(res));
                     }
                 })
             }
@@ -86,18 +113,18 @@
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-    
-    
+
+
     .table-wrapper {
     }
-    
+
     .main-wrapper:after {
         content: '';
         display: block;
         clear: both;
     }
-    
-   
+
+
     .contract-product{
         background-color: white;
         padding-bottom: 50px;
