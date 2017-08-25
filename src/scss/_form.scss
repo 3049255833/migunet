@@ -15,6 +15,9 @@
         width: 70px;
         margin-right: 0;
     }
+    &.radio-single{
+        width:auto !important;
+    }
     input[type='radio'] {
         -webkit-appearance: none;
         -moz-appearance: none;

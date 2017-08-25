@@ -63,10 +63,17 @@ module.exports = {
                 changeOrigin: true
             },
             '/product/contractProductDetail': {
-              /*合约产品详情的IP*/
-              target: proxy_service_ljy,
-              changeOrigin: true
+                /*合约产品详情的IP*/
+                target: proxy_service_ljy,
+                changeOrigin: true
             },
+            '/contractProduct/findCharge': {
+                /*获取业务代码详情*/
+                target: proxy_service_xl,
+                changeOrigin: true
+            }
+
+
         },
         cssSourceMap: false
     }

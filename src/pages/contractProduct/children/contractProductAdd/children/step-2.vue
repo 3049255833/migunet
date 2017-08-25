@@ -166,14 +166,14 @@
 
         <modal name="productCodeModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'产品选择'" :name="'productCodeModal'">
-                <v-product-code></v-product-code>
+                <v-product-code-list></v-product-code-list>
             </t-modal-sub-container>
         </modal>
     </div>
 </template>
 <script>
     import VSelectBox from '@/components/select-box';
-    import VProductCode from '../components/product-code.vue';
+    import VProductCodeList from '../components/product-code-list.vue';
     import TModalSubContainer from "@/components/modal-sub-container";
     export default{
         data(){
@@ -185,7 +185,7 @@
         },
         components:{
             VSelectBox,
-            VProductCode,
+            VProductCodeList,
             TModalSubContainer
         },
         methods:{

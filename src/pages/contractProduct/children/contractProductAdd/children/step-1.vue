@@ -185,17 +185,20 @@
                                                 <span class="txt">是</span>
                                             </label>
                                             <label class="radio-module w-70">
-                                                <input value="0" v-model="formData.ifUseBusinessCode" name="free" type="radio">
+                                                <input value="0" v-model="formData.ifUseBusinessCode" type="radio">
                                                 <span></span>
                                                 <span class="txt">否</span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row">
+                                <div v-if="showBusinessCodeBox" class="form-row">
                                     <div class="row-left w-200 required">业务代码选择：</div>
                                     <div class="row-right">
-                                        <input class="form-input w-200 pointer" type="text" readonly
+                                        <input class="form-input w-200 pointer"
+                                               type="text" readonly
+                                               @click="choseBusinessCode"
+                                               v-model="formData.chargeCode"
                                                placeholder="业务代码选择">
                                         <i class="icon-select icon"></i>
                                     </div>
@@ -203,7 +206,7 @@
                                 <div class="form-row">
                                     <div class="row-left w-200 required">资费类型</div>
                                     <div class="row-right">
-                                        <p class="txt font-14">包月</p>
+                                        <p  class="txt font-14">{{feeTypeText}}</p>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -211,12 +214,12 @@
                                     <div class="row-right">
                                         <div class="radio-wrap">
                                             <label class="radio-module w-70">
-                                                <input value="1" v-model="formData.free" name="free" type="radio">
+                                                <input value="1" v-model="formData.isReorder" type="radio">
                                                 <span></span>
                                                 <span class="txt">是</span>
                                             </label>
                                             <label class="radio-module w-70">
-                                                <input value="2" v-model="formData.free" name="free" type="radio">
+                                                <input value="0" v-model="formData.isReorder" type="radio">
                                                 <span></span>
                                                 <span class="txt">否</span>
                                             </label>
@@ -226,7 +229,7 @@
                                 <div class="form-row ">
                                     <div class="row-left w-200 required">产品周期</div>
                                     <div class="row-right">
-                                        <p class="txt font-14">永久有效</p>
+                                        <input class="form-input w-200" disabled value="永久有效">
                                     </div>
                                 </div>
                             </div>
@@ -323,19 +326,30 @@
             </div>
             
         </div>
+        
+        <!--业务归属地modal-->
         <modal name="businessAreaModal" :width="800" :height="440" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'businessAreaModal'">
-                <area-chose :modal-name="'businessAreaModal'"
-                            :selectType="'single'"></area-chose>
+                <v-area-chose :modal-name="'businessAreaModal'"
+                            :selectType="'single'"></v-area-chose>
             </t-modal-sub-container>
         </modal>
+        
+        <!--业务代码modal-->
+        <modal name="businessCodeModal" :width="870" :height="570"  @before-close="beforeClose">
+            <t-modal-sub-container :title="'业务代码选择'" :name="'businessCodeModal'">
+                <v-business-code-list :modalName="'businessCodeModal'"></v-business-code-list>
+            </t-modal-sub-container>
+        </modal>
+        
     </div>
 </template>
 <script>
     import TModalSubContainer from "@/components/modal-sub-container";
-    import AreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose.vue'
+    import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose.vue'
     import VSelectBox from '@/components/select-box'
     import VDate from '@/components/date'
+    import VBusinessCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/business-code-list.vue'
 
     export default{
         props: ['productDistList','experiencePeriodUnitList'],
@@ -357,10 +371,13 @@
                     experiencePeriodUnitNum:'', //体验产品周期数
                     experiencePeriodUnit:'0', //体验产品周期单位 0：天 1：周 2：月 3：年
                     payType:[],               //支付方式 1：话费支付 2：第三方支付
-                    ifUseBusinessCode:'',     //是否使用业务代码
+                    ifUseBusinessCode:'1',     //是否使用业务代码,
+                    chargeCode:''    ,         //计费代码？业务代码
+                    companyCode:''    ,       //企业code
+                    feeAmount:''    ,          //资费金额
+                    feeType:'1'   ,            //资费类型  1：包月 2：点播
+                    isReorder: '0' ,            //是否重复订购
                     
-                    
-
                     businessArea: '',
                     vipProduct: '1',
                     repeatBuy: '1',
@@ -386,12 +403,25 @@
                 }
             }
         },
+        computed:{
+            showBusinessCodeBox(){
+                return this.formData.ifUseBusinessCode=='1';
+            },
+            feeType(){
+                return this.formData.ifUseBusinessCode=='1'?'1':'3';
+            },
+            feeTypeText(){
+                return this.formData.ifUseBusinessCode=='1'?'包月':'点播';
+            },
+            
+        },
         name: 'AddStep1',
         components: {
             VDate,
             TModalSubContainer,
-            AreaChose,
+            VAreaChose,
             VSelectBox,
+            VBusinessCodeList
 
         },
         methods: {
@@ -400,6 +430,13 @@
              * */
             beforeClose (event) {
                 //todo:
+            },
+            
+            /**
+             * 选择业务代码
+             * */
+            choseBusinessCode(){
+                this.$modal.show('businessCodeModal')
             },
 
             /**
@@ -425,12 +462,15 @@
                 this.formData[item] = '';
             }
         },
+        //watch 不要用箭头函数的写法
         watch: {
-            'formData.isExperience': (a, b) => {
-                console.log(a)
-            },
-            'formData.ifUseBusinessCode': (a, b) => {
-                console.log(a)
+            'formData.ifUseBusinessCode'(a, b) {
+                if(a==0){
+                    this.formData.chargeCode='';
+                    this.formData.feeType='2';
+                }else{
+                    this.formData.feeType='1';
+                }
             }
         },
         mounted () {
@@ -451,20 +491,21 @@
                 }
 
             });
-
-
+            
             /**
              * 获取产品目录下拉框数据
              * */
             this.getSelectOption('productDistListSelectBox', this).then((res) => {
                 this.formData.catalogId = res.optionValue;
             });
+            
             /**
              * 获取产品周期单位下拉框数据
              * */
             this.getSelectOption('experiencePeriodUnitListSelectBox', this).then((res) => {
                 this.formData.experiencePeriodUnit = res.optionValue;
             });
+            
             /**
              * promise
              * 获取日历的值
@@ -477,6 +518,18 @@
                 this.operateData.expireTime=res.dateValue;
                 this.sendOperateData();
             });
+            
+            /**
+             * 获取业务代码的值
+             * */
+            this.bus.$on('businessCodeBus',res=>{
+                //有数据传过来
+                if(res||res.ifHasData){
+                    this.formData.chargeCode=res.chargeCode;
+                    this.formData.feeAmount=res.feeAmount;
+                    this.formData.companyCode=res.companyCode;
+                }
+            })
         }
     }
 </script>
