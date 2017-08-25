@@ -27,6 +27,7 @@
                 postData:{
                     keys:'',
                     status:1,
+                    approveStatus: '',
                     productCatalog:1,
                     effectivetime:'',
                     expiretime:'',
@@ -99,7 +100,7 @@
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
 
-                        console.log("contractProductList2: " + JSON.stringify(res.contractProductList));
+                        //console.log("contractProductList2: " + JSON.stringify(res.contractProductList));
 
                         this.contractProductList = res.contractProductList;
                     } else {

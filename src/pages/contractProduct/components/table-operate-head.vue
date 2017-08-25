@@ -92,6 +92,7 @@
                 operateData:{
                     keys:'',                  //关键字
                     status:'1',                //产品状态
+                    approveStatus: '',
                     productCatalog:'1',         //产品目录
                     effectivetime:'',         //生效时间
                     expiretime:''             //失效时间
