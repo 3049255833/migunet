@@ -52,7 +52,7 @@
                                 <div class="item-img"></div>
                                 <div class="item-txt">
                                     <p>
-                                        动漫5元业务包
+                                        {{contractProduct.contractName}}
                                     </p>
                                     <p>
                                         产品名称
@@ -63,7 +63,7 @@
                                 <div class="item-img"></div>
                                 <div class="item-txt">
                                     <p>
-                                        100922827636
+                                        {{contractProduct.contractCode}}
                                     </p>
                                     <p>
                                         产品ID
@@ -75,7 +75,7 @@
                                 <div class="item-img"></div>
                                 <div class="item-txt">
                                     <p>
-                                        上线（变更审批失败）
+                                        {{contractProduct.detailStatus}}
                                     </p>
                                     <p>
                                         产品状态
@@ -100,12 +100,12 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 产品描述：</span>
                                         <span class="row-right">
-                                            全职高手
+                                            {{contractProduct.describe}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 生效时间：</span>
-                                        <span class="row-right"> 2017/08/22/ 08:55</span>
+                                        <span class="row-right"> {{contractProduct.enableTag}}</span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 业务归属地：</span>
@@ -122,7 +122,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 是否体检产品：</span>
                                         <span class="row-right">
-                                            是
+                                            {{experiencePack.isExperience}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
@@ -156,13 +156,13 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 搜索关键字：</span>
                                         <span class="row-right">
-                                            动漫、漫画、青少年、日本
+                                            {{contractProduct.keys}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 失效时间：</span>
                                         <span class="row-right">
-                                            2017/08/22/ 09:30
+                                            {{contractProduct.endDate}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
@@ -180,13 +180,13 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 体验产品周期：</span>
                                         <span class="row-right">
-                                            20周
+                                            {{experiencePack.experiencePeriod}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 创建时间：</span>
                                         <span class="row-right">
-                                            2017/09/09 20:00
+                                            {{contractProduct.createUser}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
@@ -198,7 +198,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 合作伙伴：</span>
                                         <span class="row-right">
-                                            内容待定
+                                            {{contractProduct.cpCode}}
                                         </span>
                                     </div>
                                     <div class="layout-row no-pb">
@@ -219,13 +219,13 @@
                                     <div class="layout-row">
                                         <span class="row-left"> BOOS计费代码 ：</span>
                                         <span class="row-right">
-                                            112
+                                            {{boss.bossId}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 计费类型 ：</span>
                                         <span class="row-right">
-                                            不限定发布类型
+                                            {{boss.chargeType}}
                                         </span>
                                     </div>
                                     <div class="layout-row scheme-list">
@@ -278,13 +278,13 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 价格(分CN) ：</span>
                                         <span class="row-right">
-                                            19.00
+                                            {{boss.fee}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 支付方式 ：</span>
                                         <span class="row-right">
-                                            第三方支付
+                                            {{boss.payType}}
                                         </span>
                                     </div>
                                 </div>
@@ -300,7 +300,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> BOOS计费代码：</span>
                                         <span class="row-right">
-                                            09019283763
+                                            {{boss.bossId}}
                                         </span>
                                     </div>
                                 </div>
@@ -334,12 +334,44 @@
         data (){
             return {
                 contractCode: this.$route.params.contractCode,
-                contractProductDetail: {
-                    contractProduct: '',
-                    boss: '',
-                    serviceCode: '',
-                    experiencePack: '',
-                    channel: ''
+                contractProduct: {
+                    contractCode:"1001",
+                    contractName:"测试产品名",
+                    onlineStatus:"草稿",
+                    detailStatus:"审批状态",
+                    describe:"产品描述",
+                    keys:"搜索关键字",
+                    platformType:"限定发布平台",
+                    productLine:"归属产品线",
+                    cpCode:"合作伙伴",
+                    productObjectType:"产品对象类型",
+                    productType:"产品类型",
+                    enableTag:"生效方式",
+                    startDate:"生效时间",
+                    fee:"价格",
+                    unsubscribeType:"退订方式",
+                    endDate:"失效时间",
+                    subscriptionType:"续订方式",
+                    updateTime:"更新时间",
+                    createUser:"创建用户",
+                    createDate:"创建时间"
+                },
+                boss: {
+                    bossId:" BOSS计费代码",
+                    fee:"价格",
+                    chargeType:"计费类型",
+                    payType:"支付方式",
+                    chargeStrategy:"计费策略",
+                    promotionStrategy:"优惠策略"
+                },
+                experiencePack: {
+                    isExperience:"是否体验包",
+                    experiencePeriod:"体验周期",
+                    experienceToFormalId:"体验转正式产品ID",
+                    periodUnit:"周期单位"
+                },
+                channel: {
+                    channelId:"渠道ID"
                 }
             }
         },
@@ -363,17 +395,15 @@
 
                         if (res.result.resultCode == '00000000') {
                             //todo: 注意，返回的字段这里list小写
-                            this.contractProductDetail.contractProduct = res.contractProduct;
+                            this.contractProduct = res.contractProduct;
 
-                            this.contractProductDetail.boss = res.contractProductDetail;
+                            this.boss = res.boss;
 
-                            this.contractProductDetail.serviceCode = res.serviceCode;
+                            this.experiencePack = res.experiencePack;
 
-                            this.contractProductDetail.experiencePack = res.experiencePack;
+                            this.channel = res.channel;
 
-                            this.contractProductDetail.channel = res.channel;
-
-                            console.log(this.contractProductDetail);
+                            //console.log(this.cPD);
                         } else {
 
                         }
