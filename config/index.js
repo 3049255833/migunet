@@ -61,7 +61,12 @@ module.exports = {
                 /*合约产品列表的IP*/
                 target: proxy_service_ljy,
                 changeOrigin: true
-            }
+            },
+            '/product/contractProductDetail': {
+              /*合约产品详情的IP*/
+              target: proxy_service_ljy,
+              changeOrigin: true
+            },
         },
         // CSS Sourcemaps off by default because relative paths are "buggy"
         // with this option, according to the CSS-Loader README

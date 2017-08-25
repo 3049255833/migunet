@@ -118,7 +118,7 @@
         },
         methods:{
             showContractProductDetail(contractCode){
-                this.$router.push({'name': 'ContractProductDetail',params:{'contractCode':contractCode}});
+                this.$router.push({'name': 'ContractProductDetail',params:{'productCode':contractCode}});
             },
             showSelect(){
                 this.isShow = !this.isShow;

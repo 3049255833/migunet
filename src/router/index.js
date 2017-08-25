@@ -29,7 +29,7 @@ export default new Router({
                     }
                 },
                 {
-                    path: 'contract_product/contract_product_detail/:contractCode',
+                    path: 'contract_product/contract_product_detail/:productCode',
                     name: 'ContractProductDetail',
                     components: {
                         default: ContractProductDetail
