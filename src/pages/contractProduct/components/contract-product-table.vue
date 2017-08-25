@@ -22,47 +22,47 @@
                     <td> <!--{{cProduct.childProductType}}--> 动漫包业务</td>
                     <td> {{cProduct.fee}} </td>
 
-                    <td v-if="cProduct.status == 0">
+                    <td v-if="cProduct.onlineStatus == 0">
                         草稿
                     </td>
-                    <td v-else-if="cProduct.status == 1">
+                    <td v-else-if="cProduct.onlineStatus == 1">
                         上线
                     </td>
-                    <td v-else-if="cProduct.status == 2">
+                    <td v-else-if="cProduct.onlineStatus == 2">
                         隐藏
                     </td>
-                    <td v-else-if="cProduct.status == 3">
+                    <td v-else-if="cProduct.onlineStatus == 3">
                         下线
                     </td>
-                    <td v-else-if="cProduct.status == 4">
+                    <td v-else-if="cProduct.onlineStatus == 4">
                         注销
                     </td>
-                    <td v-else-if="cProduct.status == 5">
+                    <td v-else-if="cProduct.onlineStatus == 5">
                         删除
                     </td>
 
-                    <td v-if="cProduct.approveStatus == 1">
+                    <td v-if="cProduct.detailStatus == 1">
                         上线审批中
                     </td>
-                    <td v-else-if="cProduct.approveStatus == 2">
+                    <td v-else-if="cProduct.detailStatus == 2">
                         上线审批驳回
                     </td>
-                    <td v-else-if="cProduct.approveStatus == 3">
+                    <td v-else-if="cProduct.detailStatus == 3">
                         新增报备中
                     </td>
-                    <td v-else-if="cProduct.approveStatus == 4">
+                    <td v-else-if="cProduct.detailStatus == 4">
                         新增报备失败
                     </td>
-                    <td v-else-if="cProduct.approveStatus == 5">
+                    <td v-else-if="cProduct.detailStatus == 5">
                         变更审批中
                     </td>
-                    <td v-else-if="cProduct.approveStatus == 6">
+                    <td v-else-if="cProduct.detailStatus == 6">
                         变更审批驳回
                     </td>
-                    <td v-else-if="cProduct.approveStatus == 7">
+                    <td v-else-if="cProduct.detailStatus == 7">
                         变更报备中
                     </td>
-                    <td v-else-if="cProduct.approveStatus == 8">
+                    <td v-else-if="cProduct.detailStatus == 8">
                         变更报备失败
                     </td>
 
