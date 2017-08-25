@@ -23,7 +23,26 @@
         },
         data() {
             return{
-                contractProductList:[],
+                contractProductList:[
+                    {
+                        contractCode: "10000",
+                        contractName: "产品名称1",
+                        cpCode: "10000",
+                        onlineStatus: "1",
+                        detailStatus: "1",
+                        fee: "资费",
+                        isShow: false
+                    },
+                    {
+                        contractCode: "10002",
+                        contractName: "产品名称2",
+                        cpCode: "10002",
+                        onlineStatus: "2",
+                        detailStatus: "2",
+                        fee: "资费",
+                        isShow: false
+                    }
+                ],
                 postData:{
                     keys:'',
                     onlineStatus:1,

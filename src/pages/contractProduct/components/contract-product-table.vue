@@ -74,11 +74,13 @@
 
                             <div class="pointer mr-30 cl-blue">
                                 更多
-                                <i class="icon icon-arrow-down-blue" :class="{'active':isShow}" @click.stop="showSelect"></i>
+                                <i class="icon icon-arrow-down-blue"
+                                   :class="{'active': cProduct.isShow}"
+                                   @click.stop="showSelect(index)"></i>
                             </div>
                         </div>
 
-                        <div class="option-mask" :class="{opMask:optionWhatStatus}">
+                        <div class="option-mask" :class="{opMask: cProduct.isShow}">
                             <div class="option-item">下线</div>
 
                             <div class="option-item">隐藏</div>
@@ -99,29 +101,23 @@
     export default {
         name: 'ContractProductTable',
         props:{
-            contractProductList: Array,
+            contractProductList: Array
         },
         components: {
             VSearch,
             VPaging
         },
-        data()
-        {
-            return {
-                isShow: false
-            }
-        },
         computed: {
-            optionWhatStatus(){
+            /*optionWhatStatus(){
                 return this.isShow;
-            }
+            }*/
         },
         methods:{
             showContractProductDetail(contractCode){
                 this.$router.push({'name': 'ContractProductDetail',params:{'productCode':contractCode}});
             },
-            showSelect(){
-                this.isShow = !this.isShow;
+            showSelect(index){
+                this.contractProductList[index].isShow = !this.contractProductList[index].isShow;
             },
             hideSelect(){
                 this.isShow = false;
