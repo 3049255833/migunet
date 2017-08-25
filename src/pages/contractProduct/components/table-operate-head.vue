@@ -45,6 +45,7 @@
                         selectType="1"
                         :w="130"
                         :defaultTitle="'产品目录'"
+                        :selectBoxName="'cProductCatalogSelectBox'"
                         :selectValue="''"
                         v-bind:options="distOperateList">
                     </v-select-box>
@@ -91,7 +92,7 @@
                 operateData:{
                     keys:'',                  //关键字
                     status:'1',                //产品状态
-                    approveStatus:'1',         //审批状态
+                    productCatalog:'1',         //产品目录
                     effectivetime:'',         //生效时间
                     expiretime:''             //失效时间
                 },
@@ -204,6 +205,12 @@
 
             this.getSelectOption('cApproveStatusSelectBox',this).then((res)=>{
                 this.operateData.approveStatus=res.selectOption.optionValue;
+                this.sendOperateData();
+            });
+
+            this.getSelectOption('cProductCatalogSelectBox',this).then((res)=>{
+                this.operateData.productCatalog=res.selectOption.optionValue;
+
                 this.sendOperateData();
             });
 

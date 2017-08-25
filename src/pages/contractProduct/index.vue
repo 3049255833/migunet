@@ -4,7 +4,7 @@
             <v-table-operate-head title="合约产品管理"></v-table-operate-head>
 
             <v-contract-product-table :contractProductList="contractProductList"></v-contract-product-table>
-            <v-Paging></v-Paging>
+            <v-Paging :maxPage="'30'"></v-Paging>
         </div>
     </div>
 </template>
@@ -62,6 +62,8 @@
             this.bus.$on('pagingBus', res => {
                 this.postData.pageNumber = res.pagingValue;
                 this.postData.pageSize = res.pagingSize;
+
+                console.log("postData: " + JSON.stringify(this.postData));
 
                 this.getContractProductList();
             });
