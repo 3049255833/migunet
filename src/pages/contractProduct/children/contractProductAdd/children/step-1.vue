@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="row-left">产品描述（中文）：</div>
+                <div class="row-left required">产品描述（中文）：</div>
                 <div class="row-right">
                     <textarea class="textarea-module w-340" type="text" v-model="formData.productDesc"
                               placeholder="请输入"></textarea>
@@ -144,10 +144,11 @@
             </div>
             <div class="form-row" v-if="formData.isExperience=='1'">
                 <div class="row-left required">
-                    产品周期
+                    体验产品产品周期:
                 </div>
                 <div class="row-right">
-                    <input v-model="formData.experiencePeriodUnitNum" type="number" class="mr-10 form-input w-80 vt-middle">
+                    <input v-model="formData.experiencePeriodUnitNum" type="number"
+                           class="mr-10 form-input w-80 vt-middle">
                     <div class="layout-inline-middle">
                         <v-select-box :w="'110'"
                                       :selectTitle="'天'"
@@ -156,7 +157,6 @@
                     </div>
                 </div>
             </div>
-            
             <!--支付方式 -->
             <div class="form-row">
                 <div class="row-left required">
@@ -166,9 +166,9 @@
                     <div class="type-area">
                         <!--话费支付-->
                         <div class="item">
-                            <div  class="item-head ">
+                            <div class="item-head ">
                                 <label class="checkbox-module">
-                                    <input type="checkbox"  value="1" v-model="formData.payType">
+                                    <input type="checkbox" value="1" v-model="formData.payType">
                                     <span></span>
                                     <span class="txt">话费支付</span>
                                 </label>
@@ -192,7 +192,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-if="showBusinessCodeBox" class="form-row">
+                                <div v-if="ifUseBusinessCode" class="form-row">
                                     <div class="row-left w-200 required">业务代码选择：</div>
                                     <div class="row-right">
                                         <input class="form-input w-200 pointer"
@@ -203,10 +203,39 @@
                                         <i class="icon-select icon"></i>
                                     </div>
                                 </div>
+                                <div v-if="ifUseBusinessCode&&formData.chargeCode" class="form-row">
+                                    <div class="row-left w-200 required">资费金额（分）：</div>
+                                    <div class="row-right">
+                                        <input class="form-input w-200"
+                                               type="text"
+                                               disabled
+                                               v-model="formData.feeAmount">
+                                    </div>
+                                </div>
+                                <div v-if="ifUseBusinessCode&&formData.chargeCode" class="form-row">
+                                    <div class="row-left w-200 required">企业代码：</div>
+                                    <div class="row-right">
+                                        <input class="form-input w-200"
+                                               type="text"
+                                               disabled
+                                               v-model="formData.companyCode"
+                                        >
+                                    </div>
+                                </div>
+                                <div v-if="!ifUseBusinessCode" class="form-row">
+                                    <div class="row-left w-200 required">资费金额：</div>
+                                    <div class="row-right">
+                                        <input class="form-input w-200"
+                                               type="text"
+                                               v-model="formData.feeAmount"
+                                        >
+                                        <i v-show="formData.feeAmount" class="icon icon-close-round" @click="remove('feeAmount')"></i>
+                                    </div>
+                                </div>
                                 <div class="form-row">
                                     <div class="row-left w-200 required">资费类型</div>
                                     <div class="row-right">
-                                        <p  class="txt font-14">{{feeTypeText}}</p>
+                                        <p class="txt font-14">{{feeTypeText}}</p>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -232,9 +261,30 @@
                                         <input class="form-input w-200" disabled value="永久有效">
                                     </div>
                                 </div>
+                                <div v-if="!ifUseBusinessCode" class="form-row ">
+                                    <div class="row-left w-200 required">产品周期</div>
+                                    <div class="row-right">
+                                        <div class="block-dom pb-20">
+                                            <v-select-box w="200"
+                                                          :selectTitle="'有限周期'"
+                                                          :selectValue="''"
+                                                          :selectBoxName="'periodUnitSelectBox'"
+                                                          v-bind:options="[{optionText:'有限周期',optionValue:''}]"></v-select-box>
+                                        </div>
+                                        <div class="block-dom ">
+                                            <input class="mr-10 form-input w-80 vt-middle"
+                                                   v-model="formData.periodUnitNum"
+                                                   type="text">
+                                            <div class="layout-inline-middle">
+                                                <v-select-box w="110" :selectTitle="'月'"
+                                                              :name="'periodUnitListSelectBox'"
+                                                              v-bind:options="periodUnitList"></v-select-box>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
                         <!--第三方支付-->
                         <div class="item">
                             <div class="item-head ">
@@ -244,7 +294,7 @@
                                     <span class="txt">第三方支付</span>
                                 </label>
                             </div>
-                            <div  v-if="formData.payType.contains('2')" class="form-wrap">
+                            <div v-if="formData.payType.contains('2')" class="form-wrap">
                                 <div class="form-row">
                                     <div class="row-left w-200 required">资费金额（分）：</div>
                                     <div class="row-right">
@@ -324,24 +374,20 @@
                     </div>
                 </div>
             </div>
-            
         </div>
-        
         <!--业务归属地modal-->
         <modal name="businessAreaModal" :width="800" :height="440" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'businessAreaModal'">
                 <v-area-chose :modal-name="'businessAreaModal'"
-                            :selectType="'single'"></v-area-chose>
+                              :selectType="'single'"></v-area-chose>
             </t-modal-sub-container>
         </modal>
-        
         <!--业务代码modal-->
-        <modal name="businessCodeModal" :width="870" :height="570"  @before-close="beforeClose">
+        <modal name="businessCodeModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'业务代码选择'" :name="'businessCodeModal'">
                 <v-business-code-list :modalName="'businessCodeModal'"></v-business-code-list>
             </t-modal-sub-container>
         </modal>
-        
     </div>
 </template>
 <script>
@@ -352,7 +398,7 @@
     import VBusinessCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/business-code-list.vue'
 
     export default{
-        props: ['productDistList','experiencePeriodUnitList'],
+        props: ['productDistList', 'experiencePeriodUnitList', 'periodUnitList'],
         data(){
             return {
                 formData: {
@@ -368,16 +414,19 @@
                     catalogId: '',           //目录Id
                     isMemberProduct: '1',    //是否会员 1：会员 0 ：包月
                     isExperience: '1',       //是否体验产品 1：是 0 ：正式产品
-                    experiencePeriodUnitNum:'', //体验产品周期数
-                    experiencePeriodUnit:'0', //体验产品周期单位 0：天 1：周 2：月 3：年
-                    payType:[],               //支付方式 1：话费支付 2：第三方支付
-                    ifUseBusinessCode:'1',     //是否使用业务代码,
-                    chargeCode:''    ,         //计费代码？业务代码
-                    companyCode:''    ,       //企业code
-                    feeAmount:''    ,          //资费金额
-                    feeType:'1'   ,            //资费类型  1：包月 2：点播
-                    isReorder: '0' ,            //是否重复订购
-                    
+                    experiencePeriodUnitNum: '', //体验产品周期数
+                    experiencePeriodUnit: '0', //体验产品周期单位 0：天 1：周 2：月 3：年
+                    payType: [],               //支付方式 1：话费支付 2：第三方支付
+                    ifUseBusinessCode: '1',     //是否使用业务代码,
+                    chargeCode: '',         //计费代码？业务代码
+                    companyCode: '',        //企业code
+                    feeAmount: '',          //资费金额
+                    feeType: '1',           //资费类型  1：包月 2：点播
+                    isReorder: '0',         //是否重复订购
+                    periodUnitNum: '',        //周期单位数 -1：永久有效
+                    periodUnit: '',            // 周期单位 0：天 1：周 2：月 3：年
+
+
                     businessArea: '',
                     vipProduct: '1',
                     repeatBuy: '1',
@@ -398,22 +447,25 @@
                             optionValue: '3'
                         }
                     ],
-                    productDistList:this.productDistList,
-                    experiencePeriodUnitList:this.experiencePeriodUnitList
+                    productDistList: this.productDistList,
+                    experiencePeriodUnitList: this.experiencePeriodUnitList
                 }
             }
         },
-        computed:{
-            showBusinessCodeBox(){
-                return this.formData.ifUseBusinessCode=='1';
+        computed: {
+            ifUseBusinessCode(){
+                return this.formData.ifUseBusinessCode == '1';
             },
             feeType(){
-                return this.formData.ifUseBusinessCode=='1'?'1':'3';
+                return this.formData.ifUseBusinessCode == '1' ? '1' : '2';
             },
             feeTypeText(){
-                return this.formData.ifUseBusinessCode=='1'?'包月':'点播';
+                return this.formData.ifUseBusinessCode == '1' ? '包月' : '点播';
             },
-            
+            showPeriodUnitNumBox(){
+                return this.formData.ifUseBusinessCode == '1';
+            }
+
         },
         name: 'AddStep1',
         components: {
@@ -431,7 +483,7 @@
             beforeClose (event) {
                 //todo:
             },
-            
+
             /**
              * 选择业务代码
              * */
@@ -464,13 +516,23 @@
         },
         //watch 不要用箭头函数的写法
         watch: {
+            /**
+             * 监听资费类型
+             * a=='0' 不使用业务代码，清空数据重新填
+             * a=='1' 使用业务代码
+             * */
             'formData.ifUseBusinessCode'(a, b) {
-                if(a==0){
-                    this.formData.chargeCode='';
-                    this.formData.feeType='2';
-                }else{
-                    this.formData.feeType='1';
+                if (a == '1') {   //使用业务代码
+                    this.formData.feeType = '1';
+                    this.formData.periodUnitNum = '-1';       //产品周期数：默认永久有效-1
+                } else {
+                    this.formData.chargeCode = '';       //业务代码
+                    this.formData.feeType = '2';         //资费类型
+                    this.formData.feeAmount = '';        //资费金额
+                    this.formData.companyCode = '';      //企业代码
+                    this.formData.periodUnitNum = '';
                 }
+
             }
         },
         mounted () {
@@ -491,43 +553,49 @@
                 }
 
             });
-            
+
             /**
              * 获取产品目录下拉框数据
              * */
             this.getSelectOption('productDistListSelectBox', this).then((res) => {
                 this.formData.catalogId = res.optionValue;
             });
-            
+
             /**
-             * 获取产品周期单位下拉框数据
+             * 获取体验产品周期单位下拉框数据
              * */
             this.getSelectOption('experiencePeriodUnitListSelectBox', this).then((res) => {
                 this.formData.experiencePeriodUnit = res.optionValue;
             });
-            
+            /**
+             * 获取周期单位下拉框数据
+             * */
+            this.getSelectOption('periodUnitListSelectBox', this).then((res) => {
+                this.formData.periodUnit = res.optionValue;
+            });
+
             /**
              * promise
              * 获取日历的值
              * */
-            this.getDate('effectiveTime',this).then((res)=>{
-                this.operateData.effectiveTime=res.dateValue;
+            this.getDate('effectiveTime', this).then((res) => {
+                this.operateData.effectiveTime = res.dateValue;
                 this.sendOperateData();
             });
-            this.getDate('expireTime',this).then((res)=>{
-                this.operateData.expireTime=res.dateValue;
+            this.getDate('expireTime', this).then((res) => {
+                this.operateData.expireTime = res.dateValue;
                 this.sendOperateData();
             });
-            
+
             /**
              * 获取业务代码的值
              * */
-            this.bus.$on('businessCodeBus',res=>{
+            this.bus.$on('businessCodeBus', res => {
                 //有数据传过来
-                if(res||res.ifHasData){
-                    this.formData.chargeCode=res.chargeCode;
-                    this.formData.feeAmount=res.feeAmount;
-                    this.formData.companyCode=res.companyCode;
+                if (res || res.ifHasData) {
+                    this.formData.chargeCode = res.chargeCode;
+                    this.formData.feeAmount = res.feeAmount;
+                    this.formData.companyCode = res.companyCode;
                 }
             })
         }
