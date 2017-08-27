@@ -11,25 +11,25 @@
                             <div class="item layout-center-y">
                                 <div class="item-img"></div>
                                 <div class="item-txt">
-                                    <p>动漫5元业务包动漫5元业务包动漫5元业务包</p>
+                                    <p>{{productDetail.product.productName}}</p>
                                     <p>产品名称</p>
                                 </div>
                             </div>
                             <div class="item layout-center-y">
                                 <div class="item-img"></div>
                                 <div class="item-txt">
-                                    <p>动漫5元业务包</p>
+                                    <p>{{productCode}}</p>
                                     <p>产品ID</p>
                                 </div>
                             </div>
                             <div class="item layout-center-y">
                                 <div class="item-img"></div>
                                 <div class="item-txt">
-                                    <p>上线</p>
+                                    <p>{{productDetail.product.status}}</p>
                                     <p>产品状态</p>
                                 </div>
                             </div>
-                            <div class="btn-group layout-center-y">
+                            <div class="btn-group layout-center-y" v-if="false">
                                 <button class="btn btn-primary btn-middle">撤销</button>
                                 <button class="btn-default btn btn-middle">下线</button>
                             </div>
@@ -662,6 +662,7 @@
                     }
                     p:nth-child(1){
                         font-size: 18px;
+                        min-height: 18px;
                         margin-bottom: 11px;
                         color: #6d7684;
                     }

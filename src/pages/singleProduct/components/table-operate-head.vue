@@ -140,7 +140,10 @@
             * 触发事件，将封装的数据传给index
             * 该组件内可以调用该方法传数据
             * */
-            sendOperateData(){
+            sendOperateData(e){
+                if (e&&e.target){
+                    e.target.blur();
+                }
                 this.bus.$emit('sendOperateDataBus',this.operateData);
             },
 

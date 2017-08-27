@@ -12,7 +12,7 @@
     </div>
 </template>
 
-<script>
+<script type="es6">
     import VContractProductTable from './components/contract-product-table'
     import VTableOperateHead from '@/pages/contractProduct/components/table-operate-head'
     import VPaging from '@/components/paging'

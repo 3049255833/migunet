@@ -15,7 +15,7 @@
             </thead>
 
             <tbody>
-                <tr v-for="(cProduct, index) in contractProductList">
+                <tr v-for="(cProduct,index) in contractProductList">
                     <td> {{cProduct.contractName}} </td>
                     <td> {{cProduct.contractCode}} </td>
                     <td> {{cProduct.cpCode}} </td>
@@ -23,7 +23,7 @@
                     <td> {{cProduct.fee}} </td>
 
                     <td v-if="cProduct.onlineStatus == 0">
-                        草稿
+                        草稿{{text}}
                     </td>
                     <td v-else-if="cProduct.onlineStatus == 1">
                         上线
@@ -109,6 +109,9 @@
         components: {
             VSearch,
             VPaging
+        },
+        computed:{
+           
         },
         methods:{
             showContractProductDetail(contractCode){

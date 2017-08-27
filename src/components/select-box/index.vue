@@ -1,11 +1,15 @@
 <template>
     <div class="s-wrapper">
-        <div class="select-show" :class="{'active':isShow}" :style="{width:this.w+'px'}" @click.stop="showSelect">
+        <div class="select-show" :class="{'active':isShow,'error':error}" :style="{width:this.w+'px'}"
+            >
             <span class="select-show-txt" v-if="selectText">{{selectText}}</span>
-            <span class="select-show-txt default-text" v-else>{{defaultText}}</span><i class="icon layout-center-y icon-arrow-down"></i>
+            <span class="select-show-txt default-text" v-else>{{defaultText}}</span><i
+                class="icon layout-center-y icon-arrow-down"></i>
         </div>
-        <div class="option-mask" :style="{minWidth:this.w+'px'}"  :class="{opMask:optionWhatStatus}">
-            <div class="option-item" @click.stop="selectItem(option)" v-for="(option,index) in options">{{option.optionText}}</div>
+        <div class="option-mask" :style="{minWidth:this.w+'px'}" :class="{opMask:optionWhatStatus}">
+            <div class="option-item" @click.stop="selectItem(option)" v-for="(option,index) in options">
+                {{option.optionText}}
+            </div>
         </div>
     </div>
     </select>
@@ -15,8 +19,7 @@
     </option>
   </select> -->
 </template>
-
-<script>
+<script type="es6">
     /**
      * 下拉框组件
      * 对内传入selectBoxName string 作为下拉框的名字，在监听数据的时候，通过name来触发
@@ -25,10 +28,10 @@
      * 需诸如 ref 子组件名
      * 通过vm.$ref.selectName.selectOption获取值
      * */
-    
+
     export default {
         name: 'Select',
-        props: ['selectTitle','selectBoxName','selectValue','defaultTitle', 'w', 'options',],
+        props: ['selectTitle', 'selectBoxName', 'selectValue', 'defaultTitle', 'w', 'options', 'error'],
         data ()
         {
             return {
@@ -41,11 +44,11 @@
                     optionData: this.optionData
                 },
                 isShow: false,
-                selectText:this.selectTitle,
-                defaultText:this.defaultTitle,
-                selectOption:{
-                    optionText:this.selectTitle,
-                    optionValue:this.selectValue
+                selectText: this.selectTitle,
+                defaultText: this.defaultTitle,
+                selectOption: {
+                    optionText: this.selectTitle,
+                    optionValue: this.selectValue
                 }
             }
         }
@@ -59,8 +62,8 @@
             }
         },
         methods: {
-            showSelect(){
-                this.isShow = !this.isShow;
+            showSelect(e){
+                
             },
             hideSelect(){
                 this.isShow = false;
@@ -71,23 +74,34 @@
             selectItem(option){
                 this.selectText = option.optionText;
                 this.isShow = false;
-                this.selectOption=option;
-                this.bus.$emit('selectBoxBus',{
-                    selectBoxName:this.selectBoxName,
-                    selectOption:this.selectOption
+                this.selectOption = option;
+                this.bus.$emit('selectBoxBus', {
+                    selectBoxName: this.selectBoxName,
+                    selectOption: this.selectOption
                 })
             },
 
             documentHideOption(){
                 let that = this;
-                document.addEventListener('click', function () {
-                    that.isShow = false;
+                document.addEventListener('click', function (e) {
+                    if (!that.$el.contains(e.target)) {
+                        that.isShow = false;
+                    } else {
+                        
+                        that.isShow = !that.isShow
+                    }
                 });
+
             }
 
         },
         mounted(){
             this.documentHideOption();
+            /*document.addEventListener('click', e => {
+             if (!this.$el.contains(e.target)) {
+             that.isShow = false;
+             }
+             })*/
         }
     }
 </script>
@@ -120,16 +134,21 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        .default-text{
+        .default-text {
             color: #d6e1e5;
         }
-        .icon{
+        .icon {
             right: 8px;
         }
-        &.active{
+        &.error {
+            color: #f84545;
+            border: 1px solid #f84545;
+            box-shadow: 0 0 3px 2px #f84545;
+        }
+        &.active {
             box-shadow: 0 0 4px 3px #EEFAFF;
         }
-        transition: all .3s ease ;
+        transition: all .3s ease;
     }
     
     .option-mask {

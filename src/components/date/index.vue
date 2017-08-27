@@ -32,7 +32,7 @@
 
 </template>
 
-<script>
+<script type="es6">
     import calendar from '../common/calendar.vue'
     export default {
         name: 'PickDate',
@@ -104,6 +104,16 @@
     .date-wrapper{
         width: 100%;
         position: relative;
+        &.error{
+            input{
+                color: #f84545 !important;
+                border: 1px solid #f84545 !important;;
+                box-shadow: 0 0 3px 2px #f84545 !important;;
+                &:hover{
+                    box-shadow: 0 0 3px 2px #f84545 !important;;
+                }
+            }
+        }
         
     }
     input{

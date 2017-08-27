@@ -47,39 +47,39 @@
                             <div class="row-left font-12 required w-100">条件选择：</div>
                             <div class="row-right">
                                 <div class="select-group-item">
-                                    <div class="inline-dom mr-10">
+                                    <div class="layout-inline-middle mr-10">
                                         <v-select-box w="60" selectTitle="并且" selectType="1"
                                                       v-bind:options="['并且','或者']"></v-select-box>
                                     </div>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <v-select-box w="200" selectTitle="内容类型" selectType="1"
                                                       v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                                     </div>
                                     <span class="row-text">等于</span>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <v-select-box w="200" selectTitle="请选择" selectType="1"
                                                       v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                                     </div>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <i class="icon icon-add-blue"></i>
                                         <i class="icon icon-del-blue"></i>
                                     </div>
                                 </div>
                                 <div class="select-group-item">
-                                    <div class="inline-dom mr-10">
+                                    <div class="layout-inline-middle mr-10">
                                         <v-select-box w="60" selectTitle="并且" selectType="1"
                                                       v-bind:options="['并且','或者']"></v-select-box>
                                     </div>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <v-select-box w="200" selectTitle="内容类型" selectType="1"
                                                       v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                                     </div>
                                     <span class="row-text">等于</span>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <v-select-box w="200" selectTitle="请选择" selectType="1"
                                                       v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                                     </div>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <i class="icon icon-add-blue"></i>
                                         <i class="icon icon-del-blue"></i>
                                     </div>
@@ -115,39 +115,39 @@
                             <div class="row-left font-12 required w-100"><span class="required"></span>条件选择：</div>
                             <div class="row-right">
                                 <div class="select-group-item">
-                                    <div class="inline-dom mr-10">
+                                    <div class="layout-inline-middle mr-10">
                                         <v-select-box w="60" selectTitle="并且" selectType="1"
                                                       v-bind:options="['并且','或者']"></v-select-box>
                                     </div>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <v-select-box w="200" selectTitle="内容类型" selectType="1"
                                                       v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                                     </div>
                                     <span class="row-text">等于</span>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <v-select-box w="200" selectTitle="请选择" selectType="1"
                                                       v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                                     </div>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <i class="icon icon-add-blue"></i>
                                         <i class="icon icon-del-blue"></i>
                                     </div>
                                 </div>
                                 <div class="select-group-item">
-                                    <div class="inline-dom mr-10">
+                                    <div class="layout-inline-middle mr-10">
                                         <v-select-box w="60" selectTitle="并且" selectType="1"
                                                       v-bind:options="['并且','或者']"></v-select-box>
                                     </div>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <v-select-box w="200" selectTitle="内容类型" selectType="1"
                                                       v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                                     </div>
                                     <span class="row-text">等于</span>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <v-select-box w="200" selectTitle="请选择" selectType="1"
                                                       v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                                     </div>
-                                    <div class="inline-dom">
+                                    <div class="layout-inline-middle">
                                         <i class="icon icon-add-blue"></i>
                                         <i class="icon icon-del-blue"></i>
                                     </div>
