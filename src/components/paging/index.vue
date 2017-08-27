@@ -33,7 +33,7 @@
         components: {
             SelectBox
         },
-
+      
         props: ['type', 'totalItem'],
         data () {
             return {
@@ -107,7 +107,7 @@
             },
 
             jumpPage: function (e) {
-                if (e.target) {
+                if (e&&e.target) {
                     e.target.blur();
                 }
                 if (this.pageSelected > this.allPage) {
@@ -115,7 +115,8 @@
                 } else {
                     this.current = this.pageSelected;
                     this.bus.$emit('pagingBus', {
-                        pagingValue: this.current
+                        pagingValue: this.current,
+                        pagingSize: this.pageSize
                     })
                 }
             }

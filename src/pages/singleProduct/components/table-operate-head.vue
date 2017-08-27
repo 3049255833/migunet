@@ -141,7 +141,7 @@
             * 该组件内可以调用该方法传数据
             * */
             sendOperateData(e){
-                if (e.target){
+                if (e&&e.target){
                     e.target.blur();
                 }
                 this.bus.$emit('sendOperateDataBus',this.operateData);
