@@ -126,8 +126,12 @@
             },
             documentHideOption(){
                 let that = this;
+
                 document.addEventListener('click', function () {
-                    that.contractProductList[that.count].isShow = false;
+
+                    if(that.count) {
+                        that.contractProductList[that.count].isShow = false;
+                    }
                 });
             }
         },
