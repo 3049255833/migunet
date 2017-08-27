@@ -17,6 +17,11 @@ import App from './App'
 import router from './router'
 
 /**
+ * https://monterail.github.io/vuelidate/
+ */
+import Vuelidate from 'vuelidate'
+
+/**
  * mock数据
  * 可删
  * */
@@ -86,6 +91,7 @@ Vue.use(VueRosuorce);
 Vue.use(Mock);
 Vue.use(router);
 Vue.use(Vmodal);
+Vue.use(Vuelidate);  //注册表单验证
 
 /**
  * 挂载全局参数

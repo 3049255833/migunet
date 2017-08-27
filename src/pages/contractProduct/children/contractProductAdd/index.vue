@@ -25,6 +25,7 @@
                         </div>
                     </div>
                     <router-view :productDistList="initData.productDistList"
+                                 :periodUnitList="initData.experiencePeriodUnitList"
                                  :experiencePeriodUnitList="initData.experiencePeriodUnitList">
                     </router-view>
                 </div>

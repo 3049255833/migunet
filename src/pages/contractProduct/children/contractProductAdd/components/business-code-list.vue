@@ -84,7 +84,7 @@
         },
         methods: {
             getBusinessCodeList(){
-                this.$http.get(this.api.getProductDist, {params: {}}).then(response => {
+                this.$http.get(this.api.getBusinessCodeList, {params: {}}).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo:
