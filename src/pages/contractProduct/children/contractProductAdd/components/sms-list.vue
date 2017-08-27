@@ -11,103 +11,36 @@
         <div class="table-wrap">
             <table class="table-module">
                 <thead>
-                <tr>
-                    <td width="15%">选择</td>
-                    <td width="20%">模板ID</td>
-                    <td>模板内容</td>
-                </tr>
+                    <tr>
+                        <td width="15%">选择</td>
+                        <td width="20%">模板ID</td>
+                        <td>模板内容</td>
+                    </tr>
                 </thead>
+
                 <tbody>
-                <tr>
-                    <td>
-                        <label class="radio-module">
-                            <input type="radio">
-                            <span></span>
-                        </label>
-                    </td>
-                    <td>
-                        A13000
-                    </td>
-                    <td>
-                        您订购的业务已经预定成功
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="radio-module">
-                            <input type="radio">
-                            <span></span>
-                        </label>
-                    </td>
-                    <td>
-                        A13000
-                    </td>
-                    <td>
-                        您订购的业务已经预定成功
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="radio-module">
-                            <input type="radio">
-                            <span></span>
-                        </label>
-                    </td>
-                    <td>
-                        A13000
-                    </td>
-                    <td>
-                        您订购的业务已经预定成功
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="radio-module">
-                            <input type="radio">
-                            <span></span>
-                        </label>
-                    </td>
-                    <td>
-                        A13000
-                    </td>
-                    <td>
-                        您订购的业务已经预定成功
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="radio-module">
-                            <input type="radio">
-                            <span></span>
-                        </label>
-                    </td>
-                    <td>
-                        A13000
-                    </td>
-                    <td>
-                        您订购的业务已经预定成功
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label class="radio-module">
-                            <input type="radio">
-                            <span></span>
-                        </label>
-                    </td>
-                    <td>
-                        A13000
-                    </td>
-                    <td>
-                        您订购的业务已经预定成功
-                    </td>
-                </tr>
+                    <tr v-for="(smsItem, index) in smsTemplateList">
+                        <td>
+                            <label class="radio-module">
+                                <input type="radio" name="smsItem.templateName">
+                                <span></span>
+                            </label>
+                        </td>
+                        <td>
+                            {{smsItem.templateId}}
+                        </td>
+                        <td>
+                            {{smsItem.templateContent}}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+
             <div class="btn-group btn-group-center">
                 <div class="btn btn-primary btn-middle-100">确定</div>
                 <div class="btn btn-default btn-middle-100">取消</div>
             </div>
+
             <div class="paging-wrap">
                 <v-paging :type="'simple'"></v-paging>
             </div>
@@ -119,12 +52,40 @@
     export default{
         name: 'ComicRecommendSmsList',
         data(){
-            return {}
+            return {
+                smsTemplateList: []
+            }
         },
         components:{
             VPaging
         },
-        methods: {}
+        mounted () {
+            /**
+             * 获取短信模板列表
+             * */
+            this.getSmsTemplateList();
+        },
+        methods: {
+            /**
+             * 获取短信模板列表
+             * */
+            getSmsTemplateList() {
+                this.$http.get(this.api.getSmsTemplateList,
+                    { params: {} }).then(response => {
+
+                    let res = response.body;
+
+                    if (res.result.resultCode == '00000000') {
+
+                        this.smsTemplateList = res.data;
+
+                        //console.log("data3: " + JSON.stringify(this.smsTemplateList));
+                    } else {
+
+                    }
+                })
+            }
+        }
     }
 </script>
 <style lang='scss' scoped rel='stylesheet/scss'>

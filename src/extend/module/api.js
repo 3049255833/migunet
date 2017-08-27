@@ -22,7 +22,8 @@ let api = {
     getContractProductList:'product/getContractProductList',    //获取合约列表
     getContractProductDetail:'product/contractProductDetail',       //获取合约产品详情
     getProductDist:'contractProduct/findProductCatalog',        //获取产品目录
-    getBusinessCodeList:'contractProduct/findCharge'             //获取业务代码
+    getBusinessCodeList:'contractProduct/findCharge',           //获取业务代码
+    getSmsTemplateList: 'contractProduct/findSmsTemplate'      //获取短信模板列表
 };
 
 for (let key in api) {

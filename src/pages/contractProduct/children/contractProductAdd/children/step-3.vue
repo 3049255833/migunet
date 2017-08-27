@@ -25,11 +25,19 @@
                     体验产品周期：
                 </div>
                 <div class="row-right">
-                    <input class="form-input vt-middle mr-10 w-80" type="text" placeholder="请输入">
+                    <input v-model="formData.experiencePeriodUnitNum"
+                           class="form-input vt-middle mr-10 w-80"
+                           type="number" placeholder="请选择">
+
                     <div class="layout-inline-middle">
                         <div class="inline-dom">
-                            <v-select-box w="110" selectTitle="并且" selectType="1"
-                                          v-bind:options="['并且','或者']"></v-select-box>
+                            <v-select-box
+                                    :w="'105'"
+                                    :selectTitle="'天'"
+                                    :selectBoxName="'experienceProductCycle'"
+                                    v-bind:options="dateUnitList">
+                            </v-select-box>
+
                         </div>
                     </div>
                 </div>
@@ -72,7 +80,10 @@
                     互斥产品添加：
                 </div>
                 <div class="row-right">
-                    <textarea class="textarea-module" placeholder="请选择"></textarea>
+                    <textarea class="textarea-module"
+                              placeholder="请选择"
+                              @click="showMutexProduct"
+                    ></textarea>
                     <i class="icon icon-select"></i>
                 </div>
             </div>
@@ -110,7 +121,13 @@
 
         <modal name="smsListModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'动漫包推荐短信模板选择'" :name="'smsListModal'">
-                <sms-list></sms-list>
+                <v-sms-list></v-sms-list>
+            </t-modal-sub-container>
+        </modal>
+
+        <modal name="mutexProductModal" :width="870" :height="570" @before-close="beforeClose">
+            <t-modal-sub-container :title="'产品选择'" :name="'mutexProductModal'">
+                <v-mutex-product></v-mutex-product>
             </t-modal-sub-container>
         </modal>
     </div>
@@ -118,25 +135,49 @@
 <script>
     import VSelectBox from '@/components/select-box';
     import TModalSubContainer from "@/components/modal-sub-container";
-    import SmsList from '@/pages/contractProduct/children/contractProductAdd/components/sms-list';
+    import VSmsList from '@/pages/contractProduct/children/contractProductAdd/components/sms-list';
     import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose'
-    import Paging from '@/components/paging'
+    import VPaging from '@/components/paging'
+
+    import VMutexProduct from '@/pages/contractProduct/children/contractProductAdd/components/product-code-list'
+
     export default{
         data(){
             return {
                 formData: {
                     free: 1,
                     businessAreaText: '',
-                    businessCode: ''
-                }
+                    businessCode: '',
+                    dateUnit: '0',
+                    experiencePeriodUnitNum: ''
+                },
+                dateUnitList: [
+                    {
+                        optionText: '天',
+                        optionValue: '0'
+                    },
+                    {
+                        optionText: '周',
+                        optionValue: '1'
+                    },
+                    {
+                        optionText: '月',
+                        optionValue: '2'
+                    },
+                    {
+                        optionText: '年',
+                        optionValue: '3'
+                    }
+                ]
             }
         },
         components: {
             VSelectBox,
             VAreaChose,
             TModalSubContainer,
-            SmsList,
-            Paging
+            VSmsList,
+            VPaging,
+            VMutexProduct
         },
         methods: {
             nextStep(){
@@ -157,6 +198,13 @@
              * */
             showSmsListModal(){
                 this.$modal.show('smsListModal');
+            },
+
+            /**
+             * 互斥产品添加模板弹框
+             * */
+            showMutexProduct(){
+                this.$modal.show('mutexProductModal');
             }
         },
         mounted () {
@@ -176,6 +224,13 @@
                     this.formData.businessAreaText = areaNameArr.join('|');
                     this.formData.businessCode = areaCodeArr.join('|');
                 }
+            });
+
+            /**
+             * 获取体验产品周期单位下拉框数据
+             * */
+            this.getSelectOption('experienceProductCycle', this).then((res) => {
+                this.formData.dateUnit = res.optionValue;
             });
         }
     }

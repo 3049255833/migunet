@@ -72,11 +72,11 @@
 
                             <div class="mr-30 pointer cl-blue">变更信息</div>
 
-                            <div class="pointer mr-30 cl-blue">
+                            <div class="pointer mr-30 cl-blue"
+                                 :class="{'active':cProduct.isShow}"
+                                 @click.stop="showSelect(index)">
                                 更多
-                                <i class="icon icon-arrow-down-blue"
-                                   :class="{'active': cProduct.isShow}"
-                                   @click.stop="showSelect(index)"></i>
+                                <i class="icon icon-arrow-down-blue"></i>
                             </div>
                         </div>
 
@@ -103,25 +103,33 @@
         props:{
             contractProductList: Array
         },
+        data: function () {
+            return { count: 0 }
+        },
         components: {
             VSearch,
             VPaging
-        },
-        computed: {
-            /*optionWhatStatus(){
-                return this.isShow;
-            }*/
         },
         methods:{
             showContractProductDetail(contractCode){
                 this.$router.push({'name': 'ContractProductDetail',params:{'productCode':contractCode}});
             },
             showSelect(index){
+
+                this.contractProductList[this.count].isShow = false;
+
                 this.contractProductList[index].isShow = !this.contractProductList[index].isShow;
+                this.count = index;
             },
-            hideSelect(){
-                this.isShow = false;
+            documentHideOption(){
+                let that = this;
+                document.addEventListener('click', function () {
+                    that.contractProductList[that.count].isShow = false;
+                });
             }
+        },
+        mounted(){
+            this.documentHideOption();
         }
     }
 </script>

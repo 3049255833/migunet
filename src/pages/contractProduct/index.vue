@@ -3,7 +3,10 @@
         <div class="table-wrapper">
             <v-table-operate-head title="合约产品管理"></v-table-operate-head>
 
-            <v-contract-product-table :contractProductList="contractProductList"></v-contract-product-table>
+            <v-contract-product-table
+                    :contractProductList="contractProductList">
+            </v-contract-product-table>
+
             <v-Paging :maxPage="'30'"></v-Paging>
         </div>
     </div>
@@ -23,26 +26,7 @@
         },
         data() {
             return{
-                contractProductList:[
-                    {
-                        contractCode: "10000",
-                        contractName: "产品名称1",
-                        cpCode: "10000",
-                        onlineStatus: "1",
-                        detailStatus: "1",
-                        fee: "资费",
-                        isShow: false
-                    },
-                    {
-                        contractCode: "10002",
-                        contractName: "产品名称2",
-                        cpCode: "10002",
-                        onlineStatus: "2",
-                        detailStatus: "2",
-                        fee: "资费",
-                        isShow: false
-                    }
-                ],
+                contractProductList:[],
                 postData:{
                     keys:'',
                     onlineStatus:1,
@@ -119,11 +103,15 @@
                     let res = response.body;
 
                     if(res.result.resultCode=='00000000'){
-                        //todo: 注意，返回的字段这里list小写
 
-                        //console.log("contractProductList2: " + JSON.stringify(res.contractProductList));
+                        for(var i = 0; i < res.contractProductList.length; i++) {
+                            res.contractProductList[i].isShow = false;
+                        }
 
                         this.contractProductList = res.contractProductList;
+
+                        //console.log("cPList2: " + JSON.stringify(this.contractProductList));
+
                     } else {
 
                         console.log("res: " + JSON.stringify(res));

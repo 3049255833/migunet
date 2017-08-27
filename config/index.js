@@ -71,9 +71,12 @@ module.exports = {
                 /*获取业务代码详情*/
                 target: proxy_service_xl,
                 changeOrigin: true
+            },
+            '/contractProduct/findSmsTemplate': {
+                /*获取短信模板列表*/
+                target: proxy_service_xl,
+                changeOrigin: true
             }
-
-
         },
         cssSourceMap: false
     }
