@@ -333,7 +333,7 @@
         },
         data (){
             return {
-                contractCode: this.$route.params.contractCode,
+                contractCode: this.$route.params.productCode,
                 contractProduct: {
                     contractCode:"1001",
                     contractName:"测试产品名",
@@ -384,6 +384,8 @@
              * @param contractCode 产品id string
              * */
             getContractProductDetail(contractCode) {
+                console.log("code: " + contractCode);
+
                 this.$http.get(this.api.getContractProductDetail,
                     {
                         params: {
@@ -403,7 +405,8 @@
 
                             this.channel = res.channel;
 
-                            //console.log(this.cPD);
+                            //console.log("data: " + JSON.stringify(res));
+
                         } else {
 
                         }
