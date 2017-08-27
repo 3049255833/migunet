@@ -39,8 +39,13 @@
                     限制发送提示短信省份：
                 </div>
                 <div class="row-right">
-                    <input class="form-input pointer w-200" @click="showAreaChoseModal" v-model="formData.businessArea" type="text" readonly
+                    <input class="form-input pointer w-200"
+                           @click="showAreaChoseModal"
+                           v-model="formData.businessAreaText"
+                           type="text"
+                           readonly
                            placeholder="请选择"/>
+
                     <i class="icon icon-select"></i>
                 </div>
             </div>
@@ -91,13 +96,18 @@
                 </div>
             </div>
         </div>
-    
+
         <modal name="areaChoseModal" :width="800" :height="440" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'areaChoseModal'">
-                <area-chose></area-chose>
+
+                <v-area-chose
+                    :modal-name="'areaChoseModal'"
+                    :selectType="'single'">
+                </v-area-chose>
+
             </t-modal-sub-container>
         </modal>
-    
+
         <modal name="smsListModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'动漫包推荐短信模板选择'" :name="'smsListModal'">
                 <sms-list></sms-list>
@@ -109,20 +119,21 @@
     import VSelectBox from '@/components/select-box';
     import TModalSubContainer from "@/components/modal-sub-container";
     import SmsList from '@/pages/contractProduct/children/contractProductAdd/components/sms-list';
-    import AreaChose from '@/pages/contractProduct/components/area-chose.vue'
+    import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose'
     import Paging from '@/components/paging'
     export default{
         data(){
             return {
                 formData: {
                     free: 1,
-                    businessArea:''
+                    businessAreaText: '',
+                    businessCode: ''
                 }
             }
         },
         components: {
             VSelectBox,
-            AreaChose,
+            VAreaChose,
             TModalSubContainer,
             SmsList,
             Paging
@@ -137,16 +148,35 @@
              * 显示地方
              * */
             showAreaChoseModal(){
-                this.$modal.show('AreaChoseModal');
+                this.$modal.show('areaChoseModal');
             },
             beforeClose(){},
-            
+
             /**
              * 调用短信模板弹框
              * */
             showSmsListModal(){
                 this.$modal.show('smsListModal');
             }
+        },
+        mounted () {
+            /**
+             * 获取归属地，返回[{areaName:'',areaCode:''}]
+             * */
+            this.bus.$on('areaChoseBus', res => {
+                if (res) {
+                    //拼接字符窜
+                    let areaNameArr = [];
+                    let areaCodeArr = [];
+                    res.forEach(function (item, index) {
+                        areaNameArr.push(item.areaName);
+                        areaCodeArr.push(item.areaCode);
+                    });
+
+                    this.formData.businessAreaText = areaNameArr.join('|');
+                    this.formData.businessCode = areaCodeArr.join('|');
+                }
+            });
         }
     }
 </script>
@@ -160,24 +190,24 @@
         background: url('#{$image-base-path}#{$URI}') $repeat $x $y;
         background-size: 100% 100%;
     }
-    
+
     .add-step-3 {
         font-size: 14px;
         color: #333333;
         box-sizing: border-box;
-        
+
         .form-wrap {
             padding: 40px 80px;
             .row-left {
                 width: 220px;
             }
             .row-right {
-                
+
             }
         }
-        
-        
-        
+
+
+
         .btn-group {
             margin: 25px 0 50px;
         }
