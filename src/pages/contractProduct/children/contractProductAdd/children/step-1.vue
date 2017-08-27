@@ -1,31 +1,46 @@
 <template>
     <div class="add-step-1">
         <div class="form-wrap ">
+            <!--产品名称-->
             <div class="form-row">
                 <div class="row-left required">产品名称（中文）：</div>
                 <div class="row-right">
                     <input class=" form-input pointer w-200"
-                           v-model="formData.productName" type="text"
+                           :class="{'error':$v.formData.productName.$error}"
+                           v-model.trim="formData.productName" type="text"
+                           @input="$v.formData.productName.$touch()"
                            placeholder="请输入"/>
+                    <span class="error-msg" v-if="$v.formData.productName.$error">{{errorMsg.productName}}</span>
                 </div>
             </div>
+            <!--产品描述-->
             <div class="form-row">
                 <div class="row-left required">产品描述（中文）：</div>
                 <div class="row-right">
-                    <textarea class="textarea-module w-340" type="text" v-model="formData.productDesc"
+                    <textarea class="textarea-module w-340"
+                              :class="{'error':$v.formData.productDesc.$error}"
+                              type="text"
+                              v-model.trim="formData.productDesc"
+                              @input="$v.formData.productDesc.$touch()"
                               placeholder="请输入"></textarea>
+                    <span class="error-msg" v-if="$v.formData.productDesc.$error">{{errorMsg.productDesc}}</span>
                 </div>
             </div>
+            <!--搜索关键字-->
             <div class="form-row">
                 <div class="row-left required">
                     搜索关键字：
                 </div>
                 <div class="row-right">
                     <textarea class="textarea-module w-340" type="text"
-                              v-model="formData.searchKey"
+                              :class="{'error':$v.formData.searchKey.$error}"
+                              v-model.trim="formData.searchKey"
+                              @input="$v.formData.searchKey.$touch()"
                               placeholder="搜索关键字将用于用户搜索功能，请输入断句，逗号 ‘，’隔开，例：‘漫画，青少年’"></textarea>
+                    <span class="error-msg" v-if="$v.formData.searchKey.$error">{{errorMsg.searchKey}}</span>
                 </div>
             </div>
+            <!--生效方式-->
             <div class="form-row">
                 <div class="row-left required">
                     生效方式：
@@ -38,26 +53,31 @@
                     </v-select-box>
                 </div>
             </div>
+            <!--生效时间-->
             <div class="form-row">
                 <div class="required row-left">
                     生效时间：
                 </div>
                 <div class="row-right">
-                    <v-date :class="'w-200'"
-                            :dateName="'effectiveTime '"
+                    <v-date :class="{'w-200':true,'error':$v.formData.effectiveTime.$error}"
+                            :dateName="'effectiveTime'"
                             :defaultText="'生效时间'"></v-date>
+                    <span class="error-msg" v-if="$v.formData.effectiveTime.$error">{{errorMsg.effectiveTime}}</span>
                 </div>
             </div>
+            <!--失效时间-->
             <div class="form-row">
                 <div class="required row-left">
                     失效时间：
                 </div>
                 <div class="row-right">
-                    <v-date :class="'w-200'"
-                            :dateName="'expireTime '"
+                    <v-date :class="{'w-200':true,'error':$v.formData.expireTime.$error}"
+                            :dateName="'expireTime'"
                             :defaultText="'失效时间'"></v-date>
+                    <span class="error-msg" v-if="$v.formData.expireTime.$error">{{errorMsg.expireTime}}</span>
                 </div>
             </div>
+            <!--业务归属地-->
             <div class="form-row">
                 <div class="row-left required">
                     业务归属地：
@@ -65,20 +85,27 @@
                 <div class="row-right">
                     <input @click="showBusinessAreaModal "
                            class="form-input w-200 pointer"
+                           :class="{'error':$v.formData.attributionText.$error}"
                            v-model="formData.attributionText"
                            type="text"
                            readonly
                            placeholder="请输入"/>
                     <i class="icon icon-select"></i>
+                    <span class="error-msg" v-if="$v.formData.attributionText.$error">{{errorMsg.attributionText}}</span>
                 </div>
             </div>
+            <!--渠道Id-->
             <div class="form-row">
                 <div class="row-left required">
                     渠道ID：
                 </div>
                 <div class="row-right">
-                    <input type="text" class="form-input w-200" v-model="formData.channelId" placeholder="请输入"/>
+                    <input type="text" class="form-input w-200"
+                           :class="{'error':$v.formData.channelId.$error}"
+                           @input="$v.formData.channelId.$touch()"
+                           v-model.trim="formData.channelId" placeholder="请输入"/>
                     <i v-show="formData.channelId" class="icon icon-close-round" @click="remove('channelId')"></i>
+                    <span class="error-msg" v-if="$v.formData.channelId.$error">{{errorMsg.channelId}}</span>
                 </div>
             </div>
             <div class="form-row">
@@ -90,6 +117,7 @@
                                   :selectBoxName="'productDistListSelectBox'"
                                   :defaultTitle="'产品目录'"
                                   :options="selectBoxList.productDistList"></v-select-box>
+                    <span class="error-msg" v-if="$v.formData.catalogId.$error">{{errorMsg.catalogId}}</span>
                 </div>
             </div>
             <div class="form-row">
@@ -229,7 +257,8 @@
                                                type="text"
                                                v-model="formData.feeAmount"
                                         >
-                                        <i v-show="formData.feeAmount" class="icon icon-close-round" @click="remove('feeAmount')"></i>
+                                        <i v-show="formData.feeAmount" class="icon icon-close-round"
+                                           @click="remove('feeAmount')"></i>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -369,7 +398,8 @@
                 <div class="row-left"></div>
                 <div class="row-right">
                     <div class="btn-group">
-                        <div class="btn btn-primary btn-middle" @click="nextStep">下一步</div>
+                        <div v-if="canSave" class="btn btn-primary btn-middle" @click="nextStep">下一步</div>
+                        <div v-else class="btn unable btn-primary btn-middle" >下一步</div>
                         <div class="btn btn-default btn-middle">取消</div>
                     </div>
                 </div>
@@ -396,6 +426,8 @@
     import VSelectBox from '@/components/select-box'
     import VDate from '@/components/date'
     import VBusinessCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/business-code-list.vue'
+    //表单注入
+    import {required, minLength, maxLength, numeric, between} from 'vuelidate/lib/validators';
 
     export default{
         props: ['productDistList', 'experiencePeriodUnitList', 'periodUnitList'],
@@ -432,6 +464,16 @@
                     repeatBuy: '1',
                     useCode: '1'
                 },
+                errorMsg: {
+                    productName: '请输入产品名',
+                    productDesc: '请输入产品描述',
+                    searchKey: '请输入搜索关键字',
+                    effectiveTime: '请输入生效时间',
+                    expireTime: '请输入失效时间',
+                    attributionText:'请输入业务归属地',
+                    channelId: '请输入渠道Id',
+                    catalogId: '请选择产品目录'
+                },
                 selectBoxList: {
                     effectiveWayList: [
                         {
@@ -452,6 +494,69 @@
                 }
             }
         },
+        validations: {
+            formData: {
+                //产品名称
+                productName: {
+                    required
+                },
+                //产品描述
+                productDesc: {
+                    required
+                },
+                //搜索关键字
+                searchKey: {
+                    required
+                },
+                //生效时间
+                effectiveTime: {
+                    required
+                },
+                //失效时间
+                expireTime: {
+                    required
+                },
+                //归属地编码
+                attributionCode: {
+                    required
+                },
+                //业务归属地文案
+                attributionText:{
+                    required
+                },
+                //渠道Id
+                channelId: {
+                    required
+                },
+                //目录Id
+                catalogId:{
+                    required
+                }
+                /*   catalogId: '',           //目录Id
+                 isMemberProduct: '1',    //是否会员 1：会员 0 ：包月
+                 isExperience: '1',       //是否体验产品 1：是 0 ：正式产品
+                 experiencePeriodUnitNum: '', //体验产品周期数
+                 experiencePeriodUnit: '0', //体验产品周期单位 0：天 1：周 2：月 3：年
+                 payType: [],               //支付方式 1：话费支付 2：第三方支付
+                 ifUseBusinessCode: '1',     //是否使用业务代码,
+                 chargeCode: '',         //计费代码？业务代码
+                 companyCode: '',        //企业code
+                 feeAmount: '',          //资费金额
+                 feeType: '1',           //资费类型  1：包月 2：点播
+                 isReorder: '0',         //是否重复订购
+                 periodUnitNum: '',        //周期单位数 -1：永久有效
+                 periodUnit: '',            // 周期单位 0：天 1：周 2：月 3：年
+                 
+                 
+                 businessArea: '',
+                 vipProduct: '1',
+                 repeatBuy: '1',
+                 useCode: '1'*/
+            },
+            /** , formData.attributionCode', 'formData.channelId','formData.attributionText'*/
+            validationGroup: [/*'formData.productName', 'formData.productDesc', 'formData.searchKey',
+             'formData.effectiveTime','formData.attributionText','formData.channelId','formData.catalogId'*/ ]
+        },
         computed: {
             ifUseBusinessCode(){
                 return this.formData.ifUseBusinessCode == '1';
@@ -464,6 +569,14 @@
             },
             showPeriodUnitNumBox(){
                 return this.formData.ifUseBusinessCode == '1';
+            },
+            canSave(){
+                let flag=true;
+                if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid) {  //经过第一层的表单验证
+                    return true
+                }else{
+                    return false
+                }
             }
 
         },
@@ -558,7 +671,7 @@
              * 获取产品目录下拉框数据
              * */
             this.getSelectOption('productDistListSelectBox', this).then((res) => {
-                this.formData.catalogId = res.optionValue;
+                this.formData.catalogId =res.selectOption.optionValue;
             });
 
             /**
@@ -579,12 +692,11 @@
              * 获取日历的值
              * */
             this.getDate('effectiveTime', this).then((res) => {
-                this.operateData.effectiveTime = res.dateValue;
-                this.sendOperateData();
+                this.formData.effectiveTime = res.dateValue;
             });
             this.getDate('expireTime', this).then((res) => {
-                this.operateData.expireTime = res.dateValue;
-                this.sendOperateData();
+                this.formData.expireTime = res.dateValue;
+                console.log(res)
             });
 
             /**

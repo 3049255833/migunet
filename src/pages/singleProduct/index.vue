@@ -3,7 +3,7 @@
         <div class="table-wrapper">
             <v-table-operate-head hideBtn="true" title="单品管理"></v-table-operate-head>
             <v-single-product-table :productList="productList"></v-single-product-table>
-            <v-paging :maxPage="'30'"></v-paging>
+            <v-paging :totalItem="totalItem"></v-paging>
         </div>
     </div>
 </template>
@@ -26,7 +26,8 @@
                     pageNumber:'1',
                     effectivetime:'',
                     expiretime:''
-                }
+                },
+                totalItem:''
             }
         },
         components: {
@@ -66,7 +67,6 @@
         methods: {
             /**
              * 获取单品产品列表
-             * @param obj object , 为获取列表传入的数据
              * keys 搜索关键字 string
              * status 产品状态 string
              * approveStatus 审批状态 string
@@ -92,13 +92,18 @@
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
                         this.productList=res.productlist;
-                        console.log(this.productList)
+                        this.totalItem=res.totalItem;
                     }else{
                         
                     }
                 })
             }
         },
+        computed:{
+            totalPage(){
+                return this.totalItem
+            }
+        }
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

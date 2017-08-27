@@ -11,14 +11,15 @@
 
         </span>
         <ul class="pagination">
-            <li v-show="current != 1" @click="current-- && goto(current--)"><span class="prev"><</span></li>
+            <li v-show="current != 1" @click="current-- && goto(current--)"><span class="prev pointer"><</span></li>
             <li v-for="index in pages" @click="goto(index)" :class="{'active':current == index}" :key="index">
                 <a href="javascript:void(0);">{{index}}</a>
             </li>
-            <li v-show="allpage != current && allpage != 0 " @click="current++ && goto(current++)"><a
+            <li v-show="allPage != current && allPage != 0 " @click="current++ && goto(current++)"><a
                     href="javascript:void(0);" class="next">></a></li>
             <li v-if="!showElement" class="travel-to">前往</li>
-            <li v-if="!showElement" class="whichPage"><input v-model="pageSelected" @keyup.enter="jumpPage" type="text">
+            <li v-if="!showElement" class="whichPage"><input class="form-input" v-model="pageSelected"
+                                                             @keyup.enter="jumpPage" type="number">
             </li>
             <li v-if="!showElement">页</li>
         </ul>
@@ -32,13 +33,13 @@
         components: {
             SelectBox
         },
-        props: ['type', 'maxPage'],
+
+        props: ['type', 'totalItem'],
         data () {
             return {
                 current: 1,
                 showItem: 5,
-                pageSize:8,
-                allpage: parseInt(this.maxPage),
+                pageSize: 8,
                 pageSelected: '',
                 pageSizeOperateList: [
                     {
@@ -69,15 +70,15 @@
                 var pag = [];
                 if (this.current < this.showItem) { //如果当前的激活的项 小于要显示的条数
                     //总页数和要显示的条数那个大就显示多少条
-                    var i = Math.min(this.showItem, this.allpage);
+                    var i = Math.min(this.showItem, this.allPage);
                     while (i) {
                         pag.unshift(i--);
                     }
                 } else { //当前页数大于显示页数了
                     var middle = this.current - Math.floor(this.showItem / 2),//从哪里开始
                         i = this.showItem;
-                    if (middle > (this.allpage - this.showItem)) {
-                        middle = (this.allpage - this.showItem) + 1
+                    if (middle > (this.allPage - this.showItem)) {
+                        middle = (this.allPage - this.showItem) + 1
                     }
                     while (i--) {
                         pag.push(middle++);
@@ -89,7 +90,10 @@
                 if (this.type || this.type == 'simple') {
                     return true;
                 }
-            }
+            },
+            allPage(){
+                return Math.ceil(parseInt(this.totalItem) / parseInt(this.pageSize))
+            },
         },
         methods: {
             goto: function (index) {
@@ -97,13 +101,16 @@
                 this.current = index;
                 //触发分页bus
                 this.bus.$emit('pagingBus', {
-                    pagingSize:this.pageSize,
+                    pagingSize: this.pageSize,
                     pagingValue: this.current
                 })
             },
 
-            jumpPage: function () {
-                if (this.pageSelected > this.allpage) {
+            jumpPage: function (e) {
+                if (e.target) {
+                    e.target.blur();
+                }
+                if (this.pageSelected > this.allPage) {
                     alert('超过最大页码数');
                 } else {
                     this.current = this.pageSelected;
@@ -120,16 +127,17 @@
              * */
             this.bus.$on('selectBoxBus', res => {
                 //分页条数下拉框
-                if (res.selectBoxName=='pageSizeSelectBox'){
-                    this.current=1;
-                    this.pageSize=res.selectOption.optionValue;
+                if (res.selectBoxName == 'pageSizeSelectBox') {
+                    this.current = 1;
+                    this.pageSize = res.selectOption.optionValue;
                     this.bus.$emit('pagingBus', {
-                        pagingSize:this.pageSize,
+                        pagingSize: this.pageSize,
                         pagingValue: 1
                     })
                 }
             });
-        }
+        },
+        mounted(){}
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -159,8 +167,10 @@
             margin: 0;
             
             .whichPage input {
-                width: 29px;
+                width: 30px;
                 height: 30px;
+                line-height: 28px;
+                padding: 0 !important;
                 text-align: center;
                 border-radius: 0;
                 margin-right: 5px;
@@ -174,11 +184,13 @@
                 }
                 
                 a {
+                    width: 31px;
+                    height: 31px;
+                    text-align: center;
+                    line-height: 31px;
                     position: relative;
                     float: left;
-                    padding: 6px 10px;
                     margin-left: -1px;
-                    line-height: 1.42857143;
                     color: #337ab7;
                     text-decoration: none;
                     background-color: #fff;
