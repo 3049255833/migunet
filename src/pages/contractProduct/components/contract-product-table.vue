@@ -72,11 +72,11 @@
 
                             <div class="mr-30 pointer cl-blue">变更信息</div>
 
-                            <div class="pointer mr-30 cl-blue">
+                            <div class="pointer mr-30 cl-blue"
+                                 :class="{'active': cProduct.isShow}"
+                                 @click.stop="showSelect(index)">
                                 更多
-                                <i class="icon icon-arrow-down-blue"
-                                   :class="{'active': cProduct.isShow}"
-                                   @click.stop="showSelect(index)"></i>
+                                <i class="icon icon-arrow-down-blue"></i>
                             </div>
                         </div>
 
