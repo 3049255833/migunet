@@ -48,7 +48,7 @@
             /**
              * 接收来自操作头部的信息
              * */
-            this.bus.$on('sendOperateDataBus', res => {
+            this.bus.$on('cSendOperateDataBus', res => {
                 this.postData.keys = res.keys;
                 this.postData.onlineStatus = res.onlineStatus;
                 this.postData.detailStatus = res.detailStatus;
