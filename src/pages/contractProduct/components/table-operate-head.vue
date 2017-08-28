@@ -199,13 +199,13 @@
              * promise
              * 获取下拉框的值
              * */
-            this.getSelectOption('cStatusSelectBox',this).then((res)=>{
+            this.getSelectOption('cStatusSelectBox',this, function(res){
                 this.operateData.onlineStatus=res.selectOption.optionValue;
 
                 this.cSendOperateData();
             });
 
-            this.getSelectOption('cApproveStatusSelectBox',this).then((res)=>{
+            this.getSelectOption('cApproveStatusSelectBox',this,function(res) {
                 this.operateData.detailStatus =res.selectOption.optionValue;
                 this.cSendOperateData();
             });
