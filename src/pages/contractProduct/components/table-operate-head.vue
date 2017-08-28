@@ -6,7 +6,7 @@
                     {{title}}
                 </div>
                 <button class="ml-24 btn btn-add-module-blue" @click="addContractProduct"
-                        v-bind:class="{addBtn:hideBtn}">新增产品
+                        :class="{addBtn:hideBtn}">新增产品
                 </button>
             </div>
 
@@ -199,7 +199,7 @@
              * promise
              * 获取下拉框的值
              * */
-<<<<<<< HEAD
+
             this.getSelectOption('cStatusSelectBox',this,function(){
                 this.operateData.status=res.selectOption.optionValue;
                 this.sendOperateData();
@@ -208,27 +208,14 @@
             this.getSelectOption('cApproveStatusSelectBox',this,function(res){
                 this.operateData.approveStatus=res.selectOption.optionValue;
                 this.sendOperateData();
-=======
-            this.getSelectOption('cStatusSelectBox',this).then((res)=>{
-                this.operateData.onlineStatus=res.selectOption.optionValue;
 
-                this.cSendOperateData();
-            });
-
-            this.getSelectOption('cApproveStatusSelectBox',this).then((res)=>{
-                this.operateData.detailStatus =res.selectOption.optionValue;
-                this.cSendOperateData();
->>>>>>> a434762f081527614c0a4b2c3ccaf7a34f784405
             });
 
             this.getSelectOption('cProductCatalogSelectBox',this,function(res){
                 this.operateData.productCatalog=res.selectOption.optionValue;
-<<<<<<< HEAD
-                this.sendOperateData();
-=======
 
-                this.cSendOperateData();
->>>>>>> a434762f081527614c0a4b2c3ccaf7a34f784405
+                this.sendOperateData();
+
             });
 
             /**
