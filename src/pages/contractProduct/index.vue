@@ -27,14 +27,14 @@
         data() {
             return{
                 contractProductList:[
-                    {
+                    /*{
                         contractCode:"产品ID",
                         contractName:"产品名称",
                         cpCode:"CP代码",
                         onlineStatus:"3",
                         detailStatus:"2",
                         fee:"资费",
-                    }
+                    }*/
                 ],
                 postData:{
                     keys:'',
@@ -124,7 +124,7 @@
 
                         this.contractProductList = res.contractProductList;
 
-                        this.totalItem=res.totalItem;
+                        this.totalItem= this.contractProductList.length;
 
                         //console.log("cPList2: " + JSON.stringify(this.contractProductList));
 
@@ -132,7 +132,7 @@
 
                         console.log("res: " + JSON.stringify(res));
                     }
-                })
+                });
             }
         },
         computed:{
