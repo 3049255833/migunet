@@ -1,52 +1,70 @@
 <template>
-    <div class="confirm-modal-container">
-        <div class="text">是否确定撤销，撤销后产品记录删除?</div>
+    <div class="confirm-modal-container clearfix" :class="{hide: isHideConfim}">
+        <div class="text">是否确定{{operateType}}，{{operateType}}后产品记录删除?</div>
 
-        <button type="button">确认</button>
+        <div class="confirm cl-blue pointer" @click="confirm">确认</div>
 
-        <button type="button">取消</button>
+        <div class="cancel cl-blue pointer" @click="cancel">取消</div>
     </div>
 </template>
 
 <script type="es6">
-    import VPaging from '@/components/paging'
-
     export default {
-        name: 'ContractProduct',
-        components: {
-            VPaging
+        name: 'ConfirmModal',
+        props: {
+            operateType: String,
+            isHideConfim: Boolean,
+            index: Number
         },
-        data() {
-            return{
-                postData:{
-
-                }
-            }
+        mounted(){
+            //console.log(this.operateType + "," + this.operateType);
         },
-        created(){
-
-            /**
-             * 接收来自操作头部的信息
-             * */
-            this.bus.$on('cSendOperateDataBus', res => {
-                this.postData.keys = res.keys;
-                this.postData.onlineStatus = res.onlineStatus;
-                this.postData.detailStatus = res.detailStatus;
-                this.postData.productCatalog = res.productCatalog;
-                this.postData.effectivetime = res.effectivetime;
-                this.postData.expiretime = res.expiretime;
-
-                console.log("postData: " + JSON.stringify(this.postData));
-
-                this.getContractProductList();
-            });
-        },
+        created(){},
         methods: {
+            confirm() {
 
+                this.bus.$emit('sendHideInfo', this.index);
+            },
+            cancel() {
+                //this.$modal.hide(this.ConfirmModal);
+
+                this.bus.$emit('sendHideInfo', this.index);
+            }
         }
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="sass">
+<style scoped lang="scss">
+    .confirm-modal-container {
+        text-align: center;
+        position: absolute;
+        top: -20px;
+        background-color: #fff;
+        padding: 8px 10px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        right: 0;
 
+        &.hide {
+            display: none;
+        }
+
+        .text {
+            margin-right: 5px;
+        }
+
+        .confirm,
+        .cancel,
+        .text {
+            display: inline-block;
+        }
+
+        .confirm {
+
+        }
+
+        .cancel {
+
+        }
+    }
 </style>

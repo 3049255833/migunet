@@ -21,7 +21,7 @@
                 <td> <!--{{cProduct.childProductType}}--> 动漫包业务</td>
                 <td> {{cProduct.fee}}</td>
                 <td v-if="cProduct.onlineStatus == 0">
-                    草稿{{text}}
+                    草稿
                 </td>
                 <td v-else-if="cProduct.onlineStatus == 1">
                     上线
@@ -68,6 +68,14 @@
                             详情
                         </div>
                         <div class="mr-30 pointer cl-blue">变更信息</div>
+
+                        <v-confirm-modal
+                                :operateType="cProduct.operateType"
+                                :isHideConfim="cProduct.isHideConfim"
+                                :index="index"
+                                >
+                        </v-confirm-modal>
+
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
                              @click.stop="showSelect(index)">
@@ -76,9 +84,9 @@
                         </div>
                     </div>
                     <div class="option-mask" :class="{opMask: cProduct.isShow}">
-                        <div class="option-item">下线</div>
-                        <div class="option-item">隐藏</div>
-                        <div class="option-item">注销</div>
+                        <div class="option-item" @click="offline(index)">下线</div>
+                        <div class="option-item" @click="hide(index)">隐藏</div>
+                        <div class="option-item" @click="logout(index)">注销</div>
                     </div>
                 </td>
             </tr>
@@ -89,6 +97,7 @@
 <script>
     import VSearch from '@/components/search'
     import VPaging from '@/components/paging'
+    import VConfirmModal from './confirm-modal'
     import axios from 'axios'
 
     export default {
@@ -96,42 +105,68 @@
         props: {
             contractProductList: Array
         },
-        data: function () {
-            return {count: 0}
+        data() {
+            return{
+                count: 0
+            }
         },
         components: {
             VSearch,
-            VPaging
+            VPaging,
+            VConfirmModal
         },
         computed: {},
         methods: {
             showContractProductDetail(contractCode){
                 this.$router.push({'name': 'ContractProductDetail', params: {'productCode': contractCode}});
             },
-            showSelect(index){
 
+            showSelect(index){
                 this.contractProductList[this.count].isShow = false;
 
                 this.contractProductList[index].isShow = !this.contractProductList[index].isShow;
                 this.count = index;
             },
+
             documentHideOption(){
                 let that = this;
 
-
                 document.addEventListener('click', function () {
-
                     if (that.count) {
                         that.contractProductList[that.count].isShow = false;
-
                     }
                 });
+            },
 
+            logout(index) {
+                this.contractProductList[index].isHideConfim = false;
+
+                this.contractProductList[index].operateType = "注销";
+            },
+
+            offline(index) {
+                this.contractProductList[index].isHideConfim = false;
+
+                this.contractProductList[index].operateType = "下线";
+            },
+
+            hide(index) {
+                this.contractProductList[index].isHideConfim = false;
+
+                this.contractProductList[index].operateType = "隐藏";
             }
         },
         mounted(){
             this.documentHideOption();
-        }
+        },
+        created(){
+            /**
+             * 接收来自确认modal框的信息
+             * */
+            this.bus.$on('sendHideInfo', res => {
+                this.contractProductList[res].isHideConfim = true;
+            });
+        },
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -143,12 +178,16 @@
         th:nth-child(1) {
             padding-left: 68px !important;
         }
+
+        td {
+            position: relative;
+        }
     }
-    
+
     .pointer {
         float: left;
     }
-    
+
     .option-mask {
         box-sizing: border-box;
         position: absolute;
@@ -160,11 +199,11 @@
         background: #ffffff;
         width: 80px;
         margin-left: 125px;
-        
+
         &.opMask {
             display: block;
         }
-        
+
         &:before {
             position: absolute;
             right: 30px;
@@ -173,7 +212,7 @@
             border: 5px solid rgba(0, 0, 0, 0);
             border-bottom-color: #d6e1e5;
         }
-        
+
         &:after {
             position: absolute;
             right: 30px;
@@ -182,7 +221,7 @@
             border: 5px solid rgba(0, 0, 0, 0);
             border-bottom-color: #fff;
         }
-        
+
         .option-item {
             font-size: 12px;
             padding-left: 10px;
@@ -191,7 +230,7 @@
             cursor: pointer;
             padding-right: 10px;
             text-align: center;
-            
+
             &:hover {
                 color: #ffffff;
                 background: #46bafe;

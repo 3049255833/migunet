@@ -26,7 +26,16 @@
         },
         data() {
             return{
-                contractProductList:[],
+                contractProductList:[
+                    /*{
+                        contractCode:"产品ID",
+                        contractName:"产品名称",
+                        cpCode:"CP代码",
+                        onlineStatus:"3",
+                        detailStatus:"2",
+                        fee:"资费",
+                    }*/
+                ],
                 postData:{
                     keys:'',
                     onlineStatus:1,
@@ -106,6 +115,10 @@
 
                         for(var i = 0; i < res.contractProductList.length; i++) {
                             res.contractProductList[i].isShow = false;
+
+                            res.contractProductList[i].isHideConfim = true;
+
+                            res.contractProductList[i].operateType = "";
                         }
 
                         this.contractProductList = res.contractProductList;
