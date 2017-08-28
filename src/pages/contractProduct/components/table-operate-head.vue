@@ -15,7 +15,7 @@
                     <input type="text"
                            placeholder="关键信息搜索"
                            v-model="operateData.keys"
-                           @keyup.enter="sendOperateData"/>
+                           @keyup.enter="cSendOperateData"/>
                 </div>
 
                 <div class="l-space l-content-right">
@@ -91,8 +91,8 @@
                 keyWord: '',
                 operateData:{
                     keys:'',                  //关键字
-                    status:'1',                //产品状态
-                    approveStatus: '',
+                    onlineStatus :'1',                //产品状态
+                    detailStatus : '',
                     productCatalog:'1',         //产品目录
                     effectiveTime:'',         //生效时间
                     expireTime:''             //失效时间
@@ -183,8 +183,8 @@
              * 触发事件，将封装的数据传给index
              * 该组件内可以调用该方法传数据
              * */
-            sendOperateData(){
-                this.bus.$emit('sendOperateDataBus', this.operateData);
+            cSendOperateData(){
+                this.bus.$emit('cSendOperateDataBus', this.operateData);
             },
 
             /**
@@ -199,6 +199,7 @@
              * promise
              * 获取下拉框的值
              * */
+<<<<<<< HEAD
             this.getSelectOption('cStatusSelectBox',this,function(){
                 this.operateData.status=res.selectOption.optionValue;
                 this.sendOperateData();
@@ -207,11 +208,27 @@
             this.getSelectOption('cApproveStatusSelectBox',this,function(res){
                 this.operateData.approveStatus=res.selectOption.optionValue;
                 this.sendOperateData();
+=======
+            this.getSelectOption('cStatusSelectBox',this).then((res)=>{
+                this.operateData.onlineStatus=res.selectOption.optionValue;
+
+                this.cSendOperateData();
+            });
+
+            this.getSelectOption('cApproveStatusSelectBox',this).then((res)=>{
+                this.operateData.detailStatus =res.selectOption.optionValue;
+                this.cSendOperateData();
+>>>>>>> a434762f081527614c0a4b2c3ccaf7a34f784405
             });
 
             this.getSelectOption('cProductCatalogSelectBox',this,function(res){
                 this.operateData.productCatalog=res.selectOption.optionValue;
+<<<<<<< HEAD
                 this.sendOperateData();
+=======
+
+                this.cSendOperateData();
+>>>>>>> a434762f081527614c0a4b2c3ccaf7a34f784405
             });
 
             /**
