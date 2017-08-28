@@ -27,14 +27,14 @@
         data() {
             return{
                 contractProductList:[
-                    /*{
+                    {
                         contractCode:"产品ID",
                         contractName:"产品名称",
                         cpCode:"CP代码",
                         onlineStatus:"3",
                         detailStatus:"2",
                         fee:"资费",
-                    }*/
+                    }
                 ],
                 postData:{
                     keys:'',

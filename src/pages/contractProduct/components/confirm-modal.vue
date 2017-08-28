@@ -42,8 +42,28 @@
         background-color: #fff;
         padding: 8px 10px;
         border-radius: 4px;
-        border: 1px solid #ddd;
+        border: solid 1px #d6e1e5;
         right: 0;
+        z-index: 88;
+        box-sizing: border-box;
+
+        &:before {
+            position: absolute;
+            right: 90px;
+            top: 30px;
+            content: "";
+            border: 8px solid transparent;
+            border-top-color: #fff;
+        }
+
+        &:after {
+            position: absolute;
+            right: 90px;
+            top: 30px;
+            content: "";
+            border: 8px solid rgba(0, 0, 0, 0);
+            border-bottom-color: #fff;
+        }
 
         &.hide {
             display: none;

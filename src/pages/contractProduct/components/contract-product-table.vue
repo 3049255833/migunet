@@ -122,9 +122,19 @@
             },
 
             showSelect(index){
-                this.contractProductList[this.count].isShow = false;
 
-                this.contractProductList[index].isShow = !this.contractProductList[index].isShow;
+                if(this.contractProductList[this.count].isShow) {
+
+                    this.contractProductList[this.count].isShow = false;
+
+                    if(index !== this.count) {
+                        this.contractProductList[index].isShow = !this.contractProductList[index].isShow;
+                    }
+
+                } else {
+                    this.contractProductList[index].isShow = !this.contractProductList[index].isShow;
+                }
+
                 this.count = index;
             },
 
@@ -132,7 +142,9 @@
                 let that = this;
 
                 document.addEventListener('click', function () {
-                    if (that.count) {
+
+                    if (that.count || that.count === 0) {
+
                         that.contractProductList[that.count].isShow = false;
                     }
                 });
