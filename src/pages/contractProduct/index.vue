@@ -7,7 +7,7 @@
                     :contractProductList="contractProductList">
             </v-contract-product-table>
 
-            <v-Paging :maxPage="'30'"></v-Paging>
+            <v-Paging :totalItem="totalItem"></v-Paging>
         </div>
     </div>
 </template>
@@ -45,7 +45,8 @@
                     expireTime:'',
                     pageSize:'8',
                     pageNumber:'1'
-                }
+                },
+                totalItem:''
             }
         },
         created(){
@@ -123,6 +124,8 @@
 
                         this.contractProductList = res.contractProductList;
 
+                        this.totalItem=res.totalItem;
+
                         //console.log("cPList2: " + JSON.stringify(this.contractProductList));
 
                     } else {
@@ -130,6 +133,11 @@
                         console.log("res: " + JSON.stringify(res));
                     }
                 })
+            }
+        },
+        computed:{
+            totalPage(){
+                return this.totalItem
             }
         }
     }
