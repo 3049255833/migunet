@@ -23,12 +23,12 @@
         methods: {
             confirm() {
 
-                this.bus.$emit('sendHideInfo', this.index);
+                this.bus.$emit('sendConfirmInfo', this.index);
             },
             cancel() {
                 //this.$modal.hide(this.ConfirmModal);
 
-                this.bus.$emit('sendHideInfo', this.index);
+                this.bus.$emit('sendCancelInfo', this.index);
             }
         }
     }
@@ -38,19 +38,21 @@
     .confirm-modal-container {
         text-align: center;
         position: absolute;
-        top: -20px;
+        top: -24px;
         background-color: #fff;
-        padding: 8px 10px;
+        padding: 10px 14px;
         border-radius: 4px;
-        border: solid 1px #d6e1e5;
         right: 0;
         z-index: 88;
-        box-sizing: border-box;
+        box-shadow: 1px 1px 10px 2px #d6e1e5;
+        -webkit-box-shadow: 1px 1px 10px 2px #d6e1e5;
+        -moz-box-shadow: 1px 1px 10px 2px #d6e1e5;
+        color: #6d7684;
 
         &:before {
             position: absolute;
             right: 90px;
-            top: 30px;
+            top: 34px;
             content: "";
             border: 8px solid transparent;
             border-top-color: #fff;

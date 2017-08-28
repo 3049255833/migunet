@@ -185,7 +185,7 @@
             /**
              * 接收来自确认modal框的信息
              * */
-            this.bus.$on('sendHideInfo', res => {
+            this.bus.$on('sendConfirmInfo', res => {
                 this.contractProductList[res].isHideConfim = true;
 
                 this.type = this.contractProductList[res].operateType;
@@ -196,9 +196,16 @@
 
                 setTimeout(function () {
 
-                    that.isHideOperateModal = true;
+                    //that.isHideOperateModal = true;
 
                 }, 3000);
+            });
+
+            /**
+             * 接收来自取消modal框的信息
+             * */
+            this.bus.$on('sendCancelInfo', res => {
+              this.contractProductList[res].isHideConfim = true;
             });
         },
     }
