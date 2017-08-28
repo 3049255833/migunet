@@ -6,10 +6,9 @@
                     {{title}}
                 </div>
                 <button class="ml-24 btn btn-add-module-blue" @click="addContractProduct"
-                        v-bind:class="{addBtn:hideBtn}">新增产品
+                        :class="{addBtn:hideBtn}">新增产品
                 </button>
             </div>
-
             <div class="vue-right">
                 <div class="l-space input-wrapper input-wrapper1">
                     <input type="text"
@@ -17,53 +16,48 @@
                            v-model="operateData.keys"
                            @keyup.enter="cSendOperateData"/>
                 </div>
-
                 <div class="l-space l-content-right">
                     <v-select-box
-                        selectType="1"
-                        :selectBoxName="'cStatusSelectBox'"
-                        :w="70"
-                        :selectTitle="'全部'"
-                        :selectValue="'1'"
-                        v-bind:options="statusOperateList">
+                            selectType="1"
+                            :selectBoxName="'cStatusSelectBox'"
+                            :w="70"
+                            :selectTitle="'全部'"
+                            :selectValue="'1'"
+                            v-bind:options="statusOperateList">
                     </v-select-box>
                 </div>
-
                 <div class="l-space l-content-right">
                     <v-select-box
-                        selectType="1"
-                        :w="90"
-                        :selectTitle="'全部'"
-                        selectValue="''"
-                        :selectBoxName="'cApproveStatusSelectBox'"
-                        v-bind:options="approveStatusOperateList">
+                            selectType="1"
+                            :w="90"
+                            :selectTitle="'全部'"
+                            selectValue="''"
+                            :selectBoxName="'cApproveStatusSelectBox'"
+                            v-bind:options="approveStatusOperateList">
                     </v-select-box>
                 </div>
-
                 <div class="l-space l-content-right">
                     <v-select-box
-                        selectType="1"
-                        :w="130"
-                        :defaultTitle="'产品目录'"
-                        :selectBoxName="'cProductCatalogSelectBox'"
-                        :selectValue="''"
-                        v-bind:options="distOperateList">
+                            selectType="1"
+                            :w="130"
+                            :defaultTitle="'产品目录'"
+                            :selectBoxName="'cProductCatalogSelectBox'"
+                            :selectValue="''"
+                            v-bind:options="distOperateList">
                     </v-select-box>
                 </div>
-
                 <div class="date-container mr-10">
                     <v-date
-                        :dateName="'effectiveTime'"
-                        defaultText="生效时间"
-                        startTime="true">
+                            :dateName="'effectiveTime'"
+                            defaultText="生效时间"
+                            startTime="true">
                     </v-date>
                 </div>
-
                 <div class="date-container">
                     <v-date
-                        defaultText="失效时间"
-                        startTime="false"
-                        :dateName="'expireTime'">
+                            defaultText="失效时间"
+                            startTime="false"
+                            :dateName="'expireTime'">
                     </v-date>
                 </div>
             </div>
@@ -89,13 +83,13 @@
                 },
                 isShow: false,
                 keyWord: '',
-                operateData:{
-                    keys:'',                  //关键字
-                    onlineStatus :'1',                //产品状态
-                    detailStatus : '',
-                    productCatalog:'1',         //产品目录
-                    effectiveTime:'',         //生效时间
-                    expireTime:''             //失效时间
+                operateData: {
+                    keys: '',                  //关键字
+                    onlineStatus: '1',                //产品状态
+                    detailStatus: '',
+                    productCatalog: '1',         //产品目录
+                    effectiveTime: '',         //生效时间
+                    expireTime: ''             //失效时间
                 },
                 statusOperateList: [
                     {
@@ -161,7 +155,7 @@
                         optionValue: ''
                     }
                 ],
-                distOperateList:[
+                distOperateList: [
                     {
                         optionText: '全部',
                         optionValue: ''
@@ -199,34 +193,31 @@
              * promise
              * 获取下拉框的值
              * */
-            this.getSelectOption('cStatusSelectBox',this, function(res){
-                this.operateData.onlineStatus=res.selectOption.optionValue;
-
-                this.cSendOperateData();
+            this.getSelectOption('cStatusSelectBox',this, function(res) {
+                this.operateData.onlineStatus = res.selectOption.optionValue;
             });
 
             this.getSelectOption('cApproveStatusSelectBox',this,function(res) {
-                this.operateData.detailStatus =res.selectOption.optionValue;
+                this.operateData.detailStatus = res.selectOption.optionValue;
                 this.cSendOperateData();
             });
 
-            this.getSelectOption('cProductCatalogSelectBox',this,function(res){
-                this.operateData.productCatalog=res.selectOption.optionValue;
-
-                this.cSendOperateData();
+            this.getSelectOption('cProductCatalogSelectBox', this, function (res) {
+                this.operateData.productCatalog = res.selectOption.optionValue;
+                this.sendOperateData();
             });
 
             /**
              * promise
              * 获取日历的值
              * */
-            this.getDate('effectiveTime',this,function(res){
-                this.operateData.effectiveTime=res.dateValue;
+            this.getDate('effectiveTime', this, function (res) {
+                this.operateData.effectiveTime = res.dateValue;
                 this.sendOperateData();
             });
 
-            this.getDate('expireTime',this,function(res){
-                this.operateData.expireTime=res.dateValue;
+            this.getDate('expireTime', this, function (res) {
+                this.operateData.expireTime = res.dateValue;
                 this.sendOperateData();
             });
 
@@ -241,25 +232,25 @@
         color: #292c31;
         line-height: 34px;
     }
-
+    
     .l-content-head {
         clear: both;
         display: block;
         padding: 13px 20px;
     }
-
+    
     .l-content-head:after {
         content: '';
         display: block;
         clear: both;
     }
-
+    
     .l-content-head:after {
         content: '';
         display: block;
         clear: both;
     }
-
+    
     .l-content-left {
         float: left;
         font-size: 14px;
@@ -268,14 +259,14 @@
         height: 40px;
         line-height: 43px;
     }
-
+    
     .l-content-left2 {
         width: auto;
         margin-right: 20px;
         height: 30px;
         line-height: 34px;
     }
-
+    
     .StateSelect {
         height: 40px;
         background: #fcf9f9;
@@ -283,21 +274,21 @@
         color: #999;
         font-size: 14px;
     }
-
+    
     .StateSelect4 {
         width: 176px;
         height: 30px;
     }
-
+    
     .l-content-right, .tb-reset {
         float: left;
-
+        
     }
-
+    
     .l-content-right {
         height: 32px;
     }
-
+    
     .l-content-right select {
         width: 150px;
         height: 32px;
@@ -306,7 +297,7 @@
         font-size: 12px;
         color: #0c0a0b;
     }
-
+    
     .tb-reset {
         font-size: 14px;
         color: #46bafe;
@@ -319,7 +310,7 @@
         box-sizing: border-box;
         border-radius: 5px;
     }
-
+    
     /*.tb-reset:hover{
 
     }*/
@@ -327,24 +318,24 @@
         background: #46bafe;
         color: #ffffff;
     }
-
+    
     .l-content-w {
         margin-right: 20px;
     }
-
+    
     .NewTable2 td, .dialog-ctn, .l-content-button, .nl-table, .tb-reset {
         text-align: center;
     }
-
+    
     .StateSelect5 {
         width: 124px;
         height: 30px;
     }
-
+    
     .input-wrapper {
         float: left;
     }
-
+    
     .input-wrapper input {
         width: 150px;
         height: 34px;
@@ -352,24 +343,24 @@
         box-sizing: border-box;
         border: solid 1px #d6e1e5;
     }
-
+    
     .input-wrapper input::-webkit-input-placeholder {
         color: #d6e1e5;
     }
-
+    
     .input-wrapper1 input {
         background: url('../../../assets/search.png') no-repeat 95% 50%;
     }
-
+    
     .l-space {
         margin-right: 10px;
     }
-
+    
     .date-wrapper {
         float: left;
         margin-right: 10px;
     }
-
+    
     .btn-add {
         float: left;
         width: 80px;
@@ -386,26 +377,26 @@
             background-size: 100% 100%;
         }
     }
-
+    
     .vue-left {
         float: left;
     }
-
+    
     .vue-right {
         float: right;
     }
-
+    
     .date-container {
         position: relative;
         float: left;
         & + .date-container {
         }
     }
-
+    
     .addBtn {
         display: none;
     }
-
+    
     input {
         border-radius: 4px;
         &:focus {
