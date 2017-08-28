@@ -6,7 +6,6 @@
                 <th class="td-pl-68">产品名称</th>
                 <th>产品ID</th>
                 <th>CP／TP ID</th>
-                <th>产品状态</th>
                 <th>资费(分)</th>
                 <th>业务状态</th>
                 <th>审批状态</th>
@@ -16,9 +15,8 @@
             <tbody>
             <tr v-for="(cProduct,index) in contractProductList">
                 <td> {{cProduct.contractName}}</td>
-                <td> {{cProduct.contractCode}}</td>
+                <td> {{cProduct.id}}</td>
                 <td> {{cProduct.cpCode}}</td>
-                <td> <!--{{cProduct.childProductType}}--> 动漫包业务</td>
                 <td> {{cProduct.fee}}</td>
                 <td v-if="cProduct.onlineStatus == 0">
                     草稿
@@ -64,7 +62,7 @@
                 </td>
                 <td>
                     <div class="operate-list clearfix">
-                        <div @click="showContractProductDetail(cProduct.contractCode)" class="mr-30 pointer cl-blue">
+                        <div @click="showContractProductDetail(cProduct.id)" class="mr-30 pointer cl-blue">
                             详情
                         </div>
                         <div class="mr-30 pointer cl-blue">变更信息</div>
@@ -127,8 +125,8 @@
         },
         computed: {},
         methods: {
-            showContractProductDetail(contractCode){
-                this.$router.push({'name': 'ContractProductDetail', params: {'productCode': contractCode}});
+            showContractProductDetail(id){
+                this.$router.push({'name': 'ContractProductDetail',params: {'id': id}});
             },
 
             showSelect(index){
