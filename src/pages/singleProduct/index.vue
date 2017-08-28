@@ -20,12 +20,12 @@
                 operateHeadData:{},
                 postData:{
                     keys:'',
-                    status:1,
-                    approveStatus:1,
+                    status:'0',
+                    approveStatus:'0',
                     pageSize:'8',
                     pageNumber:'1',
-                    effectivetime:'',
-                    expiretime:''
+                    effectiveTime:'',
+                    expireTime:''
                 },
                 totalItem:''
             }
@@ -48,8 +48,8 @@
                 this.postData.keys=res.keys;
                 this.postData.status=res.status;
                 this.postData.approveStatus=res.approveStatus;
-                this.postData.effectivetime=res.effectivetime;
-                this.postData.expiretime=res.expiretime;
+                this.postData.effectiveTime=res.effectiveTime;
+                this.postData.expireTime=res.expireTime;
                 /*console.log(this.postData);*/
                 this.getSingleProductList();
             });
@@ -72,8 +72,8 @@
              * approveStatus 审批状态 string
              * pageSize 每页条数 string
              * pageNumber 页码数 string
-             * effectivetime 生效时间 string
-             * expiretime 失效时间 string
+             * effectiveTime 生效时间 string
+             * expireTime 失效时间 string
              * */
             getSingleProductList(){
                 this.$http.get(this.api.getSingleProductList,
@@ -84,8 +84,8 @@
                             approveStatus:this.postData.approveStatus||'',
                             pageSize:this.postData.pageSize||'',
                             pageNumber:this.postData.pageNumber||'',
-                            effectivetime:this.postData.effectivetime||'',
-                            expiretime:this.postData.expiretime||''
+                            effectiveTime:this.postData.effectiveTime||'',
+                            expireTime:this.postData.expireTime||''
                         }
                     }).then(response => {
                     let res = response.body;

@@ -129,7 +129,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 渠道ID：</span>
                                         <span class="row-right">
-                                            {{productDetail.channel.channelId}}
+                                              {{productDetail.productchannel.channelId}}
                                         </span>
                                     </div>
                                 </div>
@@ -166,7 +166,8 @@
                 productDetail: {
                     product: '',
                     channel: '',
-                    serviceCode: ''
+                    serviceCode: '',
+                    productchannel:'',
                 }
             }
         },
@@ -190,7 +191,7 @@
                         //todo: 注意，返回的字段这里list小写
                         this.productDetail.product = res.product;
                         this.productDetail.serviceCode = res.serviceCode;
-                        this.productDetail.channel = res.channel;
+                        this.productDetail.productchannel = res.productchannel;
                         console.log(this.productDetail.product)
                     } else {
                     }

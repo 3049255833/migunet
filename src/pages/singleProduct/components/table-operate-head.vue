@@ -33,10 +33,10 @@
                 </div>
                 <div class="date-container mr-10">
 
-                    <v-date :dateName="'effectivetime'" defaultText="生效时间" startTime="true"></v-date>
+                    <v-date :dateName="'effectiveTime'" defaultText="生效时间" startTime="true"></v-date>
                 </div>
                 <div class="date-container">
-                    <v-date :dateName="'expiretime'" defaultText="失效时间" startTime="false"></v-date>
+                    <v-date :dateName="'expireTime'" defaultText="失效时间" startTime="false"></v-date>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
 
 <script type="es6">
     /**
-     * 该组件主要提供keys,status,approveStatus,effectivetime,expiretime
+     * 该组件主要提供keys,status,approveStatus,effectiveTime,expireTime
      *
      * */
     import VDate from '@/components/date'
@@ -62,75 +62,71 @@
             return {
                 operateData:{
                     keys:'',                  //关键字
-                    status:'1',                //产品状态
-                    approveStatus:'1',         //审批状态
-                    effectivetime:'',         //生效时间
-                    expiretime:''             //失效时间
+                    status:'0',                //产品状态
+                    approveStatus:'0',         //审批状态
+                    effectiveTime:'',         //生效时间
+                    expireTime:''             //失效时间
                 },
                 isShow: false,
                 keyWord: '',
                 approveStatusOperateList: [
                     {
                         optionText: '全部',
+                        optionValue: '0'
+                    },
+                    {
+                        optionText: '上线报备中',
                         optionValue: '1'
                     },
                     {
-                        optionText: '上线审批中',
-                        optionValue: ''
-                    },
-                    {
-                        optionText: '上线审批失败',
-                        optionValue: ''
-                    },
-                    {
-                        optionText: '变更审批中',
-                        optionValue: ''
-                    },
-                    {
-                        optionText: '变更审批失败',
-                        optionValue: ''
+                        optionText: '上线报备失败',
+                        optionValue: '2'
                     },
                     {
                         optionText: '变更报备中',
-                        optionValue: ''
+                        optionValue: '3'
                     },
                     {
                         optionText: '变更报备失败',
-                        optionValue: ''
+                        optionValue: '4'
                     },
                     {
-                        optionText: '下线报备报备中',
-                        optionValue: ''
+                        optionText: '下线报备中',
+                        optionValue: '5'
                     },
                     {
-                        optionText: '下线报备失败',
-                        optionValue: ''
+                        optionText: '下线报备时报',
+                        optionValue: '6'
                     }
                 ],
                 statusOperateList: [
                     {
                         optionText: '全部',
-                        optionValue: '1'
+                        optionValue: '0'
                     },
                     {
                         optionText: '草稿',
-                        optionValue: ''
+                        optionValue: '1'
                     },
                     {
                         optionText: '上线',
-                        optionValue: ''
-                    },
-                    {
-                        optionText: '下线',
-                        optionValue: ''
+                        optionValue: '2'
                     },
                     {
                         optionText: '隐藏',
-                        optionValue: ''
+                        optionValue: '3'
+                    },
+                    {
+                        optionText: '下线',
+                        optionValue: '4'
                     },
                     {
                         optionText: '注销',
-                        optionValue: ''
+                        optionValue: '5'
+                    },
+                    {
+                        optionText: '消除',
+                        optionValue: '6'
                     }
                 ]
             }
@@ -146,7 +142,24 @@
                 }
                 this.bus.$emit('sendOperateDataBus',this.operateData);
             },
-
+            
+            test(){
+                alert(1)
+            },
+            /**
+             * 点击获取状态
+             * */
+            getStatus(str){
+                this.getSelectOption(str,this).then((res)=>{
+                    this.operateData.status=res.selectOption.optionValue;
+                    this.sendOperateData();
+                });
+            },
+            /**
+             * 点击获取审批状态
+             * */
+            
+            
             /**
              * 新增产品
              * */
@@ -159,25 +172,31 @@
              * promise
              * 获取下拉框的值
              * */
-            this.getSelectOption('statusSelectBox',this).then((res)=>{
-                this.operateData.status=res.selectOption.optionValue;
-                this.sendOperateData();
+            this.bus.$on('selectBoxBus',res=>{
+                if (res.selectBoxName == 'statusSelectBox') {
+                    this.operateData.status=res.selectOption.optionValue;
+                    this.sendOperateData();
+                }
+                if(res.selectBoxName == 'approveStatusSelectBox'){
+                    this.operateData.approveStatus=res.selectOption.optionValue;
+                    this.sendOperateData();
+                }
             });
-            this.getSelectOption('approveStatusSelectBox',this).then((res)=>{
-                this.operateData.approveStatus=res.selectOption.optionValue;
-                this.sendOperateData();
-            });
+           
+          
             /**
              * promise
              * 获取日历的值
              * */
-            this.getDate('effectivetime',this).then((res)=>{
-                this.operateData.effectivetime=res.dateValue;
-                this.sendOperateData();
-            });
-            this.getDate('expiretime',this).then((res)=>{
-                this.operateData.expiretime=res.dateValue;
-                this.sendOperateData();
+            this.bus.$on('dateBus', res => {
+                if (res.dateName == 'effectiveTime') {
+                    this.operateData.effectiveTime=res.dateValue;
+                    this.sendOperateData();
+                }
+                if (res.dateName == 'expireTime') {
+                    this.operateData.expireTime=res.dateValue;
+                    this.sendOperateData();
+                }
             });
         }
     }

@@ -13,10 +13,9 @@
         <ul class="pagination">
             <li v-show="current != 1" @click="current-- && goto(current--)"><span class="prev pointer"><</span></li>
             <li v-for="index in pages" @click="goto(index)" :class="{'active':current == index}" :key="index">
-                <a href="javascript:void(0);">{{index}}</a>
+                <span>{{index}}</span>
             </li>
-            <li v-show="allPage != current && allPage != 0 " @click="current++ && goto(current++)"><a
-                    href="javascript:void(0);" class="next">></a></li>
+            <li v-show="allPage != current && allPage != 0 " @click="current++ && goto(current++)"><span class="next">></span></li>
             <li v-if="!showElement" class="travel-to">前往</li>
             <li v-if="!showElement" class="whichPage"><input class="form-input" v-model="pageSelected"
                                                              @keyup.enter="jumpPage" type="number">
@@ -184,7 +183,7 @@
                     margin: 0 4px 0 10px;
                 }
                 
-                a {
+                span {
                     width: 31px;
                     height: 31px;
                     text-align: center;
@@ -196,7 +195,7 @@
                     text-decoration: none;
                     background-color: #fff;
                     border: 1px solid #ddd;
-                    
+                    cursor: pointer;
                     &:hover {
                         background: #eee;
                     }
@@ -232,7 +231,8 @@
                     
                 }
                 
-                &.active a {
+                &.active span {
+                    border: 1px solid #46bafe;
                     background: #46bafe;
                     color: #fff;
                 }

@@ -126,9 +126,14 @@
             },
             documentHideOption(){
                 let that = this;
-                document.addEventListener('click', function () {
-                    that.contractProductList[that.count].isShow = false;
+                document.addEventListener('click', function (e) {
+                    if (!that.$el.contains(e.target)) {
+                        that.contractProductList[that.count].isShow = false;
+                    } else {
+                        that.contractProductList[that.count].isShow = !that.contractProductList[that.count].isShow
+                    }
                 });
+                
             }
         },
         mounted(){

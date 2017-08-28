@@ -91,7 +91,8 @@
                            readonly
                            placeholder="请输入"/>
                     <i class="icon icon-select"></i>
-                    <span class="error-msg" v-if="$v.formData.attributionText.$error">{{errorMsg.attributionText}}</span>
+                    <span class="error-msg"
+                          v-if="$v.formData.attributionText.$error">{{errorMsg.attributionText}}</span>
                 </div>
             </div>
             <!--渠道Id-->
@@ -145,6 +146,7 @@
                     </div>
                 </div>
             </div>
+            <!--是否体验产品-->
             <div class="form-row">
                 <div class="row-left required">
                     是否体验产品：
@@ -170,12 +172,16 @@
                     </div>
                 </div>
             </div>
+            <!--体验产品填入-->
             <div class="form-row" v-if="formData.isExperience=='1'">
                 <div class="row-left required">
                     体验产品产品周期:
                 </div>
                 <div class="row-right">
-                    <input v-model="formData.experiencePeriodUnitNum" type="number"
+                    <input v-model="formData.experiencePeriodUnitNum"
+                           @input="$v.formData.experiencePeriodUnitNum.$touch()"
+                           :class="{'error':$v.formData.experiencePeriodUnitNum.$error}"
+                           type="number"
                            class="mr-10 form-input w-80 vt-middle">
                     <div class="layout-inline-middle">
                         <v-select-box :w="'110'"
@@ -183,6 +189,7 @@
                                       :selectBoxName="'experiencePeriodUnitListSelectBox'"
                                       v-bind:options="selectBoxList.experiencePeriodUnitList"></v-select-box>
                     </div>
+                    <span class="error-msg" v-if="$v.formData.experiencePeriodUnitNum.$error">{{errorMsg.experiencePeriodUnitNum}}</span>
                 </div>
             </div>
             <!--支付方式 -->
@@ -399,7 +406,7 @@
                 <div class="row-right">
                     <div class="btn-group">
                         <div v-if="canSave" class="btn btn-primary btn-middle" @click="nextStep">下一步</div>
-                        <div v-else class="btn unable btn-primary btn-middle" >下一步</div>
+                        <div v-else class="btn unable btn-primary btn-middle">下一步</div>
                         <div class="btn btn-default btn-middle">取消</div>
                     </div>
                 </div>
@@ -470,9 +477,10 @@
                     searchKey: '请输入搜索关键字',
                     effectiveTime: '请输入生效时间',
                     expireTime: '请输入失效时间',
-                    attributionText:'请输入业务归属地',
+                    attributionText: '请输入业务归属地',
                     channelId: '请输入渠道Id',
-                    catalogId: '请选择产品目录'
+                    catalogId: '请选择产品目录',
+                    experiencePeriodUnitNum: '请输入体验产品周期数'
                 },
                 selectBoxList: {
                     effectiveWayList: [
@@ -521,7 +529,7 @@
                     required
                 },
                 //业务归属地文案
-                attributionText:{
+                attributionText: {
                     required
                 },
                 //渠道Id
@@ -529,7 +537,11 @@
                     required
                 },
                 //目录Id
-                catalogId:{
+                catalogId: {
+                    required
+                },
+                //体验产品周期数
+                experiencePeriodUnitNum: {
                     required
                 }
                 /*   catalogId: '',           //目录Id
@@ -553,9 +565,9 @@
                  repeatBuy: '1',
                  useCode: '1'*/
             },
-            /** , formData.attributionCode', 'formData.channelId','formData.attributionText'*/
+
             validationGroup: [/*'formData.productName', 'formData.productDesc', 'formData.searchKey',
-             'formData.effectiveTime','formData.attributionText','formData.channelId','formData.catalogId'*/ ]
+             'formData.effectiveTime','formData.attributionText','formData.channelId','formData.catalogId'*/]
         },
         computed: {
             ifUseBusinessCode(){
@@ -571,10 +583,13 @@
                 return this.formData.ifUseBusinessCode == '1';
             },
             canSave(){
-                let flag=true;
+                var flag = true;
                 if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid) {  //经过第一层的表单验证
-                    return true
-                }else{
+                    if (this.formData.isExperience == '1') {   //体验产品
+                        flag=this.formData.experiencePeriodUnitNum.length >= 1
+                    }
+                    return flag
+                } else {
                     return false
                 }
             }
@@ -590,6 +605,12 @@
 
         },
         methods: {
+            /**
+             * 保存数据
+             * */
+            save(){
+              console.log(this.formData);
+            },
             /**
              * 当变量canHideModal为false时，无法关闭弹框
              * */
@@ -610,6 +631,8 @@
             nextStep(){
                 this.bus.$emit('curStep', 2);
                 this.$router.push({'name': 'Step2'});
+                
+                this.save();
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
 
@@ -646,6 +669,14 @@
                     this.formData.periodUnitNum = '';
                 }
 
+            },
+            'formData.isExperience'(a, b){
+                this.formData.experiencePeriodUnitNum='';
+                if(a=='1'){
+                    this.formData.experiencePeriodUnit='0';
+                }else{
+                    this.formData.experiencePeriodUnit='';
+                }
             }
         },
         mounted () {
@@ -666,24 +697,32 @@
                 }
 
             });
+      
+            /**
+             * 获取产品目录下拉框的值
+             * */
+            this.getSelectOption('productDistListSelectBox', this, function (res) {
+                this.formData.experiencePeriodUnit = res.selectOption.optionValue;
+            });
 
             /**
-             * 获取产品目录下拉框数据
+             * 获取体验周期下拉框的值
              * */
-            this.getSelectOption('productDistListSelectBox', this).then((res) => {
-                this.formData.catalogId =res.selectOption.optionValue;
+            this.getSelectOption('experiencePeriodUnitListSelectBox', this, function (res) {
+                this.formData.catalogId = res.selectOption.optionValue;
             });
 
             /**
              * 获取体验产品周期单位下拉框数据
              * */
-            this.getSelectOption('experiencePeriodUnitListSelectBox', this).then((res) => {
+            this.getSelectOption('experiencePeriodUnitListSelectBox', this, function (res) {
+                alert(this)
                 this.formData.experiencePeriodUnit = res.optionValue;
             });
             /**
              * 获取周期单位下拉框数据
              * */
-            this.getSelectOption('periodUnitListSelectBox', this).then((res) => {
+            this.getSelectOption('periodUnitListSelectBox', this, function (res) {
                 this.formData.periodUnit = res.optionValue;
             });
 
@@ -691,12 +730,12 @@
              * promise
              * 获取日历的值
              * */
-            this.getDate('effectiveTime', this).then((res) => {
+            this.getDate('effectiveTime', this, function (res) {
                 this.formData.effectiveTime = res.dateValue;
             });
-            this.getDate('expireTime', this).then((res) => {
+
+            this.getDate('expireTime', this, function (res) {
                 this.formData.expireTime = res.dateValue;
-                console.log(res)
             });
 
             /**

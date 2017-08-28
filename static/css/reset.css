@@ -62,20 +62,18 @@ li {
 }
 
 ::-webkit-scrollbar {
-    width: 15px;
-    height: 15px;
+    width: 8px;
+    height: 1px;
 }
-/*
 ::-webkit-scrollbar-track-piece {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
 ::-webkit-scrollbar-thumb{
     background-color: rgba(125, 125, 125, 0.7);
-    -webkit-border-radius: 15px;
+    -webkit-border-radius: 5px;
 }
 
-*/
 
 ::-webkit-scrollbar-corner{
 	display:none;

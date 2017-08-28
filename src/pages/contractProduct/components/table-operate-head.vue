@@ -53,7 +53,7 @@
 
                 <div class="date-container mr-10">
                     <v-date
-                        :dateName="'effectivetime'"
+                        :dateName="'effectiveTime'"
                         defaultText="生效时间"
                         startTime="true">
                     </v-date>
@@ -63,7 +63,7 @@
                     <v-date
                         defaultText="失效时间"
                         startTime="false"
-                        :dateName="'expiretime'">
+                        :dateName="'expireTime'">
                     </v-date>
                 </div>
             </div>
@@ -94,8 +94,8 @@
                     status:'1',                //产品状态
                     approveStatus: '',
                     productCatalog:'1',         //产品目录
-                    effectivetime:'',         //生效时间
-                    expiretime:''             //失效时间
+                    effectiveTime:'',         //生效时间
+                    expireTime:''             //失效时间
                 },
                 statusOperateList: [
                     {
@@ -199,19 +199,18 @@
              * promise
              * 获取下拉框的值
              * */
-            this.getSelectOption('cStatusSelectBox',this).then((res)=>{
+            this.getSelectOption('cStatusSelectBox',this,function(){
                 this.operateData.status=res.selectOption.optionValue;
                 this.sendOperateData();
             });
-
-            this.getSelectOption('cApproveStatusSelectBox',this).then((res)=>{
+            
+            this.getSelectOption('cApproveStatusSelectBox',this,function(res){
                 this.operateData.approveStatus=res.selectOption.optionValue;
                 this.sendOperateData();
             });
 
-            this.getSelectOption('cProductCatalogSelectBox',this).then((res)=>{
+            this.getSelectOption('cProductCatalogSelectBox',this,function(res){
                 this.operateData.productCatalog=res.selectOption.optionValue;
-
                 this.sendOperateData();
             });
 
@@ -219,15 +218,16 @@
              * promise
              * 获取日历的值
              * */
-            this.getDate('effectivetime',this).then((res)=>{
-                this.operateData.effectivetime=res.dateValue;
+            this.getDate('effectiveTime',this,function(res){
+                this.operateData.effectiveTime=res.dateValue;
                 this.sendOperateData();
             });
 
-            this.getDate('expiretime',this).then((res)=>{
-                this.operateData.expiretime=res.dateValue;
+            this.getDate('expireTime',this,function(res){
+                this.operateData.expireTime=res.dateValue;
                 this.sendOperateData();
             });
+
         }
     }
 </script>
