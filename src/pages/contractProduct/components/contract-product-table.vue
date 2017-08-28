@@ -92,12 +92,19 @@
             </tr>
             </tbody>
         </table>
+
+        <v-operate-success-modal
+            :isHideOperateModal="isHideOperateModal"
+            :type="type"
+        >
+        </v-operate-success-modal>
     </div>
 </template>
 <script>
     import VSearch from '@/components/search'
     import VPaging from '@/components/paging'
     import VConfirmModal from './confirm-modal'
+    import VOperateSuccessModal from './operate-success'
     import axios from 'axios'
 
     export default {
@@ -107,13 +114,16 @@
         },
         data() {
             return{
-                count: 0
+                count: 0,
+                isHideOperateModal: true,
+                type: ''
             }
         },
         components: {
             VSearch,
             VPaging,
-            VConfirmModal
+            VConfirmModal,
+            VOperateSuccessModal
         },
         computed: {},
         methods: {
@@ -177,6 +187,18 @@
              * */
             this.bus.$on('sendHideInfo', res => {
                 this.contractProductList[res].isHideConfim = true;
+
+                this.type = this.contractProductList[res].operateType;
+
+                this.isHideOperateModal = false;
+
+                let that = this;
+
+                setTimeout(function () {
+
+                    that.isHideOperateModal = true;
+
+                }, 3000);
             });
         },
     }

@@ -139,6 +139,7 @@
 
 
     .table-wrapper {
+        position: relative;
     }
 
     .main-wrapper:after {
