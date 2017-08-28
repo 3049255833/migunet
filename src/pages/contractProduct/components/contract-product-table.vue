@@ -196,7 +196,7 @@
 
                 setTimeout(function () {
 
-                    //that.isHideOperateModal = true;
+                    that.isHideOperateModal = true;
 
                 }, 3000);
             });

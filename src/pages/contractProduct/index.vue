@@ -41,8 +41,8 @@
                     onlineStatus:1,
                     detailStatus: '',
                     productCatalog:1,
-                    effectivetime:'',
-                    expiretime:'',
+                    effectiveTime:'',
+                    expireTime:'',
                     pageSize:'8',
                     pageNumber:'1'
                 }
@@ -62,8 +62,8 @@
                 this.postData.onlineStatus = res.onlineStatus;
                 this.postData.detailStatus = res.detailStatus;
                 this.postData.productCatalog = res.productCatalog;
-                this.postData.effectivetime = res.effectivetime;
-                this.postData.expiretime = res.expiretime;
+                this.postData.effectiveTime = res.effectiveTime;
+                this.postData.expireTime = res.expireTime;
 
                 console.log("postData: " + JSON.stringify(this.postData));
 
