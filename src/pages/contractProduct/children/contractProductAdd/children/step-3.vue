@@ -12,6 +12,7 @@
                             <span></span>
                             <span class="txt">是</span>
                         </label>
+
                         <label class="radio-module w-70">
                             <input value="2" v-model="formData.free" name="free" type="radio">
                             <span></span>
@@ -32,12 +33,11 @@
                     <div class="layout-inline-middle">
                         <div class="inline-dom">
                             <v-select-box
-                                    :w="'105'"
-                                    :selectTitle="'天'"
-                                    :selectBoxName="'experienceProductCycle'"
-                                    v-bind:options="dateUnitList">
+                                :w="'105'"
+                                :selectTitle="'天'"
+                                :selectBoxName="'experienceProductCycle'"
+                                v-bind:options="dateUnitList">
                             </v-select-box>
-
                         </div>
                     </div>
                 </div>
@@ -57,24 +57,29 @@
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left">
                     订购成功下发提示短信：
                 </div>
                 <div class="row-right">
-                    <textarea @click="showSmsListModal" class="textarea-module" placeholder="请选择"></textarea>
+                    <textarea @click="showPromptSmsModal"
+                              class="textarea-module" placeholder="请选择"></textarea>
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left">
                     订购成功下发推荐短信：
                 </div>
                 <div class="row-right">
-                    <textarea class="textarea-module" placeholder="请选择"></textarea>
+                    <textarea class="textarea-module"
+                              placeholder="请选择" @click="showRecommendSmsModal"></textarea>
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left">
                     互斥产品添加：
@@ -82,23 +87,26 @@
                 <div class="row-right">
                     <textarea class="textarea-module"
                               placeholder="请选择"
-                              @click="showMutexProduct"
-                    ></textarea>
+                              @click="showMutexProduct"></textarea>
+
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left">
                     依赖产品：
                 </div>
                 <div class="row-right">
-                    <input class="form-input w-340" placeholder="请选择" readonly>
+                    <input class="form-input w-340" placeholder="请选择"
+                           readonly @click="showRelyProduct">
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
-                <div class="row-left">
-                </div>
+                <div class="row-left"></div>
+
                 <div class="row-right">
                     <div class="btn-group">
                         <div class="btn btn-primary btn-middle" @click="nextStep" >完成</div>
@@ -110,25 +118,26 @@
 
         <modal name="areaChoseModal" :width="800" :height="440" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'areaChoseModal'">
-
                 <v-area-chose
                     :modal-name="'areaChoseModal'"
                     :selectType="'single'">
                 </v-area-chose>
-
             </t-modal-sub-container>
         </modal>
 
         <modal name="smsListModal" :width="870" :height="570" @before-close="beforeClose">
-            <t-modal-sub-container :title="'动漫包推荐短信模板选择'" :name="'smsListModal'">
+            <t-modal-sub-container :title="smsTitle" :name="'smsListModal'">
                 <v-sms-list></v-sms-list>
             </t-modal-sub-container>
         </modal>
 
-        <modal name="mutexProductModal" :width="870" :height="570" @before-close="beforeClose">
-            <t-modal-sub-container :title="'产品选择'" :name="'mutexProductModal'">
-                <v-mutex-product></v-mutex-product>
+        <modal name="productSelectModal"
+               :width="870" :height="570" @before-close="beforeClose">
+
+            <t-modal-sub-container :title="productSelectTitle" :name="'productSelectModal'">
+                <v-product-select-modal :productType="productType"></v-product-select-modal>
             </t-modal-sub-container>
+
         </modal>
     </div>
 </template>
@@ -139,7 +148,7 @@
     import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose'
     import VPaging from '@/components/paging'
 
-    import VMutexProduct from '@/pages/contractProduct/children/contractProductAdd/components/product-code-list'
+    import VProductSelectModal from '../components/product-select-modal'
 
     export default{
         data(){
@@ -168,7 +177,10 @@
                         optionText: '年',
                         optionValue: '3'
                     }
-                ]
+                ],
+                smsTitle: '',
+                productSelectTitle: '',
+                productType: ''
             }
         },
         components: {
@@ -177,7 +189,7 @@
             TModalSubContainer,
             VSmsList,
             VPaging,
-            VMutexProduct
+            VProductSelectModal
         },
         methods: {
             nextStep(){
@@ -194,9 +206,20 @@
             beforeClose(){},
 
             /**
-             * 调用短信模板弹框
+             * 调用订购成功下发提示短信模板弹框
              * */
-            showSmsListModal(){
+            showPromptSmsModal(){
+                this.smsTitle = '动漫包提示短信模板选择';
+
+                this.$modal.show('smsListModal');
+            },
+
+            /**
+             * 调用订购成功下发推荐短信模板弹框
+             * */
+            showRecommendSmsModal(){
+                this.smsTitle = '动漫包推荐短信模板选择';
+
                 this.$modal.show('smsListModal');
             },
 
@@ -204,7 +227,18 @@
              * 互斥产品添加模板弹框
              * */
             showMutexProduct(){
-                this.$modal.show('mutexProductModal');
+                this.productSelectTitle = '互斥产品选择';
+                this.productType = '互斥';
+                this.$modal.show('productSelectModal');
+            },
+
+            /**
+             * 依赖产品添加模板弹框
+             * */
+            showRelyProduct(){
+                this.productSelectTitle = '依赖产品选择';
+                this.productType = '依赖';
+                this.$modal.show('productSelectModal');
             }
         },
         mounted () {
