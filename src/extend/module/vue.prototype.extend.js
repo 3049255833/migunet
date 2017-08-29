@@ -18,8 +18,8 @@ let extend = {
      });
      });
      },*/
-    getSelectOption(str, callback){
-        this.bus.$on('selectBoxBus', res => {
+    getSelectOption(str,obj,callback){
+        obj.bus.$on('selectBoxBus', res => {
             if (res.selectBoxName == str) {
                 if (typeof callback == 'function') {
                     callback(res);

@@ -161,7 +161,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <modal name="productCodeModal" :width="870" :height="570" @before-close="beforeClose">

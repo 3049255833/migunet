@@ -211,6 +211,7 @@
                     this.cSendOperateData();
                 }
 
+
                 if(res.selectBoxName == 'cProductCatalogSelectBox'){
                     this.operateData.productCatalog=res.selectOption.optionValue;
                     this.cSendOperateData();

@@ -19,7 +19,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="scss" rel="stylesheet/scss">
   .operate-success-container {
       text-align: center;
       position: absolute;

@@ -1,7 +1,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path');
 
-var proxy_service_xhw = 'http://10.5.2.47:8080';
+var proxy_service_xhw = 'http://10.5.2.47:8999';
 var proxy_service_ljy = 'http://10.5.2.119:8080';
 var proxy_service_xl = 'http://10.5.2.19:8080';
 
@@ -76,7 +76,12 @@ module.exports = {
                 /*获取短信模板列表*/
                 target: proxy_service_xl,
                 changeOrigin: true
-            }
+            },
+            '/contractProduct/findPdContractAttribution': {
+                /*获取区域选择列表*/
+                target: proxy_service_xl,
+                changeOrigin: true
+            },
         },
         cssSourceMap: false
     }

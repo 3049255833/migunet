@@ -2,9 +2,9 @@
     <div class="business-area-chose">
         <div class="area-content">
             <div class="form-row clearfix no-pd" v-for="(itemRow,rowIndex) in areaList">
-                <div class="area-code">{{itemRow.code}}</div>
+                <div class="area-code">{{itemRow.codeName}}</div>
                 <ul class="area-list ">
-                   <li v-for="(itemArea,colIndex) in itemRow.list" :class="{'active':itemArea.active}" @click="getArea(rowIndex,colIndex,itemArea.area,itemArea.code)">{{itemArea.area}}</li>
+                   <li v-for="(itemArea,colIndex) in itemRow.list" :class="{'active':itemArea.active}" @click="getArea(rowIndex,colIndex,itemArea.areaName,itemArea.areaCode,itemArea.areaId)">{{itemArea.areaName}}</li>
                 </ul>
             </div>
             <div class="btn-group btn-group-center">
@@ -27,13 +27,13 @@ export default{
             businessArea:'',
             areaSelectList:[],
             areaList:[
-                { code:'ABCDEFG',list:[{area:'安徽省',code:'551',active:false},{area:'福建省',code:'591',active:false},{area:'甘肃省',code:'931',active:false},{area:'广东省',code:'200',active:false},{area:'广西省',code:'771',active:false},{area:'贵州省',code:'851',active:false}]},
-                { code:'HIJKLMN',list:[{area:'海南省',code:'898',active:false},{area:'河北省',code:'311',active:false},{area:'河南省',code:'371',active:false},{area:'黑龙江省',code:'451',active:false},{area:'湖北省',code:'270',active:false},{area:'湖南省',code:'731',active:false},{area:'吉林省',code:'431',active:false}
-                    ,{area:'江苏省',code:'250',active:false},{area:'江西省',code:'791',active:false},{area:'辽宁省',code:'240',active:false},{area:'内蒙古省',code:'471',active:false}
+                { codeName:'ABCDEFG',list:[{areaName:'安徽省',areaCode:'551',areaId:'000',active:false},{areaName:'福建省',areaCode:'591',areaId:'000',active:false},{areaName:'甘肃省',areaCode:'931',areaId:'000',active:false},{areaName:'广东省',areaCode:'200',areaId:'000',active:false},{areaName:'广西省',areaCode:'771',areaId:'000',active:false},{areaName:'贵州省',areaCode:'851',areaId:'000',active:false}]},
+                { codeName:'HIJKLMN',list:[{areaName:'海南省',areaCode:'898',areaId:'000',active:false},{areaName:'河北省',areaCode:'311',areaId:'000',active:false},{areaName:'河南省',areaCode:'371',areaId:'000',active:false},{areaName:'黑龙江省',areaCode:'451',areaId:'000',active:false},{areaName:'湖北省',areaCode:'270',areaId:'000',active:false},{areaName:'湖南省',areaCode:'731',areaId:'000',active:false},{areaName:'吉林省',areaCode:'431',areaId:'000',active:false}
+                    ,{areaName:'江苏省',areaCode:'250',areaId:'000',active:false},{areaName:'江西省',areaCode:'791',areaId:'000',active:false},{areaName:'辽宁省',areaCode:'240',areaId:'000',active:false},{areaName:'内蒙古省',areaCode:'471',areaId:'000',active:false}
                 ]},
-                { code:'OPQRST',list:[{area:'青海省',code:'971',active:false},{area:'山东省',code:'531',active:false},{area:'山西省',code:'351',active:false},{area:'陕西省',code:'290',active:false},{area:'四川省',code:'280',active:false}]},
-                { code:'UVWXYZ',list:[{area:'云南省',code:'871',active:false},{area:'浙江省',code:'571',active:false}]},
-                { code:'全国',list:[{area:'全国',active:false,code:'000'}]}
+                { codeName:'OPQRST',list:[{areaName:'青海省',areaCode:'971',areaId:'000',active:false},{areaName:'山东省',areaCode:'531',areaId:'000',active:false},{areaName:'山西省',areaCode:'351',areaId:'000',active:false},{areaName:'陕西省',areaCode:'290',areaId:'000',active:false},{areaName:'四川省',areaCode:'280',areaId:'000',active:false}]},
+                { codeName:'UVWXYZ',list:[{areaName:'云南省',areaCode:'871',areaId:'000',active:false},{areaName:'浙江省',areaCode:'571',areaId:'000',active:false}]},
+                { codeName:'全国',list:[{areaName:'全国',areaId:'000',active:false,areaCode:'000'}]}
             ]
             
         }
@@ -42,7 +42,7 @@ export default{
         /**
          * 获取选中的归属地
          * */
-        getArea(rowIndex,colIndex,areaName,areaCode){
+        getArea(rowIndex,colIndex,areaName,areaCode,areaId){
             //单选下才执行
             /*this.areaList.forEach(function(item){
                item.list.forEach(function(area){
@@ -56,7 +56,8 @@ export default{
             if(this.areaList[rowIndex].list[colIndex].active){
                 this.areaSelectList.push({
                     areaName:areaName,
-                    areaCode:areaCode
+                    areaCode:areaCode,
+                    areaId:areaId
                 });
             }else{
                 //获取当前数组所在的位置

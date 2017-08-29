@@ -66,7 +66,7 @@ li {
     height: 1px;
 }
 ::-webkit-scrollbar-track-piece {
-    background-color: rgba(0, 0, 0, 0.2);
+
 }
 
 ::-webkit-scrollbar-thumb{
@@ -80,7 +80,10 @@ li {
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-	-webkit-appearance: none !important;
+	-webkit-appearance:  none !important;
+	-moz-appearance:  none !important;
+	appearance:  none !important;
+
 	margin: 0;
 }
 input[type="number"] {
