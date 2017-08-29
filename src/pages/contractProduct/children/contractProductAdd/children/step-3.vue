@@ -50,10 +50,11 @@
                     <input class="form-input pointer w-200"
                            v-model="formData.businessAreaText"
                            type="text"
+                           @click="showAreaChoseModal"
                            readonly
                            placeholder="请选择"/>
 
-                    <i class="icon icon-select" @click="showAreaChoseModal"></i>
+                    <i class="icon icon-select"></i>
                 </div>
             </div>
 
@@ -62,11 +63,13 @@
                     订购成功下发提示短信：
                 </div>
                 <div class="row-right">
-                    <textarea class="textarea-module" placeholder="请选择">
+                    <textarea class="textarea-module"
+                              @click="showPromptSmsModal"
+                              placeholder="请选择">
                       {{promptSmsItem.content}}
                     </textarea>
 
-                    <i class="icon icon-select" @click="showPromptSmsModal"></i>
+                    <i class="icon icon-select"></i>
                 </div>
             </div>
 
@@ -75,11 +78,13 @@
                     订购成功下发推荐短信：
                 </div>
                 <div class="row-right">
-                    <textarea class="textarea-module" placeholder="请选择">
+                    <textarea class="textarea-module"
+                              @click="showRecommendSmsModal"
+                              placeholder="请选择">
                       {{recommendSmsItem.content}}
                     </textarea>
 
-                    <i class="icon icon-select" @click="showRecommendSmsModal"></i>
+                    <i class="icon icon-select"></i>
                 </div>
             </div>
 
@@ -89,9 +94,13 @@
                 </div>
                 <div class="row-right">
                     <textarea class="textarea-module"
-                              placeholder="请选择"></textarea>
+                              placeholder="请选择"
+                              @click="showMutexProduct"
+                              v-for="item in mutexProductList">
+                      {{item.content}}
+                    </textarea>
 
-                    <i class="icon icon-select" @click="showMutexProduct"></i>
+                    <i class="icon icon-select"></i>
                 </div>
             </div>
 
@@ -100,9 +109,12 @@
                     依赖产品：
                 </div>
                 <div class="row-right">
-                    <input class="form-input w-340" placeholder="请选择"
+                    <input class="form-input w-340"
+                           placeholder="请选择"
+                           v-model="relyProductItem.content"
+                           @click="showRelyProduct"
                            readonly>
-                    <i class="icon icon-select" @click="showRelyProduct"></i>
+                    <i class="icon icon-select"></i>
                 </div>
             </div>
 
@@ -187,7 +199,12 @@
                 productType: '',
                 smsType: '',
                 promptSmsItem: {},
-                recommendSmsItem: {}
+                recommendSmsItem: {},
+                mutexProductList: [{
+                    id: '',
+                    content: ''
+                }],
+                relyProductItem: {}
             }
         },
         components: {
@@ -239,7 +256,7 @@
              * */
             showMutexProduct(){
                 this.productSelectTitle = '互斥产品选择';
-                this.productType = '互斥';
+                this.productType = '1';
                 this.$modal.show('productSelectModal');
             },
 
@@ -248,7 +265,7 @@
              * */
             showRelyProduct(){
                 this.productSelectTitle = '依赖产品选择';
-                this.productType = '依赖';
+                this.productType = '2';
                 this.$modal.show('productSelectModal');
             }
         },
@@ -280,6 +297,9 @@
                 }
             });
 
+            /*
+            * 获取选择的短信模板信息
+            * */
             this.bus.$on('getSelectSms', res=> {
                 if (res) {
 
@@ -290,8 +310,24 @@
 
                         this.recommendSmsItem = res;
                     }
-
                     //console.log("List111: " + JSON.stringify(res));
+                }
+            });
+
+            /*
+             * 获取选择的互斥和依赖产品信息
+             * */
+            this.bus.$on('getSelectProduct', res=> {
+                if (res) {
+
+                    if(this.productType === '1') {
+
+                      this.mutexProductList = res;
+                    } else {
+
+                      this.relyProductItem = res;
+                    }
+                    //console.log("getSelectProduct: " + JSON.stringify(res));
                 }
             });
         }
