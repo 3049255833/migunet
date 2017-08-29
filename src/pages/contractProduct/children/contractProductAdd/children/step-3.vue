@@ -48,13 +48,12 @@
                 </div>
                 <div class="row-right">
                     <input class="form-input pointer w-200"
-                           @click="showAreaChoseModal"
                            v-model="formData.businessAreaText"
                            type="text"
                            readonly
                            placeholder="请选择"/>
 
-                    <i class="icon icon-select"></i>
+                    <i class="icon icon-select" @click="showAreaChoseModal"></i>
                 </div>
             </div>
 
@@ -63,9 +62,11 @@
                     订购成功下发提示短信：
                 </div>
                 <div class="row-right">
-                    <textarea @click="showPromptSmsModal"
-                              class="textarea-module" placeholder="请选择"></textarea>
-                    <i class="icon icon-select"></i>
+                    <textarea class="textarea-module" placeholder="请选择">
+                      {{promptSmsItem.content}}
+                    </textarea>
+
+                    <i class="icon icon-select" @click="showPromptSmsModal"></i>
                 </div>
             </div>
 
@@ -74,9 +75,11 @@
                     订购成功下发推荐短信：
                 </div>
                 <div class="row-right">
-                    <textarea class="textarea-module"
-                              placeholder="请选择" @click="showRecommendSmsModal"></textarea>
-                    <i class="icon icon-select"></i>
+                    <textarea class="textarea-module" placeholder="请选择">
+                      {{recommendSmsItem.content}}
+                    </textarea>
+
+                    <i class="icon icon-select" @click="showRecommendSmsModal"></i>
                 </div>
             </div>
 
@@ -86,10 +89,9 @@
                 </div>
                 <div class="row-right">
                     <textarea class="textarea-module"
-                              placeholder="请选择"
-                              @click="showMutexProduct"></textarea>
+                              placeholder="请选择"></textarea>
 
-                    <i class="icon icon-select"></i>
+                    <i class="icon icon-select" @click="showMutexProduct"></i>
                 </div>
             </div>
 
@@ -99,8 +101,8 @@
                 </div>
                 <div class="row-right">
                     <input class="form-input w-340" placeholder="请选择"
-                           readonly @click="showRelyProduct">
-                    <i class="icon icon-select"></i>
+                           readonly>
+                    <i class="icon icon-select" @click="showRelyProduct"></i>
                 </div>
             </div>
 
@@ -127,7 +129,7 @@
 
         <modal name="smsListModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="smsTitle" :name="'smsListModal'">
-                <v-sms-list></v-sms-list>
+                <v-sms-list :modal-name="'smsListModal'" :smsType="smsType"></v-sms-list>
             </t-modal-sub-container>
         </modal>
 
@@ -135,7 +137,9 @@
                :width="870" :height="570" @before-close="beforeClose">
 
             <t-modal-sub-container :title="productSelectTitle" :name="'productSelectModal'">
-                <v-product-select-modal :productType="productType"></v-product-select-modal>
+                <v-product-select-modal
+                  :modal-name="'productSelectModal'"
+                  :productType="productType"></v-product-select-modal>
             </t-modal-sub-container>
 
         </modal>
@@ -180,7 +184,10 @@
                 ],
                 smsTitle: '',
                 productSelectTitle: '',
-                productType: ''
+                productType: '',
+                smsType: '',
+                promptSmsItem: {},
+                recommendSmsItem: {}
             }
         },
         components: {
@@ -211,6 +218,8 @@
             showPromptSmsModal(){
                 this.smsTitle = '动漫包提示短信模板选择';
 
+                this.smsType = '1';
+
                 this.$modal.show('smsListModal');
             },
 
@@ -219,6 +228,8 @@
              * */
             showRecommendSmsModal(){
                 this.smsTitle = '动漫包推荐短信模板选择';
+
+                this.smsType = '2';
 
                 this.$modal.show('smsListModal');
             },
@@ -265,7 +276,22 @@
              * */
             this.bus.$on('selectBoxBus',res=>{
                 if (res.selectBoxName == 'experienceProductCycle') {
-                  this.formData.dateUnit = res.optionValue;
+                    this.formData.dateUnit = res.optionValue;
+                }
+            });
+
+            this.bus.$on('getSelectSms', res=> {
+                if (res) {
+
+                    if(this.smsType === '1') {
+
+                        this.promptSmsItem = res;
+                    } else {
+
+                        this.recommendSmsItem = res;
+                    }
+
+                    //console.log("List111: " + JSON.stringify(res));
                 }
             });
         }

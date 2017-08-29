@@ -82,11 +82,17 @@ module.exports = {
                 target: proxy_service_xl,
                 changeOrigin: true
             },
+
             '/contractProduct/saveContractProductOne':{
                 /*保存第一步*/
                 target: proxy_service_xl,
                 changeOrigin: true
-            }
+            },
+            '/contractProduct/findContractProductByStatus': {
+                /*获取互斥和依赖产品列表*/
+                target: proxy_service_xl,
+                changeOrigin: true
+            },
         },
         cssSourceMap: false
     }
