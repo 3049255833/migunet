@@ -414,7 +414,7 @@
             /**
              * 接收来自确认modal框的信息
              * */
-            this.bus.$on('sendConfirmInfo', res => {
+            this.bus.$on('sendDetailsConfirmInfo', res => {
                 this.isHideConfim = true;
 
                 this.type = this.operateType;
@@ -441,7 +441,7 @@
             /**
              * 接收来自取消modal框的信息
              * */
-            this.bus.$on('sendCancelInfo', res => {
+            this.bus.$on('Details', res => {
                 this.isHideConfim = true;
             });
         },

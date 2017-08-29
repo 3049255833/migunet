@@ -18,10 +18,10 @@
         },
         methods: {
             confirm() {
-                this.bus.$emit('sendConfirmInfo', this.index);
+                this.bus.$emit('sendDetailsConfirmInfo', this.index);
             },
             cancel() {
-                this.bus.$emit('sendCancelInfo', this.index);
+                this.bus.$emit('sendDetailsCancelInfo', this.index);
             }
         }
     }
