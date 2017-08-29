@@ -88,17 +88,23 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-row mutex-product-item">
                 <div class="row-left">
                     互斥产品添加：
                 </div>
                 <div class="row-right">
-                    <textarea class="textarea-module"
-                              placeholder="请选择"
-                              @click="showMutexProduct"
-                              v-for="item in mutexProductList">
-                      {{item.content}}
-                    </textarea>
+                    <div class="textarea-module"
+                        placeholder="请选择"
+                        @click="showMutexProduct">
+
+                        <div v-for="item in mutexProductList" class="item clearfix">
+                            <div class="first">{{item.content}}</div>
+
+                            <hr/>
+
+                            <div class="second">{{item.id}}</div>
+                        </div>
+                    </div>
 
                     <i class="icon icon-select"></i>
                 </div>
@@ -200,10 +206,7 @@
                 smsType: '',
                 promptSmsItem: {},
                 recommendSmsItem: {},
-                mutexProductList: [{
-                    id: '',
-                    content: ''
-                }],
+                mutexProductList: [],
                 relyProductItem: {}
             }
         },
@@ -359,10 +362,23 @@
             }
         }
 
-
-
         .btn-group {
             margin: 25px 0 50px;
+        }
+    }
+
+    .mutex-product-item {
+        .item {
+            >div, hr {
+                float: left;
+            }
+
+            hr {
+                width: 0;
+                height: 10px;
+                padding: 0;
+                margin: 5px 5px 0 8px;
+            }
         }
     }
 </style>
