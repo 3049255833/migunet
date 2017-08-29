@@ -27,14 +27,28 @@
         data() {
             return{
                 contractProductList:[
-                    /*{
-                        contractCode:"产品ID",
-                        contractName:"产品名称",
-                        cpCode:"CP代码",
-                        onlineStatus:"3",
-                        detailStatus:"2",
+                    {
+                        contractCode:"1001",
+                        contractName:"动漫1",
+                        onlineStatus:"0",
+                        cpCode:"101",
+                        detailStatus:"1",
                         fee:"资费",
-                    }*/
+                        isHideConfim: true,
+                        operateType: '',
+                        isShow: false
+                    },
+                    {
+                        contractCode:"1002",
+                        contractName:"动漫2",
+                        cpCode:"102",
+                        onlineStatus:"1",
+                        detailStatus:"5",
+                        fee:"资费",
+                        isHideConfim: true,
+                        operateType: '',
+                        isShow: false
+                    }
                 ],
                 postData:{
                     keys:'',
