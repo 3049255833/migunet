@@ -807,7 +807,7 @@
                     this.formData.effectiveWay = res.selectOption.optionValue;
                 }
                 if (res.selectBoxName == 'cycleUnitSelectBox') {
-                    this.formData.effectiveWay = res.selectOption.optionValue;
+                    this.payType.cycleUnitSelect = res.selectOption.optionValue;
                 }
             });
 

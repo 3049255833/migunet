@@ -84,8 +84,11 @@
                             </div>
 
                             <div class="btn-group layout-center-y">
-                                <button class="btn btn-primary btn-middle">撤销</button>
-                                <button class="btn-default btn btn-middle">下线</button>
+                                <button class="btn btn-primary btn-middle"
+                                  @click="revocation">撤销</button>
+
+                                <button class="btn-default btn btn-middle"
+                                  @click="offline">下线</button>
                             </div>
                         </div>
                     </div>
@@ -308,13 +311,28 @@
                         </div>
 
                         <div class="button-box">
-                            <button class="btn btn-default btn-middle">隐藏</button>
-                            <button class="btn-default btn btn-middle">注销</button>
+                            <button class="btn btn-default btn-middle"
+                                    @click="hide">隐藏</button>
+                            <button class="btn-default btn btn-middle"
+                                    @click="logout">注销</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <v-confirm-modal
+            :operateType="operateType"
+            :isHideConfim="isHideConfim"
+            v-bind:style="styleComfirm"
+        >
+        </v-confirm-modal>
+
+        <v-operate-success-modal
+            :isHideOperateModal="isHideOperateModal"
+            :type="type"
+            v-bind:style="styleOperateSuccess">
+        </v-operate-success-modal>
     </div>
 </template>
 <script>
@@ -323,19 +341,23 @@
     import InfoTable from "@/components/common/InfoTable";
     import ConfirmBtn from "@/components/common/Button1";
     import CancelBtn from "@/components/common/Button2";
+    import VConfirmModal from '../components/confirm-modal'
+    import VOperateSuccessModal from '../components/operate-success'
 
     export default {
         name: 'Review',
         components: {
             vPop,
             ConfirmBtn,
-            CancelBtn
+            CancelBtn,
+            VConfirmModal,
+            VOperateSuccessModal
         },
         data (){
             return {
-                contractCode: this.$route.params.productCode,
+                id: this.$route.params.id,
                 contractProduct: {
-                    contractCode:"1001",
+                    /*contractCode:"1001",
                     contractName:"测试产品名",
                     onlineStatus:"草稿",
                     detailStatus:"审批状态",
@@ -354,42 +376,88 @@
                     subscriptionType:"续订方式",
                     updateTime:"更新时间",
                     createUser:"创建用户",
-                    createDate:"创建时间"
+                    createDate:"创建时间"*/
                 },
                 boss: {
-                    bossId:" BOSS计费代码",
+                    /*bossId:" BOSS计费代码",
                     fee:"价格",
                     chargeType:"计费类型",
                     payType:"支付方式",
                     chargeStrategy:"计费策略",
-                    promotionStrategy:"优惠策略"
+                    promotionStrategy:"优惠策略"*/
                 },
                 experiencePack: {
-                    isExperience:"是否体验包",
+                    /*isExperience:"是否体验包",
                     experiencePeriod:"体验周期",
                     experienceToFormalId:"体验转正式产品ID",
-                    periodUnit:"周期单位"
+                    periodUnit:"周期单位"*/
                 },
                 channel: {
-                    channelId:"渠道ID"
+                    /*channelId:"渠道ID"*/
+                },
+                operateType: '',
+                isHideConfim: true,
+                isHideOperateModal: true,
+                type: '',
+                styleComfirm: {
+                    top: '19.5%',
+                    right: '2%'
+                },
+                styleOperateSuccess: {
+                  top: '18%',
+                  right: '50%'
                 }
             }
         },
         created(){
-            this.getContractProductDetail(this.contractCode);
+            this.getContractProductDetail(this.id);
+
+            /**
+             * 接收来自确认modal框的信息
+             * */
+            this.bus.$on('sendConfirmInfo', res => {
+                this.isHideConfim = true;
+
+                this.type = this.operateType;
+
+                this.isHideOperateModal = false;
+
+                if(this.operateType === '撤销' || this.operateType === '下线') {
+
+                    this.styleOperateSuccess.top = '18%';
+                } else {
+
+                    this.styleOperateSuccess.top = '85%';
+                }
+
+                let that = this;
+
+                setTimeout(function () {
+
+                  that.isHideOperateModal = true;
+
+                }, 3000);
+            });
+
+            /**
+             * 接收来自取消modal框的信息
+             * */
+            this.bus.$on('sendCancelInfo', res => {
+                this.isHideConfim = true;
+            });
         },
         methods: {
             /**
              * 获取单品详情
              * @param contractCode 产品id string
              * */
-            getContractProductDetail(contractCode) {
-                console.log("code: " + contractCode);
+            getContractProductDetail(id) {
+                console.log("code: " + id);
 
                 this.$http.get(this.api.getContractProductDetail,
                     {
                         params: {
-                            productCode: contractCode || ''
+                            id: id || ''
                         }
                     }).then(response => {
 
@@ -411,6 +479,46 @@
 
                         }
                 })
+            },
+
+            offline() {
+                this.isHideConfim = false;
+
+                this.styleComfirm.top = '19.5%';
+
+                this.styleComfirm.right = '3.5%';
+
+                this.operateType = "下线";
+            },
+
+            revocation() {
+                this.isHideConfim = false;
+
+                this.styleComfirm.top = '19.5%';
+
+                this.styleComfirm.right = '12.5%';
+
+                this.operateType = "撤销";
+            },
+
+            hide() {
+                this.isHideConfim = false;
+
+                this.styleComfirm.top = '91%';
+
+                this.styleComfirm.right = '10.5%';
+
+                this.operateType = "隐藏";
+            },
+
+            logout() {
+                this.isHideConfim = false;
+
+                this.styleComfirm.top = '91%';
+
+                this.styleComfirm.right = '0.6%';
+
+                this.operateType = "注销";
             }
         }
     }
@@ -952,6 +1060,15 @@
     }
 
     .contract-product-detail {
+        position: relative;
+
+        .confirm-modal-container {
+            &:before {
+              right: 40px;
+              top: 32px;
+            }
+        }
+
         .product-detail-head {
             position: relative;
             width: 100%;

@@ -7,7 +7,7 @@
                     :contractProductList="contractProductList">
             </v-contract-product-table>
 
-            <v-Paging :maxPage="'30'"></v-Paging>
+            <v-Paging :totalItem="totalItem"></v-Paging>
         </div>
     </div>
 </template>
@@ -26,17 +26,43 @@
         },
         data() {
             return{
-                contractProductList:[],
+                contractProductList:[
+                    {
+                        contractCode:"1001",
+                        contractName:"动漫1",
+                        onlineStatus:"0",
+                        cpCode:"101",
+                        detailStatus:"1",
+                        fee:"资费",
+                        isHideConfim: true,
+                        operateType: '',
+                        isShow: false,
+                        id: '1001'
+                    },
+                    {
+                        contractCode:"1002",
+                        contractName:"动漫2",
+                        cpCode:"102",
+                        onlineStatus:"1",
+                        detailStatus:"6",
+                        fee:"资费",
+                        isHideConfim: true,
+                        operateType: '',
+                        isShow: false,
+                        id: '1002'
+                    }
+                ],
                 postData:{
                     keys:'',
                     onlineStatus:1,
                     detailStatus: '',
                     productCatalog:1,
-                    effectivetime:'',
-                    expiretime:'',
+                    effectiveTime:'',
+                    expireTime:'',
                     pageSize:'8',
                     pageNumber:'1'
-                }
+                },
+                totalItem:''
             }
         },
         created(){
@@ -53,8 +79,8 @@
                 this.postData.onlineStatus = res.onlineStatus;
                 this.postData.detailStatus = res.detailStatus;
                 this.postData.productCatalog = res.productCatalog;
-                this.postData.effectivetime = res.effectivetime;
-                this.postData.expiretime = res.expiretime;
+                this.postData.effectiveTime = res.effectiveTime;
+                this.postData.expireTime = res.expireTime;
 
                 console.log("postData: " + JSON.stringify(this.postData));
 
@@ -106,9 +132,15 @@
 
                         for(var i = 0; i < res.contractProductList.length; i++) {
                             res.contractProductList[i].isShow = false;
+
+                            res.contractProductList[i].isHideConfim = true;
+
+                            res.contractProductList[i].operateType = "";
                         }
 
                         this.contractProductList = res.contractProductList;
+
+                        this.totalItem= this.contractProductList.length;
 
                         //console.log("cPList2: " + JSON.stringify(this.contractProductList));
 
@@ -116,7 +148,12 @@
 
                         console.log("res: " + JSON.stringify(res));
                     }
-                })
+                });
+            }
+        },
+        computed:{
+            totalPage(){
+                return this.totalItem
             }
         }
     }
@@ -126,6 +163,7 @@
 
 
     .table-wrapper {
+        position: relative;
     }
 
     .main-wrapper:after {
