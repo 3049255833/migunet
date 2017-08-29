@@ -1,5 +1,5 @@
 <template>
-    <div class="confirm-modal-container clearfix" :class="{hide: isHideConfim}">
+    <div class="confirm-modal-container clearfix" :class="{'hide': isHideConfim}">
         <div class="text">是否确定{{operateType}}，{{operateType}}后产品记录删除?</div>
 
         <div class="confirm cl-blue pointer" @click="confirm">确认</div>
