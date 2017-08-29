@@ -307,19 +307,19 @@
                                             <v-select-box w="200"
                                                           :selectTitle="'有限周期'"
                                                           :selectValue="'0'"
-                                                          :selectBoxName="'payType1CycleUnitSelectBox'"
+                                                          :selectBoxName="'payType1UnitSelectBox'"
                                                           v-bind:options="[{optionText:'有限周期',optionValue:'0'},{optionText:'永久有效',optionValue:'1'}]"></v-select-box>
                                         </div>
                                         <div class="block-dom " v-if="this.payType1.cycleUnitSelect=='0'">
                                             <input class="mr-10 form-input w-80 vt-middle"
                                                    v-model="payType1.cycleUnitNum"
                                                    @input="$v.payType1.cycleUnitNum.$touch()"
-                                                   :class="{'error':$v.formData.cycleUnitNum.$error}"
+                                                   :class="{'error':$v.payType1.cycleUnitNum.$error}"
                                                    type="text">
                                             <div class="layout-inline-middle">
                                                 <v-select-box w="110" :selectTitle="'月'"
-                                                              :name="'periodUnitListSelectBox'"
-                                                              v-bind:options="periodUnitList"></v-select-box>
+                                                              :selectBoxName="'payType1CycleUnitListSelectBox'"
+                                                              v-bind:options="selectBoxList.cycleUnitList"></v-select-box>
                                             </div>
                                             <span class="error-msg"
                                                   v-if="$v.payType1.cycleUnitNum.$error">{{errorMsg.payType1.cycleUnitNum}}</span>
@@ -341,9 +341,16 @@
                                 <div class="form-row">
                                     <div class="row-left w-200 required">资费金额（分）：</div>
                                     <div class="row-right">
-                                        <input type="text" class="form-input w-200" v-model="formData.channelId"
+                                        <input type="text"
+                                               class="form-input w-200" v-model="payType2.price"
+                                               :class="{'error':$v.payType2.price.$error}"
+                                               v-model.trim="payType2.price"
+                                               @input="$v.payType2.price.$touch()"
                                                placeholder="请输入"/>
-                                       
+                                        <i v-show="payType2.price" class="icon icon-close-round"
+                                           @click="remove('price','payType2')"></i>
+                                        <span class="error-msg"
+                                              v-if="$v.payType2.price.$error">{{errorMsg.payType1.price}}</span>
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -357,29 +364,12 @@
                                     <div class="row-right">
                                         <div class="radio-wrap">
                                             <label class="radio-module w-70">
-                                                <input value="1" v-model="formData.free" name="free" type="radio">
+                                                <input value="1" v-model="payType2.isReorder" type="radio">
                                                 <span></span>
                                                 <span class="txt">是</span>
                                             </label>
                                             <label class="radio-module w-70">
-                                                <input value="2" v-model="formData.free" name="free" type="radio">
-                                                <span></span>
-                                                <span class="txt">否</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="row-left w-200 required">是否重复订购：</div>
-                                    <div class="row-right">
-                                        <div class="radio-wrap">
-                                            <label class="radio-module w-70">
-                                                <input value="1" v-model="formData.free" name="free" type="radio">
-                                                <span></span>
-                                                <span class="txt">是</span>
-                                            </label>
-                                            <label class="radio-module w-70">
-                                                <input value="2" v-model="formData.free" name="free" type="radio">
+                                                <input value="0" v-model="payType2.isReorder" type="radio">
                                                 <span></span>
                                                 <span class="txt">否</span>
                                             </label>
@@ -390,15 +380,25 @@
                                     <div class="row-left w-200 required">产品周期：</div>
                                     <div class="row-right">
                                         <div class="block-dom pb-20">
-                                            <v-select-box w="200" selectTitle="有限" selectType="1"
-                                                          v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                            <v-select-box w="200" :selectTitle="'有限周期'"
+                                                          :selectValue="'0'"
+                                                          :selectBoxName="'payType2UnitSelectBox'"
+                                                          v-bind:options="[{optionText:'有限周期',optionValue:'0'},{optionText:'永久有效',optionValue:'1'}]"></v-select-box>
+                                            </v-select-box>
                                         </div>
-                                        <div class="block-dom ">
-                                            <input value="1" type="text" class="mr-10 form-input w-80 vt-middle">
+                                        <div class="block-dom" v-if="this.payType2.cycleUnitSelect=='0'">
+                                            <input class="mr-10 form-input w-80 vt-middle"
+                                                   v-model="payType2.cycleUnitNum"
+                                                   @input="$v.payType2.cycleUnitNum.$touch()"
+                                                   :class="{'error':$v.payType2.cycleUnitNum.$error}"
+                                                   type="text">
                                             <div class="layout-inline-middle">
-                                                <v-select-box w="110" selectTitle="月" selectType="1"
-                                                              v-bind:options="['并且','或者']"></v-select-box>
+                                                <v-select-box w="110" :selectTitle="'月'"
+                                                              :selectBoxName="'payType2CycleUnitListSelectBox'"
+                                                              v-bind:options="selectBoxList.cycleUnitList"></v-select-box>
                                             </div>
+                                            <span class="error-msg"
+                                                  v-if="$v.payType2.cycleUnitNum.$error">{{errorMsg.payType2.cycleUnitNum}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -451,7 +451,7 @@
     import {required, minLength, maxLength, numeric, between} from 'vuelidate/lib/validators';
 
     export default{
-        props: ['productDistList', 'expCycleUnitList', 'periodUnitList'],
+        props: ['productDistList'],
         data(){
             return {
                 formData: {
@@ -480,7 +480,7 @@
                         cycleUnitNum: ''
                     }, {}],
                     ifUseServiceCode: '1',     //是否使用业务代码,
-                    
+
                     businessArea: '',
                     vipProduct: '1',
                     repeatBuy: '1',
@@ -494,10 +494,19 @@
                     feeType: '1',
                     isReorder: '0',
                     cycleUnitNum: '-1',
-                    cycleUnit:'2',     //默认月 ：2
-                    cycleUnitSelect:'0'
+                    cycleUnit: '2',     //默认月 ：2
+                    cycleUnitSelect: '0'
                 },
-                payType2: {},       //接收不了嵌套验证，单独提取出来，最后再添加进去
+                payType2: {
+                    payType: '2',
+                    price: '',
+                    feeType: '2',
+                    isReorder: '0',
+                    cycleUnitNum: '1',
+                    cycleUnit: '2',
+                    cycleUnitSelect: '0'
+
+                },       //接收不了嵌套验证，单独提取出来，最后再添加进去
                 errorMsg: {
                     productName: '请输入产品名',
                     searchKey: '请输入搜索关键字',
@@ -507,9 +516,13 @@
                     channelIds: '请输入渠道Id',
                     catalogId: '请选择产品目录',
                     expCycleUnitNum: '请输入体验产品周期数',
-                    payType1:{
-                        price:'请输入数字类型的金额',
-                        cycleUnitNum:'请输入产品周期'
+                    payType1: {
+                        price: '请输入数字类型的金额',
+                        cycleUnitNum: '请输入产品周期'
+                    },
+                    payType2: {
+                        price: '请输入数字类型的金额',
+                        cycleUnitNum: '请输入产品周期'
                     }
                 },
                 selectBoxList: {
@@ -529,6 +542,17 @@
                     ],
                     productDistList: this.productDistList,
                     expCycleUnitList: [
+                        {
+                            optionText: '天', optionValue: '0'
+                        }, {
+                            optionText: '周', optionValue: '1'
+                        }, {
+                            optionText: '月', optionValue: '2'
+                        }, {
+                            optionText: '年', optionValue: '3'
+                        }
+                    ],
+                    cycleUnitList: [
                         {
                             optionText: '天', optionValue: '0'
                         }, {
@@ -578,7 +602,8 @@
                 },
                 //体验产品周期数
                 expCycleUnitNum: {
-                    required
+                    required,
+                    numeric
                 },
                 //支付方式
                 payType: {
@@ -608,7 +633,16 @@
                  repeatBuy: '1',
                  useCode: '1'*/
             },
-            payType1:{
+            payType1: {
+                price: {
+                    required,
+                    numeric
+                },
+                cycleUnitNum: {
+                    required
+                },
+            },
+            payType2: {
                 price: {
                     required,
                     numeric
@@ -619,7 +653,7 @@
             },
 
             validationGroup: [/*'formData.productName', 'formData.searchKey',*/
-                /* 'formData.effectiveTime','formData.expireTime',*//*'formData.attributionText'*//*'formData.channelIds'*//*'formData.catalogId'*/ 'formData.payType','payType1.price']
+                /* 'formData.effectiveTime','formData.expireTime',*//*'formData.attributionText'*//*'formData.channelIds'*//*'formData.catalogId'*/ 'formData.payType']
         },
         computed: {
             ifUseServiceCode(){
@@ -642,13 +676,28 @@
                         flag = this.formData.expCycleUnitNum.length >= 1
                     }
 
-                    if (this.formData.payType.contains('1')) {
+                    if (this.formData.payType.contains('1')) {      //选择了话费支付         金额,业务代码，产品周期数必须存在
+
+                        if (!/^\d+$/g.test(this.payType1.price)) {
+                            flag = false
+                        }
 
                         //使用了业务代码
                         if (this.formData.ifUseServiceCode == '1') {
-                            flag = this.payType1.serviceCode.length >= 1
+                            if (!this.payType1.serviceCode.length >= 1) {
+                                flag = false
+                            }
                         } else {
-                            
+                            if (!/^\d+$/g.test(this.payType1.cycleUnitNum)) flag = false
+                        }
+                    }
+
+                    if (this.formData.payType.contains('2')) {
+                        if (!/^\d+$/g.test(this.payType2.price)) {
+                            flag = false
+                        }
+                        if (!/^\d+$/g.test(this.payType2.cycleUnitNum)) {
+                            flag = false
                         }
                     }
 
@@ -723,9 +772,9 @@
             /**
              * 清空单项表单
              * */
-            remove(item,itemPre){
-                if(itemPre){
-                    this[itemPre][item]='';
+            remove(item, itemPre){
+                if (itemPre) {
+                    this[itemPre][item] = '';
                 }
             }
         },
@@ -740,17 +789,17 @@
                 if (a == '1') {    //使用业务代码
                     this.payType1.feeType = '1';             //重置资费类型
                     this.payType1.price = '';                //重置金额
-                    this.payType1.serviceCode='';             //重置业务代码
+                    this.payType1.serviceCode = '';             //重置业务代码
                     this.formData.cycleUnitNum = '-1';       //重置产品周期数：默认永久有效-1
-                    this.formData.cycleUnit='';                 //重置产品周期单位
+                    this.formData.cycleUnit = '';                 //重置产品周期单位
                 } else {
                     this.formData.serviceCode = '';       //重置业务代码
                     this.payType1.feeType = '2';          //重置资费类型
                     this.payType1.feeType = '2';           //重置资费类型
                     this.payType1.price = '';             //重置资费金额
                     this.payType1.companyCode = '';      //重置企业代码
-                    this.formData.cycleUnitNum = '1';     //重置产期周期默认1
-                    this.formData.periodUnit = '2';        //默认月是2
+                    this.payType1.cycleUnitNum = '1';     //重置产期周期默认1
+                    this.payType1.periodUnit = '2';        //默认月是2
                 }
             },
             'formData.isExperience'(a, b){
@@ -764,16 +813,30 @@
             },
             'formData.payType'(a, b){
                 if (a.contains('1')) {       //如果包含话费支付
-                  
+
                 } else {
-                  
+
                 }
                 if (a.contains('2')) {        //如果包含第三方支付
-                    
+
                 } else {
-                  
+
                 }
 
+            },
+            'payType1.cycleUnitSelect'(a, b){
+                if (a == 0) {               //有限周期
+                    this.payType1.cycleUnitNum = '1';
+                } else {
+                    this.payType1.cycleUnitNum = '-1';
+                }
+            },
+            'payType2.cycleUnitSelect'(a, b){
+                if (a == 0) {               //有限周期
+                    this.payType2.cycleUnitNum = '1';    //重置初始
+                } else {
+                    this.payType2.cycleUnitNum = '-1';    //重置初始-1
+                }
             }
         },
         mounted () {
@@ -806,15 +869,27 @@
                 if (res.selectBoxName == 'expCycleUnitListSelectBox') {
                     this.formData.catalogId = res.selectOption.optionValue;
                 }
-                if (res.selectBoxName == 'periodUnitListSelectBox') {
-                    this.formData.periodUnit = res.selectOption.optionValue;
-                }
                 if (res.selectBoxName == 'effectiveWaySelectBox') {
                     this.formData.effectiveWay = res.selectOption.optionValue;
                 }
-                if (res.selectBoxName == 'payType1CycleUnitSelectBox') {
+
+                if (res.selectBoxName == 'payType1UnitSelectBox') {               //获取支付方式1 的产品周期
                     this.payType1.cycleUnitSelect = res.selectOption.optionValue;
                 }
+
+                if (res.selectBoxName == 'payType1CycleUnitListSelectBox') {     //获取支付方式1 单位表
+                    this.payType1.cycleUnit = res.selectOption.optionValue;
+                }
+
+
+                if (res.selectBoxName == 'payType2UnitSelectBox') {              //获取支付方式2 的产品周期
+                    this.payType2.cycleUnitSelect = res.selectOption.optionValue;
+
+                }
+                if (res.selectBoxName == 'payType2CycleUnitListSelectBox') {     //获取支付方式2 的 单位表
+                    this.payType2.cycleUnit = res.selectOption.optionValue;
+                }
+
             });
 
 
