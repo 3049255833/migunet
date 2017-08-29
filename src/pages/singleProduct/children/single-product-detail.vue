@@ -11,7 +11,7 @@
                             <div class="item layout-center-y">
                                 <div class="item-img"></div>
                                 <div class="item-txt">
-                                    <p>{{productDetail.product.productName}}</p>
+                                    <p>{{productDetail.productName}}</p>
                                     <p>产品名称</p>
                                 </div>
                             </div>
@@ -25,7 +25,7 @@
                             <div class="item layout-center-y">
                                 <div class="item-img"></div>
                                 <div class="item-txt">
-                                    <p>{{productDetail.product.status}}</p>
+                                    <p>{{productDetail.onlineStatus}}</p>
                                     <p>产品状态</p>
                                 </div>
                             </div>
@@ -45,61 +45,62 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 产品名称：</span>
                                         <span class="row-right">
-                                            {{productDetail.product.productName}}
+                                            {{productDetail.productName}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 产品描述：</span>
-                                        <span class="row-right"> {{productDetail.product.describe}}</span>
+                                        <span class="row-right"> {{productDetail.describe}}</span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 审批状态：</span>
                                         <span class="row-right">
-                                            {{productDetail.product.approveStatus}}
+                                            {{productDetail.detailStatus}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 生效时间：</span>
                                         <span class="row-right">
-                                            {{productDetail.product.effectivetime}}
+                                            {{productDetail.effectiveTime}}
                                         </span>
                                     </div>
                                     <div class="layout-row no-pb">
                                         <span class="row-left"> 创建时间：</span>
                                         <span class="row-right">
-                                           {{productDetail.product.gmtcreate}}
+                                           {{productDetail.createTime}}
                                         </span>
                                     </div>
+                                    
                                 </div>
                                 <div class="fl w-50">
                                     <div class="layout-row">
                                         <span class="row-left"> 搜索关键字：</span>
                                         <span class="row-right">
-                                           {{productDetail.product.keys}}
+                                           {{productDetail.searchKey}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 业务状态：</span>
                                         <span class="row-right">
-                                            {{productDetail.product.status}}
+                                           
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 创建用户：</span>
                                         <span class="row-right">
-                                           {{productDetail.product.createUser}}
+                                           {{productDetail.createUser}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 失效时间：</span>
                                         <span class="row-right">
-                                            {{productDetail.product.expiretime}}
+                                            {{productDetail.expireTime}}
                                         </span>
                                     </div>
                                     <div class="layout-row  no-pb">
                                         <span class="row-left"> 更新时间：</span>
                                         <span class="row-right">
-                                           {{productDetail.product.gmtmodified}}
+                                           {{productDetail.updateTime}}
                                         </span>
                                     </div>
                                 </div>
@@ -114,7 +115,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 价格（分CN）：</span>
                                         <span class="row-right">
-                                            {{productDetail.serviceCode.fee}}
+                                            {{productDetail.feeAmount}}
                                         </span>
                                     </div>
                                 </div>
@@ -129,7 +130,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 渠道ID：</span>
                                         <span class="row-right">
-                                              {{productDetail.productchannel.channelId}}
+                                              {{productDetail.channelCode}}
                                         </span>
                                     </div>
                                 </div>
@@ -164,10 +165,10 @@
             return {
                 productCode: this.$route.params.productCode,
                 productDetail: {
-                    product: '',
-                    channel: '',
-                    serviceCode: '',
-                    productchannel:'',
+                    // product: '',
+                    // channel: '',
+                    // serviceCode: '',
+                    // productchannel:'',
                 }
             }
         },
@@ -189,11 +190,13 @@
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo: 注意，返回的字段这里list小写
-                        this.productDetail.product = res.product;
-                        this.productDetail.serviceCode = res.serviceCode;
-                        this.productDetail.productchannel = res.productchannel;
-                        console.log(this.productDetail.product)
+                        this.productDetail= res.data;
+                        // this.productDetail.product = res.product;
+                        // this.productDetail.serviceCode = res.serviceCode;
+                        // this.productDetail.productchannel = res.productchannel;
+                        console.log(this.productDetail)
                     } else {
+                            
                     }
                 })
             }
