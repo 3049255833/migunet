@@ -1,5 +1,5 @@
 <template>
-    <div class="confirm-modal-container clearfix" :class="{'hide': isHideConfim}">
+    <div class="confirm-modal-container clearfix" :class="{hide: isHideConfim}">
         <div class="text">是否确定{{operateType}}，{{operateType}}后产品记录删除?</div>
 
         <div class="confirm cl-blue pointer" @click="confirm">确认</div>
@@ -14,14 +14,28 @@
         props: {
             operateType: String,
             isHideConfim: Boolean,
-            index: Number
+            index: Number,
+            details: String
         },
         methods: {
             confirm() {
-                this.bus.$emit('sendConfirmInfo', this.index);
+                if(this.details === 'details') {
+
+                    this.bus.$emit('sendDetailsConfirmInfo', this.index);
+                } else {
+
+                    this.bus.$emit('sendConfirmInfo', this.index);
+                }
+
             },
             cancel() {
-                this.bus.$emit('sendCancelInfo', this.index);
+                if(this.details === 'details') {
+
+                    this.bus.$emit('sendDetailsCancelInfo', this.index);
+                } else {
+
+                    this.bus.$emit('sendCancelInfo', this.index);
+                }
             }
         }
     }
