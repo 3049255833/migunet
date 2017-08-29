@@ -43,7 +43,7 @@
                         contractName:"动漫2",
                         cpCode:"102",
                         onlineStatus:"1",
-                        detailStatus:"5",
+                        detailStatus:"6",
                         fee:"资费",
                         isHideConfim: true,
                         operateType: '',

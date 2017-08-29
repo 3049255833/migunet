@@ -106,7 +106,9 @@
                         </div>
 
                         <div class="mr-30 pointer cl-blue"
-                             v-if="cProduct.detailStatus === '6' || cProduct.detailStatus == '8'">
+                             v-if="cProduct.detailStatus === '6' ||
+                             cProduct.detailStatus == '8' ||
+                             cProduct.detailStatus == ''">
                               变更信息
                         </div>
 
@@ -120,23 +122,26 @@
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
                              @click.stop="showSelect(index)"
-                             v-if="cProduct.detailStatus === '1'">
+                             v-if="cProduct.detailStatus !== '7'">
                             更多
                             <i class="icon icon-arrow-down-blue"></i>
                         </div>
 
                         <div class="option-mask" :class="{opMask: cProduct.isShow}">
                             <div class="option-item" @click="revocation(index)"
-                                  v-if="cProduct.detailStatus !== '5' ||
-                                        cProduct.detailStatus !== '7'">下线</div>
+                                  v-if="cProduct.detailStatus === '6' ||
+                                        cProduct.detailStatus == '' ||
+                                        cProduct.detailStatus === '8'">下线</div>
 
                             <div class="option-item" @click="revocation(index)"
-                                   v-if="cProduct.detailStatus !== '5' ||
-                                        cProduct.detailStatus !== '7'">隐藏</div>
+                                   v-if="cProduct.detailStatus === '6' ||
+                                        cProduct.detailStatus == '' ||
+                                        cProduct.detailStatus === '8'">隐藏</div>
 
                             <div class="option-item" @click="revocation(index)"
-                                 v-if="cProduct.detailStatus !== '5' ||
-                                        cProduct.detailStatus !== '7'">注销</div>
+                                 v-if="cProduct.detailStatus === '6' ||
+                                        cProduct.detailStatus == '' ||
+                                        cProduct.detailStatus === '8'">注销</div>
 
                             <div class="option-item" @click="revocation(index)"
                                  v-if="cProduct.detailStatus === '5'">撤销</div>
@@ -168,7 +173,7 @@
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
                              @click.stop="showSelect(index)"
-                             v-if="">
+                             v-if="cProduct.detailStatus !== '7'">
                             更多
                             <i class="icon icon-arrow-down-blue"></i>
                         </div>
@@ -224,7 +229,7 @@
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
                              @click.stop="showSelect(index)"
-                             v-if="">
+                             v-if="cProduct.detailStatus !== '7'">
                           更多
                           <i class="icon icon-arrow-down-blue"></i>
                         </div>
