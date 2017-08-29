@@ -52,7 +52,7 @@
         &:before {
             position: absolute;
             right: 150px;
-            top: 34px;
+            top: 32px;
             content: "";
             border: 8px solid transparent;
             border-top-color: #fff;
