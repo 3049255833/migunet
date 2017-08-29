@@ -307,7 +307,7 @@
                                             <v-select-box w="200"
                                                           :selectTitle="'有限周期'"
                                                           :selectValue="'0'"
-                                                          :selectBoxName="'periodUnitSelectBox'"
+                                                          :selectBoxName="'payType1UnitSelectBox'"
                                                           v-bind:options="[{optionText:'有限周期',optionValue:'0'},{optionText:'永久有效',optionValue:'1'}]"></v-select-box>
                                         </div>
                                         <div class="block-dom ">
@@ -806,7 +806,7 @@
                 if (res.selectBoxName == 'effectiveWaySelectBox') {
                     this.formData.effectiveWay = res.selectOption.optionValue;
                 }
-                if (res.selectBoxName == 'cycleUnitSelectBox') {
+                if (res.selectBoxName == 'payType1UnitSelectBox') {
                     this.payType.cycleUnitSelect = res.selectOption.optionValue;
                 }
             });
