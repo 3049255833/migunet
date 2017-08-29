@@ -13,26 +13,26 @@
                         </thead>
 
                         <tbody>
-                          <tr>
-                              <td>
-                                  <label v-if="productType==='互斥'"
-                                         class="checkbox-module single">
-                                      <input type="checkbox" name="payType">
+                            <tr v-for="(item, index) in productList">
+                                <td>
+                                    <label v-if="productType==='互斥'"
+                                           class="checkbox-module single">
+                                        <input type="checkbox" name="payType">
 
-                                      <span></span>
-                                  </label>
+                                        <span></span>
+                                    </label>
 
-                                  <label v-else class="radio-module single">
-                                      <input type="radio" name="payType">
+                                    <label v-else class="radio-module single">
+                                        <input type="radio" name="payType">
 
-                                      <span></span>
-                                  </label>
-                              </td>
+                                        <span></span>
+                                    </label>
+                                </td>
 
-                              <td>A13000</td>
+                                <td>{{item.product_id}}</td>
 
-                              <td>全职高手</td>
-                          </tr>
+                                <td>{{item.product_name}}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -45,22 +45,53 @@
         </div>
     </div>
 </template>
-<script>
+<script type="es6">
     export default{
         name: 'ProductSelectModal',
         props: {
-            productType: String
+            productType: String,
+            modalName: String
         },
-        methods: {
-            confrim() {
-
-            },
-            cancel() {
-
+        data(){
+            return {
+                productList: []
             }
         },
         mounted () {
-            console.log("Type: " + this.productType);
+            /**
+             * 获取互斥和依赖产品列表
+             * */
+            this.getContractProductByStatus();
+        },
+        methods: {
+            /**
+             * 获取互斥和依赖产品列表
+             * */
+            getContractProductByStatus() {
+                this.$http.get(this.api.getContractProductByStatus,
+                    { params: {} }).then(response => {
+
+                    let res = response.body;
+
+                    console.log("productList data1: " + JSON.stringify(res));
+
+                    if (res.result.resultCode == '00000000') {
+
+                      this.productList = res.data;
+
+                      console.log("productList data2: " + JSON.stringify(this.productList));
+                    } else {
+
+                    }
+                });
+            },
+
+            confrim() {
+                this.$modal.hide(this.modalName);
+            },
+            cancel() {
+                this.$modal.hide(this.modalName);
+            }
         }
     }
 </script>

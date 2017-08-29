@@ -23,7 +23,7 @@
                         <td>
                             <label class="radio-module">
                                 <input type="radio" name="smsItem.templateName">
-                                <span></span>
+                                <span @click="getSmsInfo(smsItem.templateId, smsItem.templateContent)"></span>
                             </label>
                         </td>
                         <td>
@@ -37,8 +37,8 @@
             </table>
 
             <div class="btn-group btn-group-center">
-                <div class="btn btn-primary btn-middle-100">确定</div>
-                <div class="btn btn-default btn-middle-100">取消</div>
+                <div class="btn btn-primary btn-middle-100" @click="confrim">确定</div>
+                <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
             </div>
 
             <div class="paging-wrap">
@@ -47,13 +47,28 @@
         </div>
     </div>
 </template>
-<script>
+<script type="es6">
     import VPaging from '@/components/paging'
     export default{
-        name: 'ComicRecommendSmsList',
+        name: 'SmsList',
+        props: {
+            modalName: String,
+            smsTitle: String
+        },
         data(){
             return {
-                smsTemplateList: []
+                smsTemplateList: [
+                    {
+                        templateId: '1001',
+                        templateContent: '您订购的彩信模板成功'
+                    },
+                    {
+                      templateId: '1002',
+                      templateContent: '您订购的动漫模板成功'
+                    }
+                ],
+                selectPromptSmsItem: {},
+                selectRecommendSmsItem: {}
             }
         },
         components:{
@@ -75,15 +90,48 @@
 
                     let res = response.body;
 
+                    console.log("smsTemplateList data1: " + JSON.stringify(res));
+
                     if (res.result.resultCode == '00000000') {
 
                         this.smsTemplateList = res.data;
 
-                        //console.log("data3: " + JSON.stringify(this.smsTemplateList));
+                        console.log("smsTemplateList data2: " + JSON.stringify(this.smsTemplateList));
                     } else {
 
                     }
                 })
+            },
+
+            confrim() {
+
+                if(this.smsType === '1') {
+
+                    this.bus.$emit('getSelectSms', this.selectPromptSmsItem);
+                } else {
+
+                    this.bus.$emit('getSelectSms', this.selectRecommendSmsItem);
+                }
+
+                //console.log("List: " + JSON.stringify(this.selectSmsItem));
+
+                this.$modal.hide(this.modalName);
+            },
+            cancel() {
+                this.$modal.hide(this.modalName);
+            },
+
+            getSmsInfo(id, content) {
+                if(this.smsType === '1') {
+                    this.selectPromptSmsItem.id = id;
+
+                    this.selectPromptSmsItem.content = content;
+                } else {
+
+                    this.selectRecommendSmsItem.id = id;
+
+                    this.selectRecommendSmsItem.content = content;
+                }
             }
         }
     }
@@ -110,7 +158,7 @@
             right: 20px;
         }
     }
-    
+
     .table-module {
         width: 100%;
         border-collapse: collapse;
@@ -150,7 +198,7 @@
             text-align: left;
         }
     }
-    
+
     .btn-group {
         text-align: center;
         margin-top: 23px;
@@ -158,5 +206,5 @@
             margin-right: 20px;
         }
     }
-    
+
 </style>
