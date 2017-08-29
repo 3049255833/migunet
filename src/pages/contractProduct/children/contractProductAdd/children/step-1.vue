@@ -15,15 +15,12 @@
             </div>
             <!--产品描述-->
             <div class="form-row">
-                <div class="row-left required">产品描述（中文）：</div>
+                <div class="row-left">产品描述（中文）：</div>
                 <div class="row-right">
                     <textarea class="textarea-module w-340"
-                              :class="{'error':$v.formData.productDesc.$error}"
                               type="text"
                               v-model.trim="formData.productDesc"
-                              @input="$v.formData.productDesc.$touch()"
                               placeholder="请输入"></textarea>
-                    <span class="error-msg" v-if="$v.formData.productDesc.$error">{{errorMsg.productDesc}}</span>
                 </div>
             </div>
             <!--搜索关键字-->
@@ -48,7 +45,8 @@
                 <div class="row-right">
                     <v-select-box :w="'200'"
                                   :selectTitle="'立即生效'"
-                                  :selectValue="''"
+                                  :selectValue="'1'"
+                                  :selectBoxName="'effectiveWaySelectBox'"
                                   :options="selectBoxList.effectiveWayList">
                     </v-select-box>
                 </div>
@@ -101,12 +99,12 @@
                     渠道ID：
                 </div>
                 <div class="row-right">
-                    <input type="text" class="form-input w-200"
-                           :class="{'error':$v.formData.channelId.$error}"
-                           @input="$v.formData.channelId.$touch()"
-                           v-model.trim="formData.channelId" placeholder="请输入"/>
-                    <i v-show="formData.channelId" class="icon icon-close-round" @click="remove('channelId')"></i>
-                    <span class="error-msg" v-if="$v.formData.channelId.$error">{{errorMsg.channelId}}</span>
+                    <input type="text" class="form-input w-200 pointer"
+                           readonly
+                           @click="choseChannelId"
+                           v-model.trim="formData.channelIds" placeholder="请输入"/>
+                    <i class="icon icon-select"></i>
+                    <span class="error-msg" v-if="$v.formData.channelIds.$error">{{errorMsg.channelIds}}</span>
                 </div>
             </div>
             <div class="form-row">
@@ -129,16 +127,16 @@
                     <div class="radio-wrap">
                         <label class="radio-module w-70">
                             <input value="1"
-                                   v-model="formData.isMemberProduct"
-                                   name="isMemberProduct"
+                                   v-model="formData.isVip"
+                                   name="isVip"
                                    type="radio">
                             <span class="mr-3"></span>
                             <span class="txt">会员</span>
                         </label>
                         <label class="radio-module">
                             <input value="0"
-                                   v-model="formData.isMemberProduct"
-                                   name="isMemberProduct"
+                                   v-model="formData.isVip"
+                                   name="isVip"
                                    type="radio">
                             <span class="mr-3"></span>
                             <span class="txt">包月</span>
@@ -175,21 +173,21 @@
             <!--体验产品填入-->
             <div class="form-row" v-if="formData.isExperience=='1'">
                 <div class="row-left required">
-                    体验产品产品周期:
+                    体验产品产品周期：
                 </div>
                 <div class="row-right">
-                    <input v-model="formData.experiencePeriodUnitNum"
-                           @input="$v.formData.experiencePeriodUnitNum.$touch()"
-                           :class="{'error':$v.formData.experiencePeriodUnitNum.$error}"
+                    <input v-model="formData.expCycleUnitNum"
+                           @input="$v.formData.expCycleUnitNum.$touch()"
+                           :class="{'error':$v.formData.expCycleUnitNum.$error}"
                            type="number"
                            class="mr-10 form-input w-80 vt-middle">
                     <div class="layout-inline-middle">
                         <v-select-box :w="'110'"
-                                      :selectTitle="'天'"
-                                      :selectBoxName="'experiencePeriodUnitListSelectBox'"
-                                      v-bind:options="selectBoxList.experiencePeriodUnitList"></v-select-box>
+                                      :selectTitle="'月'"
+                                      :selectBoxName="'expCycleUnitListSelectBox'"
+                                      v-bind:options="selectBoxList.expCycleUnitList"></v-select-box>
                     </div>
-                    <span class="error-msg" v-if="$v.formData.experiencePeriodUnitNum.$error">{{errorMsg.experiencePeriodUnitNum}}</span>
+                    <span class="error-msg" v-if="$v.formData.expCycleUnitNum.$error">{{errorMsg.expCycleUnitNum}}</span>
                 </div>
             </div>
             <!--支付方式 -->
@@ -269,13 +267,13 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="row-left w-200 required">资费类型</div>
+                                    <div class="row-left w-200 required">资费类型：</div>
                                     <div class="row-right">
                                         <p class="txt font-14">{{feeTypeText}}</p>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="row-left w-200 required">是否重复订购</div>
+                                    <div class="row-left w-200 required">是否重复订购：</div>
                                     <div class="row-right">
                                         <div class="radio-wrap">
                                             <label class="radio-module w-70">
@@ -291,14 +289,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-row ">
-                                    <div class="row-left w-200 required">产品周期</div>
+                                <div v-if="ifUseBusinessCode" class="form-row ">
+                                    <div class="row-left w-200 required">产品周期：</div>
                                     <div class="row-right">
                                         <input class="form-input w-200" disabled value="永久有效">
                                     </div>
                                 </div>
                                 <div v-if="!ifUseBusinessCode" class="form-row ">
-                                    <div class="row-left w-200 required">产品周期</div>
+                                    <div class="row-left w-200 required">产品周期：</div>
                                     <div class="row-right">
                                         <div class="block-dom pb-20">
                                             <v-select-box w="200"
@@ -363,7 +361,7 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="row-left w-200 required">是否重复订购</div>
+                                    <div class="row-left w-200 required">是否重复订购：</div>
                                     <div class="row-right">
                                         <div class="radio-wrap">
                                             <label class="radio-module w-70">
@@ -425,6 +423,13 @@
                 <v-business-code-list :modalName="'businessCodeModal'"></v-business-code-list>
             </t-modal-sub-container>
         </modal>
+    
+        <!--渠道Idmodal-->
+        <modal name="channelIdListModal" :width="870" :height="570" @before-close="beforeClose">
+            <t-modal-sub-container :title="'渠道Id选择'" :name="'channelIdListModal'">
+                <v-channel-id-list :modalName="'channelIdListModal'"></v-channel-id-list>
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 <script>
@@ -433,28 +438,29 @@
     import VSelectBox from '@/components/select-box'
     import VDate from '@/components/date'
     import VBusinessCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/business-code-list.vue'
+    import VChannelIdList from  '@/pages/contractProduct/children/contractProductAdd/components/channel-id-list.vue'
     //表单注入
     import {required, minLength, maxLength, numeric, between} from 'vuelidate/lib/validators';
 
     export default{
-        props: ['productDistList', 'experiencePeriodUnitList', 'periodUnitList'],
+        props: ['productDistList', 'expCycleUnitList', 'periodUnitList'],
         data(){
             return {
                 formData: {
-                    productName: '',       //产品名称
-                    productDesc: '',       //产品描述
-                    searchKey: '',         //搜索关键字
-                    effectiveWay: '',      //生效方式
-                    effectiveTime: '',      //生效时间
-                    expireTime: '',         //失效时间
-                    attributionCode: '',    //归属地编码
-                    attributionText: '',    //归属地名称
-                    channelId: '',         //渠道Id
-                    catalogId: '',           //目录Id
-                    isMemberProduct: '1',    //是否会员 1：会员 0 ：包月
-                    isExperience: '1',       //是否体验产品 1：是 0 ：正式产品
-                    experiencePeriodUnitNum: '', //体验产品周期数
-                    experiencePeriodUnit: '0', //体验产品周期单位 0：天 1：周 2：月 3：年
+                    productName: '',        //产品名称
+                    productDesc: '',        //产品描述
+                    searchKey: '',          //搜索关键字
+                    effectiveWay: '1',       //生效方式    默认立即生效
+                    effectiveTime: '',       //生效时间
+                    expireTime: '',          //失效时间
+                    attributionCode: '',     //归属地编码
+                    attributionText: '',     //归属地名称
+                    channelIds: '',           //渠道Id
+                    catalogId: '',            //目录Id
+                    isVip: '1',     //是否会员 1：会员 0 ：包月
+                    isExperience: '1',         //是否体验产品 1：是 0 ：正式产品
+                    expCycleUnitNum: '1',  //体验产品周期数
+                    expCycleUnit: '2', //体验产品周期单位 0：天 1：周 2：月 3：年
                     payType: [],               //支付方式 1：话费支付 2：第三方支付
                     ifUseBusinessCode: '1',     //是否使用业务代码,
                     chargeCode: '',         //计费代码？业务代码
@@ -473,14 +479,13 @@
                 },
                 errorMsg: {
                     productName: '请输入产品名',
-                    productDesc: '请输入产品描述',
                     searchKey: '请输入搜索关键字',
                     effectiveTime: '请输入生效时间',
                     expireTime: '请输入失效时间',
                     attributionText: '请输入业务归属地',
-                    channelId: '请输入渠道Id',
+                    channelIds: '请输入渠道Id',
                     catalogId: '请选择产品目录',
-                    experiencePeriodUnitNum: '请输入体验产品周期数'
+                    expCycleUnitNum: '请输入体验产品周期数'
                 },
                 selectBoxList: {
                     effectiveWayList: [
@@ -498,7 +503,7 @@
                         }
                     ],
                     productDistList: this.productDistList,
-                    experiencePeriodUnitList: this.experiencePeriodUnitList
+                    expCycleUnitList: this.expCycleUnitList
                 }
             }
         },
@@ -506,10 +511,6 @@
             formData: {
                 //产品名称
                 productName: {
-                    required
-                },
-                //产品描述
-                productDesc: {
                     required
                 },
                 //搜索关键字
@@ -533,7 +534,7 @@
                     required
                 },
                 //渠道Id
-                channelId: {
+                channelIds: {
                     required
                 },
                 //目录Id
@@ -541,14 +542,14 @@
                     required
                 },
                 //体验产品周期数
-                experiencePeriodUnitNum: {
+                expCycleUnitNum: {
                     required
                 }
                 /*   catalogId: '',           //目录Id
-                 isMemberProduct: '1',    //是否会员 1：会员 0 ：包月
+                 isVip: '1',    //是否会员 1：会员 0 ：包月
                  isExperience: '1',       //是否体验产品 1：是 0 ：正式产品
-                 experiencePeriodUnitNum: '', //体验产品周期数
-                 experiencePeriodUnit: '0', //体验产品周期单位 0：天 1：周 2：月 3：年
+                 expCycleUnitNum: '', //体验产品周期数
+                 expCycleUnit: '0', //体验产品周期单位 0：天 1：周 2：月 3：年
                  payType: [],               //支付方式 1：话费支付 2：第三方支付
                  ifUseBusinessCode: '1',     //是否使用业务代码,
                  chargeCode: '',         //计费代码？业务代码
@@ -566,8 +567,8 @@
                  useCode: '1'*/
             },
 
-            validationGroup: [/*'formData.productName', 'formData.productDesc', 'formData.searchKey',
-             'formData.effectiveTime','formData.attributionText','formData.channelId','formData.catalogId'*/]
+            validationGroup: [/*'formData.productName', 'formData.searchKey',*/
+            /* 'formData.effectiveTime','formData.expireTime',*//*'formData.attributionText'*//*'formData.channelIds'*//*'formData.catalogId'*/]
         },
         computed: {
             ifUseBusinessCode(){
@@ -585,8 +586,9 @@
             canSave(){
                 var flag = true;
                 if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid) {  //经过第一层的表单验证
-                    if (this.formData.isExperience == '1') {   //体验产品
-                        flag=this.formData.experiencePeriodUnitNum.length >= 1
+                    if (this.formData.isExperience == '1') {
+                        //体验产品
+                        flag=this.formData.expCycleUnitNum.length >= 1
                     }
                     return flag
                 } else {
@@ -601,7 +603,8 @@
             TModalSubContainer,
             VAreaChose,
             VSelectBox,
-            VBusinessCodeList
+            VBusinessCodeList,
+            VChannelIdList
 
         },
         methods: {
@@ -609,7 +612,18 @@
              * 保存数据
              * */
             save(){
-              console.log(this.formData);
+             /* console.log(this.formData);*/
+                this.$http.post(this.api.getSingleProductList, {
+                    pay:[{
+                        a:1,b:2
+                    },{
+                        a:2,b:3
+                    }]
+                },{emulateJSON:true } ).then(
+                    res => {
+                        
+                    }
+                );
             },
             /**
              * 当变量canHideModal为false时，无法关闭弹框
@@ -623,6 +637,13 @@
              * */
             choseBusinessCode(){
                 this.$modal.show('businessCodeModal')
+            },
+
+            /**
+             * 选择渠道id
+             * */
+            choseChannelId(){
+                this.$modal.show('channelIdListModal');
             },
 
             /**
@@ -666,20 +687,23 @@
                     this.formData.feeType = '2';         //资费类型
                     this.formData.feeAmount = '';        //资费金额
                     this.formData.companyCode = '';      //企业代码
-                    this.formData.periodUnitNum = '';
+                    this.formData.periodUnitNum = '1';
+                    this.formData.periodUnit='2'  ;   //默认月是2
                 }
 
             },
             'formData.isExperience'(a, b){
-                this.formData.experiencePeriodUnitNum='';
-                if(a=='1'){
-                    this.formData.experiencePeriodUnit='0';
+                this.formData.expCycleUnitNum='';
+                if(a=='1'){  //是
+                    this.formData.expCycleUnit='2';
+                    this.formData.expCycleUnitNum='1';
                 }else{
-                    this.formData.experiencePeriodUnit='';
+                    this.formData.expCycleUnit='';
                 }
             }
         },
         mounted () {
+            let that=this;
             /**
              * 获取归属地，返回[{areaName:'',areaCode:''}]
              * */
@@ -697,45 +721,39 @@
                 }
 
             });
-      
+            
             /**
-             * 获取产品目录下拉框的值
+             * 获取下拉框的值
              * */
-            this.getSelectOption('productDistListSelectBox', this, function (res) {
-                this.formData.experiencePeriodUnit = res.selectOption.optionValue;
+            this.bus.$on('selectBoxBus',res=>{
+                if (res.selectBoxName == 'productDistListSelectBox') {
+                    this.formData.expCycleUnit = res.selectOption.optionValue;
+                }
+                if(res.selectBoxName == 'expCycleUnitListSelectBox'){
+                    this.formData.catalogId = res.selectOption.optionValue;
+                }
+                if(res.selectBoxName == 'periodUnitListSelectBox'){
+                    this.formData.periodUnit = res.selectOption.optionValue;
+                }
+                if(res.selectBoxName=='effectiveWaySelectBox'){
+                    this.formData.effectiveWay = res.selectOption.optionValue;
+                }
             });
-
-            /**
-             * 获取体验周期下拉框的值
-             * */
-            this.getSelectOption('experiencePeriodUnitListSelectBox', this, function (res) {
-                this.formData.catalogId = res.selectOption.optionValue;
-            });
-
-            /**
-             * 获取体验产品周期单位下拉框数据
-             * */
-            this.getSelectOption('experiencePeriodUnitListSelectBox', this, function (res) {
-                alert(this)
-                this.formData.experiencePeriodUnit = res.optionValue;
-            });
-            /**
-             * 获取周期单位下拉框数据
-             * */
-            this.getSelectOption('periodUnitListSelectBox', this, function (res) {
-                this.formData.periodUnit = res.optionValue;
-            });
+            
 
             /**
              * promise
              * 获取日历的值
              * */
-            this.getDate('effectiveTime', this, function (res) {
-                this.formData.effectiveTime = res.dateValue;
-            });
-
-            this.getDate('expireTime', this, function (res) {
-                this.formData.expireTime = res.dateValue;
+            this.bus.$on('dateBus', res => {
+                if (res.dateName == 'effectiveTime') {
+                    this.formData.effectiveTime=res.dateValue;
+                    this.sendOperateData();
+                }
+                if (res.dateName == 'expireTime') {
+                    this.formData.expireTime=res.dateValue;
+                    this.sendOperateData();
+                }
             });
 
             /**
@@ -747,6 +765,20 @@
                     this.formData.chargeCode = res.chargeCode;
                     this.formData.feeAmount = res.feeAmount;
                     this.formData.companyCode = res.companyCode;
+                }
+            });
+
+            /**
+             * 获取渠道id的值
+             * */
+            this.bus.$on('channelIdBus', res => {
+                //有数据传过来
+                let channelIdArr = [];
+                if (res ) {
+                    res.forEach(function (item, index) {
+                        channelIdArr.push(item.channelId);
+                    });
+                    this.formData.channelIds = channelIdArr.join('|');
                 }
             })
         }

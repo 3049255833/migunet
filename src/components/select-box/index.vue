@@ -97,11 +97,6 @@
         },
         mounted(){
             this.documentHideOption();
-            /*document.addEventListener('click', e => {
-             if (!this.$el.contains(e.target)) {
-             that.isShow = false;
-             }
-             })*/
         }
     }
 </script>

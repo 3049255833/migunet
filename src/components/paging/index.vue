@@ -92,7 +92,7 @@
             },
             allPage(){
                 return Math.ceil(parseInt(this.totalItem) / parseInt(this.pageSize))
-            },
+            }
         },
         methods: {
             goto: function (index) {
@@ -109,14 +109,18 @@
                 if (e&&e.target) {
                     e.target.blur();
                 }
-                if (this.pageSelected > this.allPage) {
-                    alert('超过最大页码数');
-                } else {
-                    this.current = this.pageSelected;
-                    this.bus.$emit('pagingBus', {
-                        pagingValue: this.current,
-                        pagingSize: this.pageSize
-                    })
+                if(typeof this.pageSelected=='number'){
+                    if (this.pageSelected > this.allPage) {
+                        alert('超过最大页码数');
+                    } else {
+                        this.current = this.pageSelected;
+                        this.bus.$emit('pagingBus', {
+                            pagingValue: this.current,
+                            pagingSize: this.pageSize
+                        })
+                    }
+                }else{
+                    alert('请输入数字')
                 }
             }
 
@@ -212,7 +216,6 @@
                 }
                 
                 .prev {
-                    
                     position: relative;
                     float: left;
                     padding: 6px 10px;
@@ -222,15 +225,11 @@
                     text-decoration: none;
                     background-color: #fff;
                     border: 1px solid #ddd;
-                    
                     &:hover {
                         background: #eee;
                     }
-                    
                     font-weight: bold;
-                    
                 }
-                
                 &.active span {
                     border: 1px solid #46bafe;
                     background: #46bafe;

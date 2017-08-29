@@ -50,7 +50,6 @@
                 this.postData.approveStatus=res.approveStatus;
                 this.postData.effectiveTime=res.effectiveTime;
                 this.postData.expireTime=res.expireTime;
-                /*console.log(this.postData);*/
                 this.getSingleProductList();
             });
             /**
@@ -92,7 +91,7 @@
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
                         this.productList=res.productlist;
-                        this.totalItem=res.totalItem;
+                        this.totalItem=res.pagehelper.totalItem;
                     }else{
                         
                     }

@@ -209,10 +209,7 @@
 
             this.getSelectOption('cProductCatalogSelectBox', this, function (res) {
                 this.operateData.productCatalog = res.selectOption.optionValue;
-
-
                 this.sendOperateData();
-
             });
 
             /**
