@@ -15,19 +15,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(item,index) in businessCodeList" @click="choseBusinessCode(item,index)" >
+                <tr v-for="(item,index) in serviceCodeList" @click="choseServiceCode(item,index)" >
                     <td>
                         <label class="radio-module radio-single">
-                            <input type="radio" :value="index" v-model="businessCodeRadio" name="businessCodeRadio">
+                            <input type="radio" :value="index" v-model="serviceCodeRadio" name="serviceCodeRadio">
                             <span></span>
                         </label>
                     </td>
-                    <td>{{item.chargeCode}}</td>
-                    <td>{{item.chargeName}}</td>
-                    <td>{{item.chargeDesc}}</td>
-                    <td>{{item.splitType}}</td>
+                    <td>{{item.serviceCode}}</td>
+                    <td>{{item.serviceName}}</td>
+                    <td>{{item.serviceDesc}}</td>
+                    <td>{{item.sharingType}}</td>
                     <td>{{item.feeAmount}}</td>
-                    <td>{{item.isManagerMember}}</td>
+                    <td>{{item.isManager}}</td>
                     <td>{{item.companyCode}}</td>
                 </tr>
                 </tbody>
@@ -46,36 +46,36 @@
 <script>
     import VPaging from '@/components/paging'
     export default{
-        name: 'BusinessCodeModal',
+        name: 'serviceCodeModal',
         props:{modalName: String},
         data(){
             return {
-                businessCodeList: [{
-                    chargeCode: 10000,
-                    chargeName: '呵呵一笑',
-                    chargeDesc: '业务代码描述1',
-                    splitType: '分成类型1',
+                serviceCodeList: [{
+                    serviceCode: '10000',
+                    serviceName: '呵呵一笑a',
+                    serviceDesc: '业务代码描述1',
+                    sharingType: '分成类型1',
                     feeAmount: '100',
-                    isManagerMember: '是',
+                    isManager: '是',
                     companyCode: '10000'
                 }, {
-                    chargeCode: 10000,
-                    chargeName: '呵呵一笑',
-                    chargeDesc: '业务代码描述1',
-                    splitType: '分成类型1',
+                    serviceCode: '10000',
+                    serviceName: '呵呵一笑a',
+                    serviceDesc: '业务代码描述1',
+                    sharingType: '分成类型1',
                     feeAmount: '100',
-                    isManagerMember: '是',
+                    isManager: '是',
                     companyCode: '10000'
                 }],
-                chargeCode:'',  //业务代码
+                serviceCode:'',  //业务代码
                 feeAmount:'', //资费金额
-                businessCodeData:{
-                    feeAmount:'',
-                    chargeCode:'',
+                serviceCodeData:{
+                    price:'',
+                    serviceCode:'',
                     companyCode:'',
                     ifHasData:false
                 },
-                businessCodeRadio:[],
+                serviceCodeRadio:[],
                 ifHasData:false
             }
         },
@@ -83,12 +83,12 @@
             VPaging
         },
         methods: {
-            getBusinessCodeList(){
-                this.$http.get(this.api.getBusinessCodeList, {params: {}}).then(response => {
+            getServiceCodeList(){
+                this.$http.get(this.api.getServiceCodeList, {params: {}}).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo:
-                        this.businessCodeList = res.data;
+                        /*this.serviceCodeList = res.data;*/
                     } else {
 
                     }
@@ -101,12 +101,12 @@
              * 一旦点下去vm其实已经保存了数据
              * 假如分页后也要保存数据的话，有必要在点击时就保存
              * */
-            choseBusinessCode(item,index){
-                this.businessCodeData.feeAmount=item.feeAmount;
-                this.businessCodeData.companyCode=item.companyCode;
-                this.businessCodeData.chargeCode=item.chargeCode;
-                this.businessCodeData.ifHasData=true;
-                this.businessCodeRadio=index.toString();
+            choseServiceCode(item,index){
+                this.serviceCodeData.price=item.feeAmount;
+                this.serviceCodeData.companyCode=item.companyCode;
+                this.serviceCodeData.serviceCode=item.serviceCode;
+                this.serviceCodeData.ifHasData=true;
+                this.serviceCodeRadio=index.toString();
                 this.ifHasData=true;
             },
             
@@ -114,12 +114,12 @@
              * 保存数据
              * */
             saveData(){
-                this.bus.$emit('businessCodeBus',this.businessCodeData);
+                this.bus.$emit('serviceCodeBus',this.serviceCodeData);
                 this.$modal.hide(this.modalName);
             }
         },
         mounted(){
-            this.getBusinessCodeList();
+            this.getServiceCodeList();
         }
     }
 </script>
