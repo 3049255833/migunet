@@ -83,18 +83,8 @@
                                 :index="index">
                         </v-confirm-modal>
 
-                        <div class="pointer mr-30 cl-blue"
-                             :class="{'active':cProduct.isShow}"
-                             @click.stop="showSelect(index)"
-                             v-if="cProduct.detailStatus === '1'">
-                            更多
-                            <i class="icon icon-arrow-down-blue"></i>
-                        </div>
-
-                        <div class="option-mask" :class="{opMask: cProduct.isShow}">
-                          <div class="option-item" @click="revocation(index)"
-                               v-if="cProduct.detailStatus === '1'">撤销</div>
-                        </div>
+                        <div class="mr-30 pointer cl-blue" @click="revocation(index)"
+                             v-if="cProduct.detailStatus === '1'">撤销</div>
                     </div>
 
                     <div class="operate-list clearfix"
@@ -115,30 +105,33 @@
                         <v-confirm-modal
                             :operateType="cProduct.operateType"
                             :isHideConfim="cProduct.isHideConfim"
-                            :index="index"
-                        >
+                            :index="index">
                         </v-confirm-modal>
 
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
                              @click.stop="showSelect(index)"
-                             v-if="cProduct.detailStatus !== '7'">
+                             v-if="cProduct.detailStatus === '6' ||
+                                    cProduct.detailStatus == '' ||
+                                    cProduct.detailStatus === '8' ||
+                                    cProduct.detailStatus === '5'">
                             更多
                             <i class="icon icon-arrow-down-blue"></i>
                         </div>
 
                         <div class="option-mask" :class="{opMask: cProduct.isShow}">
-                            <div class="option-item" @click="revocation(index)"
+                            <div class="option-item"
+                                  @click="offline(index)"
                                   v-if="cProduct.detailStatus === '6' ||
                                         cProduct.detailStatus == '' ||
                                         cProduct.detailStatus === '8'">下线</div>
 
-                            <div class="option-item" @click="revocation(index)"
+                            <div class="option-item" @click="hide(index)"
                                    v-if="cProduct.detailStatus === '6' ||
                                         cProduct.detailStatus == '' ||
                                         cProduct.detailStatus === '8'">隐藏</div>
 
-                            <div class="option-item" @click="revocation(index)"
+                            <div class="option-item" @click="logout(index)"
                                  v-if="cProduct.detailStatus === '6' ||
                                         cProduct.detailStatus == '' ||
                                         cProduct.detailStatus === '8'">注销</div>
@@ -173,27 +166,30 @@
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
                              @click.stop="showSelect(index)"
-                             v-if="cProduct.detailStatus !== '7'">
+                             v-if="cProduct.detailStatus === '' ||
+                                    cProduct.detailStatus === '6' ||
+                                    cProduct.detailStatus === '8' ||
+                                    cProduct.detailStatus === '5'">
                             更多
                             <i class="icon icon-arrow-down-blue"></i>
                         </div>
 
                         <div class="option-mask" :class="{opMask: cProduct.isShow}">
-                            <div class="option-item" @click="revocation(index)"
+                            <div class="option-item" @click="online(index)"
                                v-if="cProduct.detailStatus === '' ||
                                     cProduct.detailStatus === '6' ||
                                     cProduct.detailStatus === '8'">上线</div>
 
-                            <div class="option-item" @click="revocation(index)"
+                            <div class="option-item" @click="offline(index)"
                                   v-if="cProduct.detailStatus === '5'">下线</div>
 
-                            <div class="option-item" @click="revocation(index)"
+                            <div class="option-item" @click="hide(index)"
                                   v-if="cProduct.detailStatus === '' ||
                                         cProduct.detailStatus === '5' ||
                                         cProduct.detailStatus === '6' ||
                                         cProduct.detailStatus === '8'">隐藏</div>
 
-                          <div class="option-item" @click="revocation(index)"
+                          <div class="option-item" @click="logout(index)"
                                   v-if="cProduct.detailStatus === '' ||
                                   cProduct.detailStatus === '5' ||
                                   cProduct.detailStatus === '6' ||
@@ -229,26 +225,29 @@
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
                              @click.stop="showSelect(index)"
-                             v-if="cProduct.detailStatus !== '7'">
+                             v-if="cProduct.detailStatus === '' ||
+                                    cProduct.detailStatus === '6' ||
+                                    cProduct.detailStatus === '8' ||
+                                    cProduct.detailStatus === '5'">
                           更多
                           <i class="icon icon-arrow-down-blue"></i>
                         </div>
 
                         <div class="option-mask" :class="{opMask: cProduct.isShow}">
-                          <div class="option-item" @click="revocation(index)"
+                          <div class="option-item" @click="online(index)"
                                v-if="cProduct.detailStatus === '' ||
                                cProduct.detailStatus === '6' ||
                                cProduct.detailStatus === '8'">上线</div>
 
-                          <div class="option-item" @click="revocation(index)"
+                          <div class="option-item" @click="offline(index)"
                                v-if="cProduct.detailStatus === '' ||
                                cProduct.detailStatus === '6' ||
                                cProduct.detailStatus === '8'">下线</div>
 
-                          <div class="option-item" @click="revocation(index)"
+                          <div class="option-item" @click="hide(index)"
                                v-if="">隐藏</div>
 
-                          <div class="option-item" @click="revocation(index)"
+                          <div class="option-item" @click="logout(index)"
                                v-if="cProduct.detailStatus === '' ||
                                cProduct.detailStatus === '6' ||
                                cProduct.detailStatus === '8'">注销</div>
@@ -269,22 +268,11 @@
                         <v-confirm-modal
                           :operateType="cProduct.operateType"
                           :isHideConfim="cProduct.isHideConfim"
-                          :index="index"
-                        >
+                          :index="index">
                         </v-confirm-modal>
 
-                        <div class="pointer mr-30 cl-blue"
-                             :class="{'active':cProduct.isShow}"
-                             @click.stop="showSelect(index)"
-                             v-if="">
-                          更多
-                          <i class="icon icon-arrow-down-blue"></i>
-                        </div>
-
-                        <div class="option-mask" :class="{opMask: cProduct.isShow}">
-                            <div class="option-item" @click="revocation(index)"
-                                 v-if="cProduct.detailStatus === ''">删除</div>
-                        </div>
+                        <div class="mr-30 pointer cl-blue" @click="deleteBtn(index)"
+                            v-if="cProduct.detailStatus === ''">删除</div>
                     </div>
                 </td>
             </tr>
@@ -370,10 +358,28 @@
                 this.contractProductList[index].operateType = "下线";
             },
 
+            online(index) {
+                this.contractProductList[index].isHideConfim = false;
+
+                this.contractProductList[index].operateType = "上线";
+            },
+
             hide(index) {
                 this.contractProductList[index].isHideConfim = false;
 
                 this.contractProductList[index].operateType = "隐藏";
+            },
+
+            revocation(index) {
+                this.contractProductList[index].isHideConfim = false;
+
+                this.contractProductList[index].operateType = "撤销";
+            },
+
+            deleteBtn(index) {
+                this.contractProductList[index].isHideConfim = false;
+
+                this.contractProductList[index].operateType = "删除";
             }
         },
         mounted(){

@@ -36,7 +36,8 @@
                         fee:"资费",
                         isHideConfim: true,
                         operateType: '',
-                        isShow: false
+                        isShow: false,
+                        id: '1001'
                     },
                     {
                         contractCode:"1002",
@@ -47,7 +48,8 @@
                         fee:"资费",
                         isHideConfim: true,
                         operateType: '',
-                        isShow: false
+                        isShow: false,
+                        id: '1002'
                     }
                 ],
                 postData:{

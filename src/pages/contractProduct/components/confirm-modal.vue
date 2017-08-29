@@ -51,7 +51,7 @@
 
         &:before {
             position: absolute;
-            right: 90px;
+            right: 150px;
             top: 34px;
             content: "";
             border: 8px solid transparent;
