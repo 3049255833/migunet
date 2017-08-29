@@ -16,25 +16,18 @@
             isHideConfim: Boolean,
             index: Number
         },
-        mounted(){
-            //console.log(this.operateType + "," + this.operateType);
-        },
-        created(){},
         methods: {
             confirm() {
-
                 this.bus.$emit('sendConfirmInfo', this.index);
             },
             cancel() {
-                //this.$modal.hide(this.ConfirmModal);
-
                 this.bus.$emit('sendCancelInfo', this.index);
             }
         }
     }
 </script>
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+
+<style scoped lang="scss" rel="stylesheet/scss">
     .confirm-modal-container {
         text-align: center;
         position: absolute;
@@ -79,14 +72,6 @@
         .cancel,
         .text {
             display: inline-block;
-        }
-
-        .confirm {
-
-        }
-
-        .cancel {
-
         }
     }
 </style>
