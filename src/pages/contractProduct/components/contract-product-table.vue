@@ -407,7 +407,7 @@
              * 接收来自取消modal框的信息
              * */
             this.bus.$on('sendCancelInfo', res => {
-              this.contractProductList[res].isHideConfim = true;
+                this.contractProductList[res].isHideConfim = true;
             });
         },
     }

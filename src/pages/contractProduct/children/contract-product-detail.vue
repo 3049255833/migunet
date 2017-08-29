@@ -324,6 +324,7 @@
         <v-confirm-popover-modal
             :operateType="operateType"
             :isHideConfim="isHideConfim"
+            details="details"
             v-bind:style="styleComfirm">
         </v-confirm-popover-modal>
 
@@ -441,7 +442,7 @@
             /**
              * 接收来自取消modal框的信息
              * */
-            this.bus.$on('Details', res => {
+            this.bus.$on('sendDetailsCancelInfo', res => {
                 this.isHideConfim = true;
             });
         },

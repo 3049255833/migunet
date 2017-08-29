@@ -14,14 +14,28 @@
         props: {
             operateType: String,
             isHideConfim: Boolean,
-            index: Number
+            index: Number,
+            details: String
         },
         methods: {
             confirm() {
-                this.bus.$emit('sendDetailsConfirmInfo', this.index);
+                if(this.details === 'details') {
+
+                    this.bus.$emit('sendDetailsConfirmInfo', this.index);
+                } else {
+
+                    this.bus.$emit('sendConfirmInfo', this.index);
+                }
+
             },
             cancel() {
-                this.bus.$emit('sendDetailsCancelInfo', this.index);
+                if(this.details === 'details') {
+
+                    this.bus.$emit('sendDetailsCancelInfo', this.index);
+                } else {
+
+                    this.bus.$emit('sendCancelInfo', this.index);
+                }
             }
         }
     }
