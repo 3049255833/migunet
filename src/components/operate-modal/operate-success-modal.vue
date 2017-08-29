@@ -1,6 +1,6 @@
 <template>
   <div class="operate-success-container clearfix" :class="{hide: isHideOperateModal}">
-      <img src="../../../assets/icon-pass.png">
+      <img src="../../assets/icon-pass.png">
 
       <div class="text">{{type}}成功！</div>
   </div>

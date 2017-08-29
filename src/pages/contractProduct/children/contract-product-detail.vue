@@ -321,9 +321,10 @@
             </div>
         </div>
 
-        <!--<v-confirm-popover-modal
+        <v-confirm-popover-modal
             :operateType="operateType"
             :isHideConfim="isHideConfim"
+            details="details"
             v-bind:style="styleComfirm">
         </v-confirm-popover-modal>
 
@@ -331,26 +332,26 @@
             :isHideOperateModal="isHideOperateModal"
             :type="type"
             v-bind:style="styleOperateSuccess">
-        </v-operate-success-modal>-->
+        </v-operate-success-modal>
     </div>
 </template>
 <script>
-    //import vNav from "@/components/common/Nav"
-    //import vPop from "@/components/common/Pop"
-    //import InfoTable from "@/components/common/InfoTable"
-    //import ConfirmBtn from "@/components/common/Button1"
-    //import CancelBtn from "@/components/common/Button2"
-    //import VConfirmPopoverModal from '../components/confirm-popover-modal'
-    //import VOperateSuccessModal from '../components/operate-success'
+    import vNav from "@/components/common/Nav"
+    import vPop from "@/components/common/Pop"
+    import InfoTable from "@/components/common/InfoTable"
+    import ConfirmBtn from "@/components/common/Button1"
+    import CancelBtn from "@/components/common/Button2"
+    import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
+    import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
 
     export default {
         name: 'Review',
         components: {
-            /*vPop,
+            vPop,
             ConfirmBtn,
             CancelBtn,
             VConfirmPopoverModal,
-            VOperateSuccessModal*/
+            VOperateSuccessModal
         },
         data (){
             return {
@@ -414,7 +415,7 @@
             /**
              * 接收来自确认modal框的信息
              * */
-            this.bus.$on('sendConfirmInfo', res => {
+            this.bus.$on('sendDetailsConfirmInfo', res => {
                 this.isHideConfim = true;
 
                 this.type = this.operateType;
@@ -441,7 +442,7 @@
             /**
              * 接收来自取消modal框的信息
              * */
-            this.bus.$on('sendCancelInfo', res => {
+            this.bus.$on('sendDetailsCancelInfo', res => {
                 this.isHideConfim = true;
             });
         },
