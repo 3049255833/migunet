@@ -407,7 +407,35 @@
                     </div>
                 </div>
             </div>
-            <!--支付方式 end-->
+            <!--资费计划-->
+            <div class="form-row">
+                <div class="row-left required">
+                    资费计划：
+                </div>
+                <div class="row-right">
+                    <div class="textarea-module w-700 pd-10" type="text"
+                         @click="chosePlanId">
+                        <table class="table-module" v-if="planIdTableData.length>0">
+                            <thead>
+                            <tr>
+                                <td>计划id</td>
+                                <td>计划名称</td>
+                                <td>计划内容</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="item in planIdTableData">
+                                <td>{{item.planId}}</td>
+                                <td>{{item.planName}}</td>
+                                <td>{{item.planExplain}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <i class="icon icon-select"></i>
+                    </div>
+                </div>
+            </div>
+            <!--btn-group-->
             <div class="form-row">
                 <div class="row-left"></div>
                 <div class="row-right">
@@ -438,6 +466,12 @@
                 <v-channel-id-list :modalName="'channelIdListModal'"></v-channel-id-list>
             </t-modal-sub-container>
         </modal>
+        <!--资费计划id modal-->
+        <modal name="planIdListModal" :width="870" :height="570" @before-close="beforeClose">
+            <t-modal-sub-container :title="'选择资费计划'" :name="'planIdListModal'">
+                <v-plan-id-list :modalName="'planIdListModal'"></v-plan-id-list>
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 <script>
@@ -447,6 +481,7 @@
     import VDate from '@/components/date'
     import VServiceCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/service-code-list.vue'
     import VChannelIdList from  '@/pages/contractProduct/children/contractProductAdd/components/channel-id-list.vue'
+    import VPlanIdList from  '@/pages/contractProduct/children/contractProductAdd/components/plan-id-list.vue'
     //表单注入
     import {required, minLength, maxLength, numeric, between} from 'vuelidate/lib/validators';
 
@@ -464,27 +499,16 @@
                     attributionCode: '',     //归属地编码
                     attributionText: '',     //归属地名称
                     channelIds: '',           //渠道Id
-                    catalogId: '',            //目录Id
+                    catalogId: '1111',            //目录Id
                     isVip: '1',     //是否会员 1：会员 0 ：包月
                     isExperience: '1',         //是否体验产品 1：是 0 ：正式产品
                     expCycleUnitNum: '1',  //体验产品周期数
                     expCycleUnit: '2', //体验产品周期单位 0：天 1：周 2：月 3：年
                     payType: [], //支付方式 1：话费支付 2：第三方支付
-                    pts: [{
-                        serviceCode: '',
-                        price: '',
-                        payType: '',
-                        companyCode: '',
-                        feeType: '',
-                        isReorder: '',
-                        cycleUnitNum: ''
-                    }, {}],
+                    pts: [],
                     ifUseServiceCode: '1',     //是否使用业务代码,
 
-                    businessArea: '',
-                    vipProduct: '1',
-                    repeatBuy: '1',
-                    useCode: '1'
+                    planIds: '',              //资费计划
                 },
                 payType1: {    //接收不了嵌套验证，单独提取出来，最后再添加进去
                     serviceCode: '',
@@ -507,6 +531,7 @@
                     cycleUnitSelect: '0'
 
                 },       //接收不了嵌套验证，单独提取出来，最后再添加进去
+                planIdTableData:[],
                 errorMsg: {
                     productName: '请输入产品名',
                     searchKey: '请输入搜索关键字',
@@ -609,7 +634,13 @@
                 payType: {
                     required
                 },
-                pts: {}
+                //支付数组
+                pts: {},
+                //资费计划
+                planIds:{
+                    required
+                }
+                
                 
                 
                 /*   catalogId: '',           //目录Id
@@ -652,8 +683,8 @@
                 },
             },
 
-            validationGroup: [/*'formData.productName', 'formData.searchKey',*/
-                /* 'formData.effectiveTime','formData.expireTime',*//*'formData.attributionText'*//*'formData.channelIds'*//*'formData.catalogId'*/ 'formData.payType']
+            validationGroup: ['formData.productName', 'formData.searchKey',
+                 'formData.effectiveTime','formData.expireTime','formData.attributionText','formData.channelIds','formData.catalogId', 'formData.payType','formData.planIds']
         },
         computed: {
             ifUseServiceCode(){
@@ -688,15 +719,15 @@
                                 flag = false
                             }
                         } else {
-                            if (!/^\d+$/g.test(this.payType1.cycleUnitNum)) flag = false
+                            if (!/^\d+|-\d+$/g.test(this.payType1.cycleUnitNum)) flag = false
                         }
                     }
 
                     if (this.formData.payType.contains('2')) {
-                        if (!/^\d+$/g.test(this.payType2.price)) {
+                        if (!/^\d+|-\d+$/g.test(this.payType2.price)) {
                             flag = false
                         }
-                        if (!/^\d+$/g.test(this.payType2.cycleUnitNum)) {
+                        if (!/^\d+|-\d+$/g.test(this.payType2.cycleUnitNum)) {
                             flag = false
                         }
                     }
@@ -715,18 +746,24 @@
             VAreaChose,
             VSelectBox,
             VServiceCodeList,
-            VChannelIdList
-
+            VChannelIdList,
+            VPlanIdList
         },
         methods: {
             /**
              * 保存数据
              * */
             save(){
-                /* console.log(this.formData);*/
-                this.$http.post(this.api.getSingleProductList, this.formData, {emulateJSON: true}).then(
+                if(this.formData.payType.contains('1')){
+                    this.formData.pts.push(this.payType1)
+                }
+                if(this.formData.payType.contains('2')){
+                    this.formData.pts.push(this.payType2)
+                }
+                
+                this.$http.post(this.api.saveContractProductOne, this.formData, {emulateJSON: true}).then(
                     res => {
-
+                        
                     }
                 );
             },
@@ -752,11 +789,18 @@
             },
 
             /**
+             * 选择资费计划
+             * */
+            chosePlanId(){
+                this.$modal.show('planIdListModal');
+            },
+
+            /**
              * 跳到下一步
              * */
             nextStep(){
-                this.bus.$emit('curStep', 2);
-                this.$router.push({'name': 'Step2'});
+              /*  this.bus.$emit('curStep', 2);
+                this.$router.push({'name': 'Step2'});*/
 
                 this.save();
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -881,15 +925,14 @@
                     this.payType1.cycleUnit = res.selectOption.optionValue;
                 }
 
-
                 if (res.selectBoxName == 'payType2UnitSelectBox') {              //获取支付方式2 的产品周期
                     this.payType2.cycleUnitSelect = res.selectOption.optionValue;
 
                 }
+
                 if (res.selectBoxName == 'payType2CycleUnitListSelectBox') {     //获取支付方式2 的 单位表
                     this.payType2.cycleUnit = res.selectOption.optionValue;
                 }
-
             });
 
 
@@ -900,11 +943,9 @@
             this.bus.$on('dateBus', res => {
                 if (res.dateName == 'effectiveTime') {
                     this.formData.effectiveTime = res.dateValue;
-                    this.sendOperateData();
                 }
                 if (res.dateName == 'expireTime') {
                     this.formData.expireTime = res.dateValue;
-                    this.sendOperateData();
                 }
             });
 
@@ -931,6 +972,21 @@
                         channelIdArr.push(item.channelId);
                     });
                     this.formData.channelIds = channelIdArr.join('|');
+                }
+            })
+
+            /**
+             * 获取资费计划id的值
+             * */
+            this.bus.$on('planIdBus', res => {
+                //有数据传过来
+                let planIdArr = [];
+                if (res) {
+                    res.forEach(function (item, index) {
+                        planIdArr.push(item.planId);
+                    });
+                    this.formData.planIds = planIdArr.join('|');
+                    this.planIdTableData=res;
                 }
             })
         }

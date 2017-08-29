@@ -82,6 +82,11 @@ module.exports = {
                 target: proxy_service_xl,
                 changeOrigin: true
             },
+            '/contractProduct/saveContractProductOne':{
+                /*保存第一步*/
+                target: proxy_service_xl,
+                changeOrigin: true
+            }
         },
         cssSourceMap: false
     }
