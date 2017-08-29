@@ -307,18 +307,22 @@
                                             <v-select-box w="200"
                                                           :selectTitle="'有限周期'"
                                                           :selectValue="'0'"
-                                                          :selectBoxName="'payType1UnitSelectBox'"
+                                                          :selectBoxName="'payType1CycleUnitSelectBox'"
                                                           v-bind:options="[{optionText:'有限周期',optionValue:'0'},{optionText:'永久有效',optionValue:'1'}]"></v-select-box>
                                         </div>
-                                        <div class="block-dom ">
+                                        <div class="block-dom " v-if="this.payType1.cycleUnitSelect=='0'">
                                             <input class="mr-10 form-input w-80 vt-middle"
-                                                   v-model="formData.cycleUnitNum"
+                                                   v-model="payType1.cycleUnitNum"
+                                                   @input="$v.payType1.cycleUnitNum.$touch()"
+                                                   :class="{'error':$v.formData.cycleUnitNum.$error}"
                                                    type="text">
                                             <div class="layout-inline-middle">
                                                 <v-select-box w="110" :selectTitle="'月'"
                                                               :name="'periodUnitListSelectBox'"
                                                               v-bind:options="periodUnitList"></v-select-box>
                                             </div>
+                                            <span class="error-msg"
+                                                  v-if="$v.payType1.cycleUnitNum.$error">{{errorMsg.payType1.cycleUnitNum}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -490,7 +494,8 @@
                     feeType: '1',
                     isReorder: '0',
                     cycleUnitNum: '-1',
-                    cycleUnit:'2'     //默认月 ：2
+                    cycleUnit:'2',     //默认月 ：2
+                    cycleUnitSelect:'0'
                 },
                 payType2: {},       //接收不了嵌套验证，单独提取出来，最后再添加进去
                 errorMsg: {
@@ -503,7 +508,8 @@
                     catalogId: '请选择产品目录',
                     expCycleUnitNum: '请输入体验产品周期数',
                     payType1:{
-                        price:'请输入数字类型的金额'
+                        price:'请输入数字类型的金额',
+                        cycleUnitNum:'请输入产品周期'
                     }
                 },
                 selectBoxList: {
@@ -806,8 +812,8 @@
                 if (res.selectBoxName == 'effectiveWaySelectBox') {
                     this.formData.effectiveWay = res.selectOption.optionValue;
                 }
-                if (res.selectBoxName == 'payType1UnitSelectBox') {
-                    this.payType.cycleUnitSelect = res.selectOption.optionValue;
+                if (res.selectBoxName == 'payType1CycleUnitSelectBox') {
+                    this.payType1.cycleUnitSelect = res.selectOption.optionValue;
                 }
             });
 
