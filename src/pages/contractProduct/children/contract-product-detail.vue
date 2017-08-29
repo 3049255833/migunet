@@ -321,7 +321,7 @@
             </div>
         </div>
 
-        <!--<v-confirm-popover-modal
+        <v-confirm-popover-modal
             :operateType="operateType"
             :isHideConfim="isHideConfim"
             v-bind:style="styleComfirm">
@@ -331,26 +331,26 @@
             :isHideOperateModal="isHideOperateModal"
             :type="type"
             v-bind:style="styleOperateSuccess">
-        </v-operate-success-modal>-->
+        </v-operate-success-modal>
     </div>
 </template>
 <script>
-    //import vNav from "@/components/common/Nav"
-    //import vPop from "@/components/common/Pop"
-    //import InfoTable from "@/components/common/InfoTable"
-    //import ConfirmBtn from "@/components/common/Button1"
-    //import CancelBtn from "@/components/common/Button2"
-    //import VConfirmPopoverModal from '../components/confirm-popover-modal'
-    //import VOperateSuccessModal from '../components/operate-success'
+    import vNav from "@/components/common/Nav"
+    import vPop from "@/components/common/Pop"
+    import InfoTable from "@/components/common/InfoTable"
+    import ConfirmBtn from "@/components/common/Button1"
+    import CancelBtn from "@/components/common/Button2"
+    import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
+    import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
 
     export default {
         name: 'Review',
         components: {
-            /*vPop,
+            vPop,
             ConfirmBtn,
             CancelBtn,
             VConfirmPopoverModal,
-            VOperateSuccessModal*/
+            VOperateSuccessModal
         },
         data (){
             return {
