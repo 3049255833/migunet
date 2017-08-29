@@ -263,8 +263,10 @@
             /**
              * 获取体验产品周期单位下拉框数据
              * */
-            this.getSelectOption('experienceProductCycle', this).then((res) => {
-                this.formData.dateUnit = res.optionValue;
+            this.bus.$on('selectBoxBus',res=>{
+                if (res.selectBoxName == 'experienceProductCycle') {
+                  this.formData.dateUnit = res.optionValue;
+                }
             });
         }
     }

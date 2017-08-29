@@ -77,11 +77,11 @@
                             变更信息
                         </div>
 
-                        <v-confirm-modal
+                        <!--<v-confirm-modal
                                 :operateType="cProduct.operateType"
                                 :isHideConfim="cProduct.isHideConfim"
                                 :index="index">
-                        </v-confirm-modal>
+                        </v-confirm-modal>-->
 
                         <div class="mr-30 pointer cl-blue" @click="revocation(index)"
                              v-if="cProduct.detailStatus === '1'">撤销</div>
@@ -102,11 +102,11 @@
                               变更信息
                         </div>
 
-                        <v-confirm-modal
+                        <!--<v-confirm-modal
                             :operateType="cProduct.operateType"
                             :isHideConfim="cProduct.isHideConfim"
                             :index="index">
-                        </v-confirm-modal>
+                        </v-confirm-modal>-->
 
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
@@ -156,12 +156,12 @@
                             变更信息
                         </div>
 
-                        <v-confirm-modal
+                        <!--<v-confirm-modal
                             :operateType="cProduct.operateType"
                             :isHideConfim="cProduct.isHideConfim"
                             :index="index"
                         >
-                        </v-confirm-modal>
+                        </v-confirm-modal>-->
 
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
@@ -215,12 +215,12 @@
                           变更信息
                         </div>
 
-                        <v-confirm-modal
+                        <!--<v-confirm-modal
                           :operateType="cProduct.operateType"
                           :isHideConfim="cProduct.isHideConfim"
                           :index="index"
                         >
-                        </v-confirm-modal>
+                        </v-confirm-modal>-->
 
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
@@ -265,11 +265,11 @@
                           详情
                         </div>
 
-                        <v-confirm-modal
+                        <!--<v-confirm-modal
                           :operateType="cProduct.operateType"
                           :isHideConfim="cProduct.isHideConfim"
                           :index="index">
-                        </v-confirm-modal>
+                        </v-confirm-modal>-->
 
                         <div class="mr-30 pointer cl-blue" @click="deleteBtn(index)"
                             v-if="cProduct.detailStatus === ''">删除</div>
@@ -279,18 +279,17 @@
             </tbody>
         </table>
 
-        <v-operate-success-modal
+        <!--<v-operate-success-modal
             :isHideOperateModal="isHideOperateModal"
-            :type="type"
-        >
-        </v-operate-success-modal>
+            :type="type">
+        </v-operate-success-modal>-->
     </div>
 </template>
 <script>
-    import VSearch from '@/components/search'
+    /*import VSearch from '@/components/search'
     import VPaging from '@/components/paging'
-    import VConfirmModal from './confirm-modal'
-    import VOperateSuccessModal from './operate-success'
+    import VConfirmModal from './confirm-popover-modal'
+    import VOperateSuccessModal from './operate-success'*/
     import axios from 'axios'
 
     export default {
@@ -306,10 +305,10 @@
             }
         },
         components: {
-            VSearch,
-            VPaging,
-            VConfirmModal,
-            VOperateSuccessModal
+            /*VSearch,
+           VPaging,
+           VConfirmModal,
+           VOperateSuccessModal*/
         },
         computed: {},
         methods: {
