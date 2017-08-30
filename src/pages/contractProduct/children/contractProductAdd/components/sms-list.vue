@@ -27,7 +27,7 @@
                             </label>
                         </td>
                         <td>
-                            {{smsItem.templateId}}
+                            {{smsItem.id}}
                         </td>
                         <td>
                             {{smsItem.templateContent}}
@@ -58,14 +58,14 @@
         data(){
             return {
                 smsTemplateList: [
-                    {
+                    /*{
                         templateId: '1001',
                         templateContent: '您订购的彩信模板成功'
                     },
                     {
                       templateId: '1002',
                       templateContent: '您订购的动漫模板成功'
-                    }
+                    }*/
                 ],
                 selectPromptSmsItem: {},
                 selectRecommendSmsItem: {}

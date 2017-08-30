@@ -19,19 +19,19 @@
                                            class="checkbox-module single">
                                         <input type="checkbox" name="payType">
 
-                                        <span @click="getProductList(index, item.productId, item.productName)"></span>
+                                        <span @click="getProductList(index, pdContract.id, item.pdContract.productName)"></span>
                                     </label>
 
                                     <label v-else class="radio-module single">
                                         <input type="radio" name="payType">
 
-                                        <span @click="getProductItem(item.productId, item.productName)"></span>
+                                        <span @click="getProductItem(item.pdContract.id, item.pdContract.productName)"></span>
                                     </label>
                                 </td>
 
-                                <td>{{item.productId}}</td>
+                                <td>{{item.pdContract.id}}</td>
 
-                                <td>{{item.productName}}</td>
+                                <td>{{item.pdContract.productName}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -55,7 +55,7 @@
         data(){
             return {
                 productList: [
-                    {
+                    /*{
                         productId: '1001',
                         productName: '2017最热漫画合集',
                         active: false
@@ -64,7 +64,7 @@
                         productId: '1002',
                         productName: '2018最热漫画合集',
                         active: false
-                    }
+                    }*/
                 ],
                 selectMutexProductList: [],
                 selectRelyProductItem: {}
