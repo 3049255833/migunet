@@ -93,6 +93,11 @@ module.exports = {
                 target: proxy_service_xl,
                 changeOrigin: true
             },
+            '/contractProduct/saveContractProductThree': {
+              /*添加产品保存第三步*/
+              target: proxy_service_xl,
+              changeOrigin: true
+            },
         },
         cssSourceMap: false
     }

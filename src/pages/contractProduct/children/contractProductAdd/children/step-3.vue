@@ -2,47 +2,6 @@
     <div class="add-step-3">
         <div class="form-wrap ">
             <div class="form-row">
-                <div class="row-left required">
-                    是否体验产品：
-                </div>
-                <div class="row-right">
-                    <div class="radio-wrap">
-                        <label class="radio-module w-70">
-                            <input value="1" v-model="formData.free" name="free" type="radio">
-                            <span></span>
-                            <span class="txt">是</span>
-                        </label>
-
-                        <label class="radio-module w-70">
-                            <input value="2" v-model="formData.free" name="free" type="radio">
-                            <span></span>
-                            <span class="txt">否</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="row-left required">
-                    体验产品周期：
-                </div>
-                <div class="row-right">
-                    <input v-model="formData.experiencePeriodUnitNum"
-                           class="form-input vt-middle mr-10 w-80"
-                           type="number" placeholder="请选择">
-
-                    <div class="layout-inline-middle">
-                        <div class="inline-dom">
-                            <v-select-box
-                                :w="'105'"
-                                :selectTitle="'天'"
-                                :selectBoxName="'experienceProductCycle'"
-                                v-bind:options="dateUnitList">
-                            </v-select-box>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row">
                 <div class="row-left">
                     限制发送提示短信省份：
                 </div>
@@ -129,14 +88,14 @@
 
                 <div class="row-right">
                     <div class="btn-group">
-                        <div class="btn btn-primary btn-middle" @click="nextStep" >完成</div>
+                        <div class="btn btn-primary btn-middle" @click="nextStep">完成</div>
+
                         <div class="btn btn-default btn-middle" >取消</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        
         <modal name="areaChoseModal" :width="800" :height="440" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'areaChoseModal'">
                 <v-area-chose
@@ -164,8 +123,7 @@
         </modal>
     </div>
 </template>
-<script>
-    import VSelectBox from '@/components/select-box';
+<script type="es6">
     import TModalSubContainer from "@/components/modal-sub-container";
     import VSmsList from '@/pages/contractProduct/children/contractProductAdd/components/sms-list';
     import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose'
@@ -177,30 +135,12 @@
         data(){
             return {
                 formData: {
-                    free: 1,
-                    businessAreaText: '',
-                    businessCode: '',
-                    dateUnit: '0',
-                    experiencePeriodUnitNum: ''
+                    pdContractProductCodes: '',
+                    promptSmsCodes: '',
+                    recommendCodes: '',
+                    mutuallyProductCodes: [],
+                    dependentProductCodes: ''
                 },
-                dateUnitList: [
-                    {
-                        optionText: '天',
-                        optionValue: '0'
-                    },
-                    {
-                        optionText: '周',
-                        optionValue: '1'
-                    },
-                    {
-                        optionText: '月',
-                        optionValue: '2'
-                    },
-                    {
-                        optionText: '年',
-                        optionValue: '3'
-                    }
-                ],
                 smsTitle: '',
                 productSelectTitle: '',
                 productType: '',
@@ -212,7 +152,6 @@
             }
         },
         components: {
-            VSelectBox,
             VAreaChose,
             TModalSubContainer,
             VSmsList,
@@ -220,6 +159,17 @@
             VProductSelectModal
         },
         methods: {
+            /**
+             * 保存数据
+             * */
+            save(){
+
+                this.$http.post(this.api.saveContractProductThree, this.formData, {emulateJSON: true}).then(
+                    res => {
+
+                    }
+                );
+            },
             nextStep(){
                 this.bus.$emit('curStep', 3);
                 this.$router.push({'name': 'Step3'});
@@ -289,15 +239,6 @@
 
                     this.formData.businessAreaText = areaNameArr.join('|');
                     this.formData.businessCode = areaCodeArr.join('|');
-                }
-            });
-
-            /**
-             * 获取体验产品周期单位下拉框数据
-             * */
-            this.bus.$on('selectBoxBus',res=>{
-                if (res.selectBoxName == 'experienceProductCycle') {
-                    this.formData.dateUnit = res.optionValue;
                 }
             });
 

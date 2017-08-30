@@ -28,9 +28,10 @@ let api = {
 
     saveContractProductOne:'contractProduct/saveContractProductOne', //保存第一步
 
+    saveContractProductThree:'/contractProduct/saveContractProductThree', //保存第三步
+
     getSmsTemplateList: 'contractProduct/findSmsTemplate',     //获取短信模板列表
     getContractProductByStatus: 'contractProduct/findContractProductByStatus' //获取短信模板列表
-
 };
 
 for (let key in api) {
