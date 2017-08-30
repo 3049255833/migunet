@@ -137,11 +137,11 @@
                 formData: {
                     //promptSmsAreaText: '',
                     promptSmsAreaCode: '',
-                    pdContractProductCode: '', //第二步添加产品成功返回产品ID，传到第三步。
-                    promptSmsCode: '',
-                    recommendCode: '',
+                    pdContractProductCodes: '', //第二步添加产品成功返回产品ID，传到第三步。
+                    promptSmsCodes: '',
+                    recommendCodes: '',
                     mutuallyProductCodes: [],
-                    dependentProductCode: ''
+                    dependentProductCodes: ''
                 },
                 smsTitle: '',
                 productSelectTitle: '',
@@ -256,12 +256,12 @@
 
                         this.promptSmsItem = res;
 
-                        this.formData.promptSmsCode = this.promptSmsItem.id;
+                        this.formData.promptSmsCodes = this.promptSmsItem.id;
                     } else {
 
                         this.recommendSmsItem = res;
 
-                        this.formData.recommendCode = this.recommendSmsItem.id;
+                        this.formData.recommendCodes = this.recommendSmsItem.id;
                     }
                     //console.log("List111: " + JSON.stringify(res));
                 }
@@ -292,7 +292,7 @@
 
                         this.relyProductItem = res;
 
-                        this.formData.dependentProductCode = this.relyProductItem.id;
+                        this.formData.dependentProductCodes = this.relyProductItem.id;
                     }
                     //console.log("getSelectProduct: " + JSON.stringify(res));
                 }
