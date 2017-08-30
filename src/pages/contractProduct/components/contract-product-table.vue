@@ -276,7 +276,7 @@
             </tbody>
         </table>
 
-        <div v-if="this.contractProductList.length <= 0" class="no-asset-box">
+        <div v-if="contractProductList.length <= 0" class="no-asset-box">
             <img src="../../../assets/no-asset-show.png">
         </div>
 
@@ -301,8 +301,7 @@
             return{
                 count: 0,
                 isHideOperateModal: true,
-                type: '',
-                noData: this.contractProductList.length < 0
+                type: ''
             }
         },
         components: {

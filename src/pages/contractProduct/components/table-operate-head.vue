@@ -64,7 +64,7 @@
         </div>
     </div>
 </template>
-<script>
+<script type="es6">
     import VDate from '@/components/date'
     import VSelectBox from '@/components/select-box'
 
@@ -115,10 +115,6 @@
                     {
                         optionText: '注销',
                         optionValue: '4'
-                    },
-                    {
-                      optionText: '删除',
-                      optionValue: '5'
                     }
                 ],
                 approveStatusOperateList: [
@@ -151,7 +147,7 @@
                         optionValue: '8'
                     },
                     {
-                        optionText: '下线报备报备中',
+                        optionText: '下线报备中',
                         optionValue: ''
                     },
                     {
@@ -210,7 +206,6 @@
                     this.operateData.detailStatus=res.selectOption.optionValue;
                     this.cSendOperateData();
                 }
-
 
                 if(res.selectBoxName == 'cProductCatalogSelectBox'){
                     this.operateData.productCatalog=res.selectOption.optionValue;
