@@ -33,7 +33,9 @@ let api = {
     saveContractProductThree:'contractProduct/saveContractProductThree', //保存第三步
 
     getSmsTemplateList: 'contractProduct/findSmsTemplate',     //获取短信模板列表
-    getContractProductByStatus: 'contractProduct/findContractProductByStatus' //获取短信模板列表
+    getContractProductByStatus: 'contractProduct/findContractProductByStatus', //获取短信模板列表
+
+    updateProductState: 'product/updateProductState' //删除注销产品
 };
 
 for (let key in api) {

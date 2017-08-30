@@ -4,6 +4,7 @@ var path = require('path');
 var proxy_service_xhw = 'http://10.5.2.47:8999';
 var proxy_service_ljy = 'http://10.5.2.119:8080';
 var proxy_service_xl = 'http://10.5.2.19:8080';
+var proxy_service_e = 'http://10.5.2.52:8080';
 
 /*switch (argv[0]) {
  case 'xhw':
@@ -54,7 +55,7 @@ module.exports = {
 
             '/product/getContractProductList': {
                 /*合约产品列表的IP*/
-                target: proxy_service_ljy,
+                target: proxy_service_e,
                 changeOrigin: true
             },
             '/product/contractProductDetail': {
@@ -106,10 +107,15 @@ module.exports = {
                 changeOrigin: true
             },
             '/contractProduct/saveContractProductThree': {
-              /*添加产品保存第三步*/
-              target: proxy_service_xl,
-              changeOrigin: true
+                /*添加产品保存第三步*/
+                target: proxy_service_xl,
+                changeOrigin: true
             },
+            '/product/updateProductState': {
+                /*删除注销产品*/
+                target: proxy_service_e,
+                changeOrigin: true
+            }
         },
         cssSourceMap: false
     }

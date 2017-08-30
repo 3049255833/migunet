@@ -31,7 +31,7 @@
                         id: 43210880000417,
                         productCode: "4321088000007000000017",
                         productName: "自动化测试产品",
-                        onlineStatus: '3',
+                        onlineStatus: '4',
                         detailStatus: '',
                         isShow: false,
                         isHideConfim: true,

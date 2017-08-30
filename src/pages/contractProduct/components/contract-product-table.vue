@@ -268,7 +268,8 @@
                           :index="index">
                         </v-confirm-popover-modal>
 
-                        <div class="mr-30 pointer cl-blue" @click="deleteBtn(index)"
+                        <div class="mr-30 pointer cl-blue"
+                             @click="deleteBtn(index,cProduct.id,cProduct.detailStatus)"
                             v-if="cProduct.detailStatus === ''">删除</div>
                     </div>
                 </td>
@@ -377,10 +378,38 @@
                 this.contractProductList[index].operateType = "撤销";
             },
 
-            deleteBtn(index) {
+            deleteBtn(index, id, detailStatus) {
                 this.contractProductList[index].isHideConfim = false;
 
                 this.contractProductList[index].operateType = "删除";
+
+                console.log("contractProductId: " + id + ', onlineStatus: ' + onlineStatus + ", detailStatus: " + detailStatus);
+
+                /**
+                 * 删除注销产品
+                 * contractProductId 产品 id
+                 * onlineStatus 业务状态5 string
+                 * detailStatus 审批状态可以不传值 string
+                 * */
+                this.$http.get(this.api.updateProductState,
+                    {
+                        params:{
+                            contractProductId:id,
+                            onlineStatus:'5',
+                            detailStatus:detailStatus
+                        }
+                    }).then(response => {
+
+                    let res = response.body;
+
+                    if(res.result.resultCode=='00000000'){
+
+                        console.log("res success: " + JSON.stringify(res));
+                    } else {
+
+                        console.log("res error: " + JSON.stringify(res));
+                    }
+                });
             }
         },
         mounted(){
