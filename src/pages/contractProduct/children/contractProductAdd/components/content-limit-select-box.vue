@@ -3,12 +3,11 @@
         <div class="select-show" :class="{'active':isShow,'error':error}" :style="{width:this.w+'px'}"
         >
             <span class="select-show-txt" v-if="selectText">{{selectText}}</span>
-            <span class="select-show-txt default-text" v-else>{{defaultText}}</span><i
-                class="icon layout-center-y icon-arrow-down"></i>
+            <span class="select-show-txt default-text" v-else>{{defaultText}}</span><i class="icon layout-center-y icon-arrow-down"></i>
         </div>
         <div class="option-mask" :style="{minWidth:this.w+'px'}" :class="{opMask:optionWhatStatus}">
             <div class="option-item" @click.stop="selectItem(option)" v-for="(option,index) in options">
-                {{option.optionText}}
+                {{option.fieldDesc}}
             </div>
         </div>
     </div>
@@ -31,7 +30,7 @@
 
     export default {
         name: 'Select',
-        props: ['selectTitle', 'selectBoxName', 'selectValue', 'defaultTitle', 'w', 'options', 'error'],
+        props: ['selectTitle', 'selectBoxName', 'w','defaultTitle', 'options', 'error'],
         data ()
         {
             return {
@@ -47,8 +46,11 @@
                 selectText: this.selectTitle,
                 defaultText: this.defaultTitle,
                 selectOption: {
-                    optionText: this.selectTitle,
-                    optionValue: this.selectValue
+                    fieldDesc:this.selectTitle,
+                    optionValue:this.selectValue,
+                    tableName:this.tableName,
+                    fieldName:this.fieldName,
+                    valueType:this.valueType,
                 }
             }
         }
@@ -72,11 +74,11 @@
              * 将获取的选项暴露出去
              * */
             selectItem(option){
-                this.selectText = option.optionText;
+                this.selectText = option.fieldDesc;
                 this.isShow = false;
                 this.selectOption = option;
 
-                this.bus.$emit('selectBoxBus', {
+                this.bus.$emit('contentLimitSelectBoxBus', {
                     selectBoxName: this.selectBoxName,
                     selectOption: this.selectOption
                 })
@@ -96,8 +98,16 @@
             }
 
         },
+        watch:{
+            'options'(a,b){
+            }
+        },
         mounted(){
             this.documentHideOption();
+            console.log(Boolean(this.selectTitle));
+            console.log(Boolean(this.selectText));
+            console.log(this.selectText);
+          
         }
     }
 </script>
@@ -110,7 +120,7 @@
         padding-left: 5px;
         border-radius: 0;
         border: 1px solid #dedede;
-        background: url('../../assets/arrow-down.png') no-repeat 90% 11px;
+        background: url('./arrow-down.png') no-repeat 90% 11px;
     }
     
     .select-show {

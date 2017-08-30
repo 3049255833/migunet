@@ -70,23 +70,23 @@
                                     </div>
                                 </div>
                                 <div class="content-limit" v-if="item.contentLimit=='1'">
-                                    <div class="select-group-item">
-                                        <div class="layout-inline-middle mr-10">
+                                    <div v-for="(subItem,subIndex) in item.pmLists" class="select-group-item">
+                                        <div class="layout-inline-middle mr-10" v-if="!subIndex==0">
                                             <v-select-box w="60" selectTitle="并且" selectType="1"
                                                           v-bind:options="['并且','或者']"></v-select-box>
                                         </div>
                                         <div class="layout-inline-middle">
-                                            <v-select-box w="200" selectTitle="内容类型" selectType="1"
-                                                          v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                            <v-content-limit-select-box w="200" selectTitle=""  :defaultTitle="'请选择'"  selectType="1"
+                                                          v-bind:options="pdMatchFiledLists"></v-content-limit-select-box>
                                         </div>
                                         <span class="row-text">等于</span>
                                         <div class="layout-inline-middle">
-                                            <v-select-box w="200" selectTitle="请选择" selectType="1"
+                                            <v-select-box w="200" selectTitle="" defaultTitle="请选择" selectType="1"
                                                           v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
                                         </div>
                                         <div class="layout-inline-middle">
-                                            <i class="icon icon-add-blue"></i>
-                                            <i class="icon icon-del-blue"></i>
+                                            <i class="icon icon-add-blue" @click="addSubItem(index,subIndex)"></i>
+                                            <i class="icon icon-del-blue" @click="delSubItem(index,subIndex)" v-if="!subIndex==0"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -134,6 +134,7 @@
 </template>
 <script>
     import VSelectBox from '@/components/select-box';
+    import VContentLimitSelectBox from '@/pages/contractProduct/children/contractProductAdd/components/content-limit-select-box.vue'
     import VProductCodeList from '../components/product-code-list.vue';
     import TModalSubContainer from "@/components/modal-sub-container";
     import VPlanCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/plan-code-list.vue'
@@ -142,12 +143,27 @@
         data(){
             return {
                 planCodeIndex: 0,
+                
+                pmListIndex:{
+                    index:0,
+                    subIndex:0
+                },
+                
                 formData: {},
                 prmLists: [
                     {
                         isFree: '0',
                         planCodeData: {},
-                        contentLimit: '1'
+                        contentLimit: '1',
+                        pmLists:[
+                            {
+                                tableName:'',
+                                fieldName:'',
+                                operator:'',
+                                valueType:'',
+                                matchValues:''
+                            }
+                        ],
                     }
                 ],
 
@@ -163,7 +179,8 @@
             VSelectBox,
             VProductCodeList,
             TModalSubContainer,
-            VPlanCodeList
+            VPlanCodeList,
+            VContentLimitSelectBox
         },
         methods: {
             nextStep(){
@@ -191,7 +208,26 @@
 
                 })
             },
-
+            
+            /**
+             * 添加子项目
+             * */
+            addSubItem(index,subIndex){
+                console.log(this.prmLists[index])
+                this.prmLists[index].pmLists.splice(subIndex + 1, 0, {
+                    tableName:'',
+                    fieldName:'',
+                    operator:'',
+                    valueType:'',
+                    matchValues:''
+                });
+            },
+            /**
+             * 删除子项目
+             * */
+            delSubItem(index,subIndex){
+                this.prmLists[index].pmLists.splice(subIndex, 1);
+            },
             /**
              * 选择资费计划
              * */
@@ -350,6 +386,7 @@
             &-add-blue {
                 margin: 0 10px;
             }
+            cursor: pointer;
         }
         
         .btn-group {
