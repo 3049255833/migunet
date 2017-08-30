@@ -28,6 +28,10 @@
             </tr>
             </tbody>
         </table>
+
+        <div v-if="productList.length <= 0" class="no-asset-box">
+            <img src="../../../assets/no-asset-show.png">
+        </div>
     </div>
 </template>
 <script>
@@ -69,5 +73,10 @@
         th:nth-child(1) {
             padding-left: 68px !important;
         }
+    }
+
+    .no-asset-box {
+        text-align: center;
+        margin-top: 85px;
     }
 </style>
