@@ -7,7 +7,7 @@
                 </div>
                 <div class="row-right">
                     <input class="form-input pointer w-200"
-                           v-model="formData.businessAreaText"
+                           v-model="formData.promptSmsAreaText"
                            type="text"
                            @click="showAreaChoseModal"
                            readonly
@@ -135,9 +135,9 @@
         data(){
             return {
                 formData: {
-                    businessAreaText: '',
-                    businessCode: '',
-                    pdContractProductCode: '',
+                    //promptSmsAreaText: '',
+                    promptSmsAreaCode: '',
+                    pdContractProductCode: '', //第二步添加产品成功返回产品ID，传到第三步。
                     promptSmsCode: '',
                     recommendCode: '',
                     mutuallyProductCodes: [],
@@ -241,8 +241,8 @@
                         areaCodeArr.push(item.areaCode);
                     });
 
-                    this.formData.businessAreaText = areaNameArr.join('|');
-                    this.formData.businessCode = areaCodeArr.join('|');
+                    //this.formData.promptSmsAreaText = areaNameArr.join('|');
+                    this.formData.promptSmsAreaCode = areaCodeArr.join('|');
                 }
             });
 
