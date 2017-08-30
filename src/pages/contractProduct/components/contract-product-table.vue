@@ -341,7 +341,7 @@
 
                 document.addEventListener('click', function () {
 
-                    if (that.count) {
+                    if (that.contractProductList[that.count]) {
 
                         that.contractProductList[that.count].isShow = false;
                     }
