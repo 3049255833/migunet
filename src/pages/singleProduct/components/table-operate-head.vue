@@ -9,16 +9,16 @@
             <div class="vue-right">
                 <div class="l-space input-wrapper input-wrapper1">
                     <input type="text" class="form-input" placeholder="关键信息搜索"
-                           v-model="operateData.keys"
+                           v-model="operateData.searchKey"
                            @keyup.enter="sendOperateData"/>
                 </div>
                 <div class="l-space l-content-right">
                     <v-select-box
-                          :selectBoxName="'statusSelectBox'"
+                          :selectBoxName="'onlineStatusSelectBox'"
                           :w="70"
                           :selectTitle="'全部'"
-                          :selectValue="'1'"
-                          v-bind:options="statusOperateList">
+                          :selectValue="''"
+                          v-bind:options="onlineStatusOperateList">
                     </v-select-box>
                 </div>
                 <div class="l-space l-content-right">
@@ -26,9 +26,9 @@
                           selectType="1"
                           :w="90"
                           :selectTitle="'全部'"
-                          selectValue="''"
-                          :selectBoxName="'approveStatusSelectBox'"
-                          v-bind:options="approveStatusOperateList">
+                          selectValue=""
+                          :selectBoxName="'detailStatusSelectBox'"
+                          v-bind:options="detailStatusOperateList">
                     </v-select-box>
                 </div>
                 <div class="date-container mr-10">
@@ -45,7 +45,7 @@
 
 <script type="es6">
     /**
-     * 该组件主要提供keys,status,approveStatus,effectiveTime,expireTime
+     * 该组件主要提供searchKey,onlineStatus,detailStatus,effectiveTime,expireTime
      *
      * */
     import VDate from '@/components/date'
@@ -61,73 +61,69 @@
         data () {
             return {
                 operateData:{
-                    keys:'',                  //关键字
-                    status:'0',                //产品状态
-                    approveStatus:'0',         //审批状态
+                    searchKey:'',                  //关键字
+                    onlineStatus:'0',                //产品状态
+                    detailStatus:'0',         //审批状态
                     effectiveTime:'',         //生效时间
                     expireTime:''             //失效时间
                 },
                 isShow: false,
                 keyWord: '',
-                approveStatusOperateList: [
+                detailStatusOperateList: [
                     {
-                        optionText: '全部',
-                        optionValue: '0'
+                        
                     },
                     {
                         optionText: '上线报备中',
-                        optionValue: '1'
+                        optionValue: '3'
                     },
                     {
                         optionText: '上线报备失败',
-                        optionValue: '2'
+                        optionValue: '4'
                     },
                     {
                         optionText: '变更报备中',
-                        optionValue: '3'
+                        optionValue: '7'
                     },
                     {
                         optionText: '变更报备失败',
-                        optionValue: '4'
+                        optionValue: '8'
                     },
                     {
                         optionText: '下线报备中',
-                        optionValue: '5'
+                        optionValue: '9'
                     },
                     {
-                        optionText: '下线报备时报',
-                        optionValue: '6'
+                        optionText: '下线报备失败',
+                        optionValue: '10'
                     }
                 ],
-                statusOperateList: [
+                onlineStatusOperateList: [
                     {
-                        optionText: '全部',
+                        optionText: '草稿',
                         optionValue: '0'
                     },
                     {
-                        optionText: '草稿',
+                        optionText: '上线',
                         optionValue: '1'
                     },
                     {
-                        optionText: '上线',
+                        optionText: '隐藏',
                         optionValue: '2'
                     },
                     {
-                        optionText: '隐藏',
+                        optionText: '下线',
                         optionValue: '3'
                     },
                     {
-                        optionText: '下线',
+                        optionText: '注销',
                         optionValue: '4'
                     },
                     {
-                        optionText: '注销',
+                        optionText: '删除',
                         optionValue: '5'
                     },
-                    {
-                        optionText: '消除',
-                        optionValue: '6'
-                    }
+                  
                 ]
             }
         },
@@ -143,15 +139,13 @@
                 this.bus.$emit('sendOperateDataBus',this.operateData);
             },
             
-            test(){
-                alert(1)
-            },
+           
             /**
              * 点击获取状态
              * */
-            getStatus(str){
+            getOnlineStatus(str){
                 this.getSelectOption(str,this).then((res)=>{
-                    this.operateData.status=res.selectOption.optionValue;
+                    this.operateData.onlineStatus=res.selectOption.optionValue;
                     this.sendOperateData();
                 });
             },
@@ -173,12 +167,12 @@
              * 获取下拉框的值
              * */
             this.bus.$on('selectBoxBus',res=>{
-                if (res.selectBoxName == 'statusSelectBox') {
-                    this.operateData.status=res.selectOption.optionValue;
+                if (res.selectBoxName == 'onlineStatusSelectBox') {
+                    this.operateData.onlineStatus=res.selectOption.optionValue;
                     this.sendOperateData();
                 }
-                if(res.selectBoxName == 'approveStatusSelectBox'){
-                    this.operateData.approveStatus=res.selectOption.optionValue;
+                if(res.selectBoxName == 'detailStatusSelectBox'){
+                    this.operateData.detailStatus=res.selectOption.optionValue;
                     this.sendOperateData();
                 }
             });

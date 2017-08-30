@@ -47,90 +47,17 @@
                             <div class="row-left font-12 required w-100">条件选择：</div>
                             <div class="row-right">
                                 <div class="select-group-item">
-                                    <div class="layout-inline-middle mr-10">
-                                        <v-select-box w="60" selectTitle="并且" selectType="1"
-                                                      v-bind:options="['并且','或者']"></v-select-box>
-                                    </div>
-                                    <div class="layout-inline-middle">
-                                        <v-select-box w="200" selectTitle="内容类型" selectType="1"
-                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
-                                    </div>
-                                    <span class="row-text">等于</span>
-                                    <div class="layout-inline-middle">
-                                        <v-select-box w="200" selectTitle="请选择" selectType="1"
-                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
-                                    </div>
-                                    <div class="layout-inline-middle">
-                                        <i class="icon icon-add-blue"></i>
-                                        <i class="icon icon-del-blue"></i>
-                                    </div>
-                                </div>
-                                <div class="select-group-item">
-                                    <div class="layout-inline-middle mr-10">
-                                        <v-select-box w="60" selectTitle="并且" selectType="1"
-                                                      v-bind:options="['并且','或者']"></v-select-box>
-                                    </div>
-                                    <div class="layout-inline-middle">
-                                        <v-select-box w="200" selectTitle="内容类型" selectType="1"
-                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
-                                    </div>
-                                    <span class="row-text">等于</span>
-                                    <div class="layout-inline-middle">
-                                        <v-select-box w="200" selectTitle="请选择" selectType="1"
-                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
-                                    </div>
-                                    <div class="layout-inline-middle">
-                                        <i class="icon icon-add-blue"></i>
-                                        <i class="icon icon-del-blue"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="item">
-                        <div class="form-row">
-                            <div class="row-left font-12 required w-100"><span class="required"></span>是否免费：</div>
-                            <div class="row-right">
-                                <div class="radio-wrap">
-                                    <label class="radio-module w-70">
-                                        <input value="1" v-model="formData.free" name="free" type="radio">
-                                        <span></span>
-                                        <span class="txt">是</span>
-                                    </label>
-                                    <label class="radio-module w-70">
-                                        <input value="2" v-model="formData.free" name="free" type="radio">
-                                        <span></span>
-                                        <span class="txt">否</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="row-left font-12 required w-100"><span class="required"></span>资费计划：</div>
-                            <div class="row-right">
-                                <textarea placeholder="请选择" readonly></textarea>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="row-left font-12 required w-100"><span class="required"></span>条件选择：</div>
-                            <div class="row-right">
-                                <div class="select-group-item">
-                                    <div class="layout-inline-middle mr-10">
-                                        <v-select-box w="60" selectTitle="并且" selectType="1"
-                                                      v-bind:options="['并且','或者']"></v-select-box>
-                                    </div>
-                                    <div class="layout-inline-middle">
-                                        <v-select-box w="200" selectTitle="内容类型" selectType="1"
-                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
-                                    </div>
-                                    <span class="row-text">等于</span>
-                                    <div class="layout-inline-middle">
-                                        <v-select-box w="200" selectTitle="请选择" selectType="1"
-                                                      v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
-                                    </div>
-                                    <div class="layout-inline-middle">
-                                        <i class="icon icon-add-blue"></i>
-                                        <i class="icon icon-del-blue"></i>
+                                    <div class="radio-wrap">
+                                        <label class="radio-module  w-115">
+                                            <input value="1" v-model="formData.free" name="free" type="radio">
+                                            <span></span>
+                                            <span class="txt">内容限定</span>
+                                        </label>
+                                        <label class="radio-module w-115">
+                                            <input value="2" v-model="formData.free" name="free" type="radio">
+                                            <span></span>
+                                            <span class="txt">产品限定</span>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="select-group-item">
@@ -178,8 +105,18 @@
         data(){
             return {
                 formData: {
-                    free: 1
+                    prmLists:[{
+                        isFree:'',
+                        planCode:'',
+                        isAnd:'',
+                        
+                    }]
+                },
+                postData:{
+                    prmLists:[]
                 }
+                
+                
             }
         },
         components:{

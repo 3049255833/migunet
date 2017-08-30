@@ -77,7 +77,7 @@ module.exports = {
                 target: proxy_service_xl,
                 changeOrigin: true
             },
-            '/contractProduct/findPdContractAttribution': {
+            '/contractProduct/findPdAttribution': {
                 /*获取区域选择列表*/
                 target: proxy_service_xl,
                 changeOrigin: true

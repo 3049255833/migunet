@@ -64,7 +64,7 @@
                 },
                     {
                         "isSubShow": false,
-                        "title": "产品目录管理",
+                        "title": "产品目录表",
                         "haveChildrens": false,
                         "url": "/product_catalog_manage"
                     },

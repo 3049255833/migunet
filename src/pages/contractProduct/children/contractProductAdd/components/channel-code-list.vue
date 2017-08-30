@@ -5,22 +5,20 @@
                 <thead>
                 <tr>
                     <td width="15%">选择</td>
-                    <td width="20%">计划ID</td>
-                    <td>计划名称</td>
-                    <td>计划说明</td>
+                    <td width="20%">渠道编码</td>
+                    <td>渠道名称</td>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(item,index) in planIdList" @click="">
+                <tr v-for="(item,index) in channelCodeList" @click="">
                     <td>
                         <label class="checkbox-module checkbox-single">
-                            <input type="checkbox" :value="index" v-model="planIdCheckbox">
+                            <input type="checkbox" :value="index" v-model="channelCodeCheckbox">
                             <span></span>
                         </label>
                     </td>
-                    <td>{{item.id}}</td>
-                    <td>{{item.planName}}</td>
-                    <td>{{item.planExplain}}</td>
+                    <td>{{item.channelCode}}</td>
+                    <td>{{item.channelName}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -38,31 +36,31 @@
 <script>
     import VPaging from '@/components/paging'
     export default{
-        name: 'PlanIdListModal',
+        name: 'BusinessCodeModal',
         props: {modalName: String},
         data(){
             return {
-                planIdList: [{
+                channelCodeList: [{
                     id: '12345678',
-                    planName: '老司机计划',
-                    planExplain:'三月成为老司机'
+                    channelName: '中国移动',
+                    channelCode:'12345678'
                 }, {
                     id: '12345678',
-                    planName: '老司机计划',
-                    planExplain:'三月成为老司机'
+                    channelName: '中国移动',
+                    channelCode:'12345678'
                 }],
 
 
-                planIdData: [],
+                channelCodeData: [],
 
-                planIdCheckbox: []
+                channelCodeCheckbox: []
             }
         },
         components: {
             VPaging
         },
         methods: {
-            getPlanIdList(){
+            getChannelCodeList(){
                 /*this.$http.get(this.api.getBusinessCodeList, {params: {}}).then(response => {
                  let res = response.body;
                  if (res.result.resultCode == '00000000') {
@@ -75,34 +73,33 @@
                  })*/
             },
 
-
+        
 
             /**
              * 保存数据
              * */
             saveData(){
                 let that=this;
-                that.planIdCheckbox.forEach(function (item, index) {
-                    that.planIdData.push({
-                        planId:that.planIdList[item].id,
-                        planName:that.planIdList[item].planName,
-                        planExplain:that.planIdList[item].planExplain
+                that.channelCodeCheckbox.forEach(function (item, index) {
+                    that.channelCodeData.push({
+                        channelCode:that.channelCodeList[item].channelCode,
+                        channelName:that.channelCodeList[item].channelName
                     })
                 });
-                this.bus.$emit('planIdBus', this.planIdData);
+                this.bus.$emit('channelCodeBus', this.channelCodeData);
                 this.$modal.hide(this.modalName);
             }
         },
         watch:{
-
+           
         },
         computed: {
             ifHasData(){
-                return this.planIdCheckbox.length > 0;
+                return this.channelCodeCheckbox.length > 0;
             }
         },
         mounted(){
-            this.getPlanIdList();
+            this.getChannelCodeList();
         }
     }
 </script>
@@ -159,7 +156,7 @@
             }
         }
         tr {
-            
+           
         }
     }
     
