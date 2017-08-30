@@ -136,8 +136,8 @@
             return {
                 formData: {
                     //promptSmsAreaText: '',
-                    promptSmsAreaCode: '',
-                    pdContractProductCodes: '', //第二步添加产品成功返回产品ID，传到第三步。
+                    //promptSmsAreaCode: '',
+                    //pdContractProductCodes: '', //第二步添加产品成功返回产品ID，传到第三步。
                     promptSmsCodes: '',
                     recommendCodes: '',
                     mutuallyProductCodes: [],
@@ -166,7 +166,7 @@
              * */
             save(){
 
-                console.log("formata1: " + JSON.stringify(this.formData));
+                console.log("formata: " + JSON.stringify(this.formData));
 
                 this.$http.post(this.api.saveContractProductThree, this.formData, {emulateJSON: true}).then(
                     res => {
