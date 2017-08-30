@@ -26,32 +26,7 @@
         },
         data() {
             return{
-                contractProductList:[
-                    {
-                        contractCode:"1001",
-                        contractName:"动漫1",
-                        onlineStatus:"0",
-                        cpCode:"101",
-                        detailStatus:"1",
-                        fee:"资费",
-                        isHideConfim: true,
-                        operateType: '',
-                        isShow: false,
-                        id: '1001'
-                    },
-                    {
-                        contractCode:"1002",
-                        contractName:"动漫2",
-                        cpCode:"102",
-                        onlineStatus:"1",
-                        detailStatus:"6",
-                        fee:"资费",
-                        isHideConfim: true,
-                        operateType: '',
-                        isShow: false,
-                        id: '1002'
-                    }
-                ],
+                contractProductList:[],
                 postData:{
                     keys:'',
                     onlineStatus:1,
@@ -142,7 +117,7 @@
 
                         this.totalItem= this.contractProductList.length;
 
-                        //console.log("cPList2: " + JSON.stringify(this.contractProductList));
+                        //console.log("cPList: " + JSON.stringify(this.contractProductList));
 
                     } else {
 

@@ -12,10 +12,8 @@
             </thead>
             <tbody>
                 <tr v-for="(cProduct,index) in contractProductList">
-                <td> {{cProduct.contractName}}</td>
+                <td> {{cProduct.productName}}</td>
                 <td> {{cProduct.id}}</td>
-                <td> {{cProduct.cpCode}}</td>
-                <td> {{cProduct.fee}}</td>
 
                 <td v-if="cProduct.onlineStatus == 0">
                     草稿
@@ -35,6 +33,7 @@
                 <td v-else-if="cProduct.onlineStatus == 5">
                     删除
                 </td>
+                <td v-else></td>
 
                 <td v-if="cProduct.detailStatus == 1">
                     上线审批中
@@ -88,7 +87,7 @@
                     <div class="operate-list clearfix"
                          v-else-if="cProduct.onlineStatus === '1'">
 
-                        <div @click="showContractProductDetail(cProduct.id)"
+                        <div @click="showContractProductDetail(cProduct.productCode)"
                              class="mr-30 pointer cl-blue">
                           详情
                         </div>
@@ -142,7 +141,7 @@
                     <div class="operate-list clearfix"
                          v-else-if="cProduct.onlineStatus === '3'">
 
-                        <div @click="showContractProductDetail(cProduct.id)"
+                        <div @click="showContractProductDetail(cProduct.productCode)"
                              class="mr-30 pointer cl-blue">
                             详情
                         </div>
@@ -201,7 +200,7 @@
                     <div class="operate-list clearfix"
                          v-else-if="cProduct.onlineStatus === '2'">
 
-                        <div @click="showContractProductDetail(cProduct.id)"
+                        <div @click="showContractProductDetail(cProduct.productCode)"
                              class="mr-30 pointer cl-blue">
                           详情
                         </div>
@@ -258,7 +257,7 @@
                     <div class="operate-list clearfix"
                          v-else-if="cProduct.onlineStatus === '4'">
 
-                        <div @click="showContractProductDetail(cProduct.id)"
+                        <div @click="showContractProductDetail(cProduct.productCode)"
                              class="mr-30 pointer cl-blue">
                           详情
                         </div>
@@ -316,8 +315,8 @@
 
         },
         methods: {
-            showContractProductDetail(id){
-                this.$router.push({'name': 'ContractProductDetail',params: {'id': id}});
+            showContractProductDetail(productCode){
+                this.$router.push({'name': 'ContractProductDetail',params: {'productCode': productCode}});
             },
 
             showSelect(index){
@@ -342,7 +341,7 @@
 
                 document.addEventListener('click', function () {
 
-                    if (that.count || that.count === 0) {
+                    if (that.count) {
 
                         that.contractProductList[that.count].isShow = false;
                     }
