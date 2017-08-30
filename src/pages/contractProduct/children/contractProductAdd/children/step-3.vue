@@ -88,7 +88,7 @@
 
                 <div class="row-right">
                     <div class="btn-group">
-                        <div class="btn btn-primary btn-middle" @click="nextStep">完成</div>
+                        <div class="btn btn-primary btn-middle" @click="save">完成</div>
 
                         <div class="btn btn-default btn-middle" >取消</div>
                     </div>
@@ -135,11 +135,13 @@
         data(){
             return {
                 formData: {
-                    pdContractProductCodes: '',
-                    promptSmsCodes: '',
-                    recommendCodes: '',
+                    businessAreaText: '',
+                    businessCode: '',
+                    pdContractProductCode: '',
+                    promptSmsCode: '',
+                    recommendCode: '',
                     mutuallyProductCodes: [],
-                    dependentProductCodes: ''
+                    dependentProductCode: ''
                 },
                 smsTitle: '',
                 productSelectTitle: '',
@@ -163,6 +165,8 @@
              * 保存数据
              * */
             save(){
+
+                console.log("formata1: " + JSON.stringify(this.formData));
 
                 this.$http.post(this.api.saveContractProductThree, this.formData, {emulateJSON: true}).then(
                     res => {
@@ -251,9 +255,13 @@
                     if(this.smsType === '1') {
 
                         this.promptSmsItem = res;
+
+                        this.formData.promptSmsCode = this.promptSmsItem.id;
                     } else {
 
                         this.recommendSmsItem = res;
+
+                        this.formData.recommendCode = this.recommendSmsItem.id;
                     }
                     //console.log("List111: " + JSON.stringify(res));
                 }
@@ -263,14 +271,28 @@
              * 获取选择的互斥和依赖产品信息
              * */
             this.bus.$on('getSelectProduct', res=> {
+                let mutuallys = [];
+
                 if (res) {
 
                     if(this.productType === '1') {
 
-                      this.mutexProductList = res;
+                        this.mutexProductList = res;
+
+                        res.forEach(function (item, index) {
+
+                            mutuallys.push(item.id);
+                        });
+
+                        this.formData.mutuallyProductCodes = mutuallys.join('|');
+
+                        console.log("mutuallyProductCodes: " + JSON.stringify(this.formData.mutuallyProductCodes));
+
                     } else {
 
-                      this.relyProductItem = res;
+                        this.relyProductItem = res;
+
+                        this.formData.dependentProductCode = this.relyProductItem.id;
                     }
                     //console.log("getSelectProduct: " + JSON.stringify(res));
                 }
