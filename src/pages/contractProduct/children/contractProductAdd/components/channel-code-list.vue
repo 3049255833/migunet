@@ -43,11 +43,11 @@
                 channelCodeList: [{
                     id: '12345678',
                     channelName: '中国移动',
-                    channelCode:'12345678'
+                    channelCode: '12345678'
                 }, {
                     id: '12345678',
                     channelName: '中国移动',
-                    channelCode:'12345678'
+                    channelCode: '12345678'
                 }],
 
 
@@ -61,38 +61,35 @@
         },
         methods: {
             getChannelCodeList(){
-                /*this.$http.get(this.api.getBusinessCodeList, {params: {}}).then(response => {
-                 let res = response.body;
-                 if (res.result.resultCode == '00000000') {
-                 //todo:
-                 this.businessCodeList = res.data;
-                 } else {
-                 
-                 }
-                 
-                 })*/
+                this.$http.get(this.api.findChannel, {params: {}}).then(response => {
+                    let res = response.body;
+                    if (res.result.resultCode == '00000000') {
+                        //todo:
+                        this.businessCodeList = res.data;
+                    } else {
+
+                    }
+
+                })
             },
 
-        
 
             /**
              * 保存数据
              * */
             saveData(){
-                let that=this;
+                let that = this;
                 that.channelCodeCheckbox.forEach(function (item, index) {
                     that.channelCodeData.push({
-                        channelCode:that.channelCodeList[item].channelCode,
-                        channelName:that.channelCodeList[item].channelName
+                        channelCode: that.channelCodeList[item].channelCode,
+                        channelName: that.channelCodeList[item].channelName
                     })
                 });
                 this.bus.$emit('channelCodeBus', this.channelCodeData);
                 this.$modal.hide(this.modalName);
             }
         },
-        watch:{
-           
-        },
+        watch: {},
         computed: {
             ifHasData(){
                 return this.channelCodeCheckbox.length > 0;
@@ -156,7 +153,7 @@
             }
         }
         tr {
-           
+            
         }
     }
     

@@ -51,11 +51,6 @@ module.exports = {
                 changeOrigin: true
             },
 
-            '/contractProduct/findProductCatalog': {
-                /*获取产品目录*/
-                target: proxy_service_xl,
-                changeOrigin: true
-            },
 
             '/product/getContractProductList': {
                 /*合约产品列表的IP*/
@@ -79,6 +74,23 @@ module.exports = {
             },
             '/contractProduct/findPdAttribution': {
                 /*获取区域选择列表*/
+                target: proxy_service_xl,
+                changeOrigin: true
+            },
+            '/contractProduct/findChannel':{
+                /*获取渠道Id*/
+                target: proxy_service_xl,
+                changeOrigin: true
+
+            },
+
+            '/contractProduct/findProductCatalog': {
+                /*获取产品目录*/
+                target: proxy_service_xl,
+                changeOrigin: true
+            },
+            '/contractProduct/findFeePlan': {
+                /*获取产品目录*/
                 target: proxy_service_xl,
                 changeOrigin: true
             },

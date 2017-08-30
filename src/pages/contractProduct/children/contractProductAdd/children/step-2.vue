@@ -11,7 +11,7 @@
             <div class="strategy-type-content">
                 <h3><span class="required">*</span>批假策略类型</h3>
                 <div class="type-list">
-                    <article class="item">
+                    <article class="item" v-for="(item,index) in prmLists">
                         <div class="item-add-del-group">
                             <div>
                                 <i class="icon icon-add-blue"></i>
@@ -25,19 +25,19 @@
                             <div class="row-right">
                                 <div class="radio-wrap">
                                     <label class="radio-module w-70">
-                                        <input value="1" v-model="formData.free" name="free" type="radio">
+                                        <input value="0"  v-model="prmListsIsFree[index]"  type="radio">
                                         <span></span>
-                                        <span class="txt">是</span>
+                                        <span class="txt">收费</span>
                                     </label>
                                     <label class="radio-module w-70">
-                                        <input value="2" v-model="formData.free" name="free" type="radio">
+                                        <input value="1"   v-model="prmListsIsFree[index]"   type="radio">
                                         <span></span>
-                                        <span class="txt">否</span>
+                                        <span class="txt">免费</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="form-row" v-if="prmListsIsFree[index]">
                             <div class="row-left font-12 required w-100">资费计划：</div>
                             <div class="row-right">
                                 <textarea placeholder="请选择" @click="showProductCodeModal" readonly></textarea>
@@ -105,13 +105,9 @@
         data(){
             return {
                 formData: {
-                    prmLists:[{
-                        isFree:'',
-                        planCode:'',
-                        isAnd:'',
-                        
-                    }]
                 },
+                prmLists:[''],
+                prmListsIsFree:['1'],
                 postData:{
                     prmLists:[]
                 }
@@ -135,6 +131,11 @@
             },
             beforeClose(){
 
+            }
+        },
+        watch:{
+            'prmLists'(a,b){
+                alert(1);
             }
         }
     }

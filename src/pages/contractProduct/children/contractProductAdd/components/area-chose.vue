@@ -163,13 +163,16 @@
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo:
-                        this.areaList = res.data;
+                        /*this.areaList = res.data;*/
                     } else {
 
                     }
 
                 })
             }
+        },
+        mounted(){
+            this.getPdAttribution()
         }
     }
 </script>

@@ -26,9 +26,11 @@ let api = {
 
 
     findPdAttribution:'contractProduct/findPdAttribution',          //获取业务归属地
+    findFeePlan:'contractProduct/findFeePlan',                         //获取资费计划
+    findChannel:'contractProduct/findChannel',                        //获取渠道id
     saveContractProductOne:'contractProduct/saveContractProductOne', //保存第一步
 
-    saveContractProductThree:'/contractProduct/saveContractProductThree', //保存第三步
+    saveContractProductThree:'contractProduct/saveContractProductThree', //保存第三步
 
     getSmsTemplateList: 'contractProduct/findSmsTemplate',     //获取短信模板列表
     getContractProductByStatus: 'contractProduct/findContractProductByStatus' //获取短信模板列表

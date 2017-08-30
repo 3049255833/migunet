@@ -45,11 +45,11 @@
                 planCodeList: [{
                     planCode: '12345678',
                     planName: '老司机计划',
-                    planExplain:'三月成为老司机'
+                    planExplain: '三月成为老司机'
                 }, {
                     planCode: '12345678',
                     planName: '老司机计划',
-                    planExplain:'三月成为老司机'
+                    planExplain: '三月成为老司机'
                 }],
 
 
@@ -63,39 +63,36 @@
         },
         methods: {
             getPlanCodeList(){
-                /*this.$http.get(this.api.getBusinessCodeList, {params: {}}).then(response => {
-                 let res = response.body;
-                 if (res.result.resultCode == '00000000') {
-                 //todo:
-                 this.businessCodeList = res.data;
-                 } else {
-                 
-                 }
-                 
-                 })*/
-            },
+                this.$http.get(this.api.findFeePlan).then(response => {
+                    let res = response.body;
+                    if (res.result.resultCode == '00000000') {
+                        //todo:
+                        console.log(res)
+                    } else {
 
+                    }
+
+                })
+            },
 
 
             /**
              * 保存数据
              * */
             saveData(){
-                let that=this;
+                let that = this;
                 that.planCodeCheckbox.forEach(function (item, index) {
                     that.planCodeData.push({
-                        planCode:that.planCodeList[item].planCode,
-                        planName:that.planCodeList[item].planName,
-                        planExplain:that.planCodeList[item].planExplain
+                        planCode: that.planCodeList[item].planCode,
+                        planName: that.planCodeList[item].planName,
+                        planExplain: that.planCodeList[item].planExplain
                     })
                 });
                 this.bus.$emit('planCodeBus', this.planCodeData);
                 this.$modal.hide(this.modalName);
             }
         },
-        watch:{
-
-        },
+        watch: {},
         computed: {
             ifHasData(){
                 return this.planCodeCheckbox.length > 0;
