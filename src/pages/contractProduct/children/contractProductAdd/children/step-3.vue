@@ -2,59 +2,6 @@
     <div class="add-step-3">
         <div class="form-wrap ">
             <div class="form-row">
-                <div class="row-left required">
-                    是否体验产品：
-                </div>
-                <div class="row-right">
-                    <div class="radio-wrap">
-                        <label class="radio-module w-70">
-                            <input value="1"
-                                   v-model="formData.isExperience"
-                                   name="isExperience"
-                                   type="radio">
-                            <span></span>
-                            <span class="txt">是</span>
-                        </label>
-
-                        <label class="radio-module w-70">
-                            <input value="0"
-                                   v-model="formData.isExperience"
-                                   name="free"
-                                   type="radio">
-                            <span></span>
-                            <span class="txt">否</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row" v-if="formData.isExperience=='1'">
-                <div class="row-left required">
-                    体验产品周期：
-                </div>
-                <div class="row-right">
-                    <input v-model="formData.expCycleUnitNum"
-                           class="form-input vt-middle mr-10 w-80"
-                           :class="{'error':$v.formData.expCycleUnitNum.$error}"
-                           @input="$v.formData.expCycleUnitNum.$touch()"
-                           type="number">
-
-                    <div class="layout-inline-middle">
-                        <div class="inline-dom">
-                            <v-select-box
-                                :w="'105'"
-                                :selectTitle="'天'"
-                                :selectBoxName="'experienceProductCycle'"
-                                v-bind:options="dateUnitList">
-                            </v-select-box>
-                        </div>
-                    </div>
-
-                    <span class="error-msg"
-                          v-if="$v.formData.expCycleUnitNum.$error">
-                      {{errorMsg.expCycleUnitNum}}</span>
-                </div>
-            </div>
-            <div class="form-row">
                 <div class="row-left">
                     限制发送提示短信省份：
                 </div>
@@ -141,11 +88,7 @@
 
                 <div class="row-right">
                     <div class="btn-group">
-                        <div class="btn btn-primary btn-middle"
-                             @click="nextStep"
-                              v-if="canSave">完成</div>
-
-                        <div class="btn unable btn-primary btn-middle" v-else>完成</div>
+                        <div class="btn btn-primary btn-middle" @click="nextStep">完成</div>
 
                         <div class="btn btn-default btn-middle" >取消</div>
                     </div>
@@ -153,7 +96,6 @@
             </div>
         </div>
 
-        
         <modal name="areaChoseModal" :width="800" :height="440" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'areaChoseModal'">
                 <v-area-chose
@@ -182,7 +124,6 @@
     </div>
 </template>
 <script type="es6">
-    import VSelectBox from '@/components/select-box';
     import TModalSubContainer from "@/components/modal-sub-container";
     import VSmsList from '@/pages/contractProduct/children/contractProductAdd/components/sms-list';
     import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose'
@@ -190,37 +131,16 @@
 
     import VProductSelectModal from '../components/product-select-modal'
 
-    import {required, numeric, between} from 'vuelidate/lib/validators';
-
     export default{
         data(){
             return {
                 formData: {
-                    businessAreaText: '',
-                    businessCode: '',
-                    dateUnit: '0',
-                    expCycleUnitNum: '1',  //体验产品周期数
-                    expCycleUnit: '2', //体验产品周期单位 0：天 1：周 2：月 3：年
-                    isExperience: '1',    //是否体验产品 1：是 0 ：正式产品
+                    pdContractProductCodes: '',
+                    promptSmsCodes: '',
+                    recommendCodes: '',
+                    mutuallyProductCodes: [],
+                    dependentProductCodes: ''
                 },
-                dateUnitList: [
-                    {
-                        optionText: '天',
-                        optionValue: '0'
-                    },
-                    {
-                        optionText: '周',
-                        optionValue: '1'
-                    },
-                    {
-                        optionText: '月',
-                        optionValue: '2'
-                    },
-                    {
-                        optionText: '年',
-                        optionValue: '3'
-                    }
-                ],
                 smsTitle: '',
                 productSelectTitle: '',
                 productType: '',
@@ -228,29 +148,28 @@
                 promptSmsItem: {},
                 recommendSmsItem: {},
                 mutexProductList: [],
-                relyProductItem: {},
-                errorMsg: {
-                    expCycleUnitNum: '请输入体验产品周期数'
-                }
+                relyProductItem: {}
             }
         },
         components: {
-            VSelectBox,
             VAreaChose,
             TModalSubContainer,
             VSmsList,
             VPaging,
             VProductSelectModal
         },
-        validations: {
-            formData: {
-                expCycleUnitNum: {
-                    required,
-                    numeric
-                }
-            }
-        },
         methods: {
+            /**
+             * 保存数据
+             * */
+            save(){
+
+                this.$http.post(this.api.saveContractProductThree, this.formData, {emulateJSON: true}).then(
+                    res => {
+
+                    }
+                );
+            },
             nextStep(){
                 this.bus.$emit('curStep', 3);
                 this.$router.push({'name': 'Step3'});
@@ -323,15 +242,6 @@
                 }
             });
 
-            /**
-             * 获取体验产品周期单位下拉框数据
-             * */
-            this.bus.$on('selectBoxBus',res=>{
-                if (res.selectBoxName == 'experienceProductCycle') {
-                    this.formData.dateUnit = res.optionValue;
-                }
-            });
-
             /*
             * 获取选择的短信模板信息
             * */
@@ -365,31 +275,6 @@
                     //console.log("getSelectProduct: " + JSON.stringify(res));
                 }
             });
-        },
-        computed: {
-            canSave() {
-                if (this.formData.isExperience == '1') {
-
-                    return this.formData.expCycleUnitNum.length >= 1
-                } else {
-
-                    return true;
-                }
-            }
-        },
-        watch: {
-            'formData.isExperience'(a, b){
-                this.formData.expCycleUnitNum = '';
-
-                if (a == '1') {  //是
-
-                    this.formData.expCycleUnit = '2';
-                    this.formData.expCycleUnitNum = '1';
-
-                } else {
-                    this.formData.expCycleUnit = '';
-                }
-            },
         }
     }
 </script>
