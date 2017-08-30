@@ -448,7 +448,7 @@
             </div>
         </div>
         <!--业务归属地modal-->
-        <modal name="businessAreaModal" :width="800" :height="440" @before-close="beforeClose">
+        <modal name="businessAreaModal" :width="800" :height="520" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'businessAreaModal'">
                 <v-area-chose :modal-name="'businessAreaModal'"
                               :selectType="'single'"></v-area-chose>
@@ -794,6 +794,8 @@
                     }
                 );
             },
+            
+            
             /**
              * 当变量canHideModal为false时，无法关闭弹框
              * */
@@ -935,10 +937,10 @@
              * */
             this.bus.$on('selectBoxBus', res => {
                 if (res.selectBoxName == 'productDistListSelectBox') {
-                    this.formData.expCycleUnit = res.selectOption.optionValue;
+                    this.formData.catalogId = res.selectOption.optionValue;
                 }
                 if (res.selectBoxName == 'expCycleUnitListSelectBox') {
-                    this.formData.catalogId = res.selectOption.optionValue;
+                    this.formData.expCycleUnit = res.selectOption.optionValue;
                 }
                 if (res.selectBoxName == 'effectiveWaySelectBox') {
                     this.formData.effectiveWay = res.selectOption.optionValue;
@@ -1009,13 +1011,14 @@
                 //有数据传过来
                 let planCodeArr = [];
                 if (res) {
-                    res.forEach(function (item, index) {
+                    res.planCodeData.forEach(function (item, index) {
                         planCodeArr.push(item.planCode);
                     });
                     this.formData. pdFeePlanCodes = planCodeArr.join('|');
                     this.planCodeTableData=res;
                 }
-            })
+            });
+            
         }
     }
 </script>

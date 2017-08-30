@@ -67,6 +67,11 @@ module.exports = {
                 target: proxy_service_xl,
                 changeOrigin: true
             },
+            '/contractProduct/findPdMatchFiled':{
+                /*获取匹配字段表*/
+                target: proxy_service_xl,
+                changeOrigin: true
+            },
             '/contractProduct/findSmsTemplate': {
                 /*获取短信模板列表*/
                 target: proxy_service_xl,

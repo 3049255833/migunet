@@ -43,7 +43,7 @@
         </div>
     </div>
 </template>
-<script>
+<script type="es6">
     import VPaging from '@/components/paging'
     export default{
         name: 'serviceCodeModal',
@@ -88,7 +88,7 @@
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo:
-                        /*this.serviceCodeList = res.data;*/
+                        this.serviceCodeList = res.data;
                     } else {
 
                     }
