@@ -52,7 +52,7 @@
                                 <div class="item-img"></div>
                                 <div class="item-txt">
                                     <p>
-                                        {{contractProduct.contractName}}
+                                        {{product.productName}}
                                     </p>
                                     <p>
                                         产品名称
@@ -63,7 +63,7 @@
                                 <div class="item-img"></div>
                                 <div class="item-txt">
                                     <p>
-                                        {{contractProduct.contractCode}}
+                                        {{product.id}}
                                     </p>
                                     <p>
                                         产品ID
@@ -75,7 +75,7 @@
                                 <div class="item-img"></div>
                                 <div class="item-txt">
                                     <p>
-                                        {{contractProduct.detailStatus}}
+                                        {{product.status}}
                                     </p>
                                     <p>
                                         产品状态
@@ -103,12 +103,12 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 产品描述：</span>
                                         <span class="row-right">
-                                            {{contractProduct.describe}}
+                                            {{product.productDesc}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 生效时间：</span>
-                                        <span class="row-right"> {{contractProduct.enableTag}}</span>
+                                        <span class="row-right">{{product.createTime}}</span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 业务归属地：</span>
@@ -125,13 +125,13 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 是否体检产品：</span>
                                         <span class="row-right">
-                                            {{experiencePack.isExperience}}
+
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 创建用户：</span>
                                         <span class="row-right">
-                                            咪咕2019
+                                            {{product.createUser}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
@@ -159,13 +159,13 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 搜索关键字：</span>
                                         <span class="row-right">
-                                            {{contractProduct.keys}}
+
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 失效时间：</span>
                                         <span class="row-right">
-                                            {{contractProduct.endDate}}
+
                                         </span>
                                     </div>
                                     <div class="layout-row">
@@ -183,13 +183,13 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 体验产品周期：</span>
                                         <span class="row-right">
-                                            {{experiencePack.experiencePeriod}}
+
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 创建时间：</span>
                                         <span class="row-right">
-                                            {{contractProduct.createUser}}
+
                                         </span>
                                     </div>
                                     <div class="layout-row">
@@ -201,7 +201,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 合作伙伴：</span>
                                         <span class="row-right">
-                                            {{contractProduct.cpCode}}
+
                                         </span>
                                     </div>
                                     <div class="layout-row no-pb">
@@ -222,13 +222,13 @@
                                     <div class="layout-row">
                                         <span class="row-left"> BOOS计费代码 ：</span>
                                         <span class="row-right">
-                                            {{boss.bossId}}
+
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 计费类型 ：</span>
                                         <span class="row-right">
-                                            {{boss.chargeType}}
+
                                         </span>
                                     </div>
                                     <div class="layout-row scheme-list">
@@ -281,13 +281,13 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 价格(分CN) ：</span>
                                         <span class="row-right">
-                                            {{boss.fee}}
+
                                         </span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 支付方式 ：</span>
                                         <span class="row-right">
-                                            {{boss.payType}}
+
                                         </span>
                                     </div>
                                 </div>
@@ -303,7 +303,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> BOOS计费代码：</span>
                                         <span class="row-right">
-                                            {{boss.bossId}}
+                                            BOOS计费代码
                                         </span>
                                     </div>
                                 </div>
@@ -335,7 +335,7 @@
         </v-operate-success-modal>
     </div>
 </template>
-<script>
+<script type="es6">
     import vNav from "@/components/common/Nav"
     import vPop from "@/components/common/Pop"
     import InfoTable from "@/components/common/InfoTable"
@@ -355,46 +355,10 @@
         },
         data (){
             return {
-                id: this.$route.params.id,
-                contractProduct: {
-                    /*contractCode:"1001",
-                    contractName:"测试产品名",
-                    onlineStatus:"草稿",
-                    detailStatus:"审批状态",
-                    describe:"产品描述",
-                    keys:"搜索关键字",
-                    platformType:"限定发布平台",
-                    productLine:"归属产品线",
-                    cpCode:"合作伙伴",
-                    productObjectType:"产品对象类型",
-                    productType:"产品类型",
-                    enableTag:"生效方式",
-                    startDate:"生效时间",
-                    fee:"价格",
-                    unsubscribeType:"退订方式",
-                    endDate:"失效时间",
-                    subscriptionType:"续订方式",
-                    updateTime:"更新时间",
-                    createUser:"创建用户",
-                    createDate:"创建时间"*/
-                },
-                boss: {
-                    /*bossId:" BOSS计费代码",
-                    fee:"价格",
-                    chargeType:"计费类型",
-                    payType:"支付方式",
-                    chargeStrategy:"计费策略",
-                    promotionStrategy:"优惠策略"*/
-                },
-                experiencePack: {
-                    /*isExperience:"是否体验包",
-                    experiencePeriod:"体验周期",
-                    experienceToFormalId:"体验转正式产品ID",
-                    periodUnit:"周期单位"*/
-                },
-                channel: {
-                    /*channelId:"渠道ID"*/
-                },
+                productCode: this.$route.params.productCode,
+                product: {},
+                payTypes: [],
+                serviceCodes: [],
                 operateType: '',
                 isHideConfim: true,
                 isHideOperateModal: true,
@@ -410,7 +374,7 @@
             }
         },
         created(){
-            this.getContractProductDetail(this.id);
+            this.getContractProductDetail(this.productCode);
 
             /**
              * 接收来自确认modal框的信息
@@ -449,15 +413,15 @@
         methods: {
             /**
              * 获取单品详情
-             * @param contractCode 产品id string
+             * @param productCode 产品 string
              * */
-            getContractProductDetail(id) {
-                console.log("code: " + id);
+            getContractProductDetail(productCode) {
+                console.log("productCode: " + productCode);
 
                 this.$http.get(this.api.getContractProductDetail,
                     {
                         params: {
-                            id: id || ''
+                          productCode: productCode || ''
                         }
                     }).then(response => {
 
@@ -465,15 +429,15 @@
 
                         if (res.result.resultCode == '00000000') {
                             //todo: 注意，返回的字段这里list小写
-                            this.contractProduct = res.contractProduct;
+                            this.product = res.product;
 
-                            this.boss = res.boss;
+                            this.payTypes = res.product.paytypes;
 
-                            this.experiencePack = res.experiencePack;
+                            this.serviceCodes = res.product.serviceCodes;
 
-                            this.channel = res.channel;
+                            //console.log("res: " + JSON.stringify(this.paytypes));
 
-                            //console.log("data: " + JSON.stringify(res));
+                            //console.log("product: " + JSON.stringify(this.product));
 
                         } else {
 
