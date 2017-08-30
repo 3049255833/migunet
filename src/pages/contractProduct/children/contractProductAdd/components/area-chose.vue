@@ -2,97 +2,183 @@
     <div class="business-area-chose">
         <div class="area-content">
             <div class="form-row clearfix no-pd" v-for="(itemRow,rowIndex) in areaList">
-                <div class="area-code">{{itemRow.codeName}}</div>
+                <div class="area-code">{{itemRow.sort}}</div>
                 <ul class="area-list ">
-                   <li v-for="(itemArea,colIndex) in itemRow.list" :class="{'active':itemArea.active}" @click="getArea(rowIndex,colIndex,itemArea.areaName,itemArea.areaCode,itemArea.areaId)">{{itemArea.areaName}}</li>
+                    <li v-for="(itemArea,colIndex) in itemRow.list" :class="{'active':itemArea.active}"
+                        @click="getArea(rowIndex,colIndex,itemArea.attributionName,itemArea. attributionCode,itemArea.id)">
+                        {{itemArea.attributionName}}
+                    </li>
                 </ul>
             </div>
             <div class="btn-group btn-group-center">
-                <div class="btn btn-primary btn-middle-100" :class="{'unable':businessArea.length<1}" @click="saveArea()">确定</div>
+                <div class="btn btn-primary btn-middle-100" :class="{'unable':businessArea.length<1}"
+                     @click="saveArea()">确定
+                </div>
                 <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
             </div>
         </div>
     </div>
 </template>
-
 <script>
-export default{
-    name:'BusinessAreaChose',
-    props: {
-        modalName: String
-    },
-    data(){
-        return{
-            areaNum:0,
-            businessArea:'',
-            areaSelectList:[],
-            areaList:[
-                { codeName:'ABCDEFG',list:[{areaName:'安徽省',areaCode:'551',areaId:'000',active:false},{areaName:'福建省',areaCode:'591',areaId:'000',active:false},{areaName:'甘肃省',areaCode:'931',areaId:'000',active:false},{areaName:'广东省',areaCode:'200',areaId:'000',active:false},{areaName:'广西省',areaCode:'771',areaId:'000',active:false},{areaName:'贵州省',areaCode:'851',areaId:'000',active:false}]},
-                { codeName:'HIJKLMN',list:[{areaName:'海南省',areaCode:'898',areaId:'000',active:false},{areaName:'河北省',areaCode:'311',areaId:'000',active:false},{areaName:'河南省',areaCode:'371',areaId:'000',active:false},{areaName:'黑龙江省',areaCode:'451',areaId:'000',active:false},{areaName:'湖北省',areaCode:'270',areaId:'000',active:false},{areaName:'湖南省',areaCode:'731',areaId:'000',active:false},{areaName:'吉林省',areaCode:'431',areaId:'000',active:false}
-                    ,{areaName:'江苏省',areaCode:'250',areaId:'000',active:false},{areaName:'江西省',areaCode:'791',areaId:'000',active:false},{areaName:'辽宁省',areaCode:'240',areaId:'000',active:false},{areaName:'内蒙古省',areaCode:'471',areaId:'000',active:false}
-                ]},
-                { codeName:'OPQRST',list:[{areaName:'青海省',areaCode:'971',areaId:'000',active:false},{areaName:'山东省',areaCode:'531',areaId:'000',active:false},{areaName:'山西省',areaCode:'351',areaId:'000',active:false},{areaName:'陕西省',areaCode:'290',areaId:'000',active:false},{areaName:'四川省',areaCode:'280',areaId:'000',active:false}]},
-                { codeName:'UVWXYZ',list:[{areaName:'云南省',areaCode:'871',areaId:'000',active:false},{areaName:'浙江省',areaCode:'571',areaId:'000',active:false}]},
-                { codeName:'全国',list:[{areaName:'全国',areaId:'000',active:false,areaCode:'000'}]}
-            ]
-            
-        }
-    },
-    methods:{
-        /**
-         * 获取选中的归属地
-         * */
-        getArea(rowIndex,colIndex,areaName,areaCode,areaId){
-            //单选下才执行
-            /*this.areaList.forEach(function(item){
-               item.list.forEach(function(area){
-                   area.active=false;
-               })
-            });*/
-            this.areaList[rowIndex].list[colIndex].active=!this.areaList[rowIndex].list[colIndex].active;
-            this.businessArea=areaName;
-            
-            //点击push或移除某一项
-            if(this.areaList[rowIndex].list[colIndex].active){
-                this.areaSelectList.push({
-                    areaName:areaName,
-                    areaCode:areaCode,
-                    areaId:areaId
-                });
-            }else{
-                //获取当前数组所在的位置
-                this.areaSelectList.forEach(function(item,index){
-                    if(item.areaCode==areaCode){
-                        this.areaSelectList.splice(index,1);
-                        return
-                    }
-                })
-              
+    export default{
+        name: 'BusinessAreaChose',
+        props: {
+            modalName: String
+        },
+        data(){
+            return {
+                areaNum: 0,
+                businessArea: '',
+                areaSelectList: [],
+                areaList: [
+                    {
+                        sort: 'ABCDEFG',
+                        list: [{attributionName: '安徽省', attributionCode: '551', id: '000', active: false}, {
+                            attributionName: '福建省',
+                            attributionCode: '591',
+                            id: '000',
+                            active: false
+                        }, {attributionName: '甘肃省', attributionCode: '931', id: '000', active: false}, {
+                            attributionName: '广东省',
+                            attributionCode: '200',
+                            id: '000',
+                            active: false
+                        }, {attributionName: '广西省', attributionCode: '771', id: '000', active: false}, {
+                            attributionName: '贵州省',
+                            attributionCode: '851',
+                            id: '000',
+                            active: false
+                        }]
+                    },
+                    {
+                        sort: 'HIJKLMN',
+                        list: [{attributionName: '海南省', attributionCode: '898', id: '000', active: false}, {
+                            attributionName: '河北省',
+                            attributionCode: '311',
+                            id: '000',
+                            active: false
+                        }, {attributionName: '河南省', attributionCode: '371', id: '000', active: false}, {
+                            attributionName: '黑龙江省',
+                            attributionCode: '451',
+                            id: '000',
+                            active: false
+                        }, {attributionName: '湖北省', attributionCode: '270', id: '000', active: false}, {
+                            attributionName: '湖南省',
+                            attributionCode: '731',
+                            id: '000',
+                            active: false
+                        }, {attributionName: '吉林省', attributionCode: '431', id: '000', active: false}
+                            , {attributionName: '江苏省', attributionCode: '250', id: '000', active: false}, {
+                                attributionName: '江西省',
+                                attributionCode: '791',
+                                id: '000',
+                                active: false
+                            }, {attributionName: '辽宁省', attributionCode: '240', id: '000', active: false}, {
+                                attributionName: '内蒙古省',
+                                attributionCode: '471',
+                                id: '000',
+                                active: false
+                            }
+                        ]
+                    },
+                    {
+                        sort: 'OPQRST',
+                        list: [{attributionName: '青海省', attributionCode: '971', id: '000', active: false}, {
+                            attributionName: '山东省',
+                            attributionCode: '531',
+                            id: '000',
+                            active: false
+                        }, {attributionName: '山西省', attributionCode: '351', id: '000', active: false}, {
+                            attributionName: '陕西省',
+                            attributionCode: '290',
+                            id: '000',
+                            active: false
+                        }, {attributionName: '四川省', attributionCode: '280', id: '000', active: false}]
+                    },
+                    {
+                        sort: 'UVWXYZ',
+                        list: [{attributionName: '云南省', attributionCode: '871', id: '000', active: false}, {
+                            attributionName: '浙江省',
+                            attributionCode: '571',
+                            id: '000',
+                            active: false
+                        }]
+                    },
+                    {sort: '全国', list: [{attributionName: '全国', id: '000', active: false, attributionCode: '000'}]}
+                ]
+
             }
         },
-        /**
-         * 取消选择归属地
-         * */
-        cancel(){
-            this.$modal.hide(this.modalName);
-        },
-        /**
-         * 保存归属地
-         * */
-        saveArea(){
-            this.bus.$emit('areaChoseBus',this.areaSelectList);
-            this.$modal.hide(this.modalName);
+        methods: {
+            /**
+             * 获取选中的归属地
+             * */
+            getArea(rowIndex, colIndex, attributionName, attributionCode, id){
+                //单选下才执行
+                /*this.areaList.forEach(function(item){
+                 item.list.forEach(function(area){
+                 area.active=false;
+                 })
+                 });*/
+                this.areaList[rowIndex].list[colIndex].active = !this.areaList[rowIndex].list[colIndex].active;
+                this.businessArea = attributionName;
+
+                //点击push或移除某一项
+                if (this.areaList[rowIndex].list[colIndex].active) {
+                    this.areaSelectList.push({
+                        attributionName: attributionName,
+                        attributionCode: attributionCode,
+                        id: id
+                    });
+                } else {
+                    //获取当前数组所在的位置
+                    this.areaSelectList.forEach(function (item, index) {
+                        if (item.attributionCode == attributionCode) {
+                            this.areaSelectList.splice(index, 1);
+                            return
+                        }
+                    })
+
+                }
+            },
+            /**
+             * 取消选择归属地
+             * */
+            cancel(){
+                this.$modal.hide(this.modalName);
+            },
+            /**
+             * 保存归属地
+             * */
+            saveArea(){
+                this.bus.$emit('areaChoseBus', this.areaSelectList);
+                this.$modal.hide(this.modalName);
+            },
+
+            /**
+             * 获取业务归属地编码
+             * */
+            getPdAttribution(){
+                this.$http.get(this.api.findPdAttribution).then(response => {
+                    let res = response.body;
+                    if (res.result.resultCode == '00000000') {
+                        //todo:
+                        this.areaList = res.data;
+                    } else {
+
+                    }
+
+                })
+            }
         }
     }
-}
 </script>
-
 <style lang='scss' scoped rel='stylesheet/scss'>
-    .area-content{
+    .area-content {
         padding: 22px 39px 28px 25px;
-        .form-row{
+        .form-row {
         }
-        .area-code{
+        .area-code {
             float: left;
             width: 85px;
             margin-right: 20px;
@@ -100,11 +186,11 @@ export default{
             font-size: 14px;
             line-height: 32px;
         }
-        ul{
+        ul {
             width: 600px;
             float: left;
         }
-        li{
+        li {
             float: left;
             width: 76px;
             height: 32px;
@@ -116,14 +202,14 @@ export default{
             font-size: 14px;
             box-sizing: border-box;
             border: 1px solid transparent;
-            &.active{
+            &.active {
                 border: 1px solid #40b6fa;
                 border-radius: 2px;
             }
         }
-        .btn-group{
+        .btn-group {
             text-align: center;
-            .btn:nth-child(1){
+            .btn:nth-child(1) {
                 margin-right: 20px;
             }
         }

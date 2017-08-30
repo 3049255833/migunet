@@ -25,7 +25,7 @@ let api = {
     getBusinessCodeList:'contractProduct/findCharge',           //获取业务代码
 
 
-
+    findPdAttribution:'contractProduct/findPdAttribution',          //获取业务归属地
     saveContractProductOne:'contractProduct/saveContractProductOne', //保存第一步
 
     saveContractProductThree:'/contractProduct/saveContractProductThree', //保存第三步
