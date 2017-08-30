@@ -40,7 +40,7 @@
         props: {modalName: String},
         data(){
             return {
-                channelCodeList: [{
+                channelCodeList: [/*{
                     id: '12345678',
                     channelName: '中国移动',
                     channelCode: '12345678'
@@ -48,7 +48,7 @@
                     id: '12345678',
                     channelName: '中国移动',
                     channelCode: '12345678'
-                }],
+                }*/],
 
 
                 channelCodeData: [],
@@ -65,7 +65,7 @@
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo:
-                        this.businessCodeList = res.data;
+                        this.channelCodeList= res.data;
                     } else {
 
                     }

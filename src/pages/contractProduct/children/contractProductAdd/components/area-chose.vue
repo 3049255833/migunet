@@ -31,7 +31,7 @@
                 businessArea: '',
                 areaSelectList: [],
                 areaList: [
-                    {
+                   /* {
                         sort: 'ABCDEFG',
                         list: [{attributionName: '安徽省', attributionCode: '551', id: '000', active: false}, {
                             attributionName: '福建省',
@@ -104,7 +104,7 @@
                             active: false
                         }]
                     },
-                    {sort: '全国', list: [{attributionName: '全国', id: '000', active: false, attributionCode: '000'}]}
+                    {sort: '全国', list: [{attributionName: '全国', id: '000', active: false, attributionCode: '000'}]}*/
                 ]
 
             }
@@ -163,7 +163,7 @@
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo:
-                        /*this.areaList = res.data;*/
+                        this.areaList = res.data;
                     } else {
 
                     }
@@ -196,6 +196,9 @@
         li {
             float: left;
             width: 76px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
             height: 32px;
             margin-bottom: 20px;
             line-height: 32px;

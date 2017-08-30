@@ -20,7 +20,7 @@
                     </td>
                     <td>{{item.planCode}}</td>
                     <td>{{item.planName}}</td>
-                    <td>{{item.planExplain}}</td>
+                    <td>{{item.planDesc}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -39,17 +39,17 @@
     import VPaging from '@/components/paging'
     export default{
         name: 'planCodeListModal',
-        props: {modalName: String},
+        props: ['modalName','index'],
         data(){
             return {
                 planCodeList: [{
                     planCode: '12345678',
                     planName: '老司机计划',
-                    planExplain: '三月成为老司机'
+                    planDesc: '三月成为老司机'
                 }, {
                     planCode: '12345678',
                     planName: '老司机计划',
-                    planExplain: '三月成为老司机'
+                    planDesc: '三月成为老司机'
                 }],
 
 
@@ -67,7 +67,7 @@
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo:
-                        console.log(res)
+                        this.planCodeList=res.data;
                     } else {
 
                     }
@@ -85,10 +85,10 @@
                     that.planCodeData.push({
                         planCode: that.planCodeList[item].planCode,
                         planName: that.planCodeList[item].planName,
-                        planExplain: that.planCodeList[item].planExplain
+                        planDesc: that.planCodeList[item].planDesc
                     })
                 });
-                this.bus.$emit('planCodeBus', this.planCodeData);
+                this.bus.$emit('planCodeBus',{index:this.index,planCodeData:this.planCodeData});
                 this.$modal.hide(this.modalName);
             }
         },

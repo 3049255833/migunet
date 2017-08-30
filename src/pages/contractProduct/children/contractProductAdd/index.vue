@@ -76,7 +76,7 @@
                             _resData.forEach(function (item, index) {
                                 vm.initData.productDistList.push({
                                     optionText: item.catalogName,
-                                    optionValue: item.catalogId
+                                    optionValue: item.id
                                 })
                             });
                         }

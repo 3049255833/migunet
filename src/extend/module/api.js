@@ -22,8 +22,8 @@ let api = {
     getContractProductList:'product/getContractProductList',    //获取合约列表
     getContractProductDetail:'product/contractProductDetail',       //获取合约产品详情
     getProductDist:'contractProduct/findProductCatalog',        //获取产品目录
-    getBusinessCodeList:'contractProduct/findCharge',           //获取业务代码
-
+    getServiceCodeList:'contractProduct/findCharge',           //获取业务代码
+    findPdMatchFiled:'contractProduct/findPdMatchFiled',        //获取匹配字段表
 
     findPdAttribution:'contractProduct/findPdAttribution',          //获取业务归属地
     findFeePlan:'contractProduct/findFeePlan',                         //获取资费计划
