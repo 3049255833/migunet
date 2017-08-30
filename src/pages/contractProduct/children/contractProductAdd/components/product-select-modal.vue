@@ -15,17 +15,17 @@
                         <tbody>
                             <tr v-for="(item, index) in productList">
                                 <td>
-                                    <label v-if="productType==='互斥'"
+                                    <label v-if="productType==='1'"
                                            class="checkbox-module single">
                                         <input type="checkbox" name="payType">
 
-                                        <span></span>
+                                        <span @click="getProductList(index, item.product_id, item.product_name)"></span>
                                     </label>
 
                                     <label v-else class="radio-module single">
                                         <input type="radio" name="payType">
 
-                                        <span></span>
+                                        <span @click="getProductItem(item.product_id, item.product_name)"></span>
                                     </label>
                                 </td>
 
@@ -54,7 +54,20 @@
         },
         data(){
             return {
-                productList: []
+                productList: [
+                    {
+                        product_id: '1001',
+                        product_name: '2017最热漫画合集',
+                        active: false
+                    },
+                    {
+                        product_id: '1002',
+                        product_name: '2018最热漫画合集',
+                        active: false
+                    }
+                ],
+                selectMutexProductList: [],
+                selectRelyProductItem: {}
             }
         },
         mounted () {
@@ -87,10 +100,52 @@
             },
 
             confrim() {
+                if(this.productType === '1') {
+
+                    this.bus.$emit('getSelectProduct', this.selectMutexProductList);
+                } else {
+
+                    this.bus.$emit('getSelectProduct', this.selectRelyProductItem);
+                }
+
                 this.$modal.hide(this.modalName);
             },
+
             cancel() {
                 this.$modal.hide(this.modalName);
+            },
+
+            getProductItem(id, content){
+                this.selectRelyProductItem.id = id;
+
+                this.selectRelyProductItem.content = content;
+            },
+
+            getProductList(index, id, content){
+                let that = this;
+
+                this.productList[index].active=!this.productList[index].active;
+
+                if(this.productList[index].active) {
+                    this.selectMutexProductList.push({
+                        id:id,
+                        content:content
+                    });
+                } else {
+
+                    this.selectMutexProductList.forEach(function(item, cIndex){
+
+                        if(item.id == id){
+
+                            that.selectMutexProductList.splice(cIndex, 1);
+
+                            return;
+                        }
+                    })
+
+
+                }
+                //console.log("mutex：" + JSON.stringify(this.mutexProductList));
             }
         }
     }
