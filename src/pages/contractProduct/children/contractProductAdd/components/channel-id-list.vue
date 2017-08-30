@@ -47,8 +47,7 @@
                     id: '12345678',
                     channelName: '中国移动',
                 }],
-
-
+                
                 channelIdData: [],
 
                 channelIdCheckbox: []

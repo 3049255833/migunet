@@ -7,7 +7,7 @@
         </div>
     </div>
 </template>
-<script>
+<script type="es6">
     import VSingleProductTable from '@/pages/singleProduct/components/single-product-table.vue'
     import VPaging from '@/components/paging'
     import VTableOperateHead from '@/pages/singleProduct/components/table-operate-head'
@@ -19,9 +19,9 @@
                 productList:[],
                 operateHeadData:{},
                 postData:{
-                    keys:'',
-                    status:'0',
-                    approveStatus:'0',
+                    searchKey:'',
+                    onlineStatus:'0',
+                    detailStatus:'0',
                     pageSize:'8',
                     pageNumber:'1',
                     effectiveTime:'',
@@ -45,9 +45,9 @@
              * 接收来自操作头部的信息
              * */
             this.bus.$on('sendOperateDataBus', res => {
-                this.postData.keys=res.keys;
-                this.postData.status=res.status;
-                this.postData.approveStatus=res.approveStatus;
+                this.postData.searchKey=res.searchKey;
+                this.postData.onlineStatus=res.onlineStatus;
+                this.postData.detailStatus=res.detailStatus;
                 this.postData.effectiveTime=res.effectiveTime;
                 this.postData.expireTime=res.expireTime;
                 this.getSingleProductList();
@@ -66,9 +66,9 @@
         methods: {
             /**
              * 获取单品产品列表
-             * keys 搜索关键字 string
-             * status 产品状态 string
-             * approveStatus 审批状态 string
+             * searchKey 搜索关键字 string
+             * onlineStatus 产品状态 string
+             * detailStatus 审批状态 string
              * pageSize 每页条数 string
              * pageNumber 页码数 string
              * effectiveTime 生效时间 string
@@ -78,9 +78,9 @@
                 this.$http.get(this.api.getSingleProductList,
                     {
                         params:{
-                            keys:this.postData.keys||'',
-                            status:this.postData.status||'',
-                            approveStatus:this.postData.approveStatus||'',
+                            searchKey:this.postData.searchKey||'',
+                            onlineStatus:this.postData.onlineStatus||'',
+                            detailStatus:this.postData.detailStatus||'',
                             pageSize:this.postData.pageSize||'',
                             pageNumber:this.postData.pageNumber||'',
                             effectiveTime:this.postData.effectiveTime||'',
@@ -90,7 +90,7 @@
                     let res = response.body;
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
-                        this.productList=res.productlist;
+                        this.productList=res.data;
                         this.totalItem=res.pagehelper.totalItem;
                     }else{
                         

@@ -635,7 +635,7 @@
                     required
                 },
                 //支付数组
-                pts: {},
+                pts:{},
                 //资费计划
                 planIds:{
                     required
@@ -755,13 +755,14 @@
              * */
             save(){
                 if(this.formData.payType.contains('1')){
+                    delete this.payType1.companyCode;
                     this.formData.pts.push(this.payType1)
                 }
                 if(this.formData.payType.contains('2')){
                     this.formData.pts.push(this.payType2)
                 }
                 
-                this.$http.post(this.api.saveContractProductOne, this.formData, {emulateJSON: true}).then(
+                this.$http.post(this.api.saveContractProductOne, this.formData).then(
                     res => {
                         
                     }

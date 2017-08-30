@@ -17,9 +17,9 @@
                 <td>{{product.productName}}</td>
                 <td>{{product.productCode}}</td>
                 <td>{{product.cpCode}}</td>
-                <td>{{product.fee}}</td>
-                <td>{{product.status}}</td>
-                <td>{{product.approveStatus}}</td>
+                <td>{{product.contentPrice}}</td>
+                <td>{{product.onlineStatus}}</td>
+                <td>{{product.detailStatus}}</td>
                 <td>
                     <div class="operate-list">
                         <span @click="showSingleProductDetail(product.productCode)" class="pointer mr-30 cl-blue">详情</span>
