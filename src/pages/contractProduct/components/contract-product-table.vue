@@ -5,15 +5,13 @@
             <tr>
                 <th class="td-pl-68">产品名称</th>
                 <th>产品ID</th>
-                <th>CP／TP ID</th>
-                <th>资费(分)</th>
                 <th>业务状态</th>
                 <th>审批状态</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(cProduct,index) in contractProductList">
+                <tr v-for="(cProduct,index) in contractProductList">
                 <td> {{cProduct.contractName}}</td>
                 <td> {{cProduct.id}}</td>
                 <td> {{cProduct.cpCode}}</td>
@@ -279,6 +277,10 @@
             </tbody>
         </table>
 
+        <div v-if="this.contractProductList.length <= 0" class="no-asset-box">
+            <img src="../../../assets/no-asset-show.png">
+        </div>
+
         <v-operate-success-modal
             :isHideOperateModal="isHideOperateModal"
             :type="type">
@@ -300,7 +302,8 @@
             return{
                 count: 0,
                 isHideOperateModal: true,
-                type: ''
+                type: '',
+                noData: this.contractProductList.length < 0
             }
         },
         components: {
@@ -309,7 +312,9 @@
             VConfirmPopoverModal,
             VOperateSuccessModal
         },
-        computed: {},
+        computed: {
+
+        },
         methods: {
             showContractProductDetail(id){
                 this.$router.push({'name': 'ContractProductDetail',params: {'id': id}});
@@ -425,6 +430,11 @@
         td {
             position: relative;
         }
+    }
+
+    .no-asset-box {
+        text-align: center;
+        margin-top: 85px;
     }
 
     .pointer {
