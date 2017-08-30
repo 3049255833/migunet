@@ -19,19 +19,19 @@
                                            class="checkbox-module single">
                                         <input type="checkbox" name="payType">
 
-                                        <span @click="getProductList(index, item.product_id, item.product_name)"></span>
+                                        <span @click="getProductList(index, item.productId, item.productName)"></span>
                                     </label>
 
                                     <label v-else class="radio-module single">
                                         <input type="radio" name="payType">
 
-                                        <span @click="getProductItem(item.product_id, item.product_name)"></span>
+                                        <span @click="getProductItem(item.productId, item.productName)"></span>
                                     </label>
                                 </td>
 
-                                <td>{{item.product_id}}</td>
+                                <td>{{item.productId}}</td>
 
-                                <td>{{item.product_name}}</td>
+                                <td>{{item.productName}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -56,13 +56,13 @@
             return {
                 productList: [
                     {
-                        product_id: '1001',
-                        product_name: '2017最热漫画合集',
+                        productId: '1001',
+                        productName: '2017最热漫画合集',
                         active: false
                     },
                     {
-                        product_id: '1002',
-                        product_name: '2018最热漫画合集',
+                        productId: '1002',
+                        productName: '2018最热漫画合集',
                         active: false
                     }
                 ],
@@ -86,13 +86,17 @@
 
                     let res = response.body;
 
-                    console.log("productList data1: " + JSON.stringify(res));
+                    //console.log("productList data1: " + JSON.stringify(res));
 
                     if (res.result.resultCode == '00000000') {
 
-                      this.productList = res.data;
+                        for(var i = 0; i < res.data.length; i++) {
+                            res.data[i].active = false;
+                        }
 
-                      console.log("productList data2: " + JSON.stringify(this.productList));
+                        this.productList = res.data;
+
+                        console.log("productList data2: " + JSON.stringify(this.productList));
                     } else {
 
                     }
