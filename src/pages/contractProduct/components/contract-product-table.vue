@@ -33,6 +33,7 @@
                 <td v-else-if="cProduct.onlineStatus == 5">
                     删除
                 </td>
+                <td v-else></td>
 
                 <td v-if="cProduct.detailStatus == 1">
                     上线审批中
@@ -340,7 +341,7 @@
 
                 document.addEventListener('click', function () {
 
-                    if (that.count || that.count === 0) {
+                    if (that.count) {
 
                         that.contractProductList[that.count].isShow = false;
                     }
