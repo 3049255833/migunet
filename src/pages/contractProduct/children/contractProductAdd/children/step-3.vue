@@ -8,27 +8,35 @@
                 <div class="row-right">
                     <div class="radio-wrap">
                         <label class="radio-module w-70">
-                            <input value="1" v-model="formData.free" name="free" type="radio">
+                            <input value="1"
+                                   v-model="formData.isExperience"
+                                   name="isExperience"
+                                   type="radio">
                             <span></span>
                             <span class="txt">是</span>
                         </label>
 
                         <label class="radio-module w-70">
-                            <input value="2" v-model="formData.free" name="free" type="radio">
+                            <input value="0"
+                                   v-model="formData.isExperience"
+                                   name="free"
+                                   type="radio">
                             <span></span>
                             <span class="txt">否</span>
                         </label>
                     </div>
                 </div>
             </div>
-            <div class="form-row">
+            <div class="form-row" v-if="formData.isExperience=='1'">
                 <div class="row-left required">
                     体验产品周期：
                 </div>
                 <div class="row-right">
-                    <input v-model="formData.experiencePeriodUnitNum"
+                    <input v-model="formData.expCycleUnitNum"
                            class="form-input vt-middle mr-10 w-80"
-                           type="number" placeholder="请选择">
+                           :class="{'error':$v.formData.expCycleUnitNum.$error}"
+                           @input="$v.formData.expCycleUnitNum.$touch()"
+                           type="number">
 
                     <div class="layout-inline-middle">
                         <div class="inline-dom">
@@ -40,6 +48,10 @@
                             </v-select-box>
                         </div>
                     </div>
+
+                    <span class="error-msg"
+                          v-if="$v.formData.expCycleUnitNum.$error">
+                      {{errorMsg.expCycleUnitNum}}</span>
                 </div>
             </div>
             <div class="form-row">
@@ -129,7 +141,12 @@
 
                 <div class="row-right">
                     <div class="btn-group">
-                        <div class="btn btn-primary btn-middle" @click="nextStep" >完成</div>
+                        <div class="btn btn-primary btn-middle"
+                             @click="nextStep"
+                              v-if="canSave">完成</div>
+
+                        <div class="btn unable btn-primary btn-middle" v-else>完成</div>
+
                         <div class="btn btn-default btn-middle" >取消</div>
                     </div>
                 </div>
@@ -163,7 +180,7 @@
         </modal>
     </div>
 </template>
-<script>
+<script type="es6">
     import VSelectBox from '@/components/select-box';
     import TModalSubContainer from "@/components/modal-sub-container";
     import VSmsList from '@/pages/contractProduct/children/contractProductAdd/components/sms-list';
@@ -172,15 +189,18 @@
 
     import VProductSelectModal from '../components/product-select-modal'
 
+    import {required, numeric, between} from 'vuelidate/lib/validators';
+
     export default{
         data(){
             return {
                 formData: {
-                    free: 1,
                     businessAreaText: '',
                     businessCode: '',
                     dateUnit: '0',
-                    experiencePeriodUnitNum: ''
+                    expCycleUnitNum: '1',  //体验产品周期数
+                    expCycleUnit: '2', //体验产品周期单位 0：天 1：周 2：月 3：年
+                    isExperience: '1',    //是否体验产品 1：是 0 ：正式产品
                 },
                 dateUnitList: [
                     {
@@ -207,7 +227,10 @@
                 promptSmsItem: {},
                 recommendSmsItem: {},
                 mutexProductList: [],
-                relyProductItem: {}
+                relyProductItem: {},
+                errorMsg: {
+                    expCycleUnitNum: '请输入体验产品周期数'
+                }
             }
         },
         components: {
@@ -217,6 +240,14 @@
             VSmsList,
             VPaging,
             VProductSelectModal
+        },
+        validations: {
+            formData: {
+                expCycleUnitNum: {
+                    required,
+                    numeric
+                }
+            }
         },
         methods: {
             nextStep(){
@@ -333,6 +364,31 @@
                     //console.log("getSelectProduct: " + JSON.stringify(res));
                 }
             });
+        },
+        computed: {
+            canSave() {
+                if (this.formData.isExperience == '1') {
+
+                    return this.formData.expCycleUnitNum.length >= 1
+                } else {
+
+                    return true;
+                }
+            }
+        },
+        watch: {
+            'formData.isExperience'(a, b){
+                this.formData.expCycleUnitNum = '';
+
+                if (a == '1') {  //是
+
+                    this.formData.expCycleUnit = '2';
+                    this.formData.expCycleUnitNum = '1';
+
+                } else {
+                    this.formData.expCycleUnit = '';
+                }
+            },
         }
     }
 </script>
