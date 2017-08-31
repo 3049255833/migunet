@@ -70,7 +70,6 @@
                     let res = response.body;
 
                     if(res.result.resultCode=='00000000'){
-                        console.log("businessCodeList: " + JSON.stringify(res));
 
                         for(var i = 0; i < res.service.length; i++) {
 
@@ -78,6 +77,8 @@
                         }
 
                         this.businessCodeList = res.service;
+
+                        console.log("businessCodeList: " + JSON.stringify(this.businessCodeList));
 
                     } else {
 
