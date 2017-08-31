@@ -58,7 +58,6 @@
             this.bus.$on('pagingBus', res => {
                 this.postData.pageNumber=res.pagingValue;
                 this.postData.pageSize=res.pagingSize;
-
                 this.getSingleProductList();
             });
         },

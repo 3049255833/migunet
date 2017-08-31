@@ -789,8 +789,8 @@
                 
                 
                 this.$http.post(this.api.saveContractProductOne, this.postData).then(
-                    res => {
-                        
+                    response => {
+                        let res = response.body;
                     }
                 );
             },

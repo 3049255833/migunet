@@ -76,17 +76,23 @@
                                                           v-bind:options="['并且','或者']"></v-select-box>
                                         </div>
                                         <div class="layout-inline-middle">
-                                            <v-content-limit-select-box w="200" selectTitle=""  :defaultTitle="'请选择'"  selectType="1"
-                                                          v-bind:options="pdMatchFiledLists"></v-content-limit-select-box>
+                                            <v-content-limit-select-box w="200"
+                                                                        :defaultTitle="'请选择'"
+                                                                        :selectTitle="initPdMatchFileDListsOption.fieldDesc"
+                                                                        :pmListIndex="{'index':index,'subIndex':subIndex}"
+                                                                        v-bind:options="pdMatchFiledLists"></v-content-limit-select-box>
                                         </div>
                                         <span class="row-text">等于</span>
                                         <div class="layout-inline-middle">
-                                            <v-select-box w="200" selectTitle="" defaultTitle="请选择" selectType="1"
-                                                          v-bind:options="['上线报备中','上线报备失败','变更报备中']"></v-select-box>
+                                            <v-pd-content-select-box w="200" selectTitle=""
+                                                                     defaultTitle="请选择"
+                                                                     :pmListIndex="{'index':index,'subIndex':subIndex}"
+                                                                     v-bind:options="subItem.pdContentList"></v-pd-content-select-box>
                                         </div>
                                         <div class="layout-inline-middle">
                                             <i class="icon icon-add-blue" @click="addSubItem(index,subIndex)"></i>
-                                            <i class="icon icon-del-blue" @click="delSubItem(index,subIndex)" v-if="!subIndex==0"></i>
+                                            <i class="icon icon-del-blue" @click="delSubItem(index,subIndex)"
+                                               v-if="!subIndex==0"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -135,33 +141,36 @@
 <script>
     import VSelectBox from '@/components/select-box';
     import VContentLimitSelectBox from '@/pages/contractProduct/children/contractProductAdd/components/content-limit-select-box.vue'
+    import VPdContentSelectBox from '@/pages/contractProduct/children/contractProductAdd/components/pd-content-select-box.vue'
     import VProductCodeList from '../components/product-code-list.vue';
     import TModalSubContainer from "@/components/modal-sub-container";
     import VPlanCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/plan-code-list.vue'
+    
 
     export default{
         data(){
             return {
                 planCodeIndex: 0,
-                
-                pmListIndex:{
-                    index:0,
-                    subIndex:0
+
+                pmListIndex: {
+                    index: 0,
+                    subIndex: 0
                 },
-                
+
                 formData: {},
                 prmLists: [
                     {
                         isFree: '0',
                         planCodeData: {},
                         contentLimit: '1',
-                        pmLists:[
+                        pmLists: [
                             {
-                                tableName:'',
-                                fieldName:'',
-                                operator:'',
-                                valueType:'',
-                                matchValues:''
+                                tableName: this.initPdMatchFileDListsOption.tableName,
+                                fieldName: this.initPdMatchFileDListsOption.fieldName,
+                                operator: this.initPdMatchFileDListsOption.operator,
+                                valueType: this.initPdMatchFileDListsOption.valueType,
+                                matchValues: this.initPdMatchFileDListsOption.matchValues,
+                                pdContentList:this.initPdMatchFileDListsOption.tableName.pdContentList
                             }
                         ],
                     }
@@ -170,7 +179,15 @@
                 postData: {
                     prmLists: []
                 },
-                pdMatchFiledLists:[]
+                pdMatchFiledLists: [],
+                initPdMatchFileDListsOption:{
+                    tableName: '',
+                    fieldName: '',
+                    operator: '',
+                    valueType: '',
+                    matchValues:'',
+                    pdContentList:[]
+                }
 
 
             }
@@ -180,7 +197,8 @@
             VProductCodeList,
             TModalSubContainer,
             VPlanCodeList,
-            VContentLimitSelectBox
+            VContentLimitSelectBox,
+            VPdContentSelectBox
         },
         methods: {
             nextStep(){
@@ -201,31 +219,34 @@
                 this.$http.get(this.api.findPdMatchFiled).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
-                        this.pdMatchFiledLists=res.data;
+                        this.pdMatchFiledLists = res.data;
+                        if(this.pdMatchFiledLists.length>0){
+                            this.initPdMatchFileDListsOption = this.pdMatchFiledLists[0];
+                        }
                     } else {
-                        
+
                     }
 
                 })
             },
-            
+
             /**
              * 添加子项目
              * */
-            addSubItem(index,subIndex){
-                console.log(this.prmLists[index])
+            addSubItem(index, subIndex){
                 this.prmLists[index].pmLists.splice(subIndex + 1, 0, {
-                    tableName:'',
-                    fieldName:'',
-                    operator:'',
-                    valueType:'',
-                    matchValues:''
+                    tableName: '',
+                    fieldName: '',
+                    operator: '',
+                    valueType: '',
+                    matchValues: '',
+                    pdContentList:[]
                 });
             },
             /**
              * 删除子项目
              * */
-            delSubItem(index,subIndex){
+            delSubItem(index, subIndex){
                 this.prmLists[index].pmLists.splice(subIndex, 1);
             },
             /**
@@ -248,12 +269,60 @@
                     this.prmLists[index].planCodeData = res.planCodeData[0]
                 }
             });
-            
+
             /**
              * 获取匹配字段表
              * */
             this.findPdMatchFiled();
 
+
+            /**
+             * 选中匹配字段下拉框选项
+             * */
+            this.bus.$on('contentLimitSelectBoxBus', res => {
+                if (res) {
+                    let index = res.pmListIndex.index;
+                    let subIndex = res.pmListIndex.subIndex;
+                    let _postData = {
+                        tableName: '',
+                        fieldName: ''
+                    };
+                    let selectOption = res.selectOption;
+                    this.prmLists[index].pmLists[subIndex].tableName = selectOption.tableName;
+                    this.prmLists[index].pmLists[subIndex].fieldName = selectOption.fieldName;
+                    this.prmLists[index].pmLists[subIndex].valueType = selectOption.valueType;
+                    this.prmLists[index].pmLists[subIndex].operator = selectOption.operator;
+                    this.prmLists[index].pmLists[subIndex].matchValues = selectOption.matchValues;
+
+                    _postData.tableName = this.prmLists[index].pmLists[subIndex].tableName;
+                    _postData.fieldName = this.prmLists[index].pmLists[subIndex].fieldName;
+
+                    //请求接口
+                    this.$http.get(this.api.findPdContent, {
+                        params: _postData
+                    }).then(
+                        response => {
+                            let res = response.body;
+                            if (res.result.resultCode = '00000000') {
+                                this.prmLists[index].pmLists[subIndex].pdContentList=res.data;
+                            }
+                        }
+                    );
+
+                }
+            })
+            
+            /**
+             * 选中内容下拉框选项
+             * */
+            this.bus.$on('pdContentSelectBoxBus', res => {
+                if (res) {
+                    let index = res.pmListIndex.index;
+                    let subIndex = res.pmListIndex.subIndex;
+                    let selectOption = res.selectOption;
+                    
+                }
+            })
         },
         watch: {
             'prmLists'(a, b){
