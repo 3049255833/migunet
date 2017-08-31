@@ -7,7 +7,7 @@
         </div>
         <div class="option-mask" :style="{minWidth:this.w+'px'}" :class="{opMask:optionWhatStatus}">
             <div class="option-item" @click.stop="selectItem(option)" v-for="(option,index) in options">
-                {{option.fieldDesc}}
+                {{option}}
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
                     optionData: this.optionData
                 },
                 isShow: false,
-                selectText:this.selectTitle,
+                selectText: this.selectTitle,
                 defaultText: this.defaultTitle,
                 selectOption: {
                     fieldDesc:this.selectTitle,
@@ -74,11 +74,11 @@
              * 将获取的选项暴露出去
              * */
             selectItem(option){
-                this.selectText = option.fieldDesc;
                 this.isShow = false;
+                this.selectText = option;
                 this.selectOption = option;
 
-                this.bus.$emit('contentLimitSelectBoxBus', {
+                this.bus.$emit('pdContentSelectBoxBus', {
                     pmListIndex:this.pmListIndex,
                     selectOption: this.selectOption
                 })
@@ -100,14 +100,10 @@
         },
         watch:{
             'options'(a,b){
-            },
-            'selectTitle'(a,b){
-                this.selectText=this.selectTitle;
             }
         },
         mounted(){
             this.documentHideOption();
-            console.log(this.selectTitle);
         }
     }
 </script>

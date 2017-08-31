@@ -24,16 +24,18 @@ let api = {
     getProductDist:'contractProduct/findProductCatalog',        //获取产品目录
     getServiceCodeList:'contractProduct/findCharge',           //获取业务代码
     findPdMatchFiled:'contractProduct/findPdMatchFiled',        //获取匹配字段表
+    findPdContent:'contractProduct/findPdContent',               //根据匹配字段获取内容
 
     findPdAttribution:'contractProduct/findPdAttribution',          //获取业务归属地
     findFeePlan:'contractProduct/findFeePlan',                         //获取资费计划
     findChannel:'contractProduct/findChannel',                        //获取渠道id
     saveContractProductOne:'contractProduct/saveContractProductOne', //保存第一步
+    saveContractProductTwo:'contractProduct/saveContractProductTwo', //保存第一步
 
     saveContractProductThree:'contractProduct/saveContractProductThree', //保存第三步
 
     getSmsTemplateList: 'contractProduct/findSmsTemplate',     //获取短信模板列表
-    getContractProductByStatus: 'contractProduct/findContractProductByStatus', //获取短信模板列表
+    getContractProductByStatus: 'contractProduct/findContractProductByStatus', //产品编码
 
     updateProductState: 'product/updateProductState', //删除注销产品
 

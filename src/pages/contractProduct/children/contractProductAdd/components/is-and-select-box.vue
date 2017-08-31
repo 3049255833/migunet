@@ -3,11 +3,12 @@
         <div class="select-show" :class="{'active':isShow,'error':error}" :style="{width:this.w+'px'}"
         >
             <span class="select-show-txt" v-if="selectText">{{selectText}}</span>
-            <span class="select-show-txt default-text" v-else>{{defaultText}}</span><i class="icon layout-center-y icon-arrow-down"></i>
+            <span class="select-show-txt default-text" v-else>{{defaultText}}</span><i
+                class="icon layout-center-y icon-arrow-down"></i>
         </div>
         <div class="option-mask" :style="{minWidth:this.w+'px'}" :class="{opMask:optionWhatStatus}">
             <div class="option-item" @click.stop="selectItem(option)" v-for="(option,index) in options">
-                {{option.fieldDesc}}
+                {{option.optionText}}
             </div>
         </div>
     </div>
@@ -30,7 +31,7 @@
 
     export default {
         name: 'Select',
-        props: ['selectTitle', 'selectBoxName', 'w','defaultTitle', 'options', 'error','pmListIndex'],
+        props: ['selectTitle', 'selectBoxName', 'selectValue', 'defaultTitle', 'w', 'options', 'error','pmListIndex'],
         data ()
         {
             return {
@@ -43,14 +44,11 @@
                     optionData: this.optionData
                 },
                 isShow: false,
-                selectText:this.selectTitle,
+                selectText: this.selectTitle,
                 defaultText: this.defaultTitle,
                 selectOption: {
-                    fieldDesc:this.selectTitle,
-                    optionValue:this.selectValue,
-                    tableName:this.tableName,
-                    fieldName:this.fieldName,
-                    valueType:this.valueType,
+                    optionText: this.selectTitle,
+                    optionValue: this.selectValue
                 }
             }
         }
@@ -74,11 +72,11 @@
              * 将获取的选项暴露出去
              * */
             selectItem(option){
-                this.selectText = option.fieldDesc;
+                this.selectText = option.optionText;
                 this.isShow = false;
                 this.selectOption = option;
 
-                this.bus.$emit('contentLimitSelectBoxBus', {
+                this.bus.$emit('isAndSelectBoxBus', {
                     pmListIndex:this.pmListIndex,
                     selectOption: this.selectOption
                 })
@@ -99,15 +97,14 @@
 
         },
         watch:{
-            'options'(a,b){
-            },
             'selectTitle'(a,b){
-                this.selectText=this.selectTitle;
+                this.selectText=a
             }
         },
+        
         mounted(){
             this.documentHideOption();
-            console.log(this.selectTitle);
+            console.log(this.options);
         }
     }
 </script>

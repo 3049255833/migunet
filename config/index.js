@@ -73,6 +73,11 @@ module.exports = {
                 target: proxy_service_xl,
                 changeOrigin: true
             },
+            '/contractProduct/findPdContent':{
+                /*匹配内容限定*/
+                target: proxy_service_xl,
+                changeOrigin: true
+            },
             '/contractProduct/findSmsTemplate': {
                 /*获取短信模板列表*/
                 target: proxy_service_xl,
@@ -103,6 +108,11 @@ module.exports = {
 
             '/contractProduct/saveContractProductOne':{
                 /*保存第一步*/
+                target: proxy_service_xl,
+                changeOrigin: true
+            },
+            '/contractProduct/saveContractProductTwo':{
+                /*保存第二步*/
                 target: proxy_service_xl,
                 changeOrigin: true
             },

@@ -277,7 +277,7 @@
 
                     if(this.productType === '1') {
 
-                        this.mutexProductList = res;
+                        this.mutexProductList = res.data;
 
                         res.forEach(function (item, index) {
 
@@ -290,7 +290,7 @@
 
                     } else {
 
-                        this.relyProductItem = res;
+                        this.relyProductItem = res.data;
 
                         this.formData.dependentProductCodes = this.relyProductItem.id;
                     }
