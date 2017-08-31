@@ -130,6 +130,11 @@ module.exports = {
                 /*删除注销产品*/
                 target: proxy_service_e,
                 changeOrigin: true
+            },
+            '/productCenter/getBossInfo': {
+                /*获取业务状态列表*/
+                target: proxy_service_ljy,
+                changeOrigin: true
             }
         },
         cssSourceMap: false

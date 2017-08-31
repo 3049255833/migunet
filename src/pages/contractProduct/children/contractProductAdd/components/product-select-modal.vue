@@ -1,42 +1,38 @@
 <template>
     <div class="product-code">
-        <div class="clearfix">
-            <div class="item left">
-                <div class="table-wrap">
-                    <table class="table-module">
-                        <thead>
-                            <tr>
-                                <td>选择</td>
-                                <td>产品id</td>
-                                <td>产品名称</td>
-                            </tr>
-                        </thead>
+        <div class="table-wrap">
+            <table class="table-module">
+                <thead>
+                    <tr>
+                        <td>选择</td>
+                        <td>产品id</td>
+                        <td>产品名称</td>
+                    </tr>
+                </thead>
 
-                        <tbody>
-                            <tr v-for="(item, index) in productList">
-                                <td>
-                                    <label v-if="productType==='1'"
-                                           class="checkbox-module single">
-                                        <input type="checkbox" name="payType">
+                <tbody>
+                    <tr v-for="(item, index) in productList">
+                        <td>
+                            <label v-if="productType==='1'"
+                                   class="checkbox-module single">
+                                <input type="checkbox" name="payType">
 
-                                        <span @click="getProductList(index, pdContract.id, item.pdContract.productName)"></span>
-                                    </label>
+                                <span @click="getProductList(index, item.pdContract.id, item.pdContract.productName)"></span>
+                            </label>
 
-                                    <label v-else class="radio-module single">
-                                        <input type="radio" name="payType">
+                            <label v-else class="radio-module single">
+                                <input type="radio" name="payType">
 
-                                        <span @click="getProductItem(item.pdContract.id, item.pdContract.productName)"></span>
-                                    </label>
-                                </td>
+                                <span @click="getProductItem(item.pdContract.id, item.pdContract.productName)"></span>
+                            </label>
+                        </td>
 
-                                <td>{{item.pdContract.id}}</td>
+                        <td>{{item.pdContract.id}}</td>
 
-                                <td>{{item.pdContract.productName}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        <td>{{item.pdContract.productName}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="btn-group btn-group-center">
@@ -94,7 +90,7 @@
 
                         this.productList = res.data;
 
-                        console.log("productList data2: " + JSON.stringify(this.productList));
+                        //console.log("productList data2: " + JSON.stringify(this.productList));
                     } else {
 
                     }
@@ -154,46 +150,43 @@
 </script>
 <style lang='scss' scoped rel='stylesheet/scss'>
     .product-code {
-        padding: 20px 0;
+        padding: 30px;
 
-        .item {
-            border-right: 1px dashed #EEEEEE;
-            padding: 0 30px 8px;
-            min-height: 390px;
+        .table-wrap {
+            max-height: 400px;
+            overflow-y: auto;
+        }
 
-            &:last-child {
-                border: 0;
+        .sub-title {
+            position: relative;
+            color: #333333;
+            font-size: 14px;
+            padding-bottom: 23px;
+            padding-left: 5px;
+
+            .search-wrap {
+                margin-left: 140px;
+                position: absolute;
+                top: -8px;
+                right: 0;
             }
 
-            .sub-title {
-                position: relative;
-                color: #333333;
-                font-size: 14px;
-                padding-bottom: 23px;
-                padding-left: 5px;
-
-                .search-wrap {
-                    margin-left: 140px;
-                    position: absolute;
-                    top: -8px;
-                    right: 0;
-                }
-
-                .search {
-                    display: inline-block;
-                    width: 34px;
-                    height: 34px;
-                    line-height: 34px;
-                    text-align: center;
-                    border-radius: 3px;
-                    background: #46BAFE;
-                }
+            .search {
+                display: inline-block;
+                width: 34px;
+                height: 34px;
+                line-height: 34px;
+                text-align: center;
+                border-radius: 3px;
+                background: #46BAFE;
             }
         }
 
         .btn-group {
             text-align: center;
-            margin-top: 23px;
+            position: absolute;
+            bottom: 30px;
+            left: 300px;
 
             .btn:nth-child(1) {
                 margin-right: 20px;
