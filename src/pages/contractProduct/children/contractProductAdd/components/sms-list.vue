@@ -8,6 +8,7 @@
                 </div>
             </div>
         </div>
+
         <div class="table-wrap">
             <table class="table-module">
                 <thead>
@@ -35,15 +36,15 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
 
-            <div class="btn-group btn-group-center">
-                <div class="btn btn-primary btn-middle-100" @click="confrim">确定</div>
-                <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
-            </div>
+        <div class="btn-group btn-group-center">
+            <div class="btn btn-primary btn-middle-100" @click="confrim">确定</div>
+            <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
+        </div>
 
-            <div class="paging-wrap">
-                <v-paging :type="'simple'"></v-paging>
-            </div>
+        <div class="paging-wrap">
+            <v-paging :type="'simple'"></v-paging>
         </div>
     </div>
 </template>
@@ -138,10 +139,11 @@
 </script>
 <style lang='scss' scoped rel='stylesheet/scss'>
     .sms-list {
-        position: relative;
         padding: 13px 30px 31px;
+
         .list-modal-head {
             padding-bottom: 13px;
+
             .search {
                 display: inline-block;
                 width: 34px;
@@ -152,17 +154,25 @@
                 background: #46BAFE;
             }
         }
+
         .paging-wrap{
             position: absolute;
             bottom: 32px;
             right: 20px;
+            display: none;
         }
+    }
+
+    .table-wrap {
+        overflow-y: auto;
+        max-height: 360px;
     }
 
     .table-module {
         width: 100%;
         border-collapse: collapse;
         font-size: 14px;
+
         thead {
             tr {
                 width: 100%;
@@ -178,6 +188,7 @@
                 }
             }
         }
+
         tbody {
             tr {
                 border-bottom: 1px solid #EEEEEE;
@@ -194,6 +205,7 @@
                 }
             }
         }
+
         td {
             text-align: left;
         }
@@ -201,7 +213,10 @@
 
     .btn-group {
         text-align: center;
-        margin-top: 23px;
+        position: absolute;
+        bottom: 30px;
+        left: 300px;
+
         .btn:nth-child(1) {
             margin-right: 20px;
         }
