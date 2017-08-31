@@ -40,7 +40,7 @@
         </div>
 
         <div class="btn-group btn-group-center">
-            <div class="btn btn-primary btn-middle-100" @click="confrim">确定</div>
+            <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
     </div>
@@ -48,10 +48,8 @@
 <script type="es6">
     export default{
         name: 'ProductSelectModal',
-        props: {
-            productType: String,
-            modalName: String
-        },
+        props: ['productType','modalName','index'],
+        
         data(){
             return {
                 productList: [
@@ -103,13 +101,13 @@
                 });
             },
 
-            confrim() {
+            confirm() {
                 if(this.productType === '1') {
 
-                    this.bus.$emit('getSelectProduct', this.selectMutexProductList);
+                    this.bus.$emit('getSelectProduct', {index:this.index,data:this.selectMutexProductList});
                 } else {
 
-                    this.bus.$emit('getSelectProduct', this.selectRelyProductItem);
+                    this.bus.$emit('getSelectProduct', {index:this.index,data:this.selectMutexProductList});
                 }
 
                 this.$modal.hide(this.modalName);

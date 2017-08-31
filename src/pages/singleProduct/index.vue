@@ -90,7 +90,7 @@
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
                         this.productList=res.data;
-                        this.totalItem=res.pagehelper.totalItem;
+                        this.totalItem=res.data.total
                     }else{
                         
                     }
