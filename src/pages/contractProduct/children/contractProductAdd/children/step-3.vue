@@ -271,7 +271,7 @@
                     
                     console.log(res)
                 }
-               /* this.$modal.hide('smsListModal');*/
+                this.$modal.hide('smsListModal');
             });
 
             /*

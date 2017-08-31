@@ -109,7 +109,8 @@
                 if (e&&e.target) {
                     e.target.blur();
                 }
-                if(typeof this.pageSelected=='number'){
+               
+                if(/^\d+$/gi.test(this.pageSelected)){
                     if (this.pageSelected > this.allPage) {
                         alert('超过最大页码数');
                     } else {

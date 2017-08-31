@@ -1,7 +1,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path');
 
-var proxy_service_xhw = 'http://10.5.2.47:8999';
+var proxy_service_xhw = 'http://10.5.2.47:8080';
 var proxy_service_ljy = 'http://10.5.2.119:8080';
 var proxy_service_xl = 'http://10.5.2.19:8080';
 var proxy_service_e = 'http://10.5.2.52:8080';
