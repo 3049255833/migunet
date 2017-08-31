@@ -71,7 +71,9 @@
             return {
                 count: 0,
                 isHideOperateModal: true,
-                willDeleteId: '',
+                willDelete: {
+                    id: ''
+                },
                 deleteStatus: ''
             }
         },
@@ -85,9 +87,9 @@
             deleteBtn(index, id) {
                 this.businessCodeList[index].isHideConfim = false;
 
-                this.willDeleteId = id;
+                this.willDelete.id = id;
 
-                console.log("willDeleteId: " + this.willDeleteId);
+                console.log("willDeleteId: " + this.willDelete.id);
             }
         },
         created() {
@@ -99,37 +101,35 @@
 
                 let that = this;
 
-                this.$http.get(this.api.deleteBossInfo,
-                    {
-                        params:{id: this.willDeleteId}
-                    }).then(response => {
+                this.$http.post(this.api.deleteBossInfo, this.willDelete).then(
+                    response => {
+                        let res = response.body;
 
-                    let res = response.body;
+                        console.log("businessCodeList: " + JSON.stringify(res));
 
-                    console.log("businessCodeList: " + JSON.stringify(res));
+                        if(res.resultCode=='00000000'){
 
-                    if(res.result.resultCode=='00000000'){
+                            this.deleteStatus = '成功';
 
-                        this.deleteStatus = '成功';
+                            this.isHideOperateModal = false;
 
-                        this.isHideOperateModal = false;
+                            setTimeout(function () {
+                              that.isHideOperateModal = true;
+                            }, 3000);
 
-                        setTimeout(function () {
-                            that.isHideOperateModal = true;
-                        }, 3000);
+                        } else {
+                            this.deleteStatus = '失败';
 
-                    } else {
-                        this.deleteStatus = '失败';
+                            this.isHideOperateModal = false;
 
-                        this.isHideOperateModal = false;
+                            setTimeout(function () {
+                              that.isHideOperateModal = true;
+                            }, 3000);
 
-                        setTimeout(function () {
-                            that.isHideOperateModal = true;
-                        }, 3000);
-
-                        console.log("res: " + JSON.stringify(res));
+                            console.log("res: " + JSON.stringify(res));
+                        }
                     }
-                });
+                );
             });
 
             /**
