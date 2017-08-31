@@ -23,7 +23,7 @@
                         <td>
                             <label class="radio-module">
                                 <input type="radio" name="smsItem.templateName">
-                                <span @click="getSmsInfo(smsItem.templateId, smsItem.templateContent)"></span>
+                                <span @click="getSmsInfo(smsItem.id, smsItem.templateContent)"></span>
                             </label>
                         </td>
                         <td>
