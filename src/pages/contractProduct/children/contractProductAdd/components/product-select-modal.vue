@@ -19,7 +19,7 @@
                                            class="checkbox-module single">
                                         <input type="checkbox" name="payType">
 
-                                        <span @click="getProductList(index, pdContract.id, item.pdContract.productName)"></span>
+                                        <span @click="getProductList(index, item.pdContract.id, item.pdContract.productName)"></span>
                                     </label>
 
                                     <label v-else class="radio-module single">
@@ -96,7 +96,7 @@
 
                         this.productList = res.data;
 
-                        console.log("productList data2: " + JSON.stringify(this.productList));
+                        //console.log("productList data2: " + JSON.stringify(this.productList));
                     } else {
 
                     }

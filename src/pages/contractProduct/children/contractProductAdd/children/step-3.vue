@@ -7,7 +7,7 @@
                 </div>
                 <div class="row-right">
                     <input class="form-input pointer w-200"
-                           v-model="formData.promptSmsAreaText"
+                           v-model="formData.limitSmsAreas"
                            type="text"
                            @click="showAreaChoseModal"
                            readonly
@@ -96,7 +96,7 @@
             </div>
         </div>
 
-        <modal name="areaChoseModal" :width="800" :height="440" @before-close="beforeClose">
+        <modal name="areaChoseModal" :width="800" :height="520" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'areaChoseModal'">
                 <v-area-chose
                     :modal-name="'areaChoseModal'"
@@ -126,7 +126,7 @@
 <script type="es6">
     import TModalSubContainer from "@/components/modal-sub-container";
     import VSmsList from '@/pages/contractProduct/children/contractProductAdd/components/sms-list';
-    import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose'
+    import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose.vue'
     import VPaging from '@/components/paging'
 
     import VProductSelectModal from '../components/product-select-modal'
@@ -135,8 +135,8 @@
         data(){
             return {
                 formData: {
-                    //promptSmsAreaText: '',
-                    //promptSmsAreaCode: '',
+                    limitSmsAreas: '',
+                    //limitSmsAreasCode: '',
                     //pdContractProductCodes: '', //第二步添加产品成功返回产品ID，传到第三步。
                     promptSmsCodes: '',
                     recommendCodes: '',
@@ -237,12 +237,12 @@
                     let areaNameArr = [];
                     let areaCodeArr = [];
                     res.forEach(function (item, index) {
-                        areaNameArr.push(item.areaName);
-                        areaCodeArr.push(item.areaCode);
+                        areaNameArr.push(item.attributionName);
+                        areaCodeArr.push(item.attributionCode);
                     });
 
-                    //this.formData.promptSmsAreaText = areaNameArr.join('|');
-                    this.formData.promptSmsAreaCode = areaCodeArr.join('|');
+                    this.formData.limitSmsAreas = areaNameArr.join(',');
+                    //this.formData.limitSmsAreasCode = areaCodeArr.join(',');
                 }
             });
 
