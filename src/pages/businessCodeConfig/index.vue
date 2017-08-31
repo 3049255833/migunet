@@ -78,7 +78,7 @@
 
                         this.businessCodeList = res.service;
 
-                        console.log("businessCodeList: " + JSON.stringify(this.businessCodeList));
+                        //console.log("businessCodeList: " + JSON.stringify(this.businessCodeList));
 
                     } else {
 
