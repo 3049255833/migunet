@@ -22,11 +22,11 @@
                     订购成功下发提示短信：
                 </div>
                 <div class="row-right">
-                    <textarea class="textarea-module"
+                    <div class="textarea-module"
                               @click="showPromptSmsModal"
-                              placeholder="请选择">
-                      {{promptSmsItem.content}}
-                    </textarea>
+                              readonly
+                              placeholder="请选择">{{promptSmsItem.content}}
+                    </div>
 
                     <i class="icon icon-select"></i>
                 </div>
@@ -37,11 +37,11 @@
                     订购成功下发推荐短信：
                 </div>
                 <div class="row-right">
-                    <textarea class="textarea-module"
+                    <div class="textarea-module"
                               @click="showRecommendSmsModal"
-                              placeholder="请选择">
-                      {{recommendSmsItem.content}}
-                    </textarea>
+                              readonly
+                              placeholder="请选择"> {{recommendSmsItem.content}}
+                    </div>
 
                     <i class="icon icon-select"></i>
                 </div>
@@ -61,7 +61,7 @@
 
                             <hr/>
 
-                            <div class="second">{{item.id}}</div>
+                            <div class="second">{{item.productCode}}</div>
                         </div>
                     </div>
 
@@ -166,17 +166,22 @@
              * */
             save(){
 
-                console.log("formata: " + JSON.stringify(this.formData));
-
-                this.$http.post(this.api.saveContractProductThree, this.formData, {emulateJSON: true}).then(
+                
+               /* this.$http.post(this.api.saveContractProductThree, this.formData, {emulateJSON: true}).then(
                     res => {
 
                     }
-                );
+                );*/
+                this.bus.$emit('step3Bus',{
+                    step:3,
+                    data:this.formData
+                })
+                
             },
             nextStep(){
                 this.bus.$emit('curStep', 3);
                 this.$router.push({'name': 'Step3'});
+                
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
             /**
@@ -263,8 +268,10 @@
 
                         this.formData.recommendCodes = this.recommendSmsItem.id;
                     }
-                    //console.log("List111: " + JSON.stringify(res));
+                    
+                    console.log(res)
                 }
+               /* this.$modal.hide('smsListModal');*/
             });
 
             /*
@@ -274,25 +281,25 @@
                 let mutuallys = [];
 
                 if (res) {
+                    
 
                     if(this.productType === '1') {
 
                         this.mutexProductList = res.data;
+                        
+                        res.data.forEach(function (item, index) {
 
-                        res.forEach(function (item, index) {
-
-                            mutuallys.push(item.id);
+                            mutuallys.push(item.productCode);
                         });
 
                         this.formData.mutuallyProductCodes = mutuallys.join('|');
-
-                        console.log("mutuallyProductCodes: " + JSON.stringify(this.formData.mutuallyProductCodes));
+                        
 
                     } else {
-
+                        
                         this.relyProductItem = res.data;
 
-                        this.formData.dependentProductCodes = this.relyProductItem.id;
+                        this.formData.dependentProductCodes = this.relyProductItem.productCode;
                     }
                     //console.log("getSelectProduct: " + JSON.stringify(res));
                 }

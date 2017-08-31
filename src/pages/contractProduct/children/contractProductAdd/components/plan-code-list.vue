@@ -13,7 +13,11 @@
                 <tbody>
                 <tr v-for="(item,index) in planCodeList" @click="">
                     <td>
-                        <label class="checkbox-module checkbox-single">
+                        <label class="radio-module checkbox-single" v-if="radioType">
+                            <input type="radio" :value="index" v-model="planCodeRadio">
+                            <span></span>
+                        </label>
+                        <label class="checkbox-module checkbox-single" v-else>
                             <input type="checkbox" :value="index" v-model="planCodeCheckbox">
                             <span></span>
                         </label>
@@ -39,7 +43,7 @@
     import VPaging from '@/components/paging'
     export default{
         name: 'planCodeListModal',
-        props: ['modalName','index'],
+        props: ['modalName', 'index', 'type'],
         data(){
             return {
                 planCodeList: [{
@@ -55,7 +59,9 @@
 
                 planCodeData: [],
 
-                planCodeCheckbox: []
+                planCodeCheckbox: [],
+
+                planCodeRadio: ''
             }
         },
         components: {
@@ -67,7 +73,7 @@
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo:
-                        this.planCodeList=res.data;
+                        this.planCodeList = res.data;
                     } else {
 
                     }
@@ -81,21 +87,35 @@
              * */
             saveData(){
                 let that = this;
-                that.planCodeCheckbox.forEach(function (item, index) {
+                if (this.radioType) {
                     that.planCodeData.push({
-                        planCode: that.planCodeList[item].planCode,
-                        planName: that.planCodeList[item].planName,
-                        planDesc: that.planCodeList[item].planDesc
-                    })
-                });
-                this.bus.$emit('planCodeBus',{index:this.index,planCodeData:this.planCodeData});
-                this.$modal.hide(this.modalName);
+                        planCode: that.planCodeList[parseInt(this.planCodeRadio)].planCode,
+                        planName: that.planCodeList[parseInt(this.planCodeRadio)].planName,
+                        planDesc: that.planCodeList[parseInt(this.planCodeRadio)].planDesc
+                    });
+                    this.bus.$emit('planCodeBus', {index: this.index, planCodeData: this.planCodeData});
+                    this.$modal.hide(this.modalName);
+                } else {
+                    that.planCodeCheckbox.forEach(function (item, index) {
+                        that.planCodeData.push({
+                            planCode: that.planCodeList[item].planCode,
+                            planName: that.planCodeList[item].planName,
+                            planDesc: that.planCodeList[item].planDesc
+                        })
+                    });
+                    this.bus.$emit('planCodeBus', {index: this.index, planCodeData: this.planCodeData});
+                    this.$modal.hide(this.modalName);
+                }
+
             }
         },
         watch: {},
         computed: {
             ifHasData(){
-                return this.planCodeCheckbox.length > 0;
+                return this.planCodeCheckbox.length > 0 || this.planCodeRadio || this.planCodeRadio=='0';
+            },
+            radioType(){
+                return this.type == 'radio'
             }
         },
         mounted(){

@@ -3,38 +3,38 @@
         <div class="table-wrap">
             <table class="table-module">
                 <thead>
-                    <tr>
-                        <td>选择</td>
-                        <td>产品编码</td>
-                        <td>产品名称</td>
-                    </tr>
+                <tr>
+                    <td>选择</td>
+                    <td>产品编码</td>
+                    <td>产品名称</td>
+                </tr>
                 </thead>
-
+                
                 <tbody>
-                    <tr v-for="(item, index) in productList">
-                        <td>
-                            <label v-if="productType==='1'"
-                                   class="checkbox-module single">
-                                <input type="checkbox" name="payType">
-
-                                <span @click="getProductList(index, item.pdContract.productCode, item.pdContract.productName)"></span>
-                            </label>
-
-                            <label v-else class="radio-module single">
-                                <input type="radio" name="payType">
-
-                                <span @click="getProductItem(item.pdContract.productCode, item.pdContract.productName)"></span>
-                            </label>
-                        </td>
-
-                        <td>{{item.pdContract.productCode}}</td>
-
-                        <td>{{item.pdContract.productName}}</td>
-                    </tr>
+                <tr v-for="(item, index) in productList">
+                    <td>
+                        <label v-if="productType==='1'"
+                               class="checkbox-module single">
+                            <input type="checkbox" name="payType">
+                            
+                            <span @click="getProductList(index, item.pdContract.productCode, item.pdContract.productName)"></span>
+                        </label>
+                        
+                        <label v-else class="radio-module single">
+                            <input type="radio" name="payType">
+                            
+                            <span @click="getProductItem(item.pdContract.productCode, item.pdContract.productName)"></span>
+                        </label>
+                    </td>
+                    
+                    <td>{{item.pdContract.productCode}}</td>
+                    
+                    <td>{{item.pdContract.productName}}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
-
+        
         <div class="btn-group btn-group-center">
             <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
@@ -45,20 +45,20 @@
     export default{
         name: 'ProductSelectModal',
         props: ['productType','modalName','index'],
-        
+
         data(){
             return {
                 productList: [
                     /*{
-                        productId: '1001',
-                        productName: '2017最热漫画合集',
-                        active: false
-                    },
-                    {
-                        productId: '1002',
-                        productName: '2018最热漫画合集',
-                        active: false
-                    }*/
+                     productId: '1001',
+                     productName: '2017最热漫画合集',
+                     active: false
+                     },
+                     {
+                     productId: '1002',
+                     productName: '2018最热漫画合集',
+                     active: false
+                     }*/
                 ],
                 selectMutexProductList: [],
                 selectRelyProductItem: {}
@@ -100,10 +100,10 @@
             confirm() {
                 if(this.productType === '1') {
 
-                    this.bus.$emit('getSelectProduct', {index:this.index,data:this.selectMutexProductList});
+                    this.bus.$emit('productSelectStep2Bus', {index:this.index,data:this.selectMutexProductList});
                 } else {
-                    
-                    this.bus.$emit('getSelectProduct', {index:this.index,data: this.selectRelyProductItem});
+
+                    this.bus.$emit('productSelectStep2Bus', {index:this.index,data: this.selectRelyProductItem});
                 }
 
                 this.$modal.hide(this.modalName);
@@ -113,11 +113,11 @@
                 this.$modal.hide(this.modalName);
             },
 
-            getProductItem(productCode, content){
-                this.selectRelyProductItem.productCode = productCode;
+            getProductItem(id, content){
+                this.selectRelyProductItem.productCode = id;
 
                 this.selectRelyProductItem.content = content;
-               
+
             },
 
             getProductList(index, productCode, content){
@@ -134,7 +134,7 @@
 
                     this.selectMutexProductList.forEach(function(item, cIndex){
 
-                        if(item.id == id){
+                        if(item.productCode == productCode){
 
                             that.selectMutexProductList.splice(cIndex, 1);
 
@@ -152,26 +152,26 @@
 <style lang='scss' scoped rel='stylesheet/scss'>
     .product-code {
         padding: 30px;
-
+        
         .table-wrap {
             max-height: 400px;
             overflow-y: auto;
         }
-
+        
         .sub-title {
             position: relative;
             color: #333333;
             font-size: 14px;
             padding-bottom: 23px;
             padding-left: 5px;
-
+            
             .search-wrap {
                 margin-left: 140px;
                 position: absolute;
                 top: -8px;
                 right: 0;
             }
-
+            
             .search {
                 display: inline-block;
                 width: 34px;
@@ -182,13 +182,13 @@
                 background: #46BAFE;
             }
         }
-
+        
         .btn-group {
             text-align: center;
             position: absolute;
             bottom: 30px;
             left: 300px;
-
+            
             .btn:nth-child(1) {
                 margin-right: 20px;
             }

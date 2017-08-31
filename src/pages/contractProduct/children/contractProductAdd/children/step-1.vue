@@ -526,7 +526,7 @@
                     feeType: '1',
                     isReorder: '0',
                     cycleUnitNum: '-1',
-                    cycleUnit: '2',     //默认月 ：2
+                    cycleUnit: '',     //默认月 ：2
                     cycleUnitSelect: '0'
                 },
                 paytype2: {
@@ -692,7 +692,7 @@
             },
 
             validationGroup: ['formData.productName', 'formData.searchKey',
-                 'formData.effectiveTime','formData.expireTime','formData.attributionText','formData.pdChannelCodes', 'formData.paytype','formData.pdFeePlanCodes']
+                 'formData.effectiveTime','formData.expireTime','formData.attributionText','formData.pdChannelCodes','formData.pdFeePlanCodes']
         },
         computed: {
             ifUseServiceCode(){
@@ -715,21 +715,11 @@
                         flag = this.formData.expCycleUnitNum.length >= 1
                     }
 
-                    if (this.formData.paytype.contains('1')) {      //选择了话费支付         金额,业务代码，产品周期数必须存在
-
-                        if (!/^\d+$/g.test(this.paytype1.price)) {
-                            flag = false
-                        }
-
-                        //使用了业务代码
-                        if (this.formData.ifUseServiceCode == '1') {
-                            if (!this.paytype1.serviceCode.length >= 1) {
-                                flag = false
-                            }
-                        } else {
-                            if (!/^\d+|-\d+$/g.test(this.paytype1.cycleUnitNum)) flag = false
-                        }
+                    if((!this.formData.paytype.contains('1'))&&(!this.formData.paytype.contains('2'))){
+                        flag=false
                     }
+                    
+                 
 
                     if (this.formData.paytype.contains('2')) {
                         if (!/^\d+|-\d+$/g.test(this.paytype2.price)) {
@@ -788,11 +778,15 @@
                 this.postData.pdChannelCodes=this.formData.pdChannelCodes;
                 
                 
-                this.$http.post(this.api.saveContractProductOne, this.postData).then(
+              /*  this.$http.post(this.api.saveContractProductOne, this.postData).then(
                     response => {
                         let res = response.body;
                     }
-                );
+                );*/
+                this.bus.$emit('step1Bus',{
+                    step:2,
+                    data:this.postData
+                })
             },
             
             
@@ -1010,12 +1004,13 @@
             this.bus.$on('planCodeBus', res => {
                 //有数据传过来
                 let planCodeArr = [];
+               
                 if (res) {
                     res.planCodeData.forEach(function (item, index) {
                         planCodeArr.push(item.planCode);
                     });
                     this.formData. pdFeePlanCodes = planCodeArr.join('|');
-                    this.planCodeTableData=res;
+                    this.planCodeTableData=res.planCodeData;
                 }
             });
             

@@ -98,8 +98,8 @@
                                     </div>
                                 </div>
                                 <div class="product-limit" v-else>
-                                    <div class="textarea-module" @click="choseProduct">
-                                        <table class="table-module ">
+                                    <div class="textarea-module" @click="choseProduct(index)">
+                                        <table class="table-module " v-if="item.pmLists[0].matchValues.length>0">
                                             <thead>
                                             <tr>
                                                 <td width="40%">产品编码</td>
@@ -107,9 +107,9 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>老司机计划</td>
+                                            <tr v-for="product in item.pmLists[0].productData">
+                                                <td>{{product.productCode}}</td>
+                                                <td>{{product.content}}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -134,16 +134,17 @@
         <!--资费计划id modal-->
         <modal name="planCodeListModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择资费计划'" :name="'planCodeListModal'">
-                <v-plan-code-list :modalName="'planCodeListModal'" :index="planCodeIndex"></v-plan-code-list>
+                <v-plan-code-list :modalName="'planCodeListModal'" :type="'radio'" :index="planCodeIndex"></v-plan-code-list>
             </t-modal-sub-container>
         </modal>
         <!--获取产品编码-->
         <modal name="productSelectModal"
                :width="870" :height="570" @before-close="beforeClose">
-            <t-modal-sub-container :title="productSelectTitle" :name="'productSelectModal'">
-                <v-product-select-modal
+            <t-modal-sub-container :title="'产品选择'" :name="'productSelectModal'">
+                <v-product-select-step-2
+                        :index="productIndex"
                         :modal-name="'productSelectModal'"
-                        :productType="'1'"></v-product-select-modal>
+                        :productType="'1'"></v-product-select-step-2>
             </t-modal-sub-container>
     
         </modal>
@@ -157,7 +158,7 @@
     import VProductCodeList from '../components/product-code-list.vue';
     import TModalSubContainer from "@/components/modal-sub-container";
     import VPlanCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/plan-code-list.vue'
-    import VProductSelectModal from '../components/product-select-modal'
+    import VProductSelectStep2 from '../components/product-select-step-2'
     
 
     export default{
@@ -169,6 +170,8 @@
                     index: 0,
                     subIndex: 0
                 },
+                
+                productIndex:0,
 
                 formData: {},
                 prmLists: [
@@ -188,8 +191,8 @@
                                 operator: '=',        //操作符
                                 valueType: '',        //数值类型
                                 matchValues: '',      //匹配内容
-                                
-                                pdContentList:[]      //匹配内容下拉框
+                                pdContentList:[],      //匹配内容下拉框
+                                productData:[]
                             }
                         ],
                     }
@@ -212,7 +215,7 @@
             VContentLimitSelectBox,
             VPdContentSelectBox,
             VIsAndSelectBox,
-            VProductSelectModal
+            VProductSelectStep2
         },
         methods: {
             nextStep(){
@@ -247,7 +250,8 @@
             /**
              * 展开产品列表弹框
              * */
-            choseProduct(){
+            choseProduct(index){
+                this.productIndex=index;
                 this.$modal.show('productSelectModal');
             },
             /**
@@ -271,7 +275,8 @@
                             operator: '=',        //操作符
                             valueType: '',        //数值类型
                             matchValues: '',      //匹配内容
-                            pdContentList:[]      //匹配内容下拉框
+                            pdContentList:[],      //匹配内容下拉框
+                            productData:[]
                         }
                     ],
                 });
@@ -293,7 +298,8 @@
                     operator: '=',
                     valueType: '',
                     matchValues: '',
-                    pdContentList:[]
+                    pdContentList:[],
+                    productData:[]
                 });
             },
             /**
@@ -316,15 +322,36 @@
              * 保存数据
              * */
             save(){
-              
-                //存数据postData里面
+                
+                //todo:根据所选型号删除数据，避免后台报错
+                this.prmLists.forEach(function(item,index){
+                    //选择免费  清除资费计划  0 收费  1 免费
+                    if(item.pdRights.isFree=='1'){
+                        delete item.pdRights.planCode;
+                    }
+                    //选择内容限定,清除产品相关东西
+                    if(item.pdRights.contentLimit=='1'){
+                        //todo:
+                    }else{
+                        
+                    }
+                });
+                
+                
                 this.postData.prmLists=this.prmLists;
                 
-                this.$http.post(this.api.saveContractProductTwo, this.postData).then(
+                /*this.$http.post(this.api.saveContractProductTwo, this.postData).then(
                     response => {
                         let res = response.body;
                     }
-                );
+                );*/
+                /**
+                 * 发送第二步数据到主页
+                 * */
+                this.bus.$emit('step2Bus',{
+                    step:3,
+                    data:this.postData
+                })
             }
         },
         mounted(){
@@ -407,6 +434,31 @@
                     let selectOption = res.selectOption;
                     this.prmLists[index].pmLists[subIndex].matchValues = selectOption;
                     console.log(this.prmLists[index].pmLists[subIndex].matchValues)
+                    
+                }
+            })
+
+            /**
+             * 选中产品弹框
+             * */
+            this.bus.$on('productSelectStep2Bus', res => {
+                if (res) {
+                    let index = res.index;
+                    let selectOtion=res.data;
+                    let codeArr=[];
+                    let data=res.data;
+                    if(data.length>0){
+                        data.forEach(function(item,index){
+                            codeArr.push(item.productCode);
+                        })
+                    }
+                    this.prmLists[index].pmLists[0].matchValues=codeArr.join(',');
+                    this.prmLists[index].pmLists[0].tableName='pd_contract';
+                    this.prmLists[index].pmLists[0].fieldName='productCode';
+                    this.prmLists[index].pmLists[0].valueType='2';
+                    this.prmLists[index].pmLists[0].operator='';
+                    this.prmLists[index].pmLists[0].productData=data;
+                    console.log(this.prmLists[index].pmLists[0].productData)
                     
                 }
             })
