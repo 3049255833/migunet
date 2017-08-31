@@ -23,12 +23,12 @@
                     <td>{{item.serviceName}}</td>
                     <td>{{item.serviceDesc}}</td>
 
-                    <td v-if="item.sharingType === '0'">分成</td>
+                    <td v-if="item.sharingType == '0'">分成</td>
                     <td v-else>买断</td>
 
                     <td>{{item.feeAmount}}</td>
 
-                    <td v-if="item.isManager === 'Y'">是</td>
+                    <td v-if="item.isManager == '1'">是</td>
                     <td v-else>否</td>
 
                     <td class="operation">

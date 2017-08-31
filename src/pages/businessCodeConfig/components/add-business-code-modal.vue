@@ -109,7 +109,7 @@
                     <v-select-box
                           w="200"
                           selectTitle="是"
-                          :selectValue="'Y'"
+                          :selectValue="'1'"
                           :selectBoxName="'isManagerSelectBox'"
                           v-bind:options="selectBoxList.isManagerList">
                     </v-select-box>
@@ -151,7 +151,7 @@
                     serviceDesc: '',
                     sharingType: '0',
                     feeAmount: '',
-                    isManager: 'Y'
+                    isManager: '1'
                 },
                 errorMsg: {
                     serviceCode: '请输入业务代码ID',
@@ -164,11 +164,11 @@
                     isManagerList: [
                         {
                             optionText: '是',
-                            optionValue: 'Y'
+                            optionValue: '1'
                         },
                         {
                           optionText: '否',
-                          optionValue: 'N'
+                          optionValue: '0'
                         },
                     ],
                     sharingTypeList: [
