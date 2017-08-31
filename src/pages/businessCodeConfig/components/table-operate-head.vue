@@ -12,9 +12,11 @@
             <input type="text" placeholder="关键信息搜索" @keyup.enter="searchKeyWord"/>
         </div>
 
-        <modal name="addBusinessCodeModal" :width="600" :height="560" @before-close="beforeClose">
+        <modal name="addBusinessCodeModal" :width="600" :height="600" @before-close="beforeClose">
             <t-modal-sub-container :title="'新增业务代码'" :name="'addBusinessCodeModal'">
-                <v-add-business-code-modal></v-add-business-code-modal>
+                <v-add-business-code-modal
+                  :modal-name="'addBusinessCodeModal'">
+                </v-add-business-code-modal>
             </t-modal-sub-container>
         </modal>
     </div>
@@ -51,7 +53,7 @@
     .operate-box {
         overflow: hidden;
         padding: 13px 20px;
-        
+
         .title {
             font-size: 14px;
             color: #292c31;
@@ -60,11 +62,11 @@
             margin-right: 24px;
             vertical-align: middle;
         }
-        
+
         .left {
             float: left;
             font-size: 0;
-            
+
             .batch-lead-in-btn,
             .new-add-code-btn,
             .batch-delete-btn {
@@ -73,27 +75,27 @@
                 margin: 0 5px;
                 border-radius: 4px;
                 cursor: pointer;
-                
+
                 i {
                     vertical-align: sub;
                 }
             }
-            
+
             .batch-lead-in-btn {
                 background-color: #46BAFE;
                 color: #fff;
             }
-            
+
             .batch-delete-btn,
             .new-add-code-btn {
                 border: 1px solid #46BAFE;
                 color: #46BAFE
             }
         }
-        
+
         .right {
             float: right;
-            
+
             input {
                 width: 150px;
                 height: 32px;

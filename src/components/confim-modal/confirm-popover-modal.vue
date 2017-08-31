@@ -22,6 +22,9 @@
                 if(this.details === 'details') {
 
                     this.bus.$emit('sendDetailsConfirmInfo', this.index);
+                } else if(this.details === 'businessCodeAdmin') {
+
+                    this.bus.$emit('sendBusinessCodeAdminConfirmInfo', this.index);
                 } else {
 
                     this.bus.$emit('sendConfirmInfo', this.index);

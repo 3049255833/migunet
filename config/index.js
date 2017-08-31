@@ -35,7 +35,7 @@ module.exports = {
     },
     dev: {
         env: require('./dev.env'),
-        port: 8088,
+        port: 8080,
         autoOpenBrowser: true,
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
@@ -137,8 +137,19 @@ module.exports = {
                 target: proxy_service_e,
                 changeOrigin: true
             },
+
             '/productCenter/getBossInfo': {
                 /*获取业务状态列表*/
+                target: proxy_service_ljy,
+                changeOrigin: true
+            },
+            '/productCenter/deleteBossInfo': {
+              /*删除业务*/
+              target: proxy_service_ljy,
+              changeOrigin: true
+            },
+            '/productCenter/addBossInfo': {
+                /*添加业务代码*/
                 target: proxy_service_ljy,
                 changeOrigin: true
             }

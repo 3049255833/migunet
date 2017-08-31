@@ -23,31 +23,35 @@
                     <td>{{item.serviceName}}</td>
                     <td>{{item.serviceDesc}}</td>
 
-                    <td v-if="item.sharingType === '0'">分成</td>
+                    <td v-if="item.sharingType == '0'">分成</td>
                     <td v-else>买断</td>
 
                     <td>{{item.feeAmount}}</td>
 
-                    <td v-if="item.isManager === 'Y'">是</td>
+                    <td v-if="item.isManager == '1'">是</td>
                     <td v-else>否</td>
 
                     <td class="operation">
                         <div class="edit icon icon-edit-gray"></div>
 
-                        <div class="delete icon icon-del-gray" @click="deleteBtn(index)"></div>
-                    </td>
+                        <div class="delete icon icon-del-gray"
+                             @click="deleteBtn(index, item.id)"></div>
 
-                    <v-confirm-popover-modal
-                        :operateType="'删除'"
-                        :isHideConfim="true"
-                        :index="index">
-                    </v-confirm-popover-modal>
+                        <v-confirm-popover-modal
+                          :operateType="'删除'"
+                          :isHideConfim="item.isHideConfim"
+                          :index="index"
+                          details="businessCodeAdmin">
+                        </v-confirm-popover-modal>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
         <v-operate-success-modal
-            :isHideOperateModal="isHideOperateModal">
+            :isHideOperateModal="isHideOperateModal"
+            :deleteStatus="deleteStatus"
+            :type="'删除'">
         </v-operate-success-modal>
     </div>
 </template>
@@ -66,7 +70,11 @@
         data() {
             return {
                 count: 0,
-                isHideOperateModal: true
+                isHideOperateModal: true,
+                willDelete: {
+                    id: ''
+                },
+                deleteStatus: ''
             }
         },
         components: {
@@ -76,9 +84,60 @@
             VOperateSuccessModal
         },
         methods: {
-            deleteBtn(index) {
+            deleteBtn(index, id) {
+                this.businessCodeList[index].isHideConfim = false;
 
-            },
+                this.willDelete.id = id;
+
+                console.log("willDeleteId: " + this.willDelete.id);
+            }
+        },
+        created() {
+            /**
+             * 接收来自确认modal框的信息
+             * */
+            this.bus.$on('sendBusinessCodeAdminConfirmInfo', res => {
+                this.businessCodeList[res].isHideConfim = true;
+
+                let that = this;
+
+                this.$http.post(this.api.deleteBossInfo, this.willDelete).then(
+                    response => {
+                        let res = response.body;
+
+                        console.log("businessCodeList: " + JSON.stringify(res));
+
+                        if(res.resultCode=='00000000'){
+
+                            this.deleteStatus = '成功';
+
+                            this.isHideOperateModal = false;
+
+                            setTimeout(function () {
+                              that.isHideOperateModal = true;
+                            }, 3000);
+
+                        } else {
+                            this.deleteStatus = '失败';
+
+                            this.isHideOperateModal = false;
+
+                            setTimeout(function () {
+                              that.isHideOperateModal = true;
+                            }, 3000);
+
+                            console.log("res: " + JSON.stringify(res));
+                        }
+                    }
+                );
+            });
+
+            /**
+             * 接收来自取消modal框的信息
+             * */
+            this.bus.$on('sendCancelInfo', res => {
+                this.businessCodeList[res].isHideConfim = true;
+            });
         }
     }
 </script>
@@ -94,6 +153,16 @@
         tbody {
             .edit {
                 margin-right: 10px;
+            }
+
+            .operation {
+                position: relative;
+
+                .confirm-modal-container {
+                    &:before {
+                        right: 43px;
+                    }
+                }
             }
         }
     }
