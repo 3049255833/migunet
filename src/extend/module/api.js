@@ -35,7 +35,9 @@ let api = {
     getSmsTemplateList: 'contractProduct/findSmsTemplate',     //获取短信模板列表
     getContractProductByStatus: 'contractProduct/findContractProductByStatus', //获取短信模板列表
 
-    updateProductState: 'product/updateProductState' //删除注销产品
+    updateProductState: 'product/updateProductState', //删除注销产品
+
+    getBossInfo: 'productCenter/getBossInfo'  //获取业务状态列表
 };
 
 for (let key in api) {
