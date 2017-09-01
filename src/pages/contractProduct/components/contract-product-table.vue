@@ -56,21 +56,21 @@
                 <td v-else-if="cProduct.detailStatus == 7">
                     变更报备中
                 </td>
-                <td v-else-if="cProduct.detailStatus === '8'">
+                <td v-else-if="cProduct.detailStatus == '8'">
                     变更报备失败
                 </td>
                 <td v-else></td>
 
                 <td>
-                    <div class="operate-list clearfix" v-if="cProduct.onlineStatus === '0'">
+                    <div class="operate-list clearfix" v-if="cProduct.onlineStatus == '0'">
                         <div @click="showContractProductDetail(cProduct.id)"
                              class="mr-30 pointer cl-blue">
                             详情
                         </div>
 
                         <div class="mr-30 pointer cl-blue"
-                             v-if="cProduct.detailStatus === '2' ||
-                             cProduct.detailStatus === '4'">
+                             v-if="cProduct.detailStatus == '2' ||
+                             cProduct.detailStatus == '4'">
                             变更信息
                         </div>
 
@@ -81,11 +81,11 @@
                         </v-confirm-popover-modal>
 
                         <div class="mr-30 pointer cl-blue" @click="revocation(index)"
-                             v-if="cProduct.detailStatus === '1'">撤销</div>
+                             v-if="cProduct.detailStatus == '1'">撤销</div>
                     </div>
 
                     <div class="operate-list clearfix"
-                         v-else-if="cProduct.onlineStatus === '1'">
+                         v-else-if="cProduct.onlineStatus == '1'">
 
                         <div @click="showContractProductDetail(cProduct.productCode)"
                              class="mr-30 pointer cl-blue">
@@ -93,7 +93,7 @@
                         </div>
 
                         <div class="mr-30 pointer cl-blue"
-                             v-if="cProduct.detailStatus === '6' ||
+                             v-if="cProduct.detailStatus == '6' ||
                              cProduct.detailStatus == '8' ||
                              cProduct.detailStatus == ''">
                               变更信息
@@ -108,10 +108,10 @@
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
                              @click.stop="showSelect(index)"
-                             v-if="cProduct.detailStatus === '6' ||
+                             v-if="cProduct.detailStatus == '6' ||
                                     cProduct.detailStatus == '' ||
-                                    cProduct.detailStatus === '8' ||
-                                    cProduct.detailStatus === '5'">
+                                    cProduct.detailStatus == '8' ||
+                                    cProduct.detailStatus == '5'">
                             更多
                             <i class="icon icon-arrow-down-blue"></i>
                         </div>
@@ -119,27 +119,27 @@
                         <div class="option-mask" :class="{opMask: cProduct.isShow}">
                             <div class="option-item"
                                   @click="offline(index)"
-                                  v-if="cProduct.detailStatus === '6' ||
+                                  v-if="cProduct.detailStatus == '6' ||
                                         cProduct.detailStatus == '' ||
-                                        cProduct.detailStatus === '8'">下线</div>
+                                        cProduct.detailStatus == '8'">下线</div>
 
                             <div class="option-item" @click="hide(index)"
-                                   v-if="cProduct.detailStatus === '6' ||
+                                   v-if="cProduct.detailStatus == '6' ||
                                         cProduct.detailStatus == '' ||
-                                        cProduct.detailStatus === '8'">隐藏</div>
+                                        cProduct.detailStatus == '8'">隐藏</div>
 
                             <div class="option-item" @click="logout(index)"
-                                 v-if="cProduct.detailStatus === '6' ||
+                                 v-if="cProduct.detailStatus == '6' ||
                                         cProduct.detailStatus == '' ||
-                                        cProduct.detailStatus === '8'">注销</div>
+                                        cProduct.detailStatus == '8'">注销</div>
 
                             <div class="option-item" @click="revocation(index)"
-                                 v-if="cProduct.detailStatus === '5'">撤销</div>
+                                 v-if="cProduct.detailStatus == '5'">撤销</div>
                         </div>
                     </div>
 
                     <div class="operate-list clearfix"
-                         v-else-if="cProduct.onlineStatus === '3'">
+                         v-else-if="cProduct.onlineStatus == '3'">
 
                         <div @click="showContractProductDetail(cProduct.productCode)"
                              class="mr-30 pointer cl-blue">
@@ -147,9 +147,9 @@
                         </div>
 
                         <div class="mr-30 pointer cl-blue"
-                             v-if="cProduct.detailStatus === '' ||
-                                    cProduct.detailStatus === '6' ||
-                                    cProduct.detailStatus === '8'">
+                             v-if="cProduct.detailStatus == null ||
+                                    cProduct.detailStatus == '6' ||
+                                    cProduct.detailStatus == '8'">
                             变更信息
                         </div>
 
@@ -163,42 +163,42 @@
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
                              @click.stop="showSelect(index)"
-                             v-if="cProduct.detailStatus === '' ||
-                                    cProduct.detailStatus === '6' ||
-                                    cProduct.detailStatus === '8' ||
-                                    cProduct.detailStatus === '5'">
+                             v-if="cProduct.detailStatus == '' ||
+                                    cProduct.detailStatus == '6' ||
+                                    cProduct.detailStatus == '8' ||
+                                    cProduct.detailStatus == '5'">
                             更多
                             <i class="icon icon-arrow-down-blue"></i>
                         </div>
 
                         <div class="option-mask" :class="{opMask: cProduct.isShow}">
                             <div class="option-item" @click="online(index)"
-                               v-if="cProduct.detailStatus === '' ||
-                                    cProduct.detailStatus === '6' ||
-                                    cProduct.detailStatus === '8'">上线</div>
+                               v-if="cProduct.detailStatus == null ||
+                                    cProduct.detailStatus == '6' ||
+                                    cProduct.detailStatus == '8'">上线</div>
 
                             <div class="option-item" @click="offline(index)"
-                                  v-if="cProduct.detailStatus === '5'">下线</div>
+                                  v-if="cProduct.detailStatus == '5'">下线</div>
 
                             <div class="option-item" @click="hide(index)"
-                                  v-if="cProduct.detailStatus === '' ||
-                                        cProduct.detailStatus === '5' ||
-                                        cProduct.detailStatus === '6' ||
-                                        cProduct.detailStatus === '8'">隐藏</div>
+                                  v-if="cProduct.detailStatus == null ||
+                                        cProduct.detailStatus == '5' ||
+                                        cProduct.detailStatus == '6' ||
+                                        cProduct.detailStatus == '8'">隐藏</div>
 
                           <div class="option-item" @click="logout(index)"
-                                  v-if="cProduct.detailStatus === '' ||
-                                  cProduct.detailStatus === '5' ||
-                                  cProduct.detailStatus === '6' ||
-                                  cProduct.detailStatus === '8'">注销</div>
+                                  v-if="cProduct.detailStatus == null ||
+                                  cProduct.detailStatus == '5' ||
+                                  cProduct.detailStatus == '6' ||
+                                  cProduct.detailStatus == '8'">注销</div>
 
                           <div class="option-item" @click="revocation(index)"
-                                  v-if="cProduct.detailStatus === '5'">撤销</div>
+                                  v-if="cProduct.detailStatus == '5'">撤销</div>
                         </div>
                     </div>
 
                     <div class="operate-list clearfix"
-                         v-else-if="cProduct.onlineStatus === '2'">
+                         v-else-if="cProduct.onlineStatus == '2'">
 
                         <div @click="showContractProductDetail(cProduct.productCode)"
                              class="mr-30 pointer cl-blue">
@@ -206,9 +206,9 @@
                         </div>
 
                         <div class="mr-30 pointer cl-blue"
-                             v-if="cProduct.detailStatus === '' ||
-                             cProduct.detailStatus === '6' ||
-                             cProduct.detailStatus === '8'">
+                             v-if="cProduct.detailStatus == null ||
+                             cProduct.detailStatus == '6' ||
+                             cProduct.detailStatus == '8'">
                           变更信息
                         </div>
 
@@ -222,40 +222,40 @@
                         <div class="pointer mr-30 cl-blue"
                              :class="{'active':cProduct.isShow}"
                              @click.stop="showSelect(index)"
-                             v-if="cProduct.detailStatus === '' ||
-                                    cProduct.detailStatus === '6' ||
-                                    cProduct.detailStatus === '8' ||
-                                    cProduct.detailStatus === '5'">
+                             v-if="cProduct.detailStatus == null ||
+                                    cProduct.detailStatus == '6' ||
+                                    cProduct.detailStatus == '8' ||
+                                    cProduct.detailStatus == '5'">
                           更多
                           <i class="icon icon-arrow-down-blue"></i>
                         </div>
 
                         <div class="option-mask" :class="{opMask: cProduct.isShow}">
                           <div class="option-item" @click="online(index)"
-                               v-if="cProduct.detailStatus === '' ||
-                               cProduct.detailStatus === '6' ||
-                               cProduct.detailStatus === '8'">上线</div>
+                               v-if="cProduct.detailStatus == null ||
+                               cProduct.detailStatus == '6' ||
+                               cProduct.detailStatus == '8'">上线</div>
 
                           <div class="option-item" @click="offline(index)"
-                               v-if="cProduct.detailStatus === '' ||
-                               cProduct.detailStatus === '6' ||
-                               cProduct.detailStatus === '8'">下线</div>
+                               v-if="cProduct.detailStatus == null ||
+                               cProduct.detailStatus == '6' ||
+                               cProduct.detailStatus == '8'">下线</div>
 
                           <div class="option-item" @click="hide(index)"
                                v-if="">隐藏</div>
 
                           <div class="option-item" @click="logout(index)"
-                               v-if="cProduct.detailStatus === '' ||
-                               cProduct.detailStatus === '6' ||
-                               cProduct.detailStatus === '8'">注销</div>
+                               v-if="cProduct.detailStatus == null ||
+                               cProduct.detailStatus == '6' ||
+                               cProduct.detailStatus == '8'">注销</div>
 
                           <div class="option-item" @click="revocation(index)"
-                               v-if="cProduct.detailStatus === '5'">撤销</div>
+                               v-if="cProduct.detailStatus == '5'">撤销</div>
                         </div>
                     </div>
 
                     <div class="operate-list clearfix"
-                         v-else-if="cProduct.onlineStatus === '4'">
+                         v-else-if="cProduct.onlineStatus == '4'">
 
                         <div @click="showContractProductDetail(cProduct.productCode)"
                              class="mr-30 pointer cl-blue">
@@ -270,7 +270,7 @@
 
                         <div class="mr-30 pointer cl-blue"
                              @click="deleteBtn(index,cProduct.id,cProduct.detailStatus)"
-                            v-if="cProduct.detailStatus === ''">删除</div>
+                            v-if="cProduct.detailStatus == null">删除</div>
                     </div>
                 </td>
             </tr>
@@ -306,7 +306,9 @@
                 count: 0,
                 isHideOperateModal: true,
                 type: '',
-                operateStatus: ''
+                operateStatus: '',
+                willDeleteID: '',
+                willDeleteDetailSatus: ''
             }
         },
         components: {
@@ -388,7 +390,11 @@
 
                 this.contractProductList[index].operateType = "删除";
 
-                console.log("contractProductId: " + id + ', onlineStatus: ' + onlineStatus + ", detailStatus: " + detailStatus);
+                this.willDeleteID = id;
+
+                this.willDeleteDetailSatus = detailStatus;
+
+                //console.log("contractProductId: " + id + ', onlineStatus: ' + onlineStatus + ", detailStatus: " + detailStatus);
             }
         },
         mounted(){
@@ -405,18 +411,24 @@
 
                 let that = this;
 
+                console.log("id: " + this.willDeleteID);
+
+                console.log("willDeleteDetailSatus: " + this.willDeleteDetailSatus);
+
                 this.$http.get(this.api.updateProductState,
                     {
                         params:{
-                            contractProductId:id,
+                            contractProductId:this.willDeleteID,
                             onlineStatus:'5',
-                            detailStatus:detailStatus
+                            detailStatus:this.willDeleteDetailSatus
                         }
                     }).then(response => {
 
                     let res = response.body;
 
-                    if(res.result.resultCode=='00000000'){
+                    console.log("res: " + JSON.stringify(res));
+
+                    if(res.resultMessage =='成功'){
 
                         this.operateStatus = '成功';
 
