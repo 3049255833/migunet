@@ -15,12 +15,12 @@
             <li v-for="index in pages" @click="goto(index)" :class="{'active':current == index}" :key="index">
                 <span>{{index}}</span>
             </li>
-            <li v-show="allPage != current && allPage != 0 " @click="current++ && goto(current++)"><span class="next">></span></li>
-            <li v-if="!showElement" class="travel-to">前往</li>
-            <li v-if="!showElement" class="whichPage"><input class="form-input" v-model="pageSelected"
+            <li v-show="allPage&&allPage != current && allPage != 0 " @click="current++ && goto(current++)"><span class="next">></span></li>
+            <li  v-if="allPage&&!showElement" class="travel-to">前往</li>
+            <li v-if="allPage&&!showElement" class="whichPage"><input class="form-input" v-model="pageSelected"
                                                              @keyup.enter="jumpPage" type="number">
             </li>
-            <li v-if="!showElement">页</li>
+            <li v-if="allPage&&!showElement">页</li>
         </ul>
     </div>
 </template>

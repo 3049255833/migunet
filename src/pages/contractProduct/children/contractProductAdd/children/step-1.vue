@@ -58,7 +58,7 @@
                 </div>
                 <div class="row-right">
                     <v-date :class="{'w-200':true,'error':$v.formData.effectiveTime.$error}"
-                            :dateName="'effectiveTime'"
+                            :dateName="'step1EffectiveTime'"
                             :defaultText="'生效时间'"></v-date>
                     <span class="error-msg" v-if="$v.formData.effectiveTime.$error">{{errorMsg.effectiveTime}}</span>
                 </div>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="row-right">
                     <v-date :class="{'w-200':true,'error':$v.formData.expireTime.$error}"
-                            :dateName="'expireTime'"
+                            :dateName="'step1ExpireTime'"
                             :defaultText="'失效时间'"></v-date>
                     <span class="error-msg" v-if="$v.formData.expireTime.$error">{{errorMsg.expireTime}}</span>
                 </div>
@@ -442,7 +442,7 @@
                     <div class="btn-group">
                         <div v-if="canSave" class="btn btn-primary btn-middle" @click="nextStep">下一步</div>
                         <div v-else class="btn unable btn-primary btn-middle">下一步</div>
-                        <div class="btn btn-default btn-middle">取消</div>
+                        <div class="btn btn-default btn-middle" @click="cancel">取消</div>
                     </div>
                 </div>
             </div>
@@ -455,7 +455,7 @@
             </t-modal-sub-container>
         </modal>
         <!--业务代码modal-->
-        <modal name="serviceCodeModal" :width="870" :height="570" @before-close="beforeClose">
+        <modal name="serviceCodeModal" :width="950" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'业务代码选择'" :name="'serviceCodeModal'">
                 <v-service-code-list :modalName="'serviceCodeModal'"></v-service-code-list>
             </t-modal-sub-container>
@@ -678,7 +678,8 @@
                     numeric
                 },
                 cycleUnitNum: {
-                    required
+                    required,
+                    numeric
                 },
             },
             paytype2: {
@@ -718,8 +719,23 @@
                     if((!this.formData.paytype.contains('1'))&&(!this.formData.paytype.contains('2'))){
                         flag=false
                     }
-                    
-                 
+ 
+                    if (this.formData.paytype.contains('1')) {
+                        if(this.formData.ifUseServiceCode==1){     //使用了业务代码
+                            if(!this.paytype1.serviceCode){
+                                flag = false
+                            }else {
+                              
+                            }
+                        }else{
+                            if (!/^\d+|-\d+$/g.test(this.paytype1.cycleUnitNum)) {
+                                flag = false
+                            }
+                            if (!/^\d+|-\d+$/g.test(this.paytype1.price)) {
+                                flag = false
+                            }
+                        }
+                    }
 
                     if (this.formData.paytype.contains('2')) {
                         if (!/^\d+|-\d+$/g.test(this.paytype2.price)) {
@@ -789,6 +805,12 @@
                 })
             },
             
+            /**
+             * 取消
+             * */
+            cancel(){
+                this.$router.push({'name': 'ContractProduct'})
+            },
             
             /**
              * 当变量canHideModal为false时，无法关闭弹框
@@ -856,7 +878,7 @@
                 if (a == '1') {    //使用业务代码
                     this.paytype1.feeType = '1';             //重置资费类型
                     this.paytype1.price = '';                //重置金额
-                    this.paytype1.serviceCode = '';             //重置业务代码
+                    this.paytype1.serviceCode ='';             //重置业务代码
                     this.formData.cycleUnitNum = '-1';       //重置产品周期数：默认永久有效-1
                     this.formData.cycleUnit = '';                 //重置产品周期单位
                 } else {
@@ -964,10 +986,10 @@
              * 获取日历的值
              * */
             this.bus.$on('dateBus', res => {
-                if (res.dateName == 'effectiveTime') {
+                if (res.dateName == 'step1EffectiveTime') {
                     this.formData.effectiveTime = res.dateValue;
                 }
-                if (res.dateName == 'expireTime') {
+                if (res.dateName == 'step1ExpireTime') {
                     this.formData.expireTime = res.dateValue;
                 }
             });

@@ -110,6 +110,7 @@
             },
 
             cancel() {
+                console.log(this.modalName)
                 this.$modal.hide(this.modalName);
             },
 
