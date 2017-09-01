@@ -120,7 +120,11 @@
             getBossInfo(){
                 this.$http.get(this.api.getBossInfo,
                     {
-                        params:{}
+                        params:{
+                            keys:this.postData.keys,
+                            pageSize:this.postData.pageSize,
+                            pageNumber:this.postData.pageNumber
+                        }
                     }).then(response => {
 
                     let res = response.body;

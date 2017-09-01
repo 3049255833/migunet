@@ -13,7 +13,7 @@
             <tbody>
                 <tr v-for="(cProduct,index) in contractProductList">
                 <td> {{cProduct.productName}}</td>
-                <td> {{cProduct.id}}</td>
+                <td> {{cProduct.productCode}}</td>
 
                 <td v-if="cProduct.onlineStatus == 0">
                     草稿

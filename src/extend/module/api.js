@@ -19,7 +19,7 @@ let api = {
     /**
      * 合约产品
      * */
-    getContractProductList:'product/getContractProductList',    //获取合约列表
+    getContractProductList:'productCenter/getContractProductList',    //获取合约列表
     getContractProductDetail:'product/contractProductDetail',       //获取合约产品详情
     getProductDist:'contractProduct/findProductCatalog',        //获取产品目录
     getServiceCodeList:'contractProduct/findCharge',           //获取业务代码
@@ -44,7 +44,8 @@ let api = {
     getBossInfo: 'productCenter/getBossInfo',  //获取业务状态列表
     deleteBossInfo: 'productCenter/deleteBossInfo',  //删除业务
     addBossInfo: 'productCenter/addBossInfo',  //添加业务代码
-    updateBossInfo: 'productCenter/updateBossInfo'  //编辑业务代码
+    updateBossInfo: 'productCenter/updateBossInfo',  //编辑业务代码
+    batchAddBossInfo: 'productCenter/batchAddBossInfo'  //批量添加业务代码
 };
 
 for (let key in api) {
