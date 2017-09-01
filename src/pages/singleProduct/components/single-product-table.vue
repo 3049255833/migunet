@@ -37,15 +37,9 @@
 <script>
     import VSearch from '@/components/search'
     import VPaging from '@/components/paging'
-<<<<<<< HEAD
+    import axios from 'axios'
     // zqy
     import VNolist from '@/components/no-list'
-
-    import axios from 'axios'
-=======
->>>>>>> 09da590e0407b903f42ef35b767e7a782c498cde
-
-
     export default {
         name: 'ContractProductTable',
         props:{
