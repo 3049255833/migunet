@@ -31,18 +31,27 @@
                 </div>
             </div>
         </div>
+    
+        <!-- 操作结果modal start -->
+        <modal name="addResultMsg" :adaptive="true" :draggable="true" :width="200" :height="80">
+            <t-toast :name="'addResultMsg'">{{addResultMsg}}</t-toast>
+        </modal>
+        
     </div>
 </template>
 <script type="es6">
     /*   import Mock from 'mockjs'*/
     import VDate from '@/components/date'
+    import VToast from '@/components/toast'
     export default {
         name: 'ContractProductAdd',
         components: {
-            VDate
+            VDate,
+            VToast
         },
         data () {
             return {
+                addResultMsg:'',
                 step: parseInt(this.$route.name.substr(this.$route.name.length - 1, 1)),
                 initData: {
                     productDistList: [],    //产品目录列表
@@ -104,10 +113,12 @@
                     response => {
                         let res = response.body;
                         if (res.result.resultCode == '00000000') {
-                            alert('新增成功');
+                            this.addResultMsg = '新增成功';
+                            this.$modal.show('addResultMsg');
                             this.$router.push({'name': 'ContractProduct'})
                         } else if (res.result.resultCode='00000001'){
-                            alert(res.result.resultMessage);
+                            this.addResultMsg = res.result.resultMessage;
+                            this.$modal.show('addResultMsg');
                         }
                     }
                 );
@@ -115,6 +126,8 @@
         },
         mounted () {
             let that = this;
+            this.addResultMsg = '新增成功';
+            this.$modal.show('addResultMsg');
             /**
              * 初始化获取产品目录数据
              * */

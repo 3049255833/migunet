@@ -25,7 +25,6 @@ export default {
 </script>
 
 <style lang="scss" scoped rel="stylesheet/scss">
-	@import '../../scss/index.scss';
 	.toast{
 		width: 100%;
 		height: 100%;
