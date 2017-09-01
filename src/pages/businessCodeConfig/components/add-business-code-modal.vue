@@ -234,7 +234,9 @@
 
                 if(this.cmd == 'edit') {
 
-                    console.log("cmd: " + this.cmd);
+                    delete this.postData.isHideConfim;
+
+                    //console.log("postData222: " + JSON.stringify(this.postData));
 
                     this.$http.post(this.api.updateBossInfo, this.postData).then(
                         response => {
@@ -278,9 +280,7 @@
 
                 this.postData = this.passModal;
 
-                delete this.postData.isHideConfim;
-
-                console.log("passModal: " + JSON.stringify(this.postData));
+                //console.log("passModal: " + JSON.stringify(this.postData));
             }
         },
         computed: {
