@@ -49,6 +49,10 @@
             </tbody>
         </table>
 
+        <div v-if="businessCodeList.length <= 0" class="no-asset-box">
+            <img src="../../../assets/no-asset-show.png">
+        </div>
+
         <v-operate-success-modal
             :isHideOperateModal="isHideOperateModal"
             :deleteStatus="deleteStatus"
@@ -151,6 +155,11 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
+    .no-asset-box {
+      text-align: center;
+      margin-top: 85px;
+    }
+
     table {
 
         thead tr {
