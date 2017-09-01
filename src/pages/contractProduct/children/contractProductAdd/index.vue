@@ -100,9 +100,15 @@
              * */
             save(){
 
-                this.$http.post(this.api.saveContractProduct, this.postData).then(
+                this.$http.post(this.api.saveContractProduct, this.postData,{showLoading:true}).then(
                     response => {
                         let res = response.body;
+                        if (res.result.resultCode == '00000000') {
+                            alert('新增成功');
+                            this.$router.push({'name': 'ContractProduct'})
+                        } else if (res.result.resultCode='00000001'){
+                            alert(res.result.resultMessage);
+                        }
                     }
                 );
             }
