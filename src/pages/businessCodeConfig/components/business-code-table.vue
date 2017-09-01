@@ -17,7 +17,7 @@
             <tbody>
                 <tr v-for="(item, index) in businessCodeList">
                     <td>
-                        <div class="l-app-name">{{item.id}}</div>
+                        <div class="l-app-name">{{item.serviceCode}}</div>
                     </td>
                     <td>{{item.companyCode}}</td>
                     <td>{{item.serviceName}}</td>
@@ -32,7 +32,8 @@
                     <td v-else>否</td>
 
                     <td class="operation">
-                        <div class="edit icon icon-edit-gray"></div>
+                        <div class="edit icon icon-edit-gray"
+                             @click="editBusinessCode(item)"></div>
 
                         <div class="delete icon icon-del-gray"
                              @click="deleteBtn(index, item.id)"></div>
@@ -89,7 +90,13 @@
 
                 this.willDelete.id = id;
 
-                console.log("willDeleteId: " + this.willDelete.id);
+                //console.log("willDeleteId: " + this.willDelete.id);
+            },
+            editBusinessCode(item) {
+
+                this.bus.$emit('editPassModal', item);
+
+                //this.$modal.show('addBusinessCodeModal');
             }
         },
         created() {

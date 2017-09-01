@@ -5,6 +5,16 @@
         <v-business-code-table :businessCodeList="businessCodeList"></v-business-code-table>
 
         <v-paging></v-paging>
+
+        <modal name="addBusinessCodeModal" :width="600" :height="600" @before-close="beforeClose">
+            <t-modal-sub-container :title="'新增业务代码'" :name="'addBusinessCodeModal'">
+                <v-add-business-code-modal
+                  :modal-name="'addBusinessCodeModal'"
+                  :passModal="passModal"
+                  :cmd="cmd">
+                </v-add-business-code-modal>
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 
@@ -13,13 +23,17 @@
     import VBusinessCodeTable from '@/pages/businessCodeConfig/components/business-code-table'
     import VTableOperateHead from '@/pages/businessCodeConfig/components/table-operate-head'
     import VPaging from '@/components/paging'
+    import VAddBusinessCodeModal from './components/add-business-code-modal'
+    import TModalSubContainer from "@/components/modal-sub-container"
 
     export default{
         name: 'BusinessCodeConfig',
         components:{
             VBusinessCodeTable,
             VTableOperateHead,
-            VPaging
+            VPaging,
+            VAddBusinessCodeModal,
+            TModalSubContainer
         },
         data () {
             return {
@@ -51,11 +65,24 @@
                         amount: '12.00',
                         isAdmin: false
                     }*/
-                ]
+                ],
+                passModal: {},
+                cmd: ''
             }
         },
         created() {
             this.getBossInfo();
+
+            /**
+             * 接收来自编辑的信息
+             * */
+            this.bus.$on('editPassModal', res => {
+                this.passModal = res;
+
+                this.cmd = 'edit';
+
+                this.$modal.show('addBusinessCodeModal');
+            });
         },
         methods: {
             /**
@@ -85,7 +112,9 @@
                         console.log("res: " + JSON.stringify(res));
                     }
                 });
-            }
+            },
+
+            beforeClose() {}
         }
     }
 </script>

@@ -41,7 +41,8 @@ let api = {
 
     getBossInfo: 'productCenter/getBossInfo',  //获取业务状态列表
     deleteBossInfo: 'productCenter/deleteBossInfo',  //删除业务
-    addBossInfo: 'productCenter/addBossInfo'  //添加业务代码
+    addBossInfo: 'productCenter/addBossInfo',  //添加业务代码
+    updateBossInfo: 'productCenter/updateBossInfo'  //编辑业务代码
 };
 
 for (let key in api) {

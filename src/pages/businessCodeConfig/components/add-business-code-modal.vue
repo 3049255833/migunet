@@ -17,6 +17,18 @@
                         {{errorMsg.serviceCode}}
                     </span>
                 </div>
+                <!--<div class="row-right" v-else>
+                    <input class="form-input pointer w-200"
+                           type="text"
+                           @input="$v.postData.serviceCode.$touch()"
+                           :class="{'error':$v.postData.serviceCode.$error}"
+                           v-model.trim="postData.serviceCode"
+                           placeholder="请输入"/>
+
+                    <span class="error-msg" v-if="$v.postData.serviceCode.$error">
+                            {{errorMsg.serviceCode}}
+                        </span>
+                </div>-->
             </div>
 
             <div class="form-row">
@@ -140,7 +152,9 @@
     export default {
         name: 'AddBusinessCode',
         props: {
-            modalName: String
+            modalName: String,
+            passModal: Object,
+            cmd: String
         },
         data() {
             return {
@@ -218,15 +232,30 @@
             confirm() {
                 console.log("postData: " + JSON.stringify(this.postData));
 
-                this.$http.post(this.api.addBossInfo, this.postData).then(
-                    response => {
-                        let res = response.body;
+                if(this.cmd == 'edit') {
 
-                        console.log("res: " + res);
+                    console.log("cmd: " + this.cmd);
 
-                        this.$modal.hide(this.modalName);
-                    }
-                );
+                    this.$http.post(this.api.updateBossInfo, this.postData).then(
+                        response => {
+                            let res = response.body;
+
+                            console.log("res: " + res);
+
+                            this.$modal.hide(this.modalName);
+                        }
+                    );
+                } else {
+                    this.$http.post(this.api.addBossInfo, this.postData).then(
+                        response => {
+                            let res = response.body;
+
+                            console.log("res: " + res);
+
+                            this.$modal.hide(this.modalName);
+                        }
+                    );
+                }
             }
         },
         mounted () {
@@ -244,35 +273,30 @@
                     this.postData.sharingType = res.selectOption.optionValue;
                 }
             });
+
+            if(this.cmd == 'edit') {
+
+                this.postData = this.passModal;
+
+                delete this.postData.isHideConfim;
+
+                console.log("passModal: " + JSON.stringify(this.postData));
+            }
         },
         computed: {
             canSave(){
-                var flag = true;
 
                 if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid) {
 
-                    return flag
+                    return true;
                 } else {
 
-                    return false
+                    return false;
                 }
             }
         },
         watch: {
-            /**
-             * 监听资费类型
-             * a=='0' 不使用业务代码，清空数据重新填
-             * a=='1' 使用业务代码
-             * */
-            'formData.ifUseServiceCode'(a, b) {
-                if (a == '1') {
 
-                    this.formData.cycleUnit = '';
-                } else {
-
-                    this.paytype1.periodUnit = '2';
-                }
-            }
         }
     }
 </script>

@@ -146,6 +146,11 @@ module.exports = {
                 /*添加业务代码*/
                 target: proxy_service_ljy,
                 changeOrigin: true
+            },
+            '/productCenter/updateBossInfo': {
+                /*编辑业务代码*/
+                target: proxy_service_ljy,
+                changeOrigin: true
             }
         },
         cssSourceMap: false
