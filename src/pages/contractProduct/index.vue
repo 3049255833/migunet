@@ -108,7 +108,7 @@
              * pageNumber 页码数 string
              * */
             getContractProductList(){
-                this.$http.get(this.api.getContractProductList,
+                this.$http.get(this.api.getContractProductList,{showLoading:true},
                     {
                         params:{
                             keys:this.postData.keys||'',

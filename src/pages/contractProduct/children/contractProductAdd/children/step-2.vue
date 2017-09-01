@@ -121,7 +121,7 @@
                     </article>
                     <div class="btn-group">
                         <div class="btn btn-primary btn-middle" @click="nextStep">下一步</div>
-                        <div class="btn btn-default btn-middle">取消</div>
+                        <div class="btn btn-default btn-middle" @click="cancel">取消</div>
                     </div>
                 </div>
             </div>
@@ -352,7 +352,14 @@
                     step:3,
                     data:this.postData
                 })
-            }
+            },
+
+            /**
+             * 取消
+             * */
+            cancel(){
+                this.$router.push({'name': 'ContractProduct'})
+            },
         },
         mounted(){
             let that = this;
