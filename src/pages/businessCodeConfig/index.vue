@@ -4,7 +4,7 @@
 
         <v-business-code-table :businessCodeList="businessCodeList"></v-business-code-table>
 
-        <v-paging></v-paging>
+        <v-paging :totalItem="totalItem"></v-paging>
 
         <modal name="addBusinessCodeModal" :width="600" :height="600" @before-close="beforeClose">
             <t-modal-sub-container :title="'新增业务代码'" :name="'addBusinessCodeModal'">
@@ -67,11 +67,40 @@
                     }*/
                 ],
                 passModal: {},
-                cmd: ''
+                cmd: '',
+                postData:{
+                    keys:'',
+                    pageSize:'8',
+                    pageNumber:'1'
+                },
+                totalItem:''
             }
         },
         created() {
             this.getBossInfo();
+
+            /**
+             * 接收来自头部搜索
+             * */
+            this.bus.$on('searchKeyWordBus', res => {
+                this.postData.keys = res.keys;
+
+                console.log("postData: " + JSON.stringify(this.postData));
+
+                this.getBossInfo();
+            });
+
+            /**
+             * 接收分页信息
+             * */
+            this.bus.$on('pagingBus', res => {
+                this.postData.pageNumber = res.pagingValue;
+                this.postData.pageSize = res.pagingSize;
+
+                console.log("postData: " + JSON.stringify(this.postData));
+
+                this.getBossInfo();
+            });
 
             /**
              * 接收来自编辑的信息
@@ -104,6 +133,8 @@
                         }
 
                         this.businessCodeList = res.service;
+
+                        this.totalItem = this.businessCodeList.length;
 
                         //console.log("businessCodeList: " + JSON.stringify(this.businessCodeList));
 

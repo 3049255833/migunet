@@ -10,7 +10,11 @@
         </div>
 
         <div class="right">
-            <input type="text" placeholder="关键信息搜索" @keyup.enter="searchKeyWord"/>
+            <input type="text"
+                   placeholder="关键信息搜索"
+                   @keyup.enter="searchKeyWord"
+                   v-model="operateData.keys"
+            />
         </div>
     </div>
 </template>
@@ -18,16 +22,27 @@
     export default {
         name: 'OperateBox',
         props: ['title'],
+        data() {
+            return {
+                operateData: {
+                    keys: ''  //关键字
+                }
+            }
+        },
         methods: {
-            search: function () {
-                this.$emit('searchInfo', this.selected);
-            },
-            searchKeyWord: function () {
-                // this.$store.dispatch('changeKeyWord',this.keyWord)
-                // console.log(this.keyWord);
-            },
             addBusinessCode() {
                 this.$modal.show('addBusinessCodeModal');
+            },
+            /**
+             * 触发事件，将封装的数据传给index
+             * 该组件内可以调用该方法传数据
+             * */
+            searchKeyWord(e){
+                if (e&&e.target){
+                    e.target.blur();
+                }
+
+                this.bus.$emit('searchKeyWordBus',this.operateData);
             }
         }
     }
