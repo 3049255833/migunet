@@ -71,7 +71,7 @@
                 postData:{
                     keys:'',
                     pageSize:'8',
-                    pageNumber:'1'
+                    pageNo:'1'
                 },
                 totalItem:''
             }
@@ -94,7 +94,7 @@
              * 接收分页信息
              * */
             this.bus.$on('pagingBus', res => {
-                this.postData.pageNumber = res.pagingValue;
+                this.postData.pageNo = res.pagingValue;
                 this.postData.pageSize = res.pagingSize;
 
                 console.log("postData: " + JSON.stringify(this.postData));
@@ -118,31 +118,30 @@
              * 获取业务代码列表
              * */
             getBossInfo(){
-                this.$http.get(this.api.getBossInfo,
-                    {
-                        params:{}
-                    }).then(response => {
+                this.$http.post(this.api.getBossInfo, this.postData).then(
+                    response => {
+                        let res = response.body
 
-                    let res = response.body;
+                        //console.log("res: " + JSON.stringify(res));
 
-                    if(res.result.resultCode=='00000000'){
+                        if(res.result.resultCode=='00000000'){
 
-                        for(var i = 0; i < res.service.length; i++) {
+                            for(var i = 0; i < res.service.list.length; i++) {
 
-                            res.service[i].isHideConfim = true;
+                                res.service.list[i].isHideConfim = true;
+                            }
+
+                            this.businessCodeList = res.service.list;
+
+                            this.totalItem = res.service.total;
+
+                            //console.log("list2: " + JSON.stringify(res));
+                        } else {
+
+                            console.log("res: " + JSON.stringify(res));
                         }
-
-                        this.businessCodeList = res.service;
-
-                        this.totalItem = this.businessCodeList.length;
-
-                        //console.log("businessCodeList: " + JSON.stringify(this.businessCodeList));
-
-                    } else {
-
-                        console.log("res: " + JSON.stringify(res));
                     }
-                });
+                );
             },
 
             beforeClose() {}

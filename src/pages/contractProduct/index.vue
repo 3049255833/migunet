@@ -52,11 +52,11 @@
                     keys:'',
                     onlineStatus:1,
                     detailStatus: '',
-                    productCatalog:1,
+                    //productCatalog:1,
                     effectiveTime:'',
                     expireTime:'',
                     pageSize:'8',
-                    pageNumber:'1'
+                    pageNo:'1'
                 },
                 totalItem:''
             }
@@ -74,7 +74,7 @@
                 this.postData.keys = res.keys;
                 this.postData.onlineStatus = res.onlineStatus;
                 this.postData.detailStatus = res.detailStatus;
-                this.postData.productCatalog = res.productCatalog;
+                //this.postData.productCatalog = res.productCatalog;
                 this.postData.effectiveTime = res.effectiveTime;
                 this.postData.expireTime = res.expireTime;
 
@@ -87,7 +87,7 @@
              * 接收分页信息
              * */
             this.bus.$on('pagingBus', res => {
-                this.postData.pageNumber = res.pagingValue;
+                this.postData.pageNo = res.pagingValue;
                 this.postData.pageSize = res.pagingSize;
 
                 console.log("postData: " + JSON.stringify(this.postData));
@@ -108,44 +108,31 @@
              * pageNumber 页码数 string
              * */
             getContractProductList(){
-                this.$http.get(this.api.getContractProductList,
-                    {
-                        params:{
-                            keys:this.postData.keys||'',
-                            onlineStatus:this.postData.onlineStatus||'',
-                            detailStatus:this.postData.detailStatus||'',
-                            productCatalog:this.postData.approveStatus||'',
-                            effectivetime:this.postData.effectivetime||'',
-                            expiretime:this.postData.expiretime||'',
-                            pageSize:this.postData.pageSize||'',
-                            pageNumber:this.postData.pageNumber||''
-                        },
-                        showLoading:true
-                    }).then(response => {
+                this.$http.post(this.api.getContractProductList, this.postData).then(
+                    response => {
+                        let res = response.body;
 
-                    let res = response.body;
+                        if(res.result.resultCode=='00000000'){
 
-                    if(res.result.resultCode=='00000000'){
+                            for(var i = 0; i < res.contractProductList.list.length; i++) {
+                                res.contractProductList.list[i].isShow = false;
 
-                        for(var i = 0; i < res.contractProductList.length; i++) {
-                            res.contractProductList[i].isShow = false;
+                                res.contractProductList.list[i].isHideConfim = true;
 
-                            res.contractProductList[i].isHideConfim = true;
+                                res.contractProductList.list[i].operateType = "";
+                            }
 
-                            res.contractProductList[i].operateType = "";
+                            this.contractProductList = res.contractProductList.list;
+
+                            this.totalItem= res.contractProductList.total;
+
+                            //console.log("total: " + this.totalItem);
+                        } else {
+
+                            console.log("res: " + JSON.stringify(res));
                         }
-
-                        this.contractProductList = res.contractProductList;
-
-                        this.totalItem= this.contractProductList.length;
-
-                        //console.log("cPList: " + JSON.stringify(this.contractProductList));
-
-                    } else {
-
-                        console.log("res: " + JSON.stringify(res));
                     }
-                });
+                );
             }
         },
         computed:{

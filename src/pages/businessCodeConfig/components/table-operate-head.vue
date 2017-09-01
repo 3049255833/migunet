@@ -4,7 +4,11 @@
             <div class="title">
                 {{title}}
             </div>
+
+            <input @change="upload" type="file" class="pointer" id="upload" name="files"/>
+
             <button class="btn btn-import-module mr-10">批量导入</button>
+
             <button class="btn btn-add-module-white mr-10" @click="addBusinessCode">新增代码</button>
             <button class="btn btn-import-module mr-10">批量删除</button>
         </div>
@@ -43,14 +47,56 @@
                 }
 
                 this.bus.$emit('searchKeyWordBus',this.operateData);
+            },
+            upload() {
+                let files = document.getElementById('upload').files;
+
+                let fileTypeValid = files[0].name.lastIndexOf('.xls') > -1 || files[0].name.lastIndexOf('.xlsx') > -1 || files[0].name.lastIndexOf('.csv') > -1;
+
+                console.log("fileTypeValid: " + fileTypeValid);
+
+                if (fileTypeValid) {
+                    let formData = new FormData();
+
+                    formData.append('files', files[0]);
+
+                    this.$http.post(this.api.batchAddBossInfo, formData).then(
+                        response => {
+                            let res = response.body;
+
+                            if(res.resultCode=='00000000'){
+
+                                console.log("Success res: " + JSON.stringify(res));
+                            } else {
+
+                                console.log("Error res: " + JSON.stringify(res));
+                            }
+                        }
+                    );
+                }
             }
         }
     }
 </script>
 <style scoped lang="scss" rel="stylesheet/scss">
+    #upload {
+        width: 88px;
+        height: 33px;
+        background: red;
+        position: absolute;
+        left: 128px;
+        bottom: 14px;
+        opacity: 0;
+
+        &:hover {
+            background-color: #1D9AD2;
+        }
+    }
+
     .operate-box {
         overflow: hidden;
         padding: 13px 20px;
+        position: relative;
 
         .title {
             font-size: 14px;
