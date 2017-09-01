@@ -99,7 +99,7 @@
 
                             this.totalItem= res.contractProductList.total;
 
-                            //console.log("total: " + this.totalItem);
+                            //console.log("List: " + JSON.stringify(this.contractProductList));
                         } else {
 
                             console.log("res: " + JSON.stringify(res));
