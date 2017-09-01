@@ -30,15 +30,16 @@
         </table>
 
         <div v-if="productList.length <= 0" class="no-asset-box">
-            <img src="../../../assets/no-asset-show.png">
+           <v-nolist :text="'ceshi'"></v-nolist>
         </div>
     </div>
 </template>
 <script>
     import VSearch from '@/components/search'
     import VPaging from '@/components/paging'
-
-
+    import axios from 'axios'
+    // zqy
+    import VNolist from '@/components/no-list'
     export default {
         name: 'ContractProductTable',
         props:{
@@ -46,7 +47,9 @@
         },
         components: {
             VSearch,
-            VPaging
+            VPaging,
+            // zqy
+            VNolist
 
         },
         data ()
