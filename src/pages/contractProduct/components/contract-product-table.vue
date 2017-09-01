@@ -284,6 +284,7 @@
 
         <v-operate-success-modal
             :isHideOperateModal="isHideOperateModal"
+            :operateStatus="operateStatus"
             :type="type">
         </v-operate-success-modal>
     </div>
@@ -304,7 +305,8 @@
             return{
                 count: 0,
                 isHideOperateModal: true,
-                type: ''
+                type: '',
+                operateStatus: ''
             }
         },
         components: {
@@ -387,32 +389,6 @@
                 this.contractProductList[index].operateType = "删除";
 
                 console.log("contractProductId: " + id + ', onlineStatus: ' + onlineStatus + ", detailStatus: " + detailStatus);
-
-                /**
-                 * 删除注销产品
-                 * contractProductId 产品 id
-                 * onlineStatus 业务状态5 string
-                 * detailStatus 审批状态可以不传值 string
-                 * */
-                this.$http.get(this.api.updateProductState,
-                    {
-                        params:{
-                            contractProductId:id,
-                            onlineStatus:'5',
-                            detailStatus:detailStatus
-                        }
-                    }).then(response => {
-
-                    let res = response.body;
-
-                    if(res.result.resultCode=='00000000'){
-
-                        console.log("res success: " + JSON.stringify(res));
-                    } else {
-
-                        console.log("res error: " + JSON.stringify(res));
-                    }
-                });
             }
         },
         mounted(){
@@ -427,15 +403,41 @@
 
                 this.type = this.contractProductList[res].operateType;
 
-                this.isHideOperateModal = false;
-
                 let that = this;
 
-                setTimeout(function () {
+                this.$http.get(this.api.updateProductState,
+                    {
+                        params:{
+                            contractProductId:id,
+                            onlineStatus:'5',
+                            detailStatus:detailStatus
+                        }
+                    }).then(response => {
 
-                    that.isHideOperateModal = true;
+                    let res = response.body;
 
-                }, 3000);
+                    if(res.result.resultCode=='00000000'){
+
+                        this.operateStatus = '成功';
+
+                        this.isHideOperateModal = false;
+
+                        setTimeout(function () {
+                            that.isHideOperateModal = true;
+                        }, 3000);
+                    } else {
+
+                        this.operateStatus = '失败';
+
+                        this.isHideOperateModal = false;
+
+                        setTimeout(function () {
+                            that.isHideOperateModal = true;
+                        }, 3000);
+
+                        console.log("Error res: " + JSON.stringify(res));
+                    }
+                });
             });
 
             /**

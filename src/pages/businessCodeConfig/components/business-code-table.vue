@@ -55,7 +55,7 @@
 
         <v-operate-success-modal
             :isHideOperateModal="isHideOperateModal"
-            :deleteStatus="deleteStatus"
+            :operateStatus="operateStatus"
             :type="'删除'">
         </v-operate-success-modal>
     </div>
@@ -79,7 +79,7 @@
                 willDelete: {
                     id: ''
                 },
-                deleteStatus: ''
+                operateStatus: ''
             }
         },
         components: {
@@ -120,7 +120,7 @@
 
                         if(res.resultCode=='00000000'){
 
-                            this.deleteStatus = '成功';
+                            this.operateStatus = '成功';
 
                             this.isHideOperateModal = false;
 
@@ -129,7 +129,7 @@
                             }, 3000);
 
                         } else {
-                            this.deleteStatus = '失败';
+                            this.operateStatus = '失败';
 
                             this.isHideOperateModal = false;
 
