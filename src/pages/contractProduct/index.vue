@@ -125,6 +125,8 @@
                             this.contractProductList = res.contractProductList.list;
 
                             this.totalItem= res.contractProductList.total;
+
+                            //console.log("total: " + this.totalItem);
                         } else {
 
                             console.log("res: " + JSON.stringify(res));
