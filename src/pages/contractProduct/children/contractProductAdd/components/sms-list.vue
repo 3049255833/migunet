@@ -23,8 +23,8 @@
                     <tr v-for="(smsItem, index) in smsTemplateList">
                         <td>
                             <label class="radio-module">
-                                <input type="radio" name="smsItem.templateName">
-                                <span @click="getSmsInfo(smsItem.id, smsItem.templateContent)"></span>
+                                <input type="radio" :value="index" v-model="smsRadio">
+                                <span></span>
                             </label>
                         </td>
                         <td>
@@ -39,7 +39,8 @@
         </div>
 
         <div class="btn-group btn-group-center">
-            <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
+            <div class="btn btn-primary btn-middle-100" v-if="smsRadio||smsRadio=='0'"  @click="confirm">确定</div>
+            <div class="btn btn-primary btn-middle-100 unable" v-else @click="confirm">确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
 
@@ -69,7 +70,8 @@
                     }*/
                 ],
                 selectPromptSmsItem: {},
-                selectRecommendSmsItem: {}
+                selectRecommendSmsItem: {},
+                smsRadio:''
             }
         },
         components:{
@@ -106,9 +108,9 @@
 
                 if(this.smsType === '1') {
 
-                    this.bus.$emit('getSelectSms', this.selectPromptSmsItem);
+                    this.bus.$emit('getSelectSms', this.smsTemplateList[parseInt(this.smsRadio)]);
                 } else {
-                    this.bus.$emit('getSelectSms', this.selectRecommendSmsItem);
+                    this.bus.$emit('getSelectSms', this.smsTemplateList[parseInt(this.smsRadio)]);
                 }
 
                 
@@ -128,6 +130,10 @@
 
                     this.selectRecommendSmsItem.content = content;
                 }
+            }
+        },
+        watch:{
+            'smsRadio'(a){
             }
         }
     }

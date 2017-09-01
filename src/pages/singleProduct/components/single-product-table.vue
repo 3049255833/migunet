@@ -37,7 +37,6 @@
 <script>
     import VSearch from '@/components/search'
     import VPaging from '@/components/paging'
-    import axios from 'axios'
 
 
     export default {

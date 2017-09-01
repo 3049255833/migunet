@@ -442,7 +442,7 @@
                     <div class="btn-group">
                         <div v-if="canSave" class="btn btn-primary btn-middle" @click="nextStep">下一步</div>
                         <div v-else class="btn unable btn-primary btn-middle">下一步</div>
-                        <div class="btn btn-default btn-middle">取消</div>
+                        <div class="btn btn-default btn-middle" @click="cancel">取消</div>
                     </div>
                 </div>
             </div>
@@ -719,15 +719,13 @@
                     if((!this.formData.paytype.contains('1'))&&(!this.formData.paytype.contains('2'))){
                         flag=false
                     }
-
+ 
                     if (this.formData.paytype.contains('1')) {
                         if(this.formData.ifUseServiceCode==1){     //使用了业务代码
-                            console.log('shiyongle')
-                            if(this.paytype1.serviceCode.length<0){
-                                console.log('this.paytype1.serviceCode.length<0')
+                            if(!this.paytype1.serviceCode){
                                 flag = false
                             }else {
-                                console.log('you')
+                              
                             }
                         }else{
                             if (!/^\d+|-\d+$/g.test(this.paytype1.cycleUnitNum)) {
@@ -807,6 +805,12 @@
                 })
             },
             
+            /**
+             * 取消
+             * */
+            cancel(){
+                this.$router.push({'name': 'ContractProduct'})
+            },
             
             /**
              * 当变量canHideModal为false时，无法关闭弹框
@@ -875,7 +879,6 @@
                     this.paytype1.feeType = '1';             //重置资费类型
                     this.paytype1.price = '';                //重置金额
                     this.paytype1.serviceCode ='';             //重置业务代码
-                    console.log('清空啊')
                     this.formData.cycleUnitNum = '-1';       //重置产品周期数：默认永久有效-1
                     this.formData.cycleUnit = '';                 //重置产品周期单位
                 } else {
