@@ -23,6 +23,7 @@
                             :w="70"
                             :selectTitle="'全部'"
                             :selectValue="'1'"
+                            v-on:selectBoxBus="getOnlineStatus"
                             v-bind:options="statusOperateList">
                     </v-select-box>
                 </div>
@@ -32,7 +33,8 @@
                             :w="90"
                             :selectTitle="'全部'"
                             selectValue="''"
-                            :selectBoxName="'cApproveStatusSelectBox'"
+                            :selectBoxName="'contractApproveStatusSelectBox'"
+                            v-on:selectBoxBus="getApproveStatus"
                             v-bind:options="approveStatusOperateList">
                     </v-select-box>
                 </div>
@@ -41,15 +43,17 @@
                             selectType="1"
                             :w="130"
                             :defaultTitle="'产品目录'"
-                            :selectBoxName="'cProductCatalogSelectBox'"
+                            :selectBoxName="'contractProductCatalogSelectBox'"
                             :selectValue="''"
+                            v-on:selectBoxBus="getProductCatalog"
                             v-bind:options="distOperateList">
                     </v-select-box>
                 </div>
                 <div class="date-container mr-10">
                     <v-date
-                            :busName="'contractEffectiveTimeBus'"
                             defaultText="生效时间"
+                            :dateName="'effectiveTime'"
+                            v-on:dateBus="getTime"
                             startTime="true">
                     </v-date>
                 </div>
@@ -57,7 +61,8 @@
                     <v-date
                             defaultText="失效时间"
                             startTime="false"
-                            :busName="'contractExpireTimeBus'">
+                            :dateName="'expireTime'"
+                            v-on:dateBus="getTime">
                     </v-date>
                 </div>
             </div>
@@ -66,7 +71,7 @@
 </template>
 <script>
     import VDate from '@/components/new-date'
-    import VSelectBox from '@/components/select-box'
+    import VSelectBox from '@/components/new-select-box'
 
     export default {
         name: 'hello',
@@ -182,7 +187,7 @@
                     e.target.blur();
                 }
 
-                this.bus.$emit('cSendOperateDataBus', this.operateData);
+                this.$emit('cSendOperateDataBus', this.operateData);
             },
 
             /**
@@ -190,47 +195,42 @@
              * */
             addContractProduct(){
                 this.$router.push({'name': 'Step1'});
+            },
+
+            /**
+             * 获取时间
+             * */
+            getTime(res){
+                this.operateData[res.dateName] = res.dateValue;
+                this.cSendOperateData();
+            },
+            
+            /**
+             * 获取状态
+             * */
+            getOnlineStatus(res){
+                this.operateData.onlineStatus = res.selectOption.optionValue;
+                this.cSendOperateData();
+            },
+            
+            /**
+             * 获取产品目录
+             * */
+            getProductCatalog(res){
+                this.operateData.productCatalog = res.selectOption.optionValue;
+                this.cSendOperateData();
+            },
+            
+            /**
+             * 获取审批状态
+             * */
+            getApproveStatus(res){
+                this.operateData.detailStatus = res.selectOption.optionValue;
+                this.cSendOperateData();
             }
         },
         mounted(){
-            /**
-             * promise
-             * 获取下拉框的值
-             * */
-            this.bus.$on('selectBoxBus', res => {
-                if (res.selectBoxName == 'cStatusSelectBox') {
-                    this.operateData.onlineStatus = res.selectOption.optionValue;
-                    this.cSendOperateData();
-                }
-                if (res.selectBoxName == 'cApproveStatusSelectBox') {
-                    this.operateData.detailStatus = res.selectOption.optionValue;
-                    this.cSendOperateData();
-                }
-
-                if (res.selectBoxName == 'cProductCatalogSelectBox') {
-                    this.operateData.productCatalog = res.selectOption.optionValue;
-                    this.cSendOperateData();
-                }
-            });
-
-            /**
-             * promise
-             * 获取日历的值
-             * */
-            this.bus.$on('contractEffectiveTimeBus', res => {
-                this.operateData.effectiveTime = res.dateValue;
-                this.cSendOperateData();
-
-            });
-            this.bus.$on('contractExpireTimeBus', res => {
-                this.operateData.expireTime = res.dateValue;
-                this.cSendOperateData();
-
-            });
-            /* if (res.dateName == 'contractExpireTime') {
-             this.operateData.expireTime = res.dateValue;
-             this.cSendOperateData();
-             }*/
+            
         }
     }
 </script>

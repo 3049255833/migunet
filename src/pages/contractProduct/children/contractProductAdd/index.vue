@@ -34,7 +34,7 @@
     
         <!-- 操作结果modal start -->
         <modal name="addResultMsg" :adaptive="true" :draggable="true" :width="200" :height="80">
-            <t-toast :name="'addResultMsg'">{{addResultMsg}}</t-toast>
+            <v-toast :name="'addResultMsg'">{{addResultMsg}}</v-toast>
         </modal>
         
     </div>
@@ -117,17 +117,27 @@
                             this.$modal.show('addResultMsg');
                             this.$router.push({'name': 'ContractProduct'})
                         } else if (res.result.resultCode='00000001'){
-                            this.addResultMsg = res.result.resultMessage;
+                            this.addResultMsg = res.result.resultMsg;
                             this.$modal.show('addResultMsg');
                         }
                     }
                 );
             }
         },
+        watch:{
+            '$route.name'(a,b){
+                console.log(111)
+                if(a=='Step1'){
+                    this.step=1
+                }else if(a=='Step2'){
+                    this.step=2
+                }else{
+                    this.step=3
+                }
+            }
+        },
         mounted () {
             let that = this;
-            this.addResultMsg = '新增成功';
-            this.$modal.show('addResultMsg');
             /**
              * 初始化获取产品目录数据
              * */

@@ -3,11 +3,12 @@
 
         <span class="perPage">
 
-            <select-box v-if="!showElement" :w="90"
-                        :selectBoxName="'pageSizeSelectBox'"
-                        :selectTitle="'8条 / 页'"
-                        :selectValue="'8'"
-                        v-bind:options="pageSizeOperateList"></select-box>
+            <v-select-box v-if="!showElement" :w="90"
+                          :selectBoxName="'pageSize'"
+                          :selectTitle="'8条 / 页'"
+                          :selectValue="'8'"
+                          v-on:selectBoxBus="getPageSize"
+                          v-bind:options="pageSizeOperateList"></v-select-box>
 
         </span>
         <ul class="pagination">
@@ -15,24 +16,25 @@
             <li v-for="index in pages" @click="goto(index)" :class="{'active':current == index}" :key="index">
                 <span>{{index}}</span>
             </li>
-            <li v-show="allPage&&allPage != current && allPage != 0 " @click="current++ && goto(current++)"><span class="next">></span></li>
-            <li  v-if="allPage&&!showElement" class="travel-to">前往</li>
+            <li v-show="allPage&&allPage != current && allPage != 0 " @click="current++ && goto(current++)"><span
+                    class="next">></span></li>
+            <li v-if="allPage&&!showElement" class="travel-to">前往</li>
             <li v-if="allPage&&!showElement" class="whichPage"><input class="form-input" v-model="pageSelected"
-                                                             @keyup.enter="jumpPage" type="number">
+                                                                      @keyup.enter="jumpPage" type="number">
             </li>
             <li v-if="allPage&&!showElement">页</li>
         </ul>
     </div>
 </template>
-<script>
-    import SelectBox from "@/components/select-box";
+<script type="es6">
+    import VSelectBox from "@/components/new-select-box";
 
     export default {
         name: 'Paging',
         components: {
-            SelectBox
+            VSelectBox
         },
-      
+
         props: ['type', 'totalItem'],
         data () {
             return {
@@ -99,63 +101,60 @@
                 if (index == this.current) return;
                 this.current = index;
                 //触发分页bus
-                this.bus.$emit('pagingBus', {
+                this.$emit('pagingBus', {
                     pagingSize: this.pageSize,
                     pagingValue: this.current
                 })
             },
 
             jumpPage: function (e) {
-                if (e&&e.target) {
+                if (e && e.target) {
                     e.target.blur();
                 }
-               
-                if(/^\d+$/gi.test(this.pageSelected)){
+
+                if (/^\d+$/gi.test(this.pageSelected)) {
                     if (this.pageSelected > this.allPage) {
                         alert('超过最大页码数');
                     } else {
                         this.current = this.pageSelected;
-                        this.bus.$emit('pagingBus', {
+                        this.$emit('pagingBus', {
                             pagingValue: this.current,
                             pagingSize: this.pageSize
                         })
                     }
-                }else{
+                } else {
                     alert('请输入数字')
                 }
+            },
+            
+            getPageSize:function(res){
+                this.current = 1;
+                this.pageSize = res.selectOption.optionValue;
+                this.$emit('pagingBus', {
+                    pagingSize: this.pageSize,
+                    pagingValue: 1
+                })
             }
 
         },
-        watch:{
-            'pageSelected'(a,b){
-                if (a==0) {
-                    this.pageSelected=1;
-                }
-                if (isNaN(a)||a<=0) {
+        watch: {
+            'pageSelected'(a, b){
+                if (a == 0) {
                     this.pageSelected = 1;
                 }
-                if (parseInt(a)>this.allPage) {
+                if (isNaN(a) || a <= 0) {
+                    this.pageSelected = 1;
+                }
+                if (parseInt(a) > this.allPage) {
                     this.pageSelected = this.allPage;
                 }
             }
         },
         created(){
-            /**
-             * 监听分页条数下拉框选择
-             * */
-            this.bus.$on('selectBoxBus', res => {
-                //分页条数下拉框
-                if (res.selectBoxName == 'pageSizeSelectBox') {
-                    this.current = 1;
-                    this.pageSize = res.selectOption.optionValue;
-                    this.bus.$emit('pagingBus', {
-                        pagingSize: this.pageSize,
-                        pagingValue: 1
-                    })
-                }
-            });
+          
         },
-        mounted(){}
+        mounted(){
+        }
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

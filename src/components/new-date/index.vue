@@ -36,7 +36,7 @@
     import calendar from '../common/calendar.vue'
     export default {
         name: 'PickDate',
-        props:['defaultText','startTime','busName'],
+        props:['defaultText','startTime','dateName'],
         components:{
             calendar
         },
@@ -88,7 +88,8 @@
              * 监听选择的日期
              * */
             'calendar3.display' (a, b) {
-                this.bus.$emit(this.busName,{
+                this.$emit('dateBus',{
+                    dateName:this.dateName,
                     dateValue:this.calendar3.display
                 })
             },

@@ -1,9 +1,11 @@
 <template>
     <div class="single-product">
         <div class="table-wrapper">
-            <v-table-operate-head hideBtn="true" title="单品管理"></v-table-operate-head>
+            <v-table-operate-head hideBtn="true"
+                                  v-on:sendSingleOperateDataBus="getSingleOperateData"
+                                  title="单品管理" ></v-table-operate-head>
             <v-single-product-table :productList="productList"></v-single-product-table>
-            <v-paging :totalItem="totalItem"></v-paging>
+            <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
         </div>
     </div>
 </template>
@@ -41,26 +43,18 @@
              * 初始请求
              * */
             this.getSingleProductList();
-            /**
+          /*  /!**
              * 接收来自操作头部的信息
-             * */
-            this.bus.$on('sendOperateDataBus', res => {
+             * *!/
+            this.$on('sendSingleOperateDataBus', res => {
                 this.postData.searchKey=res.searchKey;
                 this.postData.onlineStatus=res.onlineStatus;
                 this.postData.detailStatus=res.detailStatus;
                 this.postData.effectiveTime=res.effectiveTime;
                 this.postData.expireTime=res.expireTime;
                 this.getSingleProductList();
-            });
-            /**
-             * 接收分页信息
-             * */
-            this.bus.$on('pagingBus', res => {
-                this.postData.pageNum=res.pagingValue;
-                this.postData.pageSize=res.pagingSize;
-
-                this.getSingleProductList();
-            });
+            });*/
+         
         },
         
         methods: {
@@ -96,6 +90,27 @@
                         
                     }
                 })
+            },
+            
+            /**
+             * 获取分页信息
+             * */
+            getPage(res){
+                this.postData.pageNum=res.pagingValue;
+                this.postData.pageSize=res.pagingSize;
+                this.getSingleProductList();
+            },
+            
+            /**
+             * 接收来自操作投
+             * */
+            getSingleOperateData(res){
+                this.postData.searchKey=res.searchKey;
+                this.postData.onlineStatus=res.onlineStatus;
+                this.postData.detailStatus=res.detailStatus;
+                this.postData.effectiveTime=res.effectiveTime;
+                this.postData.expireTime=res.expireTime;
+                this.getSingleProductList();
             }
         },
         computed:{

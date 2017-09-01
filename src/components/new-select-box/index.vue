@@ -75,8 +75,7 @@
                 this.selectText = option.optionText;
                 this.isShow = false;
                 this.selectOption = option;
-                
-                this.bus.$emit('selectBoxBus', {
+                this.$emit('selectBoxBus', {
                     selectBoxName: this.selectBoxName,
                     selectOption: this.selectOption
                 })

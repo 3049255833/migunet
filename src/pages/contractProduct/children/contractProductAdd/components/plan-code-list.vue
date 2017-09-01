@@ -97,7 +97,7 @@
                         planName: that.planCodeList[parseInt(this.planCodeRadio)].planName,
                         planDesc: that.planCodeList[parseInt(this.planCodeRadio)].planDesc
                     });
-                    this.bus.$emit('planCodeBus', {index: this.index, planCodeData: this.planCodeData});
+                    this.$emit('planCodeBus', {index: this.index, planCodeData: this.planCodeData});
                     this.$modal.hide(this.modalName);
                 } else {
                     that.planCodeCheckbox.forEach(function (item, index) {
@@ -107,7 +107,7 @@
                             planDesc: that.planCodeList[item].planDesc
                         })
                     });
-                    this.bus.$emit('planCodeBus', {index: this.index, planCodeData: this.planCodeData});
+                    this.$emit('planCodeBus', {index: this.index, planCodeData: this.planCodeData});
                     this.$modal.hide(this.modalName);
                 }
 

@@ -31,7 +31,7 @@
                 businessArea: '',
                 areaSelectList: [],
                 areaList: [
-                   /* {
+                    {
                         sort: 'ABCDEFG',
                         list: [{attributionName: '安徽省', attributionCode: '551', id: '000', active: false}, {
                             attributionName: '福建省',
@@ -104,7 +104,7 @@
                             active: false
                         }]
                     },
-                    {sort: '全国', list: [{attributionName: '全国', id: '000', active: false, attributionCode: '000'}]}*/
+                    {sort: '全国', list: [{attributionName: '全国', id: '000', active: false, attributionCode: '000'}]}
                 ]
 
             }
@@ -151,7 +151,7 @@
              * 保存归属地
              * */
             saveArea(){
-                this.bus.$emit('areaChoseBus', this.areaSelectList);
+                this.$emit('areaChoseBus', this.areaSelectList);
                 this.$modal.hide(this.modalName);
             },
 

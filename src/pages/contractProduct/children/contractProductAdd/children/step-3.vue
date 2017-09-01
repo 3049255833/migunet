@@ -87,6 +87,7 @@
             <t-modal-sub-container :title="'选择业务归属地'" :name="'areaChoseModal'">
                 <v-area-chose
                         :modal-name="'areaChoseModal'"
+                        v-on:areaChoseBus="getArea"
                         :selectType="'single'">
                 </v-area-chose>
             </t-modal-sub-container>
@@ -154,11 +155,30 @@
                 })
 
             },
+            
             /**
              * 取消
              * */
             cancel(){
                 this.$router.push({'name': 'ContractProduct'})
+            },
+            
+            /**
+             * 获取地区
+             * */
+            getArea(res){
+                if (res) {
+                    //拼接字符窜
+                    let areaNameArr = [];
+                    let areaCodeArr = [];
+                    res.forEach(function (item, index) {
+                        areaNameArr.push(item.attributionName);
+                        areaCodeArr.push(item.attributionCode);
+                    });
+
+                    this.formData.limitSmsAreas = areaNameArr.join(',');
+                    //this.formData.limitSmsAreasCode = areaCodeArr.join(',');
+                }
             },
             
             /**
@@ -245,23 +265,6 @@
             }
         },
         mounted () {
-            /**
-             * 获取归属地，返回[{areaName:'',areaCode:''}]
-             * */
-            this.bus.$on('areaChoseBus', res => {
-                if (res) {
-                    //拼接字符窜
-                    let areaNameArr = [];
-                    let areaCodeArr = [];
-                    res.forEach(function (item, index) {
-                        areaNameArr.push(item.attributionName);
-                        areaCodeArr.push(item.attributionCode);
-                    });
-
-                    this.formData.limitSmsAreas = areaNameArr.join(',');
-                    //this.formData.limitSmsAreasCode = areaCodeArr.join(',');
-                }
-            });
             
             /*
              * 获取选择的短信模板信息

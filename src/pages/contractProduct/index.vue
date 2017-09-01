@@ -1,13 +1,13 @@
 <template>
     <div class="contract-product">
         <div class="table-wrapper">
-            <v-table-operate-head title="合约产品管理"></v-table-operate-head>
+            <v-table-operate-head title="合约产品管理" v-on:cSendOperateDataBus="getContractOperateData"></v-table-operate-head>
 
             <v-contract-product-table
                     :contractProductList="contractProductList">
             </v-contract-product-table>
 
-            <v-Paging :totalItem="totalItem"></v-Paging>
+            <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
         </div>
     </div>
 </template>
@@ -66,34 +66,7 @@
              * 初始请求
              * */
             this.getContractProductList();
-
-            /**
-             * 接收来自操作头部的信息
-             * */
-            this.bus.$on('cSendOperateDataBus', res => {
-                this.postData.keys = res.keys;
-                this.postData.onlineStatus = res.onlineStatus;
-                this.postData.detailStatus = res.detailStatus;
-                //this.postData.productCatalog = res.productCatalog;
-                this.postData.effectiveTime = res.effectiveTime;
-                this.postData.expireTime = res.expireTime;
-
-                console.log("postData: " + JSON.stringify(this.postData));
-
-                this.getContractProductList();
-            });
-
-            /**
-             * 接收分页信息
-             * */
-            this.bus.$on('pagingBus', res => {
-                this.postData.pageNo = res.pagingValue;
-                this.postData.pageSize = res.pagingSize;
-
-                console.log("postData: " + JSON.stringify(this.postData));
-
-                this.getContractProductList();
-            });
+            
         },
         methods: {
             /**
@@ -108,7 +81,7 @@
              * pageNumber 页码数 string
              * */
             getContractProductList(){
-                this.$http.post(this.api.getContractProductList, this.postData).then(
+                this.$http.post(this.api.getContractProductList, this.postData ,{showLoading:true}).then(
                     response => {
                         let res = response.body;
 
@@ -133,6 +106,31 @@
                         }
                     }
                 );
+            },
+            
+            /**
+             * 获取来自头部的信息
+             * */
+            getContractOperateData(res){
+                this.postData.keys = res.keys;
+                this.postData.onlineStatus = res.onlineStatus;
+                this.postData.detailStatus = res.detailStatus;
+                //this.postData.productCatalog = res.productCatalog;
+                this.postData.effectiveTime = res.effectiveTime;
+                this.postData.expireTime = res.expireTime;
+
+                console.log("postData: " + JSON.stringify(this.postData));
+
+                this.getContractProductList();
+            },
+            
+            /**
+             * 获取分页信息
+             * */
+            getPage(res){
+                this.postData.pageNo = res.pagingValue;
+                this.postData.pageSize = res.pagingSize;
+                this.getContractProductList();
             }
         },
         computed:{

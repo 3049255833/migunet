@@ -14,10 +14,11 @@
                 </div>
                 <div class="l-space l-content-right">
                     <v-select-box
-                            :selectBoxName="'onlineStatusSelectBox'"
+                            :selectBoxName="'onlineStatus'"
                             :w="70"
                             :selectTitle="'全部'"
                             :selectValue="''"
+                            v-on:selectBoxBus="getSelectBoxValue"
                             v-bind:options="onlineStatusOperateList">
                     </v-select-box>
                 </div>
@@ -27,17 +28,22 @@
                             :w="90"
                             :selectTitle="'全部'"
                             selectValue=""
-                            :selectBoxName="'detailStatusSelectBox'"
+                            :selectBoxName="'detailStatus'"
+                            v-on:selectBoxBus="getSelectBoxValue"
                             v-bind:options="detailStatusOperateList">
                     </v-select-box>
                 </div>
                 <div class="date-container mr-10">
-                    <v-date  :busName="'singleEffectiveTimeBus'" defaultText="生效时间"
+                    <v-date defaultText="生效时间"
+                            :dateName="'effectiveTime'"
+                            v-on:dateBus="getTime"
                             startTime="true"></v-date>
                 </div>
                 <div class="date-container">
-                    <v-date  :busName="'singleExpireTimeBus'" defaultText="失效时间"
-                            startTime="false"></v-date>
+                    <v-date defaultText="失效时间"
+                            :dateName="'expireTime'"
+                            v-on:dateBus="getTime"
+                            startTime="true"></v-date>
                 </div>
             </div>
         </div>
@@ -49,7 +55,7 @@
      *
      * */
     import VDate from '@/components/new-date'
-    import VSelectBox from '@/components/select-box'
+    import VSelectBox from '@/components/new-select-box'
 
     export default {
         name: 'hello',
@@ -134,9 +140,25 @@
                 if (e && e.target) {
                     e.target.blur();
                 }
-                this.bus.$emit('sendOperateDataBus', this.operateData);
+                this.$emit('sendSingleOperateDataBus', this.operateData);
             },
-
+            
+            /**
+             * 获取下拉框的东西
+             * */
+            getSelectBoxValue(res){
+                this.operateData[res.selectBoxName] = res.selectOption.optionValue;
+                this.sendOperateData();
+            },
+            
+            /**
+             * 获取时间
+             * */
+            getTime(res){
+                this.operateData[res.dateName] = res.dateValue;
+                this.sendOperateData();
+            },
+       
 
             /**
              * 点击获取状态
@@ -164,26 +186,18 @@
              * promise
              * 获取下拉框的值
              * */
-            this.bus.$on('selectBoxBus', res => {
+           /* this.$on('selectBoxBus', res => {
                 if (res.selectBoxName == 'onlineStatusSelectBox') {
-                    this.operateData.onlineStatus = res.selectOption.optionValue;
-                    this.sendOperateData();
+                   
                 }
                 if (res.selectBoxName == 'detailStatusSelectBox') {
                     this.operateData.detailStatus = res.selectOption.optionValue;
                     this.sendOperateData();
                 }
-            });
+            });*/
 
 
-            /**
-             * promise
-             * 获取日历的值
-             * */
-            this.bus.$on('singleEffectiveTimeBus', res => {
-                this.operateData.effectiveTime = res.dateValue;
-                this.sendOperateData();
-            });
+          
             this.bus.$on('singleExpireTimeBus', res => {
                 this.operateData.expireTime = res.dateValue;
                 this.sendOperateData();

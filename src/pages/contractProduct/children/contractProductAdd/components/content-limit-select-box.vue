@@ -107,7 +107,6 @@
         },
         mounted(){
             this.documentHideOption();
-            console.log(this.selectTitle);
         }
     }
 </script>

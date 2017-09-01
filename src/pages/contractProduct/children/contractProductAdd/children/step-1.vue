@@ -57,10 +57,10 @@
                     生效时间：
                 </div>
                 <div class="row-right">
-                    <v-date :class="{'w-200':true,'error':$v.formData.effectiveTime.$error}"
+                    <v-date :class="{'w-200':true,'error':errorMsg.timeErrorMsg}"
                             :dateName="'step1EffectiveTime'"
                             :defaultText="'生效时间'"></v-date>
-                    <span class="error-msg" v-if="$v.formData.effectiveTime.$error">{{errorMsg.effectiveTime}}</span>
+                    <span class="error-msg" v-if="errorMsg.timeErrorMsg">{{errorMsg.timeErrorMsg}}</span>
                 </div>
             </div>
             <!--失效时间-->
@@ -69,10 +69,10 @@
                     失效时间：
                 </div>
                 <div class="row-right">
-                    <v-date :class="{'w-200':true,'error':$v.formData.expireTime.$error}"
+                    <v-date :class="{'w-200':true,'error':errorMsg.timeErrorMsg}"
                             :dateName="'step1ExpireTime'"
                             :defaultText="'失效时间'"></v-date>
-                    <span class="error-msg" v-if="$v.formData.expireTime.$error">{{errorMsg.expireTime}}</span>
+                    <span class="error-msg" v-if="errorMsg.timeErrorMsg">{{errorMsg.timeErrorMsg}}</span>
                 </div>
             </div>
             <!--业务归属地-->
@@ -451,6 +451,7 @@
         <modal name="businessAreaModal" :width="800" :height="520" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'businessAreaModal'">
                 <v-area-chose :modal-name="'businessAreaModal'"
+                              v-on:areaChoseBus="getArea"
                               :selectType="'single'"></v-area-chose>
             </t-modal-sub-container>
         </modal>
@@ -469,7 +470,7 @@
         <!--资费计划id modal-->
         <modal name="planCodeListModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择资费计划'" :name="'planCodeListModal'">
-                <v-plan-code-list :modalName="'planCodeListModal'"></v-plan-code-list>
+                <v-plan-code-list :modalName="'planCodeListModal'" v-on:planCodeBus="getPlanCode"></v-plan-code-list>
             </t-modal-sub-container>
         </modal>
     </div>
@@ -556,7 +557,8 @@
                     paytype2: {
                         price: '请输入数字类型的金额',
                         cycleUnitNum: '请输入产品周期'
-                    }
+                    },
+                    timeErrorMsg:''
                 },
                 selectBoxList: {
                     effectiveWayList: [
@@ -745,11 +747,30 @@
                             flag = false
                         }
                     }
-
-                    return flag
+                    
                 } else {
-                    return false
+                    flag = false
                 }
+
+                if(this.formData.expireTime&&this.formData.effectiveTime){
+                    console.log("同时出现了")
+                    //两者同时出现，需要判断时间
+                    let expireTime=this.formData.expireTime;
+                    let effectiveTime=this.formData.effectiveTime;
+                    expireTime=parseInt(expireTime.split('-').join(''));
+                    effectiveTime=parseInt(effectiveTime.split('-').join(''));
+                    if(expireTime<effectiveTime){
+                        console.log("cuowule")
+                        flag=false;
+                        this.errorMsg.timeErrorMsg='生效时间必须早于失效时间'
+                    }else{
+                        console.log("zhengquede")
+                        this.errorMsg.timeErrorMsg=''
+                    }
+
+                }
+
+                return flag
             }
 
         },
@@ -794,11 +815,6 @@
                 this.postData.pdChannelCodes=this.formData.pdChannelCodes;
                 
                 
-              /*  this.$http.post(this.api.saveContractProductOne, this.postData).then(
-                    response => {
-                        let res = response.body;
-                    }
-                );*/
                 this.bus.$emit('step1Bus',{
                     step:2,
                     data:this.postData
@@ -810,6 +826,39 @@
              * */
             cancel(){
                 this.$router.push({'name': 'ContractProduct'})
+            },
+            
+            /**
+             * 获取资费计划
+             * */
+            getPlanCode(res){
+                //有数据传过来
+                let planCodeArr = [];
+
+                if (res) {
+                    res.planCodeData.forEach(function (item, index) {
+                        planCodeArr.push(item.planCode);
+                    });
+                    this.formData. pdFeePlanCodes = planCodeArr.join('|');
+                    this.planCodeTableData=res.planCodeData;
+                }
+            },
+            
+            /**
+             * 获取地区
+             * */
+            getArea(res){
+                if (res) {
+                    //拼接字符窜
+                    let attributionNameArr = [];
+                    let attributionCodeArr = [];
+                    res.forEach(function (item, index) {
+                        attributionNameArr.push(item.attributionName);
+                        attributionCodeArr.push(item.attributionCode);
+                    });
+                    this.formData.attributionText = attributionNameArr.join('|');
+                    this.formData.pdAttributionCodes = attributionCodeArr.join('|');
+                }
             },
             
             /**
@@ -844,9 +893,8 @@
              * 跳到下一步
              * */
             nextStep(){
-              /*  this.bus.$emit('curStep', 2);
-                this.$router.push({'name': 'Step2'});*/
-
+                //将产品名送给步骤2
+                this.bus.$emit('sendProductNameBus',this.formData.productName);
                 this.save();
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
@@ -930,24 +978,7 @@
         },
         mounted () {
             let that = this;
-            /**
-             * 获取归属地，返回[{attributionName:'',attributionCode:''}]
-             * */
-            this.bus.$on('areaChoseBus', res => {
-                if (res) {
-                    //拼接字符窜
-                    let attributionNameArr = [];
-                    let attributionCodeArr = [];
-                    res.forEach(function (item, index) {
-                        attributionNameArr.push(item.attributionName);
-                        attributionCodeArr.push(item.attributionCode);
-                    });
-                    this.formData.attributionText = attributionNameArr.join('|');
-                    this.formData.pdAttributionCodes = attributionCodeArr.join('|');
-                }
-
-            });
-
+            
             /**
              * 获取下拉框的值
              * */
@@ -988,9 +1019,11 @@
             this.bus.$on('dateBus', res => {
                 if (res.dateName == 'step1EffectiveTime') {
                     this.formData.effectiveTime = res.dateValue;
+                    console.log(this.formData.effectiveTime )
                 }
                 if (res.dateName == 'step1ExpireTime') {
                     this.formData.expireTime = res.dateValue;
+                    console.log(this.formData.expireTime )
                 }
             });
 
@@ -1020,21 +1053,7 @@
                 }
             })
 
-            /**
-             * 获取资费计划id的值
-             * */
-            this.bus.$on('planCodeBus', res => {
-                //有数据传过来
-                let planCodeArr = [];
-               
-                if (res) {
-                    res.planCodeData.forEach(function (item, index) {
-                        planCodeArr.push(item.planCode);
-                    });
-                    this.formData. pdFeePlanCodes = planCodeArr.join('|');
-                    this.planCodeTableData=res.planCodeData;
-                }
-            });
+          
             
         }
     }
