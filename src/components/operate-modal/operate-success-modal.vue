@@ -2,7 +2,7 @@
   <div class="operate-success-container clearfix" :class="{hide: isHideOperateModal}">
       <img src="../../assets/icon-pass.png">
 
-      <div class="text">{{type}}成功！</div>
+      <div class="text">{{type}}{{operateStatus}}！</div>
   </div>
 </template>
 
@@ -10,8 +10,9 @@
   export default {
     name: 'OperateSuccess',
     props: {
-      type: String,
-      isHideOperateModal: Boolean,
+        type: String,
+        isHideOperateModal: Boolean,
+        operateStatus: String
     },
     mounted(){
       //console.log(this.operateType + "," + this.operateType);
