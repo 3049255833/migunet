@@ -1,11 +1,19 @@
 <template>
     <div id="app">
         <router-view></router-view>
+        <v-loading v-if="$root.isLoaging"></v-loading>
     </div>
 </template>
 <script>
+    import VLoading from "@/components/loading";
     export default {
-        name: 'app'
+
+        name: 'app',
+
+        components: {
+            VLoading
+        }
+
     }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>

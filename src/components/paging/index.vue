@@ -39,7 +39,7 @@
                 current: 1,
                 showItem: 5,
                 pageSize: 8,
-                pageSelected: '',
+                pageSelected: 1,
                 pageSizeOperateList: [
                     {
                         optionText: '5条 / 页 ',
@@ -125,6 +125,19 @@
                 }
             }
 
+        },
+        watch:{
+            'pageSelected'(a,b){
+                if (a==0) {
+                    this.pageSelected=1;
+                }
+                if (isNaN(a)||a<=0) {
+                    this.pageSelected = 1;
+                }
+                if (parseInt(a)>this.allPage) {
+                    this.pageSelected = this.allPage;
+                }
+            }
         },
         created(){
             /**

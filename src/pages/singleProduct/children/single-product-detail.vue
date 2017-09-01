@@ -189,12 +189,7 @@
                     }).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
-                        //todo: 注意，返回的字段这里list小写
-                        this.productDetail= res.data;
-                        // this.productDetail.product = res.product;
-                        // this.productDetail.serviceCode = res.serviceCode;
-                        // this.productDetail.productchannel = res.productchannel;
-                        console.log(this.productDetail)
+                        this.productDetail= res.data.ondemandProduct;
                     } else {
                             
                     }

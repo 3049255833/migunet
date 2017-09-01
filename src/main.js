@@ -48,7 +48,7 @@ import Utils from '@/extend/module/utils.js'
 import VueExtend from '@/extend/module/vue.prototype.extend.js';
 Object.keys(VueExtend).forEach(function (context) {
     var options = VueExtend[context];
-    Vue.prototype[context]=options
+    Vue.prototype[context] = options
 });
 
 /**
@@ -59,14 +59,12 @@ Object.keys(VueExtend).forEach(function (context) {
  * @param  {[type]} needle [description]
  * @return {[type]}        [description]
  */
-Array.prototype.contains = function ( needle ) {
-    for ( let i in this) {
+Array.prototype.contains = function (needle) {
+    for (let i in this) {
         if (this[i] == needle) return true;
     }
     return false;
 };
-
-
 
 
 /**
@@ -80,7 +78,6 @@ import './scss/index.scss';
  * https://github.com/euvl/vue-js-modal
  */
 import Vmodal from 'vue-js-modal'
-
 
 
 /**
@@ -101,16 +98,51 @@ Vue.prototype.bus = new Vue();
 Vue.prototype.api = Api;
 Vue.prototype.utils = Utils;
 
+/**
+ * vue-resource请求拦截器
+ */
 
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
-new Vue({
+
+var vm = new Vue({
     el: '#app',
     router,
     template: '<App/>',
-    components: {App}
+    components: {App},
+    data(){
+        return {
+            isLoaging: false,
+        }
+    },
+    created () {
+        this.$router.afterEach(route => {
+            this.isLoaging = false;
+        });
+
+    },
 });
+
+
+Vue.http.interceptors.push((request, next) => {
+
+
+    vm.isLoaging = true;
+
+
+    next((response) => {
+
+
+        vm.isLoaging = false;
+
+
+    });
+});
+
+/**
+ * vue-resource请求拦截器
+ */
+
 
 Vue.component('modal-self', resolve => require(['@/components/modal-self'], resolve));

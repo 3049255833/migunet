@@ -85,7 +85,7 @@
                         effectiveTime:this.postData.effectiveTime||'',
                         expireTime:this.postData.expireTime||''
                     }
-                }).then(response => {
+                }, { showLoading:true} ).then(response => {
                     let res = response.body;
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
