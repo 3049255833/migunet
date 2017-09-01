@@ -278,7 +278,8 @@
         </table>
 
         <div v-if="contractProductList.length <= 0" class="no-asset-box">
-            <img src="../../../assets/no-asset-show.png">
+            <!-- <img src="../../../assets/no-asset-show.png"> -->
+            <v-nolist :text="'ceshi'"></v-nolist>
         </div>
 
         <v-operate-success-modal
@@ -292,6 +293,7 @@
     import VPaging from '@/components/paging'
     import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
     import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
+    import VNolist from '@/components/no-list'
 
     export default {
         name: 'ContractProductTable',
@@ -309,7 +311,8 @@
             VSearch,
             VPaging,
             VConfirmPopoverModal,
-            VOperateSuccessModal
+            VOperateSuccessModal,
+            VNolist
         },
         computed: {
 

@@ -3,7 +3,7 @@
         <div class="table-wrap">
             <table class="table-module">
                 <thead>
-                <tr>
+                <tr v-show="serviceCodeList.length > 0">
                     <td>选择</td>
                     <td>业务代码</td>
                     <td>业务代码名称</td>
@@ -29,9 +29,13 @@
                     <td>{{item.feeAmount}}</td>
                     <td>{{item.isManager}}</td>
                     <td>{{item.companyCode}}</td>
-                </tr>
+                </tr>             
                 </tbody>
             </table>
+            
+            <div v-if="serviceCodeList.length <= 0" class="no-asset-box">
+                <v-nolist :text="'ceshi2222'"></v-nolist>
+            </div>
         </div>
         <div class="btn-group btn-group-center">
             <div v-if="ifHasData" class="btn btn-primary btn-middle-100" @click="saveData">确定</div>
@@ -45,6 +49,7 @@
 </template>
 <script type="es6">
     import VPaging from '@/components/paging'
+    import VNolist from '@/components/no-list'
     export default{
         name: 'serviceCodeModal',
         props:{modalName: String},
@@ -67,6 +72,7 @@
                     isManager: '是',
                     companyCode: '10000'
                 }],
+                // serviceCodeList:[],
                 serviceCode:'',  //业务代码
                 feeAmount:'', //资费金额
                 serviceCodeData:{
@@ -80,7 +86,8 @@
             }
         },
         components: {
-            VPaging
+            VPaging,
+            VNolist
         },
         methods: {
             getServiceCodeList(){
@@ -186,5 +193,8 @@
         .btn:nth-child(1) {
             margin-right: 20px;
         }
+    }
+    .no-asset-box{
+        margin-top: 85px;
     }
 </style>
