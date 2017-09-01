@@ -39,7 +39,7 @@
         </div>
 
         <div class="btn-group btn-group-center">
-            <div class="btn btn-primary btn-middle-100" @click="confrim">确定</div>
+            <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
 
@@ -90,33 +90,28 @@
                     { params: {} }).then(response => {
 
                     let res = response.body;
-
-                    console.log("smsTemplateList data1: " + JSON.stringify(res));
+                    
 
                     if (res.result.resultCode == '00000000') {
 
                         this.smsTemplateList = res.data;
-
-                        console.log("smsTemplateList data2: " + JSON.stringify(this.smsTemplateList));
+                        
                     } else {
 
                     }
                 })
             },
 
-            confrim() {
+            confirm() {
 
                 if(this.smsType === '1') {
 
                     this.bus.$emit('getSelectSms', this.selectPromptSmsItem);
                 } else {
-
                     this.bus.$emit('getSelectSms', this.selectRecommendSmsItem);
                 }
 
-                //console.log("List: " + JSON.stringify(this.selectSmsItem));
-
-                this.$modal.hide(this.modalName);
+                
             },
             cancel() {
                 this.$modal.hide(this.modalName);

@@ -7,7 +7,7 @@
         </div>
     </div>
 </template>
-<script type="es6">
+<script >
     import VSingleProductTable from '@/pages/singleProduct/components/single-product-table.vue'
     import VPaging from '@/components/paging'
     import VTableOperateHead from '@/pages/singleProduct/components/table-operate-head'
@@ -23,7 +23,7 @@
                     onlineStatus:'0',
                     detailStatus:'0',
                     pageSize:'8',
-                    pageNumber:'1',
+                    pageNum:'1',
                     effectiveTime:'',
                     expireTime:''
                 },
@@ -56,8 +56,9 @@
              * 接收分页信息
              * */
             this.bus.$on('pagingBus', res => {
-                this.postData.pageNumber=res.pagingValue;
+                this.postData.pageNum=res.pagingValue;
                 this.postData.pageSize=res.pagingSize;
+
                 this.getSingleProductList();
             });
         },
@@ -66,31 +67,30 @@
             /**
              * 获取单品产品列表
              * searchKey 搜索关键字 string
-             * onlineStatus 产品状态 string
+             * status 产品状态 string
              * detailStatus 审批状态 string
              * pageSize 每页条数 string
-             * pageNumber 页码数 string
+             * pageNum 页码数 string
              * effectiveTime 生效时间 string
              * expireTime 失效时间 string
              * */
             getSingleProductList(){
-                this.$http.get(this.api.getSingleProductList,
-                    {
-                        params:{
-                            searchKey:this.postData.searchKey||'',
-                            onlineStatus:this.postData.onlineStatus||'',
-                            detailStatus:this.postData.detailStatus||'',
-                            pageSize:this.postData.pageSize||'',
-                            pageNumber:this.postData.pageNumber||'',
-                            effectiveTime:this.postData.effectiveTime||'',
-                            expireTime:this.postData.expireTime||''
-                        }
-                    }).then(response => {
+                this.$http.get(this.api.getSingleProductList, {
+                    params:{
+                        searchKey:this.postData.searchKey||'',
+                        onlineStatus:this.postData.onlineStatus||'',
+                        detailStatus:this.postData.detailStatus||'',
+                        pageSize:this.postData.pageSize||'',
+                        pageNum:this.postData.pageNum||'',
+                        effectiveTime:this.postData.effectiveTime||'',
+                        expireTime:this.postData.expireTime||''
+                    }
+                }).then(response => {
                     let res = response.body;
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
-                        this.productList=res.data;
-                        this.totalItem=res.data.total
+                        this.productList=res.data.list;
+                        this.totalItem=res.data.total;
                     }else{
                         
                     }

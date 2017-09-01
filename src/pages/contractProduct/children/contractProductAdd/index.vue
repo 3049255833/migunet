@@ -33,7 +33,7 @@
         </div>
     </div>
 </template>
-<script>
+<script type="es6">
     /*   import Mock from 'mockjs'*/
     import VDate from '@/components/date'
     export default {
@@ -57,7 +57,14 @@
                             optionText: '年', optionValue: '3'
                         }
                     ]    //体验产品周期单位列表
-                }
+                },
+                step1PostData: {},
+                step2PostData: {},
+                step3PostData: {},
+                step1Flag: false,
+                step2Flag: false,
+                step3Flag: false,
+                postData: {}
             }
         },
         methods: {
@@ -86,22 +93,76 @@
                     }
 
                 })
+            },
+
+            /**
+             * 提交所有数据
+             * */
+            save(){
+
+                this.$http.post(this.api.saveContractProduct, this.postData).then(
+                    response => {
+                        let res = response.body;
+                    }
+                );
             }
         },
         mounted () {
+            let that = this;
             /**
              * 初始化获取产品目录数据
              * */
             this.getProductDistList();
 
             /**
-             * 监听当前的步骤
+             * 获取步骤一的数据
              * */
-            this.bus.$on('curStep', res => {
-                this.step = parseInt(res);
+            this.bus.$on('step1Bus', res => {
+                let _step = parseInt(res.step);
+                this.step = _step;
+                this.step1PostData = res.data;
+                this.$router.push({'name': 'Step2'})
+                this.step1Flag = true;
+
+                Object.keys(this.step1PostData).forEach(function (context) {
+                    that.postData[context] = that.step1PostData[context];
+                });
+                
+                console.log('step-1',this.postData);
+            });
+            /**
+             * 获取步骤二的数据
+             * */
+            this.bus.$on('step2Bus', res => {
+                let _step = parseInt(res.step);
+                this.step = _step;
+                this.step2PostData = res.data;
+                this.$router.push({'name': 'Step3'})
+                this.step2Flag = true;
+
+
+                Object.keys(this.step2PostData).forEach(function (context) {
+                    that.postData[context] = that.step2PostData[context];
+                });
+
+                console.log('step-2',this.postData);
+            });
+            /**
+             * 获取步骤三的数据
+             * */
+            this.bus.$on('step3Bus', res => {
+                this.step3PostData = res.data;
+                Object.keys(this.step3PostData).forEach(function (context) {
+                    that.postData[context] = that.step3PostData[context];
+                });
+                this.step3Flag = true;
+
+                console.log('step-3',this.postData);
+                if(this.step1Flag&&this.step2Flag&&this.step3Flag){
+                    this.save();
+                }
             });
         }
-
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
