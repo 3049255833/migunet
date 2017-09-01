@@ -48,7 +48,7 @@
                                             {{productDetail.productName}}
                                         </span>
                                     </div>
-                                    <div class="layout-row">
+                                    <div class="layout-row" v-show="productDetail.describe">
                                         <span class="row-left"> 产品描述：</span>
                                         <span class="row-right"> {{productDetail.describe}}</span>
                                     </div>
@@ -82,15 +82,15 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 业务状态：</span>
                                         <span class="row-right">
-                                           
+                                           {{productDetail.onlineStatus}}
                                         </span>
                                     </div>
-                                    <div class="layout-row">
+                                   <!-- <div class="layout-row" >
                                         <span class="row-left"> 创建用户：</span>
                                         <span class="row-right">
                                            {{productDetail.createUser}}
                                         </span>
-                                    </div>
+                                    </div>-->
                                     <div class="layout-row">
                                         <span class="row-left"> 失效时间：</span>
                                         <span class="row-right">
@@ -142,7 +142,7 @@
         </div>
     </div>
 </template>
-<script>
+<script type="es6">
     import vTable from "@/components/common/Table";
     import vNav from "@/components/common/Nav";
 
@@ -181,12 +181,11 @@
              * @param productCode 产品id string
              * */
             getSingleProductDetail(productCode){
-                this.$http.get(this.api.getSingleProductDetail,
-                    {
-                        params: {
-                            productCode: productCode || ''
-                        }
-                    }).then(response => {
+                this.$http.get(this.api.getSingleProductDetail,{showLoading:true},{
+                    params: {
+                        productCode: productCode || ''
+                    }
+                }).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         this.productDetail= res.data.ondemandProduct;

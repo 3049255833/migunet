@@ -75,7 +75,7 @@
              * expireTime 失效时间 string
              * */
             getSingleProductList(){
-                this.$http.get(this.api.getSingleProductList, {
+                this.$http.get(this.api.getSingleProductList,{showLoading:true}, {
                     params:{
                         searchKey:this.postData.searchKey||'',
                         onlineStatus:this.postData.onlineStatus||'',

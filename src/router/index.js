@@ -1,17 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/pages/home'
-import ContractProduct from '@/pages/ContractProduct'
-import SingleProduct from '@/pages/singleProduct'
-import BusinessCodeConfig from '@/pages/businessCodeConfig'
-import productCatalogManage from '@/pages/productCatalogManage'
-import SingleProductDetail from '@/pages/singleProduct/children/single-product-detail'
-import ContractProductDetail from '@/pages/contractProduct/children/contract-product-detail'
-import ContractProductAdd from '@/pages/contractProduct/children/contractProductAdd'
-import Step1 from '@/pages/contractProduct/children/contractProductAdd/children/step-1'
-import Step2 from '@/pages/contractProduct/children/contractProductAdd/children/step-2'
-import Step3 from '@/pages/contractProduct/children/contractProductAdd/children/step-3'
+const Home = resolve => require(['@/pages/home'],resolve) ;
+const ContractProduct  = resolve => require(['@/pages/ContractProduct'],resolve) ;
+const SingleProduct  = resolve => require(['@/pages/singleProduct'],resolve) ;
+const BusinessCodeConfig  = resolve => require(['@/pages/businessCodeConfig'],resolve) ;
+const productCatalogManage  = resolve => require(['@/pages/productCatalogManage'],resolve) ;
+const SingleProductDetail  = resolve => require(['@/pages/singleProduct/children/single-product-detail'],resolve) ;
+const ContractProductDetail  = resolve => require(['@/pages/contractProduct/children/contract-product-detail'],resolve) ;
+const ContractProductAdd  = resolve => require(['@/pages/contractProduct/children/contractProductAdd'],resolve) ;
+const Step1 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-1'],resolve) ;
+const Step2 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-2'],resolve) ;
+const Step3 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-3'],resolve) ;
+
+
+/*const Login = resolve => require(['@/pages/login'], resolve);
+const SmsLogin = resolve => require(['@/pages/login/children/sms'], resolve);
+const AccountLogin = resolve => require(['@/pages/login/children/account'], resolve);*/
+
 Vue.use(Router);
 
 export default new Router({

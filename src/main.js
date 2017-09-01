@@ -105,6 +105,27 @@ Vue.prototype.utils = Utils;
 
 Vue.config.productionTip = false
 
+Vue.http.interceptors.push((request, next) => {
+
+    if (request.showLoading) {
+        vm.isLoaging = true;
+        //延迟2秒必定关闭
+        setTimeout(function () {
+            vm.isLoaging = false
+        }, 2000);
+    }
+
+
+    next((response) => {
+
+        if (request.showLoading) {
+            setTimeout(function () {
+                vm.isLoaging = false
+            }, 500);
+        }
+
+    });
+});
 
 var vm = new Vue({
     el: '#app',
@@ -118,27 +139,14 @@ var vm = new Vue({
     },
     created () {
         this.$router.afterEach(route => {
-            this.isLoaging = false;
-        });
+            setTimeout(function(){
+                this.isLoaging = false;
+            })
+        },1000);
 
     },
 });
 
-
-Vue.http.interceptors.push((request, next) => {
-
-
-    vm.isLoaging = true;
-
-
-    next((response) => {
-
-
-        vm.isLoaging = false;
-
-
-    });
-});
 
 /**
  * vue-resource请求拦截器
