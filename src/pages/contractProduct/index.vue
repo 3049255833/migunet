@@ -12,7 +12,7 @@
     </div>
 </template>
 
-<script type="es6">
+<script >
     import VContractProductTable from './components/contract-product-table'
     import VTableOperateHead from '@/pages/contractProduct/components/table-operate-head'
     import VPaging from '@/components/paging'
@@ -108,7 +108,7 @@
              * pageNumber 页码数 string
              * */
             getContractProductList(){
-                this.$http.get(this.api.getContractProductList,{showLoading:true},
+                this.$http.get(this.api.getContractProductList,
                     {
                         params:{
                             keys:this.postData.keys||'',
@@ -119,7 +119,8 @@
                             expiretime:this.postData.expiretime||'',
                             pageSize:this.postData.pageSize||'',
                             pageNumber:this.postData.pageNumber||''
-                        }
+                        },
+                        showLoading:true
                     }).then(response => {
 
                     let res = response.body;

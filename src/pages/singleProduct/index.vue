@@ -75,7 +75,7 @@
              * expireTime 失效时间 string
              * */
             getSingleProductList(){
-                this.$http.get(this.api.getSingleProductList,{showLoading:true}, {
+                this.$http.get(this.api.getSingleProductList, {
                     params:{
                         searchKey:this.postData.searchKey||'',
                         onlineStatus:this.postData.onlineStatus||'',
@@ -84,8 +84,9 @@
                         pageNum:this.postData.pageNum||'',
                         effectiveTime:this.postData.effectiveTime||'',
                         expireTime:this.postData.expireTime||''
-                    }
-                }, { showLoading:true} ).then(response => {
+                    },
+                    showLoading:true
+                }).then(response => {
                     let res = response.body;
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写

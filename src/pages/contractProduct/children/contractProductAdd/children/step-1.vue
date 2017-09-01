@@ -58,7 +58,7 @@
                 </div>
                 <div class="row-right">
                     <v-date :class="{'w-200':true,'error':$v.formData.effectiveTime.$error}"
-                            :dateName="'effectiveTime'"
+                            :dateName="'step1EffectiveTime'"
                             :defaultText="'生效时间'"></v-date>
                     <span class="error-msg" v-if="$v.formData.effectiveTime.$error">{{errorMsg.effectiveTime}}</span>
                 </div>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="row-right">
                     <v-date :class="{'w-200':true,'error':$v.formData.expireTime.$error}"
-                            :dateName="'expireTime'"
+                            :dateName="'step1ExpireTime'"
                             :defaultText="'失效时间'"></v-date>
                     <span class="error-msg" v-if="$v.formData.expireTime.$error">{{errorMsg.expireTime}}</span>
                 </div>
@@ -986,10 +986,10 @@
              * 获取日历的值
              * */
             this.bus.$on('dateBus', res => {
-                if (res.dateName == 'effectiveTime') {
+                if (res.dateName == 'step1EffectiveTime') {
                     this.formData.effectiveTime = res.dateValue;
                 }
-                if (res.dateName == 'expireTime') {
+                if (res.dateName == 'step1ExpireTime') {
                     this.formData.expireTime = res.dateValue;
                 }
             });

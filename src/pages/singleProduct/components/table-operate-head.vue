@@ -14,41 +14,41 @@
                 </div>
                 <div class="l-space l-content-right">
                     <v-select-box
-                          :selectBoxName="'onlineStatusSelectBox'"
-                          :w="70"
-                          :selectTitle="'全部'"
-                          :selectValue="''"
-                          v-bind:options="onlineStatusOperateList">
+                            :selectBoxName="'onlineStatusSelectBox'"
+                            :w="70"
+                            :selectTitle="'全部'"
+                            :selectValue="''"
+                            v-bind:options="onlineStatusOperateList">
                     </v-select-box>
                 </div>
                 <div class="l-space l-content-right">
                     <v-select-box
-                          selectType="1"
-                          :w="90"
-                          :selectTitle="'全部'"
-                          selectValue=""
-                          :selectBoxName="'detailStatusSelectBox'"
-                          v-bind:options="detailStatusOperateList">
+                            selectType="1"
+                            :w="90"
+                            :selectTitle="'全部'"
+                            selectValue=""
+                            :selectBoxName="'detailStatusSelectBox'"
+                            v-bind:options="detailStatusOperateList">
                     </v-select-box>
                 </div>
                 <div class="date-container mr-10">
-
-                    <v-date :dateName="'effectiveTime'" defaultText="生效时间" startTime="true"></v-date>
+                    <v-date  :busName="'singleEffectiveTimeBus'" defaultText="生效时间"
+                            startTime="true"></v-date>
                 </div>
                 <div class="date-container">
-                    <v-date :dateName="'expireTime'" defaultText="失效时间" startTime="false"></v-date>
+                    <v-date  :busName="'singleExpireTimeBus'" defaultText="失效时间"
+                            startTime="false"></v-date>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
-<script type="es6">
+<script>
     /**
      * 该组件主要提供searchKey,onlineStatus,detailStatus,effectiveTime,expireTime
      *
      * */
-    import VDate from '@/components/date'
+    import VDate from '@/components/new-date'
     import VSelectBox from '@/components/select-box'
 
     export default {
@@ -60,19 +60,17 @@
         },
         data () {
             return {
-                operateData:{
-                    searchKey:'',                  //关键字
-                    onlineStatus:'0',                //产品状态
-                    detailStatus:'0',         //审批状态
-                    effectiveTime:'',         //生效时间
-                    expireTime:''             //失效时间
+                operateData: {
+                    searchKey: '',                  //关键字
+                    onlineStatus: '0',                //产品状态
+                    detailStatus: '0',         //审批状态
+                    effectiveTime: '',         //生效时间
+                    expireTime: ''             //失效时间
                 },
                 isShow: false,
                 keyWord: '',
                 detailStatusOperateList: [
-                    {
-                        
-                    },
+                    {},
                     {
                         optionText: '上线报备中',
                         optionValue: '3'
@@ -123,37 +121,37 @@
                         optionText: '删除',
                         optionValue: '5'
                     },
-                  
+
                 ]
             }
         },
         methods: {
-           /**
-            * 触发事件，将封装的数据传给index
-            * 该组件内可以调用该方法传数据
-            * */
+            /**
+             * 触发事件，将封装的数据传给index
+             * 该组件内可以调用该方法传数据
+             * */
             sendOperateData(e){
-                if (e&&e.target){
+                if (e && e.target) {
                     e.target.blur();
                 }
-                this.bus.$emit('sendOperateDataBus',this.operateData);
+                this.bus.$emit('sendOperateDataBus', this.operateData);
             },
-            
-           
+
+
             /**
              * 点击获取状态
              * */
             getOnlineStatus(str){
-                this.getSelectOption(str,this).then((res)=>{
-                    this.operateData.onlineStatus=res.selectOption.optionValue;
+                this.getSelectOption(str, this).then((res) => {
+                    this.operateData.onlineStatus = res.selectOption.optionValue;
                     this.sendOperateData();
                 });
             },
             /**
              * 点击获取审批状态
              * */
-            
-            
+
+
             /**
              * 新增产品
              * */
@@ -166,36 +164,33 @@
              * promise
              * 获取下拉框的值
              * */
-            this.bus.$on('selectBoxBus',res=>{
+            this.bus.$on('selectBoxBus', res => {
                 if (res.selectBoxName == 'onlineStatusSelectBox') {
-                    this.operateData.onlineStatus=res.selectOption.optionValue;
+                    this.operateData.onlineStatus = res.selectOption.optionValue;
                     this.sendOperateData();
                 }
-                if(res.selectBoxName == 'detailStatusSelectBox'){
-                    this.operateData.detailStatus=res.selectOption.optionValue;
+                if (res.selectBoxName == 'detailStatusSelectBox') {
+                    this.operateData.detailStatus = res.selectOption.optionValue;
                     this.sendOperateData();
                 }
             });
-           
-          
+
+
             /**
              * promise
              * 获取日历的值
              * */
-            this.bus.$on('dateBus', res => {
-                if (res.dateName == 'effectiveTime') {
-                    this.operateData.effectiveTime=res.dateValue;
-                    this.sendOperateData();
-                }
-                if (res.dateName == 'expireTime') {
-                    this.operateData.expireTime=res.dateValue;
-                    this.sendOperateData();
-                }
+            this.bus.$on('singleEffectiveTimeBus', res => {
+                this.operateData.effectiveTime = res.dateValue;
+                this.sendOperateData();
+            });
+            this.bus.$on('singleExpireTimeBus', res => {
+                this.operateData.expireTime = res.dateValue;
+                this.sendOperateData();
             });
         }
     }
 </script>
-
 <style scoped lang="scss" rel="stylesheet/scss">
     .l-title {
         float: left;
@@ -203,25 +198,25 @@
         color: #292c31;
         line-height: 34px;
     }
-
+    
     .l-content-head {
         clear: both;
         display: block;
         padding: 13px 20px;
     }
-
+    
     .l-content-head:after {
         content: '';
         display: block;
         clear: both;
     }
-
+    
     .l-content-head:after {
         content: '';
         display: block;
         clear: both;
     }
-
+    
     .l-content-left {
         float: left;
         font-size: 14px;
@@ -230,14 +225,14 @@
         height: 40px;
         line-height: 43px;
     }
-
+    
     .l-content-left2 {
         width: auto;
         margin-right: 20px;
         height: 30px;
         line-height: 34px;
     }
-
+    
     .StateSelect {
         height: 40px;
         background: #fcf9f9;
@@ -245,23 +240,21 @@
         color: #999;
         font-size: 14px;
     }
-
+    
     .StateSelect4 {
         width: 176px;
         height: 30px;
     }
-
+    
     .l-content-right, .tb-reset {
         float: left;
-
+        
     }
-
+    
     .l-content-right {
         height: 34px;
     }
-
-
-
+    
     .tb-reset {
         font-size: 14px;
         color: #46bafe;
@@ -274,7 +267,7 @@
         box-sizing: border-box;
         border-radius: 5px;
     }
-
+    
     /*.tb-reset:hover{
 
     }*/
@@ -282,24 +275,24 @@
         background: #46bafe;
         color: #ffffff;
     }
-
+    
     .l-content-w {
         margin-right: 20px;
     }
-
+    
     .NewTable2 td, .dialog-ctn, .l-content-button, .nl-table, .tb-reset {
         text-align: center;
     }
-
+    
     .StateSelect5 {
         width: 124px;
         height: 30px;
     }
-
+    
     .input-wrapper {
         float: left;
     }
-
+    
     .input-wrapper input {
         width: 150px;
         height: 34px;
@@ -307,24 +300,24 @@
         box-sizing: border-box;
         border: solid 1px #d6e1e5;
     }
-
+    
     .input-wrapper input::-webkit-input-placeholder {
         color: #d6e1e5;
     }
-
+    
     .input-wrapper1 input {
         background: url('../../../assets/search.png') no-repeat 95% 50%;
     }
-
+    
     .l-space {
         margin-right: 10px;
     }
-
+    
     .date-wrapper {
         float: left;
         margin-right: 10px;
     }
-
+    
     .btn-add {
         float: left;
         width: 80px;
@@ -341,25 +334,26 @@
             background-size: 100% 100%;
         }
     }
-
+    
     .vue-left {
         float: left;
     }
-
+    
     .vue-right {
         float: right;
     }
-
+    
     .date-container {
         position: relative;
         float: left;
-        & + .date-container { }
+        & + .date-container {
+        }
     }
-
+    
     .addBtn {
         display: none;
     }
-
+    
     input {
         border-radius: 4px;
         &:focus {
