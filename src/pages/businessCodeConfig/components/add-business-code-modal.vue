@@ -328,15 +328,19 @@
 
         .form-wrap {
             padding: 30px 80px 25px;
+            max-height: 460px;
+            overflow-y: auto;
 
             .form-row {
-                padding-bottom: 20px;
+                padding-bottom: 15px;
             }
             .row-left {
                 width: 162px;
             }
             .row-right {
-
+                .error-msg {
+                    margin-top: 8px;
+                }
             }
         }
 

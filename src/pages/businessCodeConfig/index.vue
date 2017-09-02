@@ -6,7 +6,7 @@
 
         <v-paging :totalItem="totalItem"></v-paging>
 
-        <modal name="addBusinessCodeModal" :width="600" :height="600" @before-close="beforeClose">
+        <modal name="addBusinessCodeModal" :width="600" :height="580" @before-close="beforeClose">
             <t-modal-sub-container :title="'新增业务代码'" :name="'addBusinessCodeModal'">
                 <v-add-business-code-modal
                   :modal-name="'addBusinessCodeModal'"
@@ -133,7 +133,7 @@
              * 获取业务代码列表
              * */
             getBossInfo(){
-                this.$http.post(this.api.getBossInfo, this.postData).then(
+                this.$http.post(this.api.getBossInfo, this.postData,{showLoading:true}).then(
                     response => {
                         let res = response.body
 
