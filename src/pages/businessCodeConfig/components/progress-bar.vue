@@ -1,30 +1,25 @@
 <template>
-    <div class="progress-bar-box">
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+    <div class="progress-bar-box" :class="{hide: isHide}">
+        <div v-if="uploadErrorInfo == ''">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" :style="{width:progressStyle+'%'}">
+                </div>
             </div>
-        </div>
 
-        <div class="count">60%</div>
+            <div class="count">{{percent}}%</div>
+        </div>
+        <div v-else class="text">{{uploadErrorInfo}}</div>
     </div>
 </template>
 
 <script>
   export default {
       name: 'ProgressBar',
-      components: {
-      },
-      methods: {
-
-      },
-      mounted () {
-
-      },
-      computed: {
-
-      },
-      watch: {
-
+      props: {
+          isHide: Boolean,
+          uploadErrorInfo: String,
+          percent: String,
+          progressStyle: String
       }
   }
 </script>
@@ -41,7 +36,16 @@
         border: 1px solid #ddd;
         border-radius: 6px;
         overflow: hidden;
-        display: none;
+
+        &.hide {
+            display: none;
+        }
+
+        .text {
+            text-align: center;
+            color: #333333;
+            font-size: 14px;
+        }
 
         .progress {
             height: 12px;

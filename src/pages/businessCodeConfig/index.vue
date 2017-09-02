@@ -116,7 +116,7 @@
             });
 
             /**
-             * 接收来自删除的信息
+             * 接收来自批量导入的信息
              * */
             this.bus.$on('sendBatchAddBossInfo', res => {
                 this.getBossInfo();

@@ -21,7 +21,11 @@
             />
         </div>
 
-        <v-progress-bar></v-progress-bar>
+        <v-progress-bar
+          :isHide="isHide"
+          :percent="percent"
+          :progressStyle="progressStyle.width"
+          :uploadErrorInfo="uploadErrorInfo"></v-progress-bar>
     </div>
 </template>
 <script>
@@ -35,6 +39,12 @@
         },
         data() {
             return {
+                isHide: true,
+                uploadErrorInfo: '',
+                percent: '',
+                progressStyle: {
+                    width: '10'
+                },
                 operateData: {
                     keys: ''  //关键字
                 }
@@ -56,6 +66,8 @@
                 this.bus.$emit('searchKeyWordBus',this.operateData);
             },
             upload() {
+                let that = this;
+
                 let files = document.getElementById('upload').files;
 
                 let fileTypeValid = files[0].name.lastIndexOf('.xls') > -1 || files[0].name.lastIndexOf('.xlsx') > -1 || files[0].name.lastIndexOf('.csv') > -1;
@@ -67,21 +79,50 @@
 
                     formData.append('file', files[0]);
 
-                    this.$http.post(this.api.batchAddBossInfo, formData).then(
-                        response => {
-                            let res = response.body;
+                    this.uploadErrorInfo = '';
 
-                            if(res.result.resultCode=='00000000'){
+                    this.isHide = false;
 
+                    //console.log("info: " + this.uploadErrorInfo);
 
-                                this.bus.$emit('sendBatchAddBossInfo');
-                                //console.log("Success res: " + JSON.stringify(res));
-                            } else {
+                    this.$http.post(this.api.batchAddBossInfo, formData, {
+                        progress: (e) => {
+                            if (e.lengthComputable) {
 
-                                //console.log("Error res: " + JSON.stringify(res));
+                                //console.log("e: " + JSON.stringify(e));
+
+                                var percent = Math.floor(e.loaded / e.total*100);
+
+                                if(percent < 100) {
+                                    this.percent = percent;
+                                    this.progressStyle.width = percent;
+
+                                    //console.log("uploading: " + '已上传: ' + percent + '%');
+                                }
+                                if(percent >= 100) {
+                                    this.percent = '100';
+                                    this.progressStyle.width = '100';
+
+                                    //console.log("upload success: " + '文件上传完毕');
+
+                                    setTimeout(function () {
+                                      that.isHide = true;
+
+                                      that.bus.$emit('sendBatchAddBossInfo');
+                                    }, 2000);
+
+                                }
                             }
                         }
-                    );
+                    });
+                } else {
+                    this.isHide = false;
+
+                    this.uploadErrorInfo = '上传格式错误！';
+
+                    setTimeout(function () {
+                        that.isHide = true;
+                    }, 2000);
                 }
             }
         }

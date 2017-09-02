@@ -30,9 +30,9 @@
                 <td v-else-if="cProduct.onlineStatus == 4">
                     注销
                 </td>
-                <td v-else-if="cProduct.onlineStatus == 5">
+                <!--<td v-else-if="cProduct.onlineStatus == 5">
                     删除
-                </td>
+                </td>-->
                 <td v-else></td>
 
                 <td v-if="cProduct.detailStatus == 1">

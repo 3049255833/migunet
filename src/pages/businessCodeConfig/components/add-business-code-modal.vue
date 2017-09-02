@@ -233,7 +233,7 @@
                 this.$modal.hide(this.modalName);
             },
             confirm() {
-                console.log("postData: " + JSON.stringify(this.postData));
+                //console.log("postData: " + JSON.stringify(this.postData));
 
                 if(this.cmd == 'edit') {
 
@@ -265,8 +265,6 @@
                         }
                     );
                 }
-
-
             }
         },
         mounted () {
@@ -303,9 +301,6 @@
                     return false;
                 }
             }
-        },
-        watch: {
-
         }
     }
 </script>
