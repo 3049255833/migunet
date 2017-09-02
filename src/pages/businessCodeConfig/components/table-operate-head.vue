@@ -71,14 +71,14 @@
                         response => {
                             let res = response.body;
 
-                            console.log("res: " + JSON.stringify(res));
+                            if(res.result.resultCode=='00000000'){
 
-                            if(res.resultCode=='00000000'){
 
-                                console.log("Success res: " + JSON.stringify(res));
+                                this.bus.$emit('sendBatchAddBossInfo');
+                                //console.log("Success res: " + JSON.stringify(res));
                             } else {
 
-                                console.log("Error res: " + JSON.stringify(res));
+                                //console.log("Error res: " + JSON.stringify(res));
                             }
                         }
                     );
