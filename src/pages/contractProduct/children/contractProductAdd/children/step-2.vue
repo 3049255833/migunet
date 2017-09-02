@@ -5,7 +5,7 @@
                 <p>
                    <!-- <span class="left">产品ID：209000000920</span>
                     <span class="middle">|</span>-->
-                    <span class="right">产品名称（中文）：{{productName}}</span>
+                    <span class="right">产品名称（中文）：{{$parent.productName}}</span>
                 </p>
             </div>
             <div class="strategy-type-content">
@@ -418,10 +418,6 @@
                 });
                 
                 return flag
-            },
-            productName(){
-                console.log(this.productNameStep1)
-                return this.productNameFromStep1;
             }
         },
         
@@ -529,16 +525,16 @@
                 }
             })
 
-            /**
+          /*  /!**
              * 获取产品名
-             * */
+             * *!/
             this.bus.$on('sendProductNameBus', res => {
+                console.log('step2Name',res);
                 this.productNameFromStep1=res;
-            })
+            })*/
         },
         
         destroyed(){
-            this.bus.$off('sendProductNameBus');
             this.bus.$off('productSelectStep2Bus');
             this.bus.$off('pdContentSelectBoxBus');
             this.bus.$off('contentLimitSelectBoxBus');

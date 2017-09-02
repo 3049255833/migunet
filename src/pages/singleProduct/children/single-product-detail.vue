@@ -181,10 +181,11 @@
              * @param productCode 产品id string
              * */
             getSingleProductDetail(productCode){
-                this.$http.get(this.api.getSingleProductDetail,{showLoading:true},{
+                this.$http.get(this.api.getSingleProductDetail,{
                     params: {
                         productCode: productCode || ''
-                    }
+                    },
+                    showLoading:true
                 }).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {

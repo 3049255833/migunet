@@ -51,6 +51,7 @@
         },
         data () {
             return {
+                productName:'',
                 addResultMsg:'',
                 step: parseInt(this.$route.name.substr(this.$route.name.length - 1, 1)),
                 initData: {
@@ -108,18 +109,18 @@
              * 提交所有数据
              * */
             save(){
-
-                this.$http.post(this.api.saveContractProduct, this.postData,{showLoading:true}).then(
+                let that=this;
+                this.$http.post(this.api.saveContractProduct, this.postData).then(
                     response => {
                         let res = response.body;
                         if (res.result.resultCode == '00000000') {
                             this.addResultMsg = '新增成功';
                             this.$modal.show('addResultMsg');
                             setTimeout(function(){
-                                this.$router.push({'name': 'ContractProduct'})
-                            },1000);
+                                that.$router.push({'name': 'ContractProduct'})
+                            },2000);
                         } else if (res.result.resultCode='00000001'){
-                            this.addResultMsg = res.result.resultMsg;
+                            this.addResultMsg = res.result.resultMessage;
                             this.$modal.show('addResultMsg');
                         }
                     }
@@ -137,7 +138,7 @@
                 }
             }
         },
-        mounted () {
+        created () {
             let that = this;
             /**
              * 初始化获取产品目录数据
@@ -190,8 +191,15 @@
 
                 console.log('step-3',this.postData);
                 if(this.step1Flag&&this.step2Flag&&this.step3Flag){
+                    console.log('触发了保存')
                     this.save();
                 }
+            });
+            /**
+             * 获取产品名
+             * */
+            this.bus.$on('sendProductNameBus',res=>{
+                this.productName=res;
             });
         }
     }

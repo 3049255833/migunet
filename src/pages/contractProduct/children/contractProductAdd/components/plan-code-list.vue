@@ -1,7 +1,7 @@
 <template>
     <div class="sms-list">
         <div class="list-modal-head">
-            <div class="search-wrap">
+            <div class="search-wrap" v-if="false">
                 <input class="form-input  w-150 radius-2 mr-6" type="text" v-model.trim="condition"
                        @keyup.enter="getPlanCodeListByCondition" placeholder="关键信息搜索">
                 <div @click="getPlanCodeListByCondition" class="pointer search vt-middle">

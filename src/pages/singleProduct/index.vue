@@ -69,6 +69,7 @@
              * expireTime 失效时间 string
              * */
             getSingleProductList(){
+                console.log('请求列表')
                 this.$http.get(this.api.getSingleProductList, {
                     params:{
                         searchKey:this.postData.searchKey||'',
@@ -105,6 +106,7 @@
              * 接收来自操作投
              * */
             getSingleOperateData(res){
+                console.log('接收到头部')
                 this.postData.searchKey=res.searchKey;
                 this.postData.onlineStatus=res.onlineStatus;
                 this.postData.detailStatus=res.detailStatus;

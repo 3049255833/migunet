@@ -195,15 +195,6 @@
             },
             
             /**
-             * 暂时没用
-             * */
-            nextStep(){
-                this.bus.$emit('curStep', 3);
-                this.$router.push({'name': 'Step3'});
-
-                document.body.scrollTop = document.documentElement.scrollTop = 0;
-            },
-            /**
              * 显示地方
              * */
             showAreaChoseModal(){

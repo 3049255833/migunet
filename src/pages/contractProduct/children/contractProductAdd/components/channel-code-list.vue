@@ -10,7 +10,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(item,index) in channelCodeList" @click="">
+                <tr v-for="(item,index) in channelCodeList" >
                     <td>
                         <label class="checkbox-module checkbox-single">
                             <input type="checkbox" :value="index" v-model="channelCodeCheckbox">
@@ -89,6 +89,7 @@
                         channelName: that.channelCodeList[item].channelName
                     })
                 });
+                console.log(this.channelCodeData);
                 this.bus.$emit('channelCodeBus', this.channelCodeData);
                 this.$modal.hide(this.modalName);
             }

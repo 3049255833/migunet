@@ -95,6 +95,24 @@
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo:
+                        res.data.forEach(function(item,index){
+                                if(item.sharingType==1){
+                                    console.log('是')
+                                    item.sharingType='分成'
+                                }else{
+                                    console.log('否')
+                                    item.sharingType='买断'
+                                }
+                           
+                                if(item.isManager==1){
+                                    item.isManager='专用'
+                                }else{
+                                    item.isManager='否'
+                                }
+
+                        
+                        })
+
                         this.serviceCodeList = res.data;
                     } else {
 

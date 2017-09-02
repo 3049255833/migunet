@@ -92,6 +92,7 @@
                     dateName:this.dateName,
                     dateValue:this.calendar3.display
                 })
+                console.log('触发日期')
             },
         },
         mounted(){

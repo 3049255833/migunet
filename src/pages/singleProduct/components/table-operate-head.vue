@@ -147,6 +147,7 @@
                 if (e && e.target) {
                     e.target.blur();
                 }
+                console.log('触发头部信息')
                 this.$emit('sendSingleOperateDataBus', this.operateData);
             },
             
@@ -163,6 +164,7 @@
              * */
             getTime(res){
                 this.operateData[res.dateName] = res.dateValue;
+                console.log('接受到日期')
                 this.sendOperateData();
             },
        

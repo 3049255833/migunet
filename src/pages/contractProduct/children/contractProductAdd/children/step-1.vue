@@ -427,7 +427,7 @@
                             <tr v-for="item in planCodeTableData">
                                 <td>{{item.planCode}}</td>
                                 <td>{{item.planName}}</td>
-                                <td>{{item.planExplain}}</td>
+                                <td>{{item.planDesc}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -894,6 +894,7 @@
             nextStep(){
                 //将产品名送给步骤2
                 this.bus.$emit('sendProductNameBus',this.formData.productName);
+                
                 this.save();
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
@@ -1058,8 +1059,8 @@
             this.bus.$off('serviceCodeBus');
             this.bus.$off('dateBus');
             this.bus.$off('selectBoxBus');
-            this.bus.$off('sendProductNameBus');
             this.bus.$off('step1Bus');
+            this.bus.$off('sendProductNameBus');
         }
     }
 </script>
