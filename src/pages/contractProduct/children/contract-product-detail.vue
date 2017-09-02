@@ -322,7 +322,7 @@
         </div>
 
         <v-confirm-popover-modal
-            :operateType="operateType"
+            :confirmInfo="confirmInfo"
             :isHideConfim="isHideConfim"
             details="details"
             v-bind:style="styleComfirm">
@@ -330,7 +330,7 @@
 
         <v-operate-success-modal
             :isHideOperateModal="isHideOperateModal"
-            :type="type"
+            :operateInfo="operateInfo"
             v-bind:style="styleOperateSuccess">
         </v-operate-success-modal>
     </div>
@@ -359,10 +359,10 @@
                 product: {},
                 payTypes: [],
                 serviceCodes: [],
-                operateType: '',
+                confirmInfo: '',
                 isHideConfim: true,
                 isHideOperateModal: true,
-                type: '',
+                operateInfo: '',
                 styleComfirm: {
                     top: '19.5%',
                     right: '2%'
@@ -382,11 +382,11 @@
             this.bus.$on('sendDetailsConfirmInfo', res => {
                 this.isHideConfim = true;
 
-                this.type = this.operateType;
+                this.operateInfo = '操作成功';
 
                 this.isHideOperateModal = false;
 
-                if(this.operateType === '撤销' || this.operateType === '下线') {
+                if(this.confirmInfo === '是否撤销该产品' || this.confirmInfo === '是否下线该产品') {
 
                     this.styleOperateSuccess.top = '18%';
                 } else {
@@ -452,7 +452,7 @@
 
                 this.styleComfirm.right = '3.5%';
 
-                this.operateType = "下线";
+                this.confirmInfo = "是否下线该产品";
             },
 
             revocation() {
@@ -462,7 +462,7 @@
 
                 this.styleComfirm.right = '12.5%';
 
-                this.operateType = "撤销";
+                this.confirmInfo = "是否撤销该产品";
             },
 
             hide() {
@@ -472,7 +472,7 @@
 
                 this.styleComfirm.right = '10.5%';
 
-                this.operateType = "隐藏";
+                this.confirmInfo = "是否隐藏该产品";
             },
 
             logout() {
@@ -482,7 +482,7 @@
 
                 this.styleComfirm.right = '0.6%';
 
-                this.operateType = "注销";
+                this.confirmInfo = "是否注销该产品";
             }
         }
     }

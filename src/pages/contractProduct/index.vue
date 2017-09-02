@@ -26,28 +26,7 @@
         },
         data() {
             return{
-                contractProductList:[
-                    /*{
-                        id: 43210880000417,
-                        productCode: "4321088000007000000017",
-                        productName: "自动化测试产品",
-                        onlineStatus: '4',
-                        detailStatus: '',
-                        isShow: false,
-                        isHideConfim: true,
-                        operateType: ""
-                    },
-                    {
-                      id: 43210880000417,
-                      productCode: "4321088000007000000017",
-                      productName: "自动化测试产品",
-                      onlineStatus: '3',
-                      detailStatus: '',
-                      isShow: false,
-                      isHideConfim: true,
-                      operateType: ""
-                    }*/
-                ],
+                contractProductList:[],
                 postData:{
                     keys:'',
                     onlineStatus:1,
@@ -66,7 +45,7 @@
              * 初始请求
              * */
             this.getContractProductList();
-            
+
         },
         methods: {
             /**
@@ -107,7 +86,7 @@
                     }
                 );
             },
-            
+
             /**
              * 获取来自头部的信息
              * */
@@ -123,7 +102,7 @@
 
                 this.getContractProductList();
             },
-            
+
             /**
              * 获取分页信息
              * */

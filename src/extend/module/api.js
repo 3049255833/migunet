@@ -20,7 +20,7 @@ let api = {
      * 合约产品
      * */
     getContractProductList:'productCenter/getContractProductList',    //获取合约列表
-    getContractProductDetail:'product/contractProductDetail',       //获取合约产品详情
+    getContractProductDetail:'productCenter/contractProductDetail',       //获取合约产品详情
     getProductDist:'contractProduct/findProductCatalog',        //获取产品目录
     getServiceCodeList:'contractProduct/findCharge',           //获取业务代码
     findPdMatchFiled:'contractProduct/findPdMatchFiled',        //获取匹配字段表

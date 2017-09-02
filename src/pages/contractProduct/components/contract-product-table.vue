@@ -75,7 +75,7 @@
                         </div>
 
                         <v-confirm-popover-modal
-                                :operateType="cProduct.operateType"
+                                :confirmInfo="cProduct.operateType"
                                 :isHideConfim="cProduct.isHideConfim"
                                 :index="index">
                         </v-confirm-popover-modal>
@@ -100,7 +100,7 @@
                         </div>
 
                         <v-confirm-popover-modal
-                            :operateType="cProduct.operateType"
+                            :confirmInfo="cProduct.operateType"
                             :isHideConfim="cProduct.isHideConfim"
                             :index="index">
                         </v-confirm-popover-modal>
@@ -154,7 +154,7 @@
                         </div>
 
                         <v-confirm-popover-modal
-                            :operateType="cProduct.operateType"
+                            :confirmInfo="cProduct.operateType"
                             :isHideConfim="cProduct.isHideConfim"
                             :index="index"
                         >
@@ -213,7 +213,7 @@
                         </div>
 
                         <v-confirm-popover-modal
-                          :operateType="cProduct.operateType"
+                          :confirmInfo="cProduct.operateType"
                           :isHideConfim="cProduct.isHideConfim"
                           :index="index"
                         >
@@ -263,7 +263,7 @@
                         </div>
 
                         <v-confirm-popover-modal
-                          :operateType="cProduct.operateType"
+                          :confirmInfo="cProduct.operateType"
                           :isHideConfim="cProduct.isHideConfim"
                           :index="index">
                         </v-confirm-popover-modal>
@@ -284,8 +284,7 @@
 
         <v-operate-success-modal
             :isHideOperateModal="isHideOperateModal"
-            :operateStatus="operateStatus"
-            :type="type">
+            :operateInfo="operateInfo">
         </v-operate-success-modal>
     </div>
 </template>
@@ -305,8 +304,7 @@
             return{
                 count: 0,
                 isHideOperateModal: true,
-                type: '',
-                operateStatus: '',
+                operateInfo: '',
                 willDeleteID: '',
                 willDeleteDetailSatus: ''
             }
@@ -358,37 +356,37 @@
             logout(index) {
                 this.contractProductList[index].isHideConfim = false;
 
-                this.contractProductList[index].operateType = "注销";
+                this.contractProductList[index].operateType = "是否注销该产品";
             },
 
             offline(index) {
                 this.contractProductList[index].isHideConfim = false;
 
-                this.contractProductList[index].operateType = "下线";
+                this.contractProductList[index].operateType = "是否下线该产品";
             },
 
             online(index) {
                 this.contractProductList[index].isHideConfim = false;
 
-                this.contractProductList[index].operateType = "上线";
+                this.contractProductList[index].operateType = "是否上线该产品";
             },
 
             hide(index) {
                 this.contractProductList[index].isHideConfim = false;
 
-                this.contractProductList[index].operateType = "隐藏";
+                this.contractProductList[index].operateType = "是否隐藏该产品";
             },
 
             revocation(index) {
                 this.contractProductList[index].isHideConfim = false;
 
-                this.contractProductList[index].operateType = "撤销";
+                this.contractProductList[index].operateType = "是否撤销该产品";
             },
 
             deleteBtn(index, id, detailStatus) {
                 this.contractProductList[index].isHideConfim = false;
 
-                this.contractProductList[index].operateType = "删除";
+                this.contractProductList[index].operateType = "是否删除该产品";
 
                 this.willDeleteID = id;
 
@@ -407,13 +405,11 @@
             this.bus.$on('sendConfirmInfo', res => {
                 this.contractProductList[res].isHideConfim = true;
 
-                this.type = this.contractProductList[res].operateType;
-
                 let that = this;
 
-                console.log("id: " + this.willDeleteID);
+                //console.log("id: " + this.willDeleteID);
 
-                console.log("willDeleteDetailSatus: " + this.willDeleteDetailSatus);
+                //console.log("willDeleteDetailSatus: " + this.willDeleteDetailSatus);
 
                 this.$http.get(this.api.updateProductState,
                     {
@@ -430,7 +426,7 @@
 
                     if(res.resultMessage =='成功'){
 
-                        this.operateStatus = '成功';
+                        this.operateInfo = '删除成功';
 
                         this.isHideOperateModal = false;
 
@@ -439,7 +435,7 @@
                         }, 3000);
                     } else {
 
-                        this.operateStatus = '失败';
+                        this.operateInfo = '删除失败';
 
                         this.isHideOperateModal = false;
 
@@ -459,6 +455,9 @@
                 this.contractProductList[res].isHideConfim = true;
             });
         },
+        destroyed(){
+            this.bus.$off('sendConfirmInfo');
+        }
     }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
