@@ -3,8 +3,10 @@ var path = require('path');
 
 var proxy_service_xhw = 'http://10.5.2.47:8080';
 var proxy_service_ljy = 'http://10.5.2.119:8080';
-var proxy_service_xl = 'http://10.5.2.19:8080';
+var proxy_service_xl = 'http://10.5.2.243:8082/';
 var proxy_service_e = 'http://10.5.2.52:8080';
+var proxy_service_cjl='http://10.5.2.123:8080';
+
 
 /*switch (argv[0]) {
  case 'xhw':
@@ -43,12 +45,12 @@ module.exports = {
         proxyTable: {
             '/product/getProductList': {
                 /*单品列表*/
-                target: proxy_service_xhw,
+                target: proxy_service_cjl,
                 changeOrigin: true
             },
             '/product/getProductDetail': {
                 /*单品详情的IP*/
-                target: proxy_service_xhw,
+                target: proxy_service_cjl,
                 changeOrigin: true
             },
 

@@ -61,7 +61,7 @@
                     },
                     {
                         optionText: '20条 / 页 ',
-                        optionValue: '15'
+                        optionValue: '20'
                     }
                 ]
             }

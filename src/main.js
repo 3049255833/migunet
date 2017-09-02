@@ -107,7 +107,9 @@ Vue.config.productionTip = false
 
 Vue.http.interceptors.push((request, next) => {
 
+
     if (request.showLoading) {
+        console.log(111)
         vm.isLoaging = true;
         //延迟2秒必定关闭
         setTimeout(function () {

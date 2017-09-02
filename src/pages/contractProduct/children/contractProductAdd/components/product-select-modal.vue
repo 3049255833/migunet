@@ -14,16 +14,18 @@
                     <tr v-for="(item, index) in productList">
                         <td>
                             <label v-if="productType==='1'"
+                                   @click="getProductList(index, item.pdContract.productCode, item.pdContract.productName)"
                                    class="checkbox-module single">
-                                <input type="checkbox" name="payType">
+                                <input type="checkbox" :value="index" v-model="productCheckbox">
 
-                                <span @click="getProductList(index, item.pdContract.productCode, item.pdContract.productName)"></span>
+                                <span></span>
                             </label>
 
-                            <label v-else class="radio-module single">
-                                <input type="radio" name="payType">
+                            <label v-else class="radio-module single"
+                                   @click="getProductItem(item.pdContract.productCode, item.pdContract.productName)">
+                                <input type="radio" :value="index" v-model="productRadio">
 
-                                <span @click="getProductItem(item.pdContract.productCode, item.pdContract.productName)"></span>
+                                <span ></span>
                             </label>
                         </td>
 
@@ -41,6 +43,7 @@
         </div>
     </div>
 </template>
+
 <script type="es6">
     export default{
         name: 'ProductSelectModal',
@@ -48,6 +51,8 @@
         
         data(){
             return {
+                productCheckbox:[],
+                productRadio:'',
                 productList: [
                     /*{
                         productId: '1001',
@@ -99,7 +104,7 @@
 
             confirm() {
                 if(this.productType === '1') {
-
+                    
                     this.bus.$emit('getSelectProduct', {index:this.index,data:this.selectMutexProductList});
                 } else {
                     
@@ -134,7 +139,7 @@
 
                     this.selectMutexProductList.forEach(function(item, cIndex){
 
-                        if(item.id == id){
+                        if(item.id == productCode){
 
                             that.selectMutexProductList.splice(cIndex, 1);
 

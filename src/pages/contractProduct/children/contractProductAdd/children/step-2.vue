@@ -3,8 +3,8 @@
         <div class="step-layout">
             <div class="product-txt">
                 <p>
-                   <!-- <span class="left">产品ID：209000000920</span>
-                    <span class="middle">|</span>-->
+                    <!-- <span class="left">产品ID：209000000920</span>
+                     <span class="middle">|</span>-->
                     <span class="right">产品名称（中文）：{{$parent.productName}}</span>
                 </p>
             </div>
@@ -58,7 +58,7 @@
                                 <div class="select-group-item">
                                     <div class="radio-wrap">
                                         <label class="radio-module  w-115">
-                                            <input value="1" v-model="item.pdRights.contentLimit"  type="radio">
+                                            <input value="1" v-model="item.pdRights.contentLimit" type="radio">
                                             <span></span>
                                             <span class="txt">内容限定</span>
                                         </label>
@@ -72,7 +72,8 @@
                                 <div class="content-limit" v-if="item.pdRights.contentLimit=='1'">
                                     <div v-for="(subItem,subIndex) in item.pmLists" class="select-group-item">
                                         <div class="layout-inline-middle mr-10" v-if="!subIndex==0">
-                                            <v-is-and-select-box w="60" :selectTitle="prmLists[index].pdRights.isAndText"
+                                            <v-is-and-select-box w="60"
+                                                                 :selectTitle="prmLists[index].pdRights.isAndText"
                                                                  :pmListIndex="{'index':index,'subIndex':subIndex}"
                                                                  :selectValue="prmLists[index].pdRights.isAnd"
                                                                  v-bind:options="[{'optionText':'并且','optionValue':'1'},{'optionText':'或者','optionValue':'0'}]"></v-is-and-select-box>
@@ -121,21 +122,22 @@
                     </article>
                     <div class="btn-group">
                         <div class="btn btn-primary btn-middle" v-if="canSave" @click="nextStep">下一步</div>
-                        <div class="btn btn-primary btn-middle unable" v-else >下一步</div>
+                        <div class="btn btn-primary btn-middle unable" v-else>下一步</div>
                         <div class="btn btn-default btn-middle" @click="cancel">取消</div>
                     </div>
                 </div>
             </div>
         </div>
-     <!--   <modal name="productCodeModal" :width="870" :height="570" @before-close="beforeClose">
-            <t-modal-sub-container :title="'产品选择'" :name="'productCodeModal'">
-                <v-product-code-list></v-product-code-list>
-            </t-modal-sub-container>
-        </modal>-->
+        <!--   <modal name="productCodeModal" :width="870" :height="570" @before-close="beforeClose">
+               <t-modal-sub-container :title="'产品选择'" :name="'productCodeModal'">
+                   <v-product-code-list></v-product-code-list>
+               </t-modal-sub-container>
+           </modal>-->
         <!--资费计划id modal-->
         <modal name="planCodeListModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择资费计划'" :name="'planCodeListModal'">
-                <v-plan-code-list :modalName="'planCodeListModal'" :type="'radio'" :index="planCodeIndex" v-on:planCodeBus="getPlanCode"></v-plan-code-list>
+                <v-plan-code-list :modalName="'planCodeListModal'" :type="'radio'" :index="planCodeIndex"
+                                  v-on:planCodeBus="getPlanCode"></v-plan-code-list>
             </t-modal-sub-container>
         </modal>
         <!--获取产品编码-->
@@ -147,7 +149,6 @@
                         :modal-name="'productSelectModal'"
                         :productType="'1'"></v-product-select-step-2>
             </t-modal-sub-container>
-    
         </modal>
     </div>
 </template>
@@ -160,32 +161,32 @@
     import TModalSubContainer from "@/components/modal-sub-container";
     import VPlanCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/plan-code-list.vue'
     import VProductSelectStep2 from '../components/product-select-step-2'
-    
+
 
     export default{
         data(){
             return {
-                productNameFromStep1:'',
-                
+                productNameFromStep1: '',
+
                 planCodeIndex: 0,
 
                 pmListIndex: {
                     index: 0,
                     subIndex: 0
                 },
-                
-                productIndex:0,
+
+                productIndex: 0,
 
                 formData: {},
                 prmLists: [
                     {
-                        pdRights:{
+                        pdRights: {
                             isFree: '0',
                             planCodeData: {},
-                            planCode:'',
-                            isAnd:'1',   //or :0 and:1
-                            isAndText:'并且',   //
-                            contentLimit: '1',    
+                            planCode: '',
+                            isAnd: '1',   //or :0 and:1
+                            isAndText: '并且',   //
+                            contentLimit: '1',
                         },
                         pmLists: [
                             {
@@ -194,8 +195,8 @@
                                 operator: '=',        //操作符
                                 valueType: '',        //数值类型
                                 matchValues: '',      //匹配内容
-                                pdContentList:[],      //匹配内容下拉框
-                                productData:[]
+                                pdContentList: [],      //匹配内容下拉框
+                                productData: []
                             }
                         ],
                     }
@@ -205,8 +206,8 @@
                     prmLists: []
                 },
                 pdMatchFiledLists: [],
-                initPdMatchFileDListsOption:{}
-                
+                initPdMatchFileDListsOption: {}
+
             }
         },
         components: {
@@ -222,7 +223,7 @@
         methods: {
             nextStep(){
                 this.save();
-         
+
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
             showProductCodeModal(){
@@ -239,7 +240,7 @@
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         this.pdMatchFiledLists = res.data;
-                        if(this.pdMatchFiledLists.length>0){
+                        if (this.pdMatchFiledLists.length > 0) {
                             this.initPdMatchFileDListsOption = this.pdMatchFiledLists[0];
                         }
                     } else {
@@ -256,14 +257,14 @@
                 let index = res.index;
                 if (res) {
                     this.prmLists[index].pdRights.planCodeData = res.planCodeData[0];
-                    this.prmLists[index].pdRights.planCode= res.planCodeData[0].planCode;
+                    this.prmLists[index].pdRights.planCode = res.planCodeData[0].planCode;
                 }
             },
             /**
              * 展开产品列表弹框
              * */
             choseProduct(index){
-                this.productIndex=index;
+                this.productIndex = index;
                 this.$modal.show('productSelectModal');
             },
             /**
@@ -271,14 +272,14 @@
              * 注意：这里添加新项目时，必须初始数据，这样对vue的监听有帮助
              * */
             addItem(index){
-                this.prmLists.splice(index + 1, 0,   {
-                    pdRights:{
+                this.prmLists.splice(index + 1, 0, {
+                    pdRights: {
                         isFree: '0',
                         planCodeData: {},
-                        planCode:'',
-                        contentLimit:'1',
-                        isAnd:'1',
-                        isAndText:'并且'
+                        planCode: '',
+                        contentLimit: '1',
+                        isAnd: '1',
+                        isAndText: '并且'
                     },
                     pmLists: [
                         {
@@ -287,8 +288,8 @@
                             operator: '=',        //操作符
                             valueType: '',        //数值类型
                             matchValues: '',      //匹配内容
-                            pdContentList:[],      //匹配内容下拉框
-                            productData:[]
+                            pdContentList: [],      //匹配内容下拉框
+                            productData: []
                         }
                     ],
                 });
@@ -299,7 +300,7 @@
             delItem(index){
                 this.prmLists.splice(index, 1);
             },
-            
+
             /**
              * 添加子项目
              * */
@@ -310,8 +311,8 @@
                     operator: '=',
                     valueType: '',
                     matchValues: '',
-                    pdContentList:[],
-                    productData:[]
+                    pdContentList: [],
+                    productData: []
                 });
             },
             /**
@@ -320,8 +321,8 @@
             delSubItem(index, subIndex){
                 this.prmLists[index].pmLists.splice(subIndex, 1);
             },
-            
-            
+
+
             /**
              * 选择资费计划
              * */
@@ -329,40 +330,40 @@
                 this.planCodeIndex = index;
                 this.$modal.show('planCodeListModal');
             },
-            
+
             /**
              * 保存数据
              * */
             save(){
-                
+
                 //todo:根据所选型号删除数据，避免后台报错
-                this.prmLists.forEach(function(item,index){
+                this.prmLists.forEach(function (item, index) {
                     //选择免费  清除资费计划  0 收费  1 免费
-                    if(item.pdRights.isFree=='1'){
+                    if (item.pdRights.isFree == '1') {
                         delete item.pdRights.planCode;
                     }
                     //选择内容限定,清除产品相关东西
-                    if(item.pdRights.contentLimit=='1'){
+                    if (item.pdRights.contentLimit == '1') {
                         //todo:
-                    }else{
-                        
+                    } else {
+
                     }
                 });
-                
-                
-                this.postData.prmLists=this.prmLists;
+
+
+                this.postData.prmLists = this.prmLists;
                 
                 /*this.$http.post(this.api.saveContractProductTwo, this.postData).then(
-                    response => {
-                        let res = response.body;
-                    }
-                );*/
+                 response => {
+                 let res = response.body;
+                 }
+                 );*/
                 /**
                  * 发送第二步数据到主页
                  * */
-                this.bus.$emit('step2Bus',{
-                    step:3,
-                    data:this.postData
+                this.bus.$emit('step2Bus', {
+                    step: 3,
+                    data: this.postData
                 })
             },
 
@@ -373,57 +374,73 @@
                 this.$router.push({'name': 'ContractProduct'})
             },
         },
-        
-        computed:{
+
+        computed: {
             canSave(){
                 let flag = true;
-                this.prmLists.forEach(function(item,index){
+                this.prmLists.forEach(function (item, index) {
                     //获取每个大项
                     //判断每个大项是否免费  收费为0
                     //如果为收费
-                    if(item.pdRights.isFree=='0'){
-                       
+                    if (item.pdRights.isFree == '0') {
+
                         //得判断资费计划是否为空
-                        if(!item.pdRights.planCode){
+                        if (!item.pdRights.planCode) {
                             //如果为空，则报错
-                         
-                            return flag=false;
+
+                            return flag = false;
                         }
                     }
-                    
+
                     //判断每个大项是内容限定还是产品限定
                     //如果为内容限定
-                    if(item.pdRights.contentLimit=='1'){
-                        item.pmLists.forEach(function(subItem,subIndex){
+                    if (item.pdRights.contentLimit == '1') {
+                        item.pmLists.forEach(function (subItem, subIndex) {
                             //检查每个子项的tableName判断是否选择了
-                            if(!subItem.tableName){
-                                return flag=false;
+                            if (!subItem.tableName) {
+                                return flag = false;
                             }
                             //检查每个子项的matchValue是否选择
-                            if(!subItem.matchValues){
-                                return flag=false;
+                            if (!subItem.matchValues) {
+                                return flag = false;
                             }
                         })
                     }
                     //如果为产品限定
-                    if(item.pdRights.contentLimit=='2'){
-                        item.pmLists.forEach(function(subItem,subIndex){
+                    if (item.pdRights.contentLimit == '2') {
+                        item.pmLists.forEach(function (subItem, subIndex) {
                             //检查每个子项的matchValues判断是否选择了
-                            if(!subItem.matchValues){
-                                return flag=false;
+                            if (!subItem.matchValues) {
+                                return flag = false;
                             }
                         })
                     }
-                    
+
                 });
-                
+
                 return flag
             }
         },
-        
-        watch: {
-            'prmLists'(a, b){
 
+        watch: {
+            
+            //草，兼听不到孙级的变化
+
+            'prmLists': {
+                handler: function (a,b) {
+                    /*console.log(a);
+                    console.log(b);
+                    a.forEach(function (item,index) {
+                        if(a[index].pdRights.contentLimit!=b[index].pdRights.contentLimit){
+                            console.log(222)
+                            //如果为内容限定，清除所有信息
+                            item.pmLists.forEach(function (subItem) {
+                                subItem.tableName='';
+                                subItem.matchValues='';
+                            })
+                        }
+                    })*/
+                }
             }
         },
 
@@ -435,7 +452,6 @@
              * 获取匹配字段表
              * */
             this.findPdMatchFiled();
-
 
 
             /**
@@ -480,7 +496,7 @@
                         response => {
                             let res = response.body;
                             if (res.result.resultCode = '00000000') {
-                                this.prmLists[index].pmLists[subIndex].pdContentList=res.data;
+                                this.prmLists[index].pmLists[subIndex].pdContentList = res.data;
                             }
                         }
                     );
@@ -506,42 +522,42 @@
             this.bus.$on('productSelectStep2Bus', res => {
                 if (res) {
                     let index = res.index;
-                    let selectOtion=res.data;
-                    let codeArr=[];
-                    let data=res.data;
-                    if(data.length>0){
-                        data.forEach(function(item,index){
+                    let selectOtion = res.data;
+                    let codeArr = [];
+                    let data = res.data;
+                    if (data.length > 0) {
+                        data.forEach(function (item, index) {
                             codeArr.push(item.productCode);
                         })
                     }
-                    this.prmLists[index].pmLists[0].matchValues=codeArr.join(',');
-                    this.prmLists[index].pmLists[0].tableName='pd_contract';
-                    this.prmLists[index].pmLists[0].fieldName='productCode';
-                    this.prmLists[index].pmLists[0].valueType='2';
-                    this.prmLists[index].pmLists[0].operator='';
-                    this.prmLists[index].pmLists[0].productData=data;
-                    /*    console.log(this.prmLists[index].pmLists[0].productData)*/
+                    this.prmLists[index].pmLists[0].matchValues = codeArr.join(',');
+                    this.prmLists[index].pmLists[0].tableName = 'pd_contract';
+                    this.prmLists[index].pmLists[0].fieldName = 'productCode';
+                    this.prmLists[index].pmLists[0].valueType = '2';
+                    this.prmLists[index].pmLists[0].operator = '';
+                    this.prmLists[index].pmLists[0].productData = data;
+
 
                 }
             })
-
-          /*  /!**
+            
+            /*  /!**
              * 获取产品名
              * *!/
-            this.bus.$on('sendProductNameBus', res => {
-                console.log('step2Name',res);
-                this.productNameFromStep1=res;
-            })*/
+             this.bus.$on('sendProductNameBus', res => {
+             console.log('step2Name',res);
+             this.productNameFromStep1=res;
+             })*/
         },
-        
+
         destroyed(){
             this.bus.$off('productSelectStep2Bus');
             this.bus.$off('pdContentSelectBoxBus');
             this.bus.$off('contentLimitSelectBoxBus');
             this.bus.$off('isAndSelectBoxBus');
             this.bus.$off('step2Bus');
-            
-            
+
+
         }
     }
 </script>
@@ -560,11 +576,11 @@
         font-size: 14px;
         color: #333333;
         box-sizing: border-box;
-    
-        .required{
+        
+        .required {
             position: relative;
             padding-left: 12px;
-            &:before{
+            &:before {
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -600,8 +616,8 @@
                 margin-bottom: 8px;
                 color: #333;
                 font-size: 14px;
-                &.required{
-                    &:before{
+                &.required {
+                    &:before {
                         position: absolute;
                         top: 0;
                         left: 0;

@@ -253,7 +253,7 @@
                         }
                     );
                 } else {
-                    this.$http.post(this.api.addBossInfo, this.postData).then(
+                    this.$http.post(this.api.addBossInfo, this.postData,{showLoading:true}).then(
                         response => {
                             let res = response.body;
 

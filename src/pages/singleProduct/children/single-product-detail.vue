@@ -115,7 +115,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 价格（分CN）：</span>
                                         <span class="row-right">
-                                            {{productDetail.feeAmount}}
+                                            {{productDetail.contentPrice}}
                                         </span>
                                     </div>
                                 </div>
@@ -189,7 +189,7 @@
                 }).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
-                        this.productDetail= res.data.ondemandProduct;
+                        this.productDetail= res.data
                     } else {
                             
                     }

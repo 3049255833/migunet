@@ -9,34 +9,24 @@
                     <td>产品名称</td>
                 </tr>
                 </thead>
-                
                 <tbody>
                 <tr v-for="(item, index) in productList">
                     <td>
                         <label v-if="productType==='1'"
                                class="checkbox-module single">
-                            <input type="checkbox" name="payType">
-                            
-                            <span @click="getProductList(index, item.pdContract.productCode, item.pdContract.productName)"></span>
-                        </label>
-                        
-                        <label v-else class="radio-module single">
-                            <input type="radio" name="payType">
-                            
-                            <span @click="getProductItem(item.pdContract.productCode, item.pdContract.productName)"></span>
+                            <input :value="index" v-model="productCheckbox" type="checkbox">
+                            <span></span>
                         </label>
                     </td>
-                    
                     <td>{{item.pdContract.productCode}}</td>
-                    
                     <td>{{item.pdContract.productName}}</td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        
         <div class="btn-group btn-group-center">
-            <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
+            <div class="btn btn-primary btn-middle-100" v-if="canSave" @click="confirm">确定</div>
+            <div class="btn btn-primary btn-middle-100 unable" v-else>确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
     </div>
@@ -44,10 +34,12 @@
 <script type="es6">
     export default{
         name: 'ProductSelectModal',
-        props: ['productType','modalName','index'],
+        props: ['productType', 'modalName', 'index'],
 
         data(){
             return {
+                productCheckbox: [],
+                productRadio: '',
                 productList: [
                     /*{
                      productId: '1001',
@@ -76,21 +68,20 @@
              * */
             getContractProductByStatus() {
                 this.$http.get(this.api.getContractProductByStatus,
-                    { params: {} }).then(response => {
+                    {params: {}}).then(response => {
 
                     let res = response.body;
 
-                    //console.log("productList data1: " + JSON.stringify(res));
 
                     if (res.result.resultCode == '00000000') {
 
-                        for(var i = 0; i < res.data.length; i++) {
+                        for (var i = 0; i < res.data.length; i++) {
                             res.data[i].active = false;
                         }
 
                         this.productList = res.data;
 
-                        //console.log("productList data2: " + JSON.stringify(this.productList));
+
                     } else {
 
                     }
@@ -98,54 +89,31 @@
             },
 
             confirm() {
-                if(this.productType === '1') {
+                let that = this
 
-                    this.bus.$emit('productSelectStep2Bus', {index:this.index,data:this.selectMutexProductList});
-                } else {
+                let _data = [];
 
-                    this.bus.$emit('productSelectStep2Bus', {index:this.index,data: this.selectRelyProductItem});
-                }
+                this.productCheckbox.forEach(function (item) {
+                    _data.push({
+                        productCode: that.productList[item].pdContract.productCode,
+                        content: that.productList[item].pdContract.productName
+                    })
+                });
+
+                this.bus.$emit('productSelectStep2Bus', {index: this.index, data: _data});
 
                 this.$modal.hide(this.modalName);
             },
 
             cancel() {
-                console.log(this.modalName)
                 this.$modal.hide(this.modalName);
             },
 
-            getProductItem(id, content){
-                this.selectRelyProductItem.productCode = id;
 
-                this.selectRelyProductItem.content = content;
-
-            },
-
-            getProductList(index, productCode, content){
-                let that = this;
-
-                this.productList[index].active=!this.productList[index].active;
-
-                if(this.productList[index].active) {
-                    this.selectMutexProductList.push({
-                        productCode:productCode,
-                        content:content
-                    });
-                } else {
-
-                    this.selectMutexProductList.forEach(function(item, cIndex){
-
-                        if(item.productCode == productCode){
-
-                            that.selectMutexProductList.splice(cIndex, 1);
-
-                            return;
-                        }
-                    })
-
-
-                }
-                //console.log("mutex：" + JSON.stringify(this.mutexProductList));
+        },
+        computed: {
+            canSave(){
+                return this.productCheckbox.length > 0
             }
         }
     }

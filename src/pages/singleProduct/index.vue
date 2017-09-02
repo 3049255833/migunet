@@ -85,6 +85,49 @@
                     let res = response.body;
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
+                        res.data.list.forEach(function(item){
+                            switch (parseInt(item.onlineStatus)){
+                                case 0:
+                                    item.onlineStatus='草稿';
+                                    break;
+                                case 1:
+                                    item.onlineStatus='上线';
+                                    break;
+                                case 2:
+                                    item.onlineStatus='隐藏';
+                                    break;
+                                case 3:
+                                    item.onlineStatus='下线';
+                                    break;
+                                case 4:
+                                    item.onlineStatus='注销';
+                                    break;
+                                case 5:
+                                    item.onlineStatus='删除';
+                                    break
+                            }
+                            switch (parseInt(item.detailStatus)){
+                                case 3:
+                                    item.detailStatus='上线报备中';
+                                    break;
+                                case 4:
+                                    item.detailStatus='上线报备失败';
+                                    break;
+                                case 7:
+                                    item.detailStatus='变更报备中';
+                                    break;
+                                case 8:
+                                    item.detailStatus='变更报备失败';
+                                    break;
+                                case 9:
+                                    item.detailStatus='下线报备中';
+                                    break;
+                                case 10:
+                                    item.detailStatus='下线报备失败';
+                                    break;
+                            }
+                        });
+                        
                         this.productList=res.data.list;
                         this.totalItem=res.data.total;
                     }else{

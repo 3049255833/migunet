@@ -82,6 +82,7 @@
                     pmListIndex:this.pmListIndex,
                     selectOption: this.selectOption
                 })
+                
             },
 
             documentHideOption(){
