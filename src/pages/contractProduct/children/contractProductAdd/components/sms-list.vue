@@ -92,12 +92,12 @@
                     { params: {} }).then(response => {
 
                     let res = response.body;
-                    
+
 
                     if (res.result.resultCode == '00000000') {
 
                         this.smsTemplateList = res.data;
-                        
+
                     } else {
 
                     }
@@ -113,7 +113,7 @@
                     this.bus.$emit('getSelectSms', this.smsTemplateList[parseInt(this.smsRadio)]);
                 }
 
-                
+
             },
             cancel() {
                 this.$modal.hide(this.modalName);
@@ -144,6 +144,7 @@
 
         .list-modal-head {
             padding-bottom: 13px;
+            display: none;
 
             .search {
                 display: inline-block;

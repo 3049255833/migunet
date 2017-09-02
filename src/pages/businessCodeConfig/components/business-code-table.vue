@@ -50,7 +50,8 @@
         </table>
 
         <div v-if="businessCodeList.length <= 0" class="no-asset-box">
-            <img src="../../../assets/no-asset-show.png">
+            <!--<img src="../../../assets/no-asset-show.png">-->
+            <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
 
         <v-operate-success-modal
@@ -66,6 +67,7 @@
     import VPaging from '@/components/paging'
     import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
     import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
+    import VNolist from '@/components/no-list'
 
     export default {
         name: 'businessCodeTable',
@@ -86,7 +88,8 @@
             VSearch,
             VPaging,
             VConfirmPopoverModal,
-            VOperateSuccessModal
+            VOperateSuccessModal,
+            VNolist
         },
         methods: {
             deleteBtn(index, id) {
@@ -124,8 +127,11 @@
 
                             this.isHideOperateModal = false;
 
+                            this.bus.$emit('sendDeleteInfo');
+
                             setTimeout(function () {
-                              that.isHideOperateModal = true;
+                                that.isHideOperateModal = true;
+
                             }, 3000);
 
                         } else {

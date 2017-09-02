@@ -62,12 +62,12 @@
                         },
                     ]
                 },
-                    {
+                    /*{
                         "isSubShow": false,
                         "title": "产品目录表",
                         "haveChildrens": false,
                         "url": "/product_catalog_manage"
-                    },
+                    },*/
                     {
                         "isSubShow": false,
                         "title": "业务代码配置",
@@ -99,7 +99,7 @@
         height: 700px;
         background: #e5e6e8;
     }
-    
+
     .nav-row {
         font-size: 14px;
         color: #333333;
@@ -109,11 +109,11 @@
         text-align: left;
         padding-left: 30px;
     }
-    
+
     .nav-area {
         border-bottom: solid 1px #dcdcdc;
     }
-    
+
     .nav-title1 {
         font-size: 14px;
         position: relative;
@@ -122,19 +122,19 @@
         padding-left: 20px;
         cursor: pointer;
     }
-    
+
     .nav-title1.active {
         background: #46bafe;
     }
-    
+
     .nav-title1.active {
         color: #ffffff;
     }
-    
+
     .nav-row-wrapper {
         display: none;
     }
-    
+
     .nav-row-wrapper.active {
         display: block;
     }
@@ -146,6 +146,10 @@
 
         .nav-circle {
             background: #46bafe;
+        }
+
+        .title-text {
+            color: #46bafe;
         }
     }
 
@@ -159,18 +163,18 @@
         margin-top: 12px;
         margin-right: 12px;
     }
-    
+
     .title-text {
         float: left;
         line-height: 46px;
     }
-    
+
     .nav-title1:after {
         content: '';
         display: block;
         clear: both;
     }
-    
+
     .nav-circle {
         display: inline-block;
         width: 4px;
@@ -179,7 +183,7 @@
         margin-right: 5px;
         vertical-align: middle;
     }
-    
+
     .nav-title1.active:after {
         margin-top: -7px;
         width: 12px;
@@ -189,12 +193,12 @@
         right: 10px;
         top: 24px;
     }
-    
+
     .nav-row-wrapper {
         background: #ececec;
     }
 
 
-    
+
 
 </style>

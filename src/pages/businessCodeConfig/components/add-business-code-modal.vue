@@ -138,7 +138,7 @@
                  v-else
                  @click="confirm">确定</div>
 
-            <div class="btn btn-default btn-middle-100">取消</div>
+            <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
     </div>
 </template>
@@ -229,6 +229,9 @@
             VSelectBox
         },
         methods: {
+            cancel() {
+                this.$modal.hide(this.modalName);
+            },
             confirm() {
                 console.log("postData: " + JSON.stringify(this.postData));
 
@@ -242,7 +245,9 @@
                         response => {
                             let res = response.body;
 
-                            console.log("res: " + res);
+                            //console.log("res: " + res);
+
+                            this.bus.$emit('sendSaveSuccess');
 
                             this.$modal.hide(this.modalName);
                         }
@@ -252,12 +257,16 @@
                         response => {
                             let res = response.body;
 
-                            console.log("res: " + res);
+                            //console.log("res: " + res);
+
+                            this.bus.$emit('sendSaveSuccess');
 
                             this.$modal.hide(this.modalName);
                         }
                     );
                 }
+
+
             }
         },
         mounted () {

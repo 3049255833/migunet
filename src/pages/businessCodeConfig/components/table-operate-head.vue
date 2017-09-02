@@ -20,12 +20,19 @@
                    v-model="operateData.keys"
             />
         </div>
+
+        <v-progress-bar></v-progress-bar>
     </div>
 </template>
 <script>
+    import VProgressBar from './progress-bar'
+
     export default {
         name: 'OperateBox',
         props: ['title'],
+        components:{
+            VProgressBar
+        },
         data() {
             return {
                 operateData: {
@@ -53,7 +60,7 @@
 
                 let fileTypeValid = files[0].name.lastIndexOf('.xls') > -1 || files[0].name.lastIndexOf('.xlsx') > -1 || files[0].name.lastIndexOf('.csv') > -1;
 
-                console.log("fileTypeValid: " + fileTypeValid);
+                //console.log("fileTypeValid: " + fileTypeValid);
 
                 if (fileTypeValid) {
                     let formData = new FormData();
@@ -64,12 +71,14 @@
                         response => {
                             let res = response.body;
 
+                            //console.log("res: " + JSON.stringify(res));
+
                             if(res.resultCode=='00000000'){
 
-                                console.log("Success res: " + JSON.stringify(res));
+                                //console.log("Success res: " + JSON.stringify(res));
                             } else {
 
-                                console.log("Error res: " + JSON.stringify(res));
+                                //console.log("Error res: " + JSON.stringify(res));
                             }
                         }
                     );
@@ -79,13 +88,18 @@
     }
 </script>
 <style scoped lang="scss" rel="stylesheet/scss">
+    .btn-import-module,
+    #upload {
+        display: none;
+    }
+
     #upload {
         width: 88px;
         height: 33px;
         background: red;
         position: absolute;
         left: 128px;
-        bottom: 14px;
+        top: 14px;
         opacity: 0;
 
         &:hover {
@@ -96,7 +110,6 @@
     .operate-box {
         overflow: hidden;
         padding: 13px 20px;
-        position: relative;
 
         .title {
             font-size: 14px;

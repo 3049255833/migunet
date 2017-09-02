@@ -279,7 +279,7 @@
 
         <div v-if="contractProductList.length <= 0" class="no-asset-box">
             <!-- <img src="../../../assets/no-asset-show.png"> -->
-            <v-nolist :text="'ceshi'"></v-nolist>
+            <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
 
         <v-operate-success-modal

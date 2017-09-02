@@ -97,7 +97,7 @@
                 this.postData.pageNo = res.pagingValue;
                 this.postData.pageSize = res.pagingSize;
 
-                console.log("postData: " + JSON.stringify(this.postData));
+                //console.log("postData: " + JSON.stringify(this.postData));
 
                 this.getBossInfo();
             });
@@ -111,6 +111,21 @@
                 this.cmd = 'edit';
 
                 this.$modal.show('addBusinessCodeModal');
+            });
+
+
+            /**
+             * 接收来自保存的信息
+             * */
+            this.bus.$on('sendSaveSuccess', res => {
+                this.getBossInfo();
+            });
+
+            /**
+             * 接收来自删除的信息
+             * */
+            this.bus.$on('sendDeleteInfo', res => {
+                this.getBossInfo();
             });
         },
         methods: {
@@ -162,6 +177,7 @@
 
     .business-code-config-container {
         background-color: #fff;
+        position: relative;
 
         .pageNum {
             margin: 0;

@@ -38,7 +38,7 @@
                             v-bind:options="approveStatusOperateList">
                     </v-select-box>
                 </div>
-                <div class="l-space l-content-right">
+                <div class="l-space l-content-right" style="display: none">
                     <v-select-box
                             selectType="1"
                             :w="130"
@@ -204,7 +204,7 @@
                 this.operateData[res.dateName] = res.dateValue;
                 this.cSendOperateData();
             },
-            
+
             /**
              * 获取状态
              * */
@@ -212,7 +212,7 @@
                 this.operateData.onlineStatus = res.selectOption.optionValue;
                 this.cSendOperateData();
             },
-            
+
             /**
              * 获取产品目录
              * */
@@ -220,7 +220,7 @@
                 this.operateData.productCatalog = res.selectOption.optionValue;
                 this.cSendOperateData();
             },
-            
+
             /**
              * 获取审批状态
              * */
@@ -230,7 +230,7 @@
             }
         },
         mounted(){
-            
+
         }
     }
 </script>
@@ -242,25 +242,25 @@
         color: #292c31;
         line-height: 34px;
     }
-    
+
     .l-content-head {
         clear: both;
         display: block;
         padding: 13px 20px;
     }
-    
+
     .l-content-head:after {
         content: '';
         display: block;
         clear: both;
     }
-    
+
     .l-content-head:after {
         content: '';
         display: block;
         clear: both;
     }
-    
+
     .l-content-left {
         float: left;
         font-size: 14px;
@@ -269,14 +269,14 @@
         height: 40px;
         line-height: 43px;
     }
-    
+
     .l-content-left2 {
         width: auto;
         margin-right: 20px;
         height: 30px;
         line-height: 34px;
     }
-    
+
     .StateSelect {
         height: 40px;
         background: #fcf9f9;
@@ -284,21 +284,21 @@
         color: #999;
         font-size: 14px;
     }
-    
+
     .StateSelect4 {
         width: 176px;
         height: 30px;
     }
-    
+
     .l-content-right, .tb-reset {
         float: left;
-        
+
     }
-    
+
     .l-content-right {
         height: 32px;
     }
-    
+
     .l-content-right select {
         width: 150px;
         height: 32px;
@@ -307,7 +307,7 @@
         font-size: 12px;
         color: #0c0a0b;
     }
-    
+
     .tb-reset {
         font-size: 14px;
         color: #46bafe;
@@ -320,7 +320,7 @@
         box-sizing: border-box;
         border-radius: 5px;
     }
-    
+
     /*.tb-reset:hover{
 
     }*/
@@ -328,24 +328,24 @@
         background: #46bafe;
         color: #ffffff;
     }
-    
+
     .l-content-w {
         margin-right: 20px;
     }
-    
+
     .NewTable2 td, .dialog-ctn, .l-content-button, .nl-table, .tb-reset {
         text-align: center;
     }
-    
+
     .StateSelect5 {
         width: 124px;
         height: 30px;
     }
-    
+
     .input-wrapper {
         float: left;
     }
-    
+
     .input-wrapper input {
         width: 150px;
         height: 34px;
@@ -353,24 +353,24 @@
         box-sizing: border-box;
         border: solid 1px #d6e1e5;
     }
-    
+
     .input-wrapper input::-webkit-input-placeholder {
         color: #d6e1e5;
     }
-    
+
     .input-wrapper1 input {
         background: url('../../../assets/search.png') no-repeat 95% 50%;
     }
-    
+
     .l-space {
         margin-right: 10px;
     }
-    
+
     .date-wrapper {
         float: left;
         margin-right: 10px;
     }
-    
+
     .btn-add {
         float: left;
         width: 80px;
@@ -387,26 +387,26 @@
             background-size: 100% 100%;
         }
     }
-    
+
     .vue-left {
         float: left;
     }
-    
+
     .vue-right {
         float: right;
     }
-    
+
     .date-container {
         position: relative;
         float: left;
         & + .date-container {
         }
     }
-    
+
     .addBtn {
         display: none;
     }
-    
+
     input {
         border-radius: 4px;
         &:focus {

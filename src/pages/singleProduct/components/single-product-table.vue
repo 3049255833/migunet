@@ -30,7 +30,7 @@
         </table>
 
         <div v-if="productList.length <= 0" class="no-asset-box">
-           <v-nolist :text="'ceshi'"></v-nolist>
+           <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
     </div>
 </template>
