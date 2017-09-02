@@ -456,7 +456,7 @@
             </t-modal-sub-container>
         </modal>
         <!--业务代码modal-->
-        <modal name="serviceCodeModal" :width="950" :height="570" @before-close="beforeClose">
+        <modal name="serviceCodeModal" :width="1000" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'业务代码选择'" :name="'serviceCodeModal'">
                 <v-service-code-list :modalName="'serviceCodeModal'"></v-service-code-list>
             </t-modal-sub-container>
@@ -753,18 +753,17 @@
                 }
 
                 if(this.formData.expireTime&&this.formData.effectiveTime){
-                    console.log("同时出现了")
                     //两者同时出现，需要判断时间
                     let expireTime=this.formData.expireTime;
                     let effectiveTime=this.formData.effectiveTime;
                     expireTime=parseInt(expireTime.split('-').join(''));
                     effectiveTime=parseInt(effectiveTime.split('-').join(''));
                     if(expireTime<effectiveTime){
-                        console.log("cuowule")
+                       
                         flag=false;
                         this.errorMsg.timeErrorMsg='生效时间必须早于失效时间'
                     }else{
-                        console.log("zhengquede")
+                
                         this.errorMsg.timeErrorMsg=''
                     }
 
@@ -976,7 +975,7 @@
                 }
             }
         },
-        mounted () {
+        created () {
             let that = this;
             
             /**
@@ -1019,11 +1018,9 @@
             this.bus.$on('dateBus', res => {
                 if (res.dateName == 'step1EffectiveTime') {
                     this.formData.effectiveTime = res.dateValue;
-                    console.log(this.formData.effectiveTime )
                 }
                 if (res.dateName == 'step1ExpireTime') {
                     this.formData.expireTime = res.dateValue;
-                    console.log(this.formData.expireTime )
                 }
             });
 
@@ -1055,6 +1052,14 @@
 
           
             
+        },
+        destroyed (){
+            this.bus.$off('channelCodeBus');
+            this.bus.$off('serviceCodeBus');
+            this.bus.$off('dateBus');
+            this.bus.$off('selectBoxBus');
+            this.bus.$off('sendProductNameBus');
+            this.bus.$off('step1Bus');
         }
     }
 </script>

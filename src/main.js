@@ -121,7 +121,7 @@ Vue.http.interceptors.push((request, next) => {
         if (request.showLoading) {
             setTimeout(function () {
                 vm.isLoaging = false
-            }, 500);
+            }, 400);
         }
 
     });

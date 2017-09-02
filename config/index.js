@@ -53,6 +53,7 @@ module.exports = {
             },
 
 
+
             '/productCenter/getContractProductList': {
                 /*合约产品列表的IP*/
                 target: proxy_service_ljy,
@@ -94,6 +95,12 @@ module.exports = {
                 changeOrigin: true
 
             },
+            '/contractProduct/findPdFeePlanByCondition':{
+                /*通过关键字查询资费计划*/
+                target: proxy_service_xl,
+                changeOrigin: true
+            },
+
 
             '/contractProduct/findProductCatalog': {
                 /*获取产品目录*/

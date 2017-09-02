@@ -25,6 +25,7 @@ let api = {
     getServiceCodeList:'contractProduct/findCharge',           //获取业务代码
     findPdMatchFiled:'contractProduct/findPdMatchFiled',        //获取匹配字段表
     findPdContent:'contractProduct/findPdContent',               //根据匹配字段获取内容
+    findPdFeePlanByCondition:'contractProduct/findPdFeePlanByCondition',           //通过关键字搜索资费计划
 
     findPdAttribution:'contractProduct/findPdAttribution',          //获取业务归属地
     findFeePlan:'contractProduct/findFeePlan',                         //获取资费计划
