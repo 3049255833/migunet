@@ -4,7 +4,7 @@
 
         <v-business-code-table :businessCodeList="businessCodeList"></v-business-code-table>
 
-        <v-paging :totalItem="totalItem"></v-paging>
+        <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
 
         <modal name="addBusinessCodeModal" :width="600" :height="580" @before-close="beforeClose">
             <t-modal-sub-container :title="'新增业务代码'" :name="'addBusinessCodeModal'">
@@ -91,18 +91,6 @@
             });
 
             /**
-             * 接收分页信息
-             * */
-            this.bus.$on('pagingBus', res => {
-                this.postData.pageNo = res.pagingValue;
-                this.postData.pageSize = res.pagingSize;
-
-                //console.log("postData: " + JSON.stringify(this.postData));
-
-                this.getBossInfo();
-            });
-
-            /**
              * 接收来自编辑的信息
              * */
             this.bus.$on('editPassModal', res => {
@@ -112,7 +100,6 @@
 
                 this.$modal.show('addBusinessCodeModal');
             });
-
 
             /**
              * 接收来自保存的信息
@@ -159,7 +146,17 @@
                 );
             },
 
-            beforeClose() {}
+            beforeClose() {},
+
+            /**
+             * 获取分页信息
+             * */
+            getPage(res){
+                this.postData.pageNo = res.pagingValue;
+                this.postData.pageSize = res.pagingSize;
+
+                this.getBossInfo();
+            }
         },
         computed:{
             totalPage(){

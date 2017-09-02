@@ -5,7 +5,7 @@
                 {{title}}
             </div>
 
-            <input @change="upload" type="file" class="pointer" id="upload" name="files"/>
+            <input @change="upload" type="file" class="pointer" id="upload" name="file"/>
 
             <button class="btn btn-import-module mr-10">批量导入</button>
 
@@ -60,25 +60,25 @@
 
                 let fileTypeValid = files[0].name.lastIndexOf('.xls') > -1 || files[0].name.lastIndexOf('.xlsx') > -1 || files[0].name.lastIndexOf('.csv') > -1;
 
-                //console.log("fileTypeValid: " + fileTypeValid);
+                console.log("fileTypeValid: " + fileTypeValid);
 
                 if (fileTypeValid) {
                     let formData = new FormData();
 
-                    formData.append('files', files[0]);
+                    formData.append('file', files[0]);
 
                     this.$http.post(this.api.batchAddBossInfo, formData).then(
                         response => {
                             let res = response.body;
 
-                            //console.log("res: " + JSON.stringify(res));
+                            console.log("res: " + JSON.stringify(res));
 
                             if(res.resultCode=='00000000'){
 
-                                //console.log("Success res: " + JSON.stringify(res));
+                                console.log("Success res: " + JSON.stringify(res));
                             } else {
 
-                                //console.log("Error res: " + JSON.stringify(res));
+                                console.log("Error res: " + JSON.stringify(res));
                             }
                         }
                     );
@@ -90,7 +90,7 @@
 <style scoped lang="scss" rel="stylesheet/scss">
     .btn-import-module,
     #upload {
-        display: none;
+        //display: none;
     }
 
     #upload {

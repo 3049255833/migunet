@@ -39,7 +39,7 @@
                              @click="deleteBtn(index, item.id)"></div>
 
                         <v-confirm-popover-modal
-                          :operateType="'删除'"
+                          :confirmInfo="'是否删除该业务代码'"
                           :isHideConfim="item.isHideConfim"
                           :index="index"
                           details="businessCodeAdmin">
@@ -56,8 +56,7 @@
 
         <v-operate-success-modal
             :isHideOperateModal="isHideOperateModal"
-            :operateStatus="operateStatus"
-            :type="'删除'">
+            :operateInfo="operateInfo">
         </v-operate-success-modal>
     </div>
 </template>
@@ -81,7 +80,7 @@
                 willDelete: {
                     id: ''
                 },
-                operateStatus: ''
+                operateInfo: ''
             }
         },
         components: {
@@ -123,7 +122,7 @@
 
                         if(res.resultCode=='00000000'){
 
-                            this.operateStatus = '成功';
+                            this.operateInfo = '删除成功';
 
                             this.isHideOperateModal = false;
 
@@ -135,7 +134,7 @@
                             }, 3000);
 
                         } else {
-                            this.operateStatus = '失败';
+                            this.operateInfo = '删除失败';
 
                             this.isHideOperateModal = false;
 

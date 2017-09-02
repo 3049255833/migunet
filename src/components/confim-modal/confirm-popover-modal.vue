@@ -1,8 +1,8 @@
 <template>
     <div class="confirm-modal-container clearfix" :class="{hide: isHideConfim}">
-        <div class="text">是否确定{{operateType}}，{{operateType}}后产品记录删除?</div>
+        <div class="text">{{confirmInfo}}?</div>
 
-        <div class="confirm cl-blue pointer" @click="confirm">确认</div>
+        <div class="confirm cl-blue pointer" @click="confirm">确定</div>
 
         <div class="cancel cl-blue pointer" @click="cancel">取消</div>
     </div>
@@ -12,7 +12,7 @@
     export default {
         name: 'ConfirmModal',
         props: {
-            operateType: String,
+            confirmInfo: String,
             isHideConfim: Boolean,
             index: Number,
             details: String
