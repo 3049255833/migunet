@@ -430,8 +430,11 @@
 
                         this.isHideOperateModal = false;
 
+                        this.bus.$emit('sendDeleteContactProductInfo');
+
                         setTimeout(function () {
                             that.isHideOperateModal = true;
+
                         }, 3000);
                     } else {
 

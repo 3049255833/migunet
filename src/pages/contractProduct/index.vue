@@ -46,6 +46,12 @@
              * */
             this.getContractProductList();
 
+            /**
+             * 接收来自删除的信息
+             * */
+            this.bus.$on('sendDeleteContactProductInfo', res => {
+                this.getContractProductList();
+            });
         },
         methods: {
             /**

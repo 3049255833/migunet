@@ -10,7 +10,7 @@
             <button class="btn btn-import-module mr-10">批量导入</button>
 
             <button class="btn btn-add-module-white mr-10" @click="addBusinessCode">新增代码</button>
-            <button class="btn btn-import-module mr-10">批量删除</button>
+            <button class="btn btn-import-module mr-10 batch-delete">批量删除</button>
         </div>
 
         <div class="right">
@@ -71,14 +71,14 @@
                         response => {
                             let res = response.body;
 
-                            console.log("res: " + JSON.stringify(res));
+                            if(res.result.resultCode=='00000000'){
 
-                            if(res.resultCode=='00000000'){
 
-                                console.log("Success res: " + JSON.stringify(res));
+                                this.bus.$emit('sendBatchAddBossInfo');
+                                //console.log("Success res: " + JSON.stringify(res));
                             } else {
 
-                                console.log("Error res: " + JSON.stringify(res));
+                                //console.log("Error res: " + JSON.stringify(res));
                             }
                         }
                     );
@@ -88,9 +88,8 @@
     }
 </script>
 <style scoped lang="scss" rel="stylesheet/scss">
-    .btn-import-module,
-    #upload {
-        //display: none;
+    .batch-delete {
+        display: none;
     }
 
     #upload {
