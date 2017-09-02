@@ -9,7 +9,7 @@
                 </p>
             </div>
             <div class="strategy-type-content">
-                <h3 class="required">批假策略类型</h3>
+                <h3 class="required">批价策略类型</h3>
                 <div class="type-list">
                     <article class="item" v-for="(item,index) in prmLists">
                         <div class="item-add-del-group">
@@ -165,7 +165,8 @@
     export default{
         data(){
             return {
-                productName:'',
+                productNameFromStep1:'',
+                
                 planCodeIndex: 0,
 
                 pmListIndex: {
@@ -221,8 +222,7 @@
         methods: {
             nextStep(){
                 this.save();
-           /*     this.bus.$emit('curStep', 3);
-                this.$router.push({'name': 'Step3'});*/
+         
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
             showProductCodeModal(){
@@ -373,111 +373,6 @@
                 this.$router.push({'name': 'ContractProduct'})
             },
         },
-        mounted(){
-            let that = this;
-           
-
-            /**
-             * 获取匹配字段表
-             * */
-            this.findPdMatchFiled();
-            
-            
-
-            /**
-             * 选中匹配字段下拉框选项
-             * */
-            this.bus.$on('isAndSelectBoxBus', res => {
-                if (res) {
-                    let index = res.pmListIndex.index;
-                    let subIndex = res.pmListIndex.subIndex;
-                    
-                    let selectOption = res.selectOption;
-                    this.prmLists[index].pdRights.isAnd = selectOption.optionValue;    //isAnd的值
-                    this.prmLists[index].pdRights.isAndText = selectOption.optionText;
-                    
-                }
-            });
-            
-            /**
-             * 选中并且或者下拉框
-             * */
-            this.bus.$on('contentLimitSelectBoxBus', res => {
-                if (res) {
-                    let index = res.pmListIndex.index;
-                    let subIndex = res.pmListIndex.subIndex;
-                    let _postData = {
-                        tableName: '',
-                        fieldName: ''
-                    };
-                    let selectOption = res.selectOption;
-                    this.prmLists[index].pmLists[subIndex].tableName = selectOption.tableName;    //表名
-                    this.prmLists[index].pmLists[subIndex].fieldName = selectOption.fieldName;    //字段名
-                    this.prmLists[index].pmLists[subIndex].valueType = selectOption.valueType;    //数值类型
-
-
-                    _postData.tableName = this.prmLists[index].pmLists[subIndex].tableName;
-                    _postData.fieldName = this.prmLists[index].pmLists[subIndex].fieldName;
-
-                    //请求接口
-                    this.$http.get(this.api.findPdContent, {
-                        params: _postData
-                    }).then(
-                        response => {
-                            let res = response.body;
-                            if (res.result.resultCode = '00000000') {
-                                this.prmLists[index].pmLists[subIndex].pdContentList=res.data;
-                            }
-                        }
-                    );
-
-                }
-            });
-            
-            /**
-             * 选中内容下拉框选项
-             * */
-            this.bus.$on('pdContentSelectBoxBus', res => {
-                if (res) {
-                    let index = res.pmListIndex.index;
-                    let subIndex = res.pmListIndex.subIndex;
-                    let selectOption = res.selectOption;
-                    this.prmLists[index].pmLists[subIndex].matchValues = selectOption;
-                }
-            })
-
-            /**
-             * 选中产品弹框
-             * */
-            this.bus.$on('productSelectStep2Bus', res => {
-                if (res) {
-                    let index = res.index;
-                    let selectOtion=res.data;
-                    let codeArr=[];
-                    let data=res.data;
-                    if(data.length>0){
-                        data.forEach(function(item,index){
-                            codeArr.push(item.productCode);
-                        })
-                    }
-                    this.prmLists[index].pmLists[0].matchValues=codeArr.join(',');
-                    this.prmLists[index].pmLists[0].tableName='pd_contract';
-                    this.prmLists[index].pmLists[0].fieldName='productCode';
-                    this.prmLists[index].pmLists[0].valueType='2';
-                    this.prmLists[index].pmLists[0].operator='';
-                    this.prmLists[index].pmLists[0].productData=data;
-                /*    console.log(this.prmLists[index].pmLists[0].productData)*/
-                    
-                }
-            })
-            
-            /**
-             * 获取产品名
-             * */
-            this.bus.$on('sendProductNameBus', res => {
-                this.productName=res;
-            })
-        },
         
         computed:{
             canSave(){
@@ -523,12 +418,134 @@
                 });
                 
                 return flag
+            },
+            productName(){
+                console.log(this.productNameStep1)
+                return this.productNameFromStep1;
             }
         },
+        
         watch: {
             'prmLists'(a, b){
 
             }
+        },
+
+        created(){
+            let that = this;
+
+
+            /**
+             * 获取匹配字段表
+             * */
+            this.findPdMatchFiled();
+
+
+
+            /**
+             * 选中匹配字段下拉框选项
+             * */
+            this.bus.$on('isAndSelectBoxBus', res => {
+                if (res) {
+                    let index = res.pmListIndex.index;
+                    let subIndex = res.pmListIndex.subIndex;
+
+                    let selectOption = res.selectOption;
+                    this.prmLists[index].pdRights.isAnd = selectOption.optionValue;    //isAnd的值
+                    this.prmLists[index].pdRights.isAndText = selectOption.optionText;
+
+                }
+            });
+
+            /**
+             * 选中并且或者下拉框
+             * */
+            this.bus.$on('contentLimitSelectBoxBus', res => {
+                if (res) {
+                    let index = res.pmListIndex.index;
+                    let subIndex = res.pmListIndex.subIndex;
+                    let _postData = {
+                        tableName: '',
+                        fieldName: ''
+                    };
+                    let selectOption = res.selectOption;
+                    this.prmLists[index].pmLists[subIndex].tableName = selectOption.tableName;    //表名
+                    this.prmLists[index].pmLists[subIndex].fieldName = selectOption.fieldName;    //字段名
+                    this.prmLists[index].pmLists[subIndex].valueType = selectOption.valueType;    //数值类型
+
+
+                    _postData.tableName = this.prmLists[index].pmLists[subIndex].tableName;
+                    _postData.fieldName = this.prmLists[index].pmLists[subIndex].fieldName;
+
+                    //请求接口
+                    this.$http.get(this.api.findPdContent, {
+                        params: _postData
+                    }).then(
+                        response => {
+                            let res = response.body;
+                            if (res.result.resultCode = '00000000') {
+                                this.prmLists[index].pmLists[subIndex].pdContentList=res.data;
+                            }
+                        }
+                    );
+
+                }
+            });
+
+            /**
+             * 选中内容下拉框选项
+             * */
+            this.bus.$on('pdContentSelectBoxBus', res => {
+                if (res) {
+                    let index = res.pmListIndex.index;
+                    let subIndex = res.pmListIndex.subIndex;
+                    let selectOption = res.selectOption;
+                    this.prmLists[index].pmLists[subIndex].matchValues = selectOption;
+                }
+            })
+
+            /**
+             * 选中产品弹框
+             * */
+            this.bus.$on('productSelectStep2Bus', res => {
+                if (res) {
+                    let index = res.index;
+                    let selectOtion=res.data;
+                    let codeArr=[];
+                    let data=res.data;
+                    if(data.length>0){
+                        data.forEach(function(item,index){
+                            codeArr.push(item.productCode);
+                        })
+                    }
+                    this.prmLists[index].pmLists[0].matchValues=codeArr.join(',');
+                    this.prmLists[index].pmLists[0].tableName='pd_contract';
+                    this.prmLists[index].pmLists[0].fieldName='productCode';
+                    this.prmLists[index].pmLists[0].valueType='2';
+                    this.prmLists[index].pmLists[0].operator='';
+                    this.prmLists[index].pmLists[0].productData=data;
+                    /*    console.log(this.prmLists[index].pmLists[0].productData)*/
+
+                }
+            })
+
+            /**
+             * 获取产品名
+             * */
+            this.bus.$on('sendProductNameBus', res => {
+                this.productNameFromStep1=res;
+            })
+        },
+        
+        destroyed(){
+            this.bus.$off('sendProductNameBus');
+            this.bus.$off('productSelectStep2Bus');
+            this.bus.$off('pdContentSelectBoxBus');
+            this.bus.$off('contentLimitSelectBoxBus');
+            this.bus.$off('isAndSelectBoxBus');
+            this.bus.$off('step2Bus');
+            
+            
         }
     }
 </script>

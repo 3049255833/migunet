@@ -115,7 +115,9 @@
                         if (res.result.resultCode == '00000000') {
                             this.addResultMsg = '新增成功';
                             this.$modal.show('addResultMsg');
-                            this.$router.push({'name': 'ContractProduct'})
+                            setTimeout(function(){
+                                this.$router.push({'name': 'ContractProduct'})
+                            },1000);
                         } else if (res.result.resultCode='00000001'){
                             this.addResultMsg = res.result.resultMsg;
                             this.$modal.show('addResultMsg');
@@ -126,7 +128,6 @@
         },
         watch:{
             '$route.name'(a,b){
-                console.log(111)
                 if(a=='Step1'){
                     this.step=1
                 }else if(a=='Step2'){
@@ -180,6 +181,7 @@
              * 获取步骤三的数据
              * */
             this.bus.$on('step3Bus', res => {
+    
                 this.step3PostData = res.data;
                 Object.keys(this.step3PostData).forEach(function (context) {
                     that.postData[context] = that.step3PostData[context];

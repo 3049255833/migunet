@@ -2,7 +2,7 @@
 	<div class="toast">
 		<i class="btn-close" @click="$modal.hide(name)"></i>
 		<p>
-			<slot></slot>
+            <slot></slot>
 		</p>
 	</div>
 </template>

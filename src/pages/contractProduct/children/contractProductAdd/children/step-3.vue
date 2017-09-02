@@ -105,6 +105,12 @@
                         :productType="productType"></v-product-select-modal>
             </t-modal-sub-container>
         </modal>
+    
+        <!-- 操作结果modal start -->
+        <modal name="addResultMsgModal" :draggable="true" :width="200" :height="80">
+            <v-toast :name="'addResultMsgModal'" >{{addResultMsg}}</v-toast>
+        </modal>
+
     </div>
 </template>
 <script type="es6">
@@ -112,12 +118,14 @@
     import VSmsList from '@/pages/contractProduct/children/contractProductAdd/components/sms-list';
     import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose.vue'
     import VPaging from '@/components/paging'
+    import VToast from '@/components/toast'
 
     import VProductSelectModal from '../components/product-select-modal'
 
     export default{
         data(){
             return {
+                addResultMsg:'',
                 formData: {
                     limitSmsAreas: '',
                     //limitSmsAreasCode: '',
@@ -142,7 +150,8 @@
             TModalSubContainer,
             VSmsList,
             VPaging,
-            VProductSelectModal
+            VProductSelectModal,
+            VToast
         },
         methods: {
             /**
@@ -156,6 +165,10 @@
 
             },
             
+            test(){
+                this.addResultMsg='新增成功'
+                this.$modal.show('addResultMsgModal');
+            },
             /**
              * 取消
              * */
@@ -321,6 +334,13 @@
                  
                 }
             });
+        },
+        destroyed(){
+            this.bus.$off('getSelectSms');
+            
+            this.bus.$off('getSelectProduct');
+
+            this.bus.$off('step3Bus');
         }
     }
 </script>

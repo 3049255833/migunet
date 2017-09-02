@@ -22,8 +22,8 @@
                 operateHeadData:{},
                 postData:{
                     searchKey:'',
-                    onlineStatus:'0',
-                    detailStatus:'0',
+                    onlineStatus:'',
+                    detailStatus:'',
                     pageSize:'8',
                     pageNum:'1',
                     effectiveTime:'',

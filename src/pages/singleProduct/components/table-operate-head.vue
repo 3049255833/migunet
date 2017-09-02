@@ -68,15 +68,18 @@
             return {
                 operateData: {
                     searchKey: '',                  //关键字
-                    onlineStatus: '0',                //产品状态
-                    detailStatus: '0',         //审批状态
+                    onlineStatus: '',                //产品状态
+                    detailStatus: '',         //审批状态
                     effectiveTime: '',         //生效时间
                     expireTime: ''             //失效时间
                 },
                 isShow: false,
                 keyWord: '',
                 detailStatusOperateList: [
-                    {},
+                    {
+                        optionText: '全部',
+                        optionValue: ''
+                    },
                     {
                         optionText: '上线报备中',
                         optionValue: '3'
@@ -103,6 +106,10 @@
                     }
                 ],
                 onlineStatusOperateList: [
+                    {
+                        optionText: '全部',
+                        optionValue: ''
+                    },
                     {
                         optionText: '草稿',
                         optionValue: '0'

@@ -26,7 +26,7 @@
         <div class="btn-group btn-group-center">
             <div v-if="ifHasData" class="btn btn-primary btn-middle-100" @click="saveData">确定</div>
             <div v-else class="btn unable btn-primary btn-middle-100">确定</div>
-            <div class="btn btn-default btn-middle-100">取消</div>
+            <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
         <div class="paging-wrap">
             <v-paging :type="'simple'"></v-paging>
@@ -71,6 +71,10 @@
                     }
 
                 })
+            },
+            
+            cancel(){
+                this.$modal.hide(this.modalName)
             },
 
 

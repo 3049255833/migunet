@@ -1,5 +1,14 @@
 <template>
     <div class="sms-list">
+        <div class="list-modal-head">
+            <div class="search-wrap">
+                <input class="form-input  w-150 radius-2 mr-6" type="text" v-model.trim="condition"
+                       @keyup.enter="getPlanCodeListByCondition" placeholder="关键信息搜索">
+                <div @click="getPlanCodeListByCondition" class="pointer search vt-middle">
+                    <i class="icon icon-search"></i>
+                </div>
+            </div>
+        </div>
         <div class="table-wrap">
             <table class="table-module">
                 <thead>
@@ -46,6 +55,7 @@
         props: ['modalName', 'index', 'type'],
         data(){
             return {
+                condition: '',
                 planCodeList: [{
                     planCode: '12345678',
                     planName: '老司机计划',
@@ -80,11 +90,32 @@
 
                 })
             },
-            
+
             cancel(){
                 this.$modal.hide(this.modalName);
             },
 
+            getPlanCodeListByCondition(e){
+                if (e && e.target) {
+                    e.target.blur();
+                }
+
+                this.$http.get(this.api.findPdFeePlanByCondition, {
+                    params: {
+                        condition: this.condition
+                    },
+                    showLoading: true
+                }).then(response => {
+                    let res = response.body;
+                    if (res.result.resultCode == '00000000') {
+                        //todo:
+                        this.planCodeList = res.data;
+                    } else {
+
+                    }
+
+                })
+            },
 
             /**
              * 保存数据
@@ -116,7 +147,7 @@
         watch: {},
         computed: {
             ifHasData(){
-                return this.planCodeCheckbox.length > 0 || this.planCodeRadio || this.planCodeRadio=='0';
+                return this.planCodeCheckbox.length > 0 || this.planCodeRadio || this.planCodeRadio == '0';
             },
             radioType(){
                 return this.type == 'radio'
@@ -138,8 +169,22 @@
         }
     }
     
+    .list-modal-head {
+        padding-bottom: 13px;
+        
+        .search {
+            display: inline-block;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            border-radius: 3px;
+            background: #46BAFE;
+        }
+    }
+    
     .table-wrap {
-        height: 400px;
+        height: 350px;
         overflow-y: scroll;
     }
     
