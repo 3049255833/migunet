@@ -133,9 +133,9 @@
              * 获取业务代码列表
              * */
             getBossInfo(){
-                this.$http.post(this.api.getBossInfo, this.postData,{showLoading:true}).then(
+                this.$http.post(this.api.getBossInfo, this.postData, {showLoading:true}).then(
                     response => {
-                        let res = response.body
+                        let res = response.body;
 
                         //console.log("res: " + JSON.stringify(res));
 
@@ -160,6 +160,11 @@
             },
 
             beforeClose() {}
+        },
+        computed:{
+            totalPage(){
+                return this.totalItem;
+            }
         }
     }
 </script>

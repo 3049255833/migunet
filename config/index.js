@@ -58,7 +58,7 @@ module.exports = {
                 target: proxy_service_ljy,
                 changeOrigin: true
             },
-            '/product/contractProductDetail': {
+            '/productCenter/contractProductDetail': {
                 /*合约产品详情的IP*/
                 target: proxy_service_ljy,
                 changeOrigin: true
