@@ -21,7 +21,7 @@
                     </td>
                     <td>{{item.companyCode}}</td>
                     <td>{{item.serviceName}}</td>
-                    <td>{{item.serviceDesc}}</td>
+                    <td class="describe">{{item.serviceDesc}}</td>
 
                     <td v-if="item.sharingType == '0'">分成</td>
                     <td v-else>买断</td>
@@ -174,6 +174,14 @@
         tbody {
             .edit {
                 margin-right: 10px;
+            }
+
+            .describe {
+                width: 200px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                display: block;
             }
 
             .operation {
