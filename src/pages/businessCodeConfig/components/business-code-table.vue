@@ -36,7 +36,7 @@
                              @click="editBusinessCode(item)"></div>
 
                         <div class="delete icon icon-del-gray"
-                             @click="deleteBtn(index, item.id)"></div>
+                             @click="deleteBtn(index, item.id, item.serviceCode)"></div>
 
                         <v-confirm-popover-modal
                           :confirmInfo="'是否删除该业务代码'"
@@ -78,7 +78,8 @@
                 count: 0,
                 isHideOperateModal: true,
                 willDelete: {
-                    id: ''
+                    id: '',
+                    serviceCode: ''
                 },
                 operateInfo: ''
             }
@@ -91,10 +92,12 @@
             VNolist
         },
         methods: {
-            deleteBtn(index, id) {
+            deleteBtn(index, id, code) {
                 this.businessCodeList[index].isHideConfim = false;
 
                 this.willDelete.id = id;
+
+                this.willDelete.serviceCode = code;
 
                 //console.log("willDeleteId: " + this.willDelete.id);
             },
@@ -118,7 +121,7 @@
                     response => {
                         let res = response.body;
 
-                        console.log("businessCodeList: " + JSON.stringify(res));
+                        //console.log("businessCodeList: " + JSON.stringify(res));
 
                         if(res.resultCode=='00000000'){
 
