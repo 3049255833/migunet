@@ -17,8 +17,7 @@
             <input type="text"
                    placeholder="关键信息搜索"
                    @keyup.enter="searchKeyWord"
-                   v-model="operateData.keys"
-            />
+                   v-model="operateData.keys"/>
         </div>
 
         <v-progress-bar
@@ -52,7 +51,7 @@
         },
         methods: {
             addBusinessCode() {
-                this.$modal.show('addBusinessCodeModal');
+                this.bus.$emit('sendAddBusinessCodeTitle');
             },
             /**
              * 触发事件，将封装的数据传给index
