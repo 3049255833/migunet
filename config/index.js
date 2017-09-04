@@ -128,7 +128,7 @@ module.exports = {
             },
             '/contractProduct/saveContractProduct':{
                 /*整体保存*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
@@ -150,27 +150,27 @@ module.exports = {
 
             '/productCenter/getBossInfo': {
                 /*获取业务状态列表*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/productCenter/deleteBossInfo': {
               /*删除业务*/
-                target: proxy_service_ljy,
+                target: proxy_service,
               changeOrigin: true
             },
             '/productCenter/addBossInfo': {
                 /*添加业务代码*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/productCenter/updateBossInfo': {
                 /*编辑业务代码*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/productCenter/batchAddBossInfo': {
                 /*编辑业务代码*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             }
         },

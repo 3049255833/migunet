@@ -187,11 +187,11 @@
             }
 
             .des, .name {
-                width: 150px;
+                max-width: 150px;
             }
 
             .id, .code {
-                width: 85px;
+                max-width: 100px;
             }
 
             .operation {
