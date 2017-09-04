@@ -246,19 +246,29 @@
 
                             console.log("Edit res: " + JSON.stringify(res));
 
-                            this.$emit('sendSaveSuccess');
+                            if(res.resultCode == '00000000') {
+
+                                this.$emit('sendSaveSuccess', '编辑成功');
+
+                            } else {
+                                this.$emit('sendSaveSuccess', '编辑失败');
+                            }
 
                             this.$modal.hide(this.modalName);
                         }
                     );
                 } else {
-                    this.$http.post(this.api.addBossInfo, this.postData,{showLoading:true}).then(
+                    this.$http.post(this.api.addBossInfo, this.postData).then(
                         response => {
                             let res = response.body;
 
-                            console.log("Add res: " + JSON.stringify(res));
+                            if(res.resultCode == '00000000') {
 
-                            this.$emit('sendSaveSuccess');
+                                this.$emit('sendSaveSuccess', '添加成功');
+
+                            } else {
+                                this.$emit('sendSaveSuccess', '添加失败');
+                            }
 
                             this.$modal.hide(this.modalName);
                         }
@@ -387,6 +397,10 @@
 
         .btn-group {
             margin: 0 0 50px;
+
+            .unable {
+                pointer-events: none;
+            }
         }
     }
 </style>

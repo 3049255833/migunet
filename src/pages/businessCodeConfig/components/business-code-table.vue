@@ -136,12 +136,11 @@
 
                             this.isHideOperateModal = false;
 
-                            this.bus.$emit('sendDeleteInfo');
-
                             setTimeout(function () {
                                 that.isHideOperateModal = true;
 
-                            }, 3000);
+                                that.bus.$emit('sendDeleteInfo');
+                            }, 2000);
 
                         } else {
                             this.operateInfo = '删除失败';
@@ -149,8 +148,8 @@
                             this.isHideOperateModal = false;
 
                             setTimeout(function () {
-                              that.isHideOperateModal = true;
-                            }, 3000);
+                                that.isHideOperateModal = true;
+                            }, 2000);
 
                             console.log("res: " + JSON.stringify(res));
                         }

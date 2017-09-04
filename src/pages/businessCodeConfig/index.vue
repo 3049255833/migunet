@@ -19,6 +19,11 @@
                 </v-add-business-code-modal>
             </t-modal-sub-container>
         </modal>
+
+        <!-- 操作结果modal start -->
+        <modal name="addResultMsg" :adaptive="true" :draggable="true" :width="200" :height="80">
+            <v-toast :name="'addResultMsg'">{{addResultMsg}}</v-toast>
+        </modal>
     </div>
 </template>
 
@@ -29,6 +34,7 @@
     import VPaging from '@/components/paging'
     import VAddBusinessCodeModal from './components/add-business-code-modal'
     import TModalSubContainer from "@/components/modal-sub-container"
+    import VToast from '@/components/toast'
 
     export default{
         name: 'BusinessCodeConfig',
@@ -37,7 +43,8 @@
             VTableOperateHead,
             VPaging,
             VAddBusinessCodeModal,
-            TModalSubContainer
+            TModalSubContainer,
+            VToast
         },
         data () {
             return {
@@ -50,7 +57,8 @@
                     pageSize:'8',
                     pageNo:'1'
                 },
-                totalItem:''
+                totalItem:'',
+                addResultMsg:''
             }
         },
         created() {
@@ -59,6 +67,8 @@
             /*
             * 接收来自添加modal的title*/
             this.bus.$on('sendAddBusinessCodeTitle', res => {
+                this.cmd = 'add';
+
                 this.modalTitle = '添加业务代码';
 
                 this.$modal.show('addBusinessCodeModal');
@@ -148,8 +158,17 @@
             /**
              * 接收来自保存的信息
              * */
-            sendSaveSuccess() {
-                this.getBossInfo();
+            sendSaveSuccess(res) {
+
+                let that = this;
+
+                this.addResultMsg = res;
+
+                that.$modal.show('addResultMsg');
+
+                setTimeout(function(){
+                    that.getBossInfo();
+                },2500);
             }
         },
         computed:{
