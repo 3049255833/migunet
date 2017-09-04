@@ -20,7 +20,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(item,index) in planCodeList" @click="">
+                <tr v-for="(item,index) in planCodeList" >
                     <td>
                         <label class="radio-module checkbox-single" v-if="radioType">
                             <input type="radio" :value="index" v-model="planCodeRadio">
