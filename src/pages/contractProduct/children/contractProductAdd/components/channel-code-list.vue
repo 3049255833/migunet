@@ -66,6 +66,7 @@
                     if (res.result.resultCode == '00000000') {
                         //todo:
                         this.channelCodeList= res.data;
+                        console.log(res.data)
                     } else {
 
                     }

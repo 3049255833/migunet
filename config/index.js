@@ -3,7 +3,7 @@ var path = require('path');
 
 var proxy_service_xhw = 'http://10.5.2.47:8080';
 var proxy_service_ljy = 'http://10.5.2.119:8080';
-var proxy_service_xl ='10.5.2.19:8080';
+var proxy_service_xl = 'http://10.5.2.19:8080';
 var proxy_service_e = 'http://10.5.2.52:8080';
 var proxy_service_cjl='http://10.5.2.123:8080';
 var proxy_service='http://10.5.2.243:8082';
@@ -69,27 +69,27 @@ module.exports = {
             },
             '/contractProduct/findCharge': {
                 /*获取业务代码详情*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findPdMatchFiled':{
                 /*获取匹配字段表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findPdContent':{
                 /*匹配内容限定*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findSmsTemplate': {
                 /*获取短信模板列表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findPdAttribution': {
                 /*获取区域选择列表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findChannel':{
@@ -100,19 +100,19 @@ module.exports = {
             },
             '/contractProduct/findPdFeePlanByCondition':{
                 /*通过关键字查询资费计划*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
 
             '/contractProduct/findProductCatalog': {
                 /*获取产品目录*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findFeePlan': {
                 /*获取产品目录*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
@@ -128,13 +128,13 @@ module.exports = {
             },
             '/contractProduct/saveContractProduct':{
                 /*整体保存*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
             '/contractProduct/findContractProductByStatus': {
                 /*获取互斥和依赖产品列表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/saveContractProductThree': {
@@ -170,6 +170,24 @@ module.exports = {
             },
             '/productCenter/batchAddBossInfo': {
                 /*编辑业务代码*/
+                target: proxy_service,
+                changeOrigin: true
+            },
+
+
+            /*审批*/
+            '/productCenter/getContractAuditList': {
+                /*获取审批列表*/
+                target: proxy_service,
+                changeOrigin: true
+            },
+            '/productCenter/auditContractProduct': {
+                /*获取审批详情*/
+                target: proxy_service,
+                changeOrigin: true
+            },
+            '/productCenter/updateContractStatus': {
+                /*审批*/
                 target: proxy_service,
                 changeOrigin: true
             }

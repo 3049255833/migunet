@@ -46,7 +46,9 @@ let api = {
     deleteBossInfo: 'productCenter/deleteBossInfo',  //删除业务
     addBossInfo: 'productCenter/addBossInfo',  //添加业务代码
     updateBossInfo: 'productCenter/updateBossInfo',  //编辑业务代码
-    batchAddBossInfo: 'productCenter/batchAddBossInfo'  //批量添加业务代码
+    batchAddBossInfo: 'productCenter/batchAddBossInfo',  //批量添加业务代码
+
+    getContractAuditList:'productCenter/getContractAuditList' //获取审批列表
 };
 
 for (let key in api) {

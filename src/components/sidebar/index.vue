@@ -73,6 +73,18 @@
                         "title": "业务代码配置",
                         "haveChildrens": false,
                         "url": "/business_code_config"
+                    },
+                    {
+                        "isSubShow": false,
+                        "title": "我的待办",
+                        "haveChildrens": false,
+                        "url": "/audit/my_backlog"
+                    },
+                    {
+                        "isSubShow": false,
+                        "title": "产品审批管理",
+                        "haveChildrens": false,
+                        "url": "/audit/product_audit_manage"
                     }
                 ],
                 titleState: true,
