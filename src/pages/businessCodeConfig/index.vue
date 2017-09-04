@@ -97,8 +97,16 @@
             /**
              * 接收来自批量导入的信息
              * */
-            this.bus.$on('sendBatchAddBossInfo', res => {
+            this.bus.$on('sendBatchAddBossSuccessInfo', res => {
                 this.getBossInfo();
+            });
+
+            this.bus.$on('sendBatchAddBossInfo', res => {
+                let that = this;
+
+                this.addResultMsg = res;
+
+                this.$modal.show('addResultMsg');
             });
         },
         methods: {

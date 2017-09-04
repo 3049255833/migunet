@@ -71,59 +71,43 @@
 
                 let files = document.getElementById('upload').files;
 
-                let fileTypeValid = files[0].name.lastIndexOf('.xls') > -1 || files[0].name.lastIndexOf('.xlsx') > -1 || files[0].name.lastIndexOf('.csv') > -1;
+                let fileTypeValid;
 
-                //console.log("fileTypeValid: " + fileTypeValid);
+                if(files[0]) {
+
+                    fileTypeValid = files[0].name.lastIndexOf('.xls') > -1 || files[0].name.lastIndexOf('.xlsx') > -1 || files[0].name.lastIndexOf('.csv') > -1;
+                } else {
+                    return false;
+                }
 
                 if (fileTypeValid) {
                     let formData = new FormData();
 
                     formData.append('file', files[0]);
 
-                    this.uploadErrorInfo = '';
+                    this.$http.post(this.api.batchAddBossInfo, formData).then(
+                        response => {
+                            let res = response.body;
 
-                    this.isHide = false;
+                            if(res.result.resultCode=='00000000'){
+                                this.isHide = false;
+                                this.percent = '100';
+                                this.progressStyle.width = '100';
 
-                    //console.log("info: " + this.uploadErrorInfo);
+                                setTimeout(function () {
+                                  that.isHide = true;
 
-                    this.$http.post(this.api.batchAddBossInfo, formData, {
-                        progress: (e) => {
-                            if (e.lengthComputable) {
+                                  that.bus.$emit('sendBatchAddBossSuccessInfo');
+                                }, 2000);
 
-                                //console.log("e: " + JSON.stringify(e));
-
-                                var percent = Math.floor(e.loaded / e.total*100);
-
-                                if(percent < 100) {
-                                    this.percent = percent;
-                                    this.progressStyle.width = percent;
-
-                                    //console.log("uploading: " + '已上传: ' + percent + '%');
-                                }
-                                if(percent >= 100) {
-                                    this.percent = '100';
-                                    this.progressStyle.width = '100';
-
-                                    //console.log("upload success: " + '文件上传完毕');
-
-                                    setTimeout(function () {
-                                      that.isHide = true;
-
-                                      that.bus.$emit('sendBatchAddBossInfo');
-                                    }, 2000);
-
-                                }
+                            } else {
+                                this.bus.$emit('sendBatchAddBossInfo', '上传失败');
                             }
                         }
-                    });
+                    );
                 } else {
-                    this.isHide = false;
 
-                    this.uploadErrorInfo = '上传格式错误！';
-
-                    setTimeout(function () {
-                        that.isHide = true;
-                    }, 2000);
+                    this.bus.$emit('sendBatchAddBossInfo', '上传格式错误');
                 }
             }
         }
