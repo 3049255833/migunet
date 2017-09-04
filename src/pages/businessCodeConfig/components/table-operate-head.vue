@@ -63,7 +63,7 @@
                     e.target.blur();
                 }
 
-                this.bus.$emit('searchKeyWordBus',this.operateData);
+                this.$emit('searchKeyWordBus',this.operateData);
             },
             upload() {
                 let that = this;
@@ -72,7 +72,7 @@
 
                 let fileTypeValid = files[0].name.lastIndexOf('.xls') > -1 || files[0].name.lastIndexOf('.xlsx') > -1 || files[0].name.lastIndexOf('.csv') > -1;
 
-                console.log("fileTypeValid: " + fileTypeValid);
+                //console.log("fileTypeValid: " + fileTypeValid);
 
                 if (fileTypeValid) {
                     let formData = new FormData();
@@ -128,6 +128,7 @@
         }
     }
 </script>
+
 <style scoped lang="scss" rel="stylesheet/scss">
     .batch-delete {
         display: none;

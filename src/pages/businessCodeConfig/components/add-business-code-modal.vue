@@ -135,15 +135,14 @@
                  @click="confirm">确定</div>
 
             <div class="btn btn-primary btn-middle-100 unable"
-                 v-else
-                 @click="confirm">确定</div>
+                 v-else>确定</div>
 
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
     </div>
 </template>
 
-<script>
+<script type="es6">
     import Bus from './bus';
     import VSelectBox from '@/components/select-box'
 
@@ -233,7 +232,7 @@
                 this.$modal.hide(this.modalName);
             },
             confirm() {
-                //console.log("postData: " + JSON.stringify(this.postData));
+                console.log("postData: " + JSON.stringify(this.postData));
 
                 if(this.cmd == 'edit') {
 
@@ -245,9 +244,9 @@
                         response => {
                             let res = response.body;
 
-                            //console.log("res: " + res);
+                            console.log("Edit res: " + JSON.stringify(res));
 
-                            this.bus.$emit('sendSaveSuccess');
+                            this.$emit('sendSaveSuccess');
 
                             this.$modal.hide(this.modalName);
                         }
@@ -257,9 +256,9 @@
                         response => {
                             let res = response.body;
 
-                            //console.log("res: " + res);
+                            console.log("Add res: " + JSON.stringify(res));
 
-                            this.bus.$emit('sendSaveSuccess');
+                            this.$emit('sendSaveSuccess');
 
                             this.$modal.hide(this.modalName);
                         }

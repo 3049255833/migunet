@@ -5,7 +5,7 @@
             <tr>
                 <td class="td-pl-68">产品名称</td>
                 <td>产品ID</td>
-                <td>CP／TP ID</td>
+                <td>CP／SP ID</td>
                 <td>资费(分)</td>
                 <td>业务状态</td>
                 <td>审批状态</td>
