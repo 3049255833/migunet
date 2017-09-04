@@ -34,7 +34,7 @@
             </table>
             
             <div v-if="serviceCodeList.length <= 0" class="no-asset-box">
-                <v-nolist :text="'ceshi2222'"></v-nolist>
+                <v-nolist :text="'暂无数据'"></v-nolist>
             </div>
         </div>
         <div class="btn-group btn-group-center">

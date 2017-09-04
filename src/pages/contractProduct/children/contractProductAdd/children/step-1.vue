@@ -420,7 +420,7 @@
                             <tr>
                                 <td>计划编码</td>
                                 <td>计划名称</td>
-                                <td>计划内容</td>
+                                <td>计划说明</td>
                             </tr>
                             </thead>
                             <tbody>
