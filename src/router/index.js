@@ -13,6 +13,12 @@ const Step1 = resolve => require(['@/pages/contractProduct/children/contractProd
 const Step2 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-2'],resolve) ;
 const Step3 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-3'],resolve) ;
 
+/*审核员操作*/
+const Audit  = resolve => require(['@/pages/Audit'],resolve) ;       //入口页面
+const AuditDetail  = resolve => require(['@/pages/Audit/children/audit-detail'],resolve) ;       //审批详情
+const MyBacklog  = resolve => require(['@/pages/Audit/children/my-backlog'],resolve) ;           //入口页面
+const ProductAuditManage  = resolve => require(['@/pages/Audit/children/product-audit-manage'],resolve) ;       //审批管理
+
 
 /*const Login = resolve => require(['@/pages/login'], resolve);
 const SmsLogin = resolve => require(['@/pages/login/children/sms'], resolve);
@@ -98,7 +104,38 @@ export default new Router({
                         }
                     ]
                 },
+
+                /*审核员操作*/
+                {
+                    path: 'audit',
+                    name: 'Audit',
+                    component: Audit,
+                    redirect: 'audit/my_backlog',
+                    children:[
+                        {
+                            path: 'my_backlog',
+                            name: 'MyBacklog',
+                            components: {
+                                default:MyBacklog
+                            }
+                        },
+                        {
+                            path: 'audit_detail',
+                            name: 'AuditDetail',
+                            components: {
+                                default:Audit
+                            }
+                        },
+                        {
+                            path: 'product_audit_manage',
+                            name: 'ProductAuditManage',
+                            components: {
+                                default:ProductAuditManage
+                            }
+                        }
+                    ]
+                },
             ]
-        },
+        }
     ]
 })
