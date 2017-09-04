@@ -17,8 +17,9 @@
             <input type="text"
                    placeholder="关键信息搜索"
                    @keyup.enter="searchKeyWord"
-                   v-model="operateData.keys"
-            />
+                   v-model="operateData.keys"/>
+
+            <div class="search-icon" @click="searchKeyWord"></div>
         </div>
 
         <v-progress-bar
@@ -52,7 +53,7 @@
         },
         methods: {
             addBusinessCode() {
-                this.$modal.show('addBusinessCodeModal');
+                this.bus.$emit('sendAddBusinessCodeTitle');
             },
             /**
              * 触发事件，将封装的数据传给index
@@ -193,6 +194,7 @@
 
         .right {
             float: right;
+            overflow: hidden;
 
             input {
                 width: 150px;
@@ -201,7 +203,18 @@
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
                 border: solid 1px #d6e1e5;
+                float: left;
+                padding-right: 30px;
+            }
+
+            .search-icon {
                 background: url('../../../assets/search.png') no-repeat 95% 50%;
+                float: left;
+                width: 15px;
+                height: 15px;
+                margin-left: -25px;
+                margin-top: 8px;
+                cursor: pointer;
             }
         }
     }

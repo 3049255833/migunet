@@ -10,7 +10,7 @@
         <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
 
         <modal name="addBusinessCodeModal" :width="600" :height="580" @before-close="beforeClose">
-            <t-modal-sub-container :title="'新增业务代码'" :name="'addBusinessCodeModal'">
+            <t-modal-sub-container :title="modalTitle" :name="'addBusinessCodeModal'">
                 <v-add-business-code-modal
                   :modal-name="'addBusinessCodeModal'"
                   :passModal="passModal"
@@ -41,37 +41,10 @@
         },
         data () {
             return {
-                businessCodeList: [
-                    /*{
-                        id: 1001,
-                        enterPriseCode: 2009,
-                        codeName: '动漫计费功能',
-                        codeDes: '动漫业务包',
-                        type: '分成',
-                        amount: '12.00',
-                        isAdmin: true
-                    },
-                    {
-                        id: 1002,
-                        enterPriseCode: 2009,
-                        codeName: '动漫计费功能',
-                        codeDes: '动漫业务包',
-                        type: '分成',
-                        amount: '12.00',
-                        isAdmin: false
-                    },
-                    {
-                        id: 1003,
-                        enterPriseCode: 2009,
-                        codeName: '动漫计费功能',
-                        codeDes: '动漫业务包',
-                        type: '分成',
-                        amount: '12.00',
-                        isAdmin: false
-                    }*/
-                ],
+                businessCodeList: [],
                 passModal: {},
                 cmd: '',
+                modalTitle: '新增业务代码',
                 postData:{
                     keys:'',
                     pageSize:'8',
@@ -83,6 +56,14 @@
         created() {
             this.getBossInfo();
 
+            /*
+            * 接收来自添加modal的title*/
+            this.bus.$on('sendAddBusinessCodeTitle', res => {
+                this.modalTitle = '添加业务代码';
+
+                this.$modal.show('addBusinessCodeModal');
+            });
+
             /**
              * 接收来自编辑的信息
              * */
@@ -90,6 +71,8 @@
                 this.passModal = res;
 
                 this.cmd = 'edit';
+
+                this.modalTitle = '修改业务代码';
 
                 this.$modal.show('addBusinessCodeModal');
             });
@@ -173,6 +156,12 @@
             totalPage(){
                 return this.totalItem;
             }
+        },
+        destroyed() {
+            this.bus.$off('sendAddBusinessCodeTitle');
+            this.bus.$off('editPassModal');
+            this.bus.$off('sendDeleteInfo');
+            this.bus.$off('sendBatchAddBossInfo');
         }
     }
 </script>

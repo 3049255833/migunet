@@ -15,6 +15,8 @@
                            placeholder="关键信息搜索"
                            v-model="operateData.keys"
                            @keyup.enter="cSendOperateData"/>
+
+                    <div class="search-icon" @click="cSendOperateData"></div>
                 </div>
                 <div class="l-space l-content-right">
                     <v-select-box
@@ -57,7 +59,7 @@
                             startTime="true">
                     </v-date>
                 </div>
-                
+
                 <div class="date-container">
                     <v-date
                             defaultText="失效时间"
@@ -359,8 +361,23 @@
         color: #d6e1e5;
     }
 
-    .input-wrapper1 input {
-        background: url('../../../assets/search.png') no-repeat 95% 50%;
+    .input-wrapper1 {
+        overflow: hidden;
+
+        input {
+            float: left;
+            padding-right: 30px;
+        }
+
+        .search-icon {
+            background: url('../../../assets/search.png') no-repeat 95% 50%;
+            float: left;
+            width: 15px;
+            height: 15px;
+            margin-left: -25px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
     }
 
     .l-space {
