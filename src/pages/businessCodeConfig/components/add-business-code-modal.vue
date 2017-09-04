@@ -132,6 +132,7 @@
         <div class="btn-group btn-group-center">
             <div class="btn btn-primary btn-middle-100"
                  v-if="canSave"
+                 v-bind:class="{unable: isActive}"
                  @click="confirm">确定</div>
 
             <div class="btn btn-primary btn-middle-100 unable"
@@ -194,7 +195,8 @@
                             optionValue: '1'
                         }
                     ]
-                }
+                },
+                isActive: false
             }
         },
         validations: {
@@ -234,6 +236,8 @@
             confirm() {
                 console.log("postData: " + JSON.stringify(this.postData));
 
+                this.isActive = true;
+
                 if(this.cmd == 'edit') {
 
                     delete this.postData.isHideConfim;
@@ -246,19 +250,29 @@
 
                             console.log("Edit res: " + JSON.stringify(res));
 
-                            this.$emit('sendSaveSuccess');
+                            if(res.resultCode == '00000000') {
+
+                                this.$emit('sendSaveSuccess', '编辑成功');
+
+                            } else {
+                                this.$emit('sendSaveSuccess', '编辑失败');
+                            }
 
                             this.$modal.hide(this.modalName);
                         }
                     );
                 } else {
-                    this.$http.post(this.api.addBossInfo, this.postData,{showLoading:true}).then(
+                    this.$http.post(this.api.addBossInfo, this.postData).then(
                         response => {
                             let res = response.body;
 
-                            console.log("Add res: " + JSON.stringify(res));
+                            if(res.resultCode == '00000000') {
 
-                            this.$emit('sendSaveSuccess');
+                                this.$emit('sendSaveSuccess', '添加成功');
+
+                            } else {
+                                this.$emit('sendSaveSuccess', '添加失败');
+                            }
 
                             this.$modal.hide(this.modalName);
                         }
@@ -387,6 +401,10 @@
 
         .btn-group {
             margin: 0 0 50px;
+
+            .unable {
+                pointer-events: none;
+            }
         }
     }
 </style>

@@ -15,24 +15,35 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(item,index) in serviceCodeList" @click="choseServiceCode(item,index)" >
-                    <td>
-                        <label class="radio-module radio-single">
-                            <input type="radio" :value="index" v-model="serviceCodeRadio" name="serviceCodeRadio">
-                            <span></span>
-                        </label>
-                    </td>
-                    <td>{{item.serviceCode}}</td>
-                    <td>{{item.serviceName}}</td>
-                    <td>{{item.serviceDesc}}</td>
-                    <td>{{item.sharingType}}</td>
-                    <td>{{item.feeAmount}}</td>
-                    <td>{{item.isManager}}</td>
-                    <td>{{item.companyCode}}</td>
-                </tr>             
+                    <tr v-for="(item,index) in serviceCodeList" @click="choseServiceCode(item,index)" >
+                        <td>
+                            <label class="radio-module radio-single">
+                                <input type="radio"
+                                       :value="index"
+                                       v-model="serviceCodeRadio" name="serviceCodeRadio">
+                                <span></span>
+                            </label>
+                        </td>
+
+                        <td><div class="limit-text-length service-code"
+                                 :title="item.serviceCode">{{item.serviceCode}}</div></td>
+
+                        <td><div class="limit-text-length name"
+                                 :title="item.serviceName">{{item.serviceName}}</div></td>
+
+                        <td><div class="limit-text-length des"
+                                 :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
+
+                        <td>{{item.sharingType}}</td>
+                        <td>{{item.feeAmount}}</td>
+                        <td>{{item.isManager}}</td>
+
+                        <td><div class="limit-text-length company-code"
+                                 :title="item.companyCode">{{item.companyCode}}</div></td>
+                    </tr>
                 </tbody>
             </table>
-            
+
             <div v-if="serviceCodeList.length <= 0" class="no-asset-box">
                 <v-nolist :text="'暂无数据'"></v-nolist>
             </div>
@@ -103,14 +114,14 @@
                                     console.log('否')
                                     item.sharingType='买断'
                                 }
-                           
+
                                 if(item.isManager==1){
                                     item.isManager='专用'
                                 }else{
                                     item.isManager='否'
                                 }
 
-                        
+
                         })
 
                         this.serviceCodeList = res.data;
@@ -120,14 +131,14 @@
 
                 })
             },
-            
+
             /**
              * cancel
              * */
             cancel(){
                 this.$modal.hide(this.modalName)
             },
-            
+
             /**
              * 选择业务代码
              * 一旦点下去vm其实已经保存了数据
@@ -141,7 +152,7 @@
                 this.serviceCodeRadio=index.toString();
                 this.ifHasData=true;
             },
-            
+
             /**
              * 保存数据
              * */
@@ -165,16 +176,17 @@
             right: 20px;
         }
     }
-    
+
     .table-wrap {
         height: 400px;
         overflow-y: scroll;
     }
-    
+
     .table-module {
         width: 100%;
         border-collapse: collapse;
         font-size: 14px;
+
         thead {
             tr {
                 width: 100%;
@@ -185,7 +197,7 @@
             td {
                 color: #6d7684;
                 padding: 0 10px;
-                
+
             }
         }
         tbody {
@@ -200,6 +212,13 @@
                 color: #6d7684;
                 padding: 18px 10px;
             }
+
+            .service-code,
+            .company-code,
+            .des,
+            .name {
+                max-width: 100px;
+            }
         }
         td {
             text-align: left;
@@ -211,7 +230,7 @@
             cursor: pointer;
         }
     }
-    
+
     .btn-group {
         text-align: center;
         margin-top: 33px;
