@@ -29,7 +29,7 @@
                 contractProductList:[],
                 postData:{
                     keys:'',
-                    onlineStatus:1,
+                    onlineStatus:'',
                     detailStatus: '',
                     //productCatalog:1,
                     effectiveTime:'',

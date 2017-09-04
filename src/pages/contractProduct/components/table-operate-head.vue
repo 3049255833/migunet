@@ -57,6 +57,7 @@
                             startTime="true">
                     </v-date>
                 </div>
+                
                 <div class="date-container">
                     <v-date
                             defaultText="失效时间"
@@ -90,7 +91,7 @@
                 keyWord: '',
                 operateData: {
                     keys: '',                  //关键字
-                    onlineStatus: '1',         //产品状态
+                    onlineStatus: '',         //产品状态
                     detailStatus: '',
                     productCatalog: '1',         //产品目录
                     effectiveTime: '',         //生效时间
