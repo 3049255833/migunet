@@ -132,6 +132,7 @@
         <div class="btn-group btn-group-center">
             <div class="btn btn-primary btn-middle-100"
                  v-if="canSave"
+                 v-bind:class="{unable: isActive}"
                  @click="confirm">确定</div>
 
             <div class="btn btn-primary btn-middle-100 unable"
@@ -194,7 +195,8 @@
                             optionValue: '1'
                         }
                     ]
-                }
+                },
+                isActive: false
             }
         },
         validations: {
@@ -233,6 +235,8 @@
             },
             confirm() {
                 console.log("postData: " + JSON.stringify(this.postData));
+
+                this.isActive = true;
 
                 if(this.cmd == 'edit') {
 
