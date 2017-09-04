@@ -1,6 +1,9 @@
 <template>
     <div class="business-code-config-container">
-        <v-table-operate-head title="业务代码管理"></v-table-operate-head>
+        <v-table-operate-head
+          title="业务代码配置"
+          v-on:searchKeyWordBus="searchKeyWordBus">
+        </v-table-operate-head>
 
         <v-business-code-table :businessCodeList="businessCodeList"></v-business-code-table>
 
@@ -11,6 +14,7 @@
                 <v-add-business-code-modal
                   :modal-name="'addBusinessCodeModal'"
                   :passModal="passModal"
+                  v-on:sendSaveSuccess="sendSaveSuccess"
                   :cmd="cmd">
                 </v-add-business-code-modal>
             </t-modal-sub-container>
@@ -80,17 +84,6 @@
             this.getBossInfo();
 
             /**
-             * 接收来自头部搜索
-             * */
-            this.bus.$on('searchKeyWordBus', res => {
-                this.postData.keys = res.keys;
-
-                console.log("postData: " + JSON.stringify(this.postData));
-
-                this.getBossInfo();
-            });
-
-            /**
              * 接收来自编辑的信息
              * */
             this.bus.$on('editPassModal', res => {
@@ -99,13 +92,6 @@
                 this.cmd = 'edit';
 
                 this.$modal.show('addBusinessCodeModal');
-            });
-
-            /**
-             * 接收来自保存的信息
-             * */
-            this.bus.$on('sendSaveSuccess', res => {
-                this.getBossInfo();
             });
 
             /**
@@ -123,6 +109,17 @@
             });
         },
         methods: {
+            /**
+             * 接收来自头部搜索
+             * */
+            searchKeyWordBus(res) {
+                this.postData.keys = res.keys;
+
+                console.log("postData search: " + JSON.stringify(this.postData));
+
+                this.getBossInfo();
+            },
+
             /**
              * 获取业务代码列表
              * */
@@ -162,6 +159,13 @@
                 this.postData.pageNo = res.pagingValue;
                 this.postData.pageSize = res.pagingSize;
 
+                this.getBossInfo();
+            },
+
+            /**
+             * 接收来自保存的信息
+             * */
+            sendSaveSuccess() {
                 this.getBossInfo();
             }
         },
