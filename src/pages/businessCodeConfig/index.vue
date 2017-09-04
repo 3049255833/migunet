@@ -41,35 +41,7 @@
         },
         data () {
             return {
-                businessCodeList: [
-                    /*{
-                        id: 1001,
-                        enterPriseCode: 2009,
-                        codeName: '动漫计费功能',
-                        codeDes: '动漫业务包',
-                        type: '分成',
-                        amount: '12.00',
-                        isAdmin: true
-                    },
-                    {
-                        id: 1002,
-                        enterPriseCode: 2009,
-                        codeName: '动漫计费功能',
-                        codeDes: '动漫业务包',
-                        type: '分成',
-                        amount: '12.00',
-                        isAdmin: false
-                    },
-                    {
-                        id: 1003,
-                        enterPriseCode: 2009,
-                        codeName: '动漫计费功能',
-                        codeDes: '动漫业务包',
-                        type: '分成',
-                        amount: '12.00',
-                        isAdmin: false
-                    }*/
-                ],
+                businessCodeList: [],
                 passModal: {},
                 cmd: '',
                 postData:{

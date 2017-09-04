@@ -17,11 +17,18 @@
             <tbody>
                 <tr v-for="(item, index) in businessCodeList">
                     <td>
-                        <div class="l-app-name">{{item.serviceCode}}</div>
+                        <div class="l-app-name limit-text-length id"
+                             :title="item.serviceCode">{{item.serviceCode}}</div>
                     </td>
-                    <td>{{item.companyCode}}</td>
-                    <td>{{item.serviceName}}</td>
-                    <td class="describe">{{item.serviceDesc}}</td>
+
+                    <td><div class="limit-text-length code"
+                             :title="item.companyCode">{{item.companyCode}}</div></td>
+
+                    <td><div class="limit-text-length name"
+                             :title="item.serviceName">{{item.serviceName}}</div></td>
+
+                    <td><div class="limit-text-length des"
+                             :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
 
                     <td v-if="item.sharingType == '0'">分成</td>
                     <td v-else>买断</td>
@@ -179,12 +186,12 @@
                 margin-right: 10px;
             }
 
-            .describe {
-                width: 200px;
-                text-overflow: ellipsis;
-                overflow: hidden;
-                white-space: nowrap;
-                display: block;
+            .des, .name {
+                width: 150px;
+            }
+
+            .id, .code {
+                width: 85px;
             }
 
             .operation {
