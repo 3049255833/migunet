@@ -3,7 +3,7 @@ var path = require('path');
 
 var proxy_service_xhw = 'http://10.5.2.47:8080';
 var proxy_service_ljy = 'http://10.5.2.119:8080';
-var proxy_service_xl = 'http://10.5.2.243:8082/';
+var proxy_service_xl ='10.5.3.152:8080';
 var proxy_service_e = 'http://10.5.2.52:8080';
 var proxy_service_cjl='http://10.5.2.123:8080';
 var proxy_service='http://10.5.2.243:8082';
@@ -128,7 +128,7 @@ module.exports = {
             },
             '/contractProduct/saveContractProduct':{
                 /*整体保存*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
