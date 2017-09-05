@@ -222,7 +222,7 @@
                           <span class="row-right"></span>
                       </div>
 
-                      <div class="layout-row no-pb">
+                      <div class="layout-row">
                           <span class="row-left"> 依赖产品：</span>
                           <span class="row-right"> 动漫5元 | 2091272</span>
                       </div>
@@ -237,17 +237,40 @@
 
               <div class="info-wrap clearfix">
                   <div class="fl w-50">
-                      <div class="layout-row">
-                        <span class="row-left"> BOOS计费代码 ：</span>
-                        <span class="row-right"></span>
+                      <div class="layout-row list payment-way-list">
+                          <div class="row-left"> 支付方式 ：</div>
+
+                          <div class="row-right">
+                              <h4>话费支付</h4>
+
+                              <div class="item">
+                                  <span class="left"> 业务代码 ：</span>
+                                  <span class="right">1000100001</span>
+                              </div>
+
+                              <div class="item">
+                                  <span class="left"> 资费金额（分） ：</span>
+                                  <span class="right">1000100001</span>
+                              </div>
+
+                              <div class="item">
+                                  <span class="left"> 资费类型 ：</span>
+                                  <span class="right">包月</span>
+                              </div>
+
+                              <div class="item">
+                                  <span class="left"> 是否重复订购 ：</span>
+                                  <span class="right">否</span>
+                              </div>
+
+                              <div class="item">
+                                  <span class="left"> 产品周期 ：</span>
+                                  <span class="right">永久有效</span>
+                              </div>
+                          </div>
                       </div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 计费类型 ：</span>
-                          <span class="row-right"></span>
-                      </div>
-
-                      <div class="layout-row scheme-list">
+                      <div class="layout-row list billing-list">
                           <div class="row-left"> 计费策略 ：</div>
 
                           <div class="row-right">
@@ -285,14 +308,22 @@
                   </div>
 
                   <div class="fl w-50">
-                      <div class="layout-row">
-                          <span class="row-left"> 价格(分CN) ：</span>
-                          <span class="row-right"></span>
-                      </div>
+                      <div class="layout-row charges-list list">
+                          <div class="row-left"> 资费计划 ：</div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 支付方式 ：</span>
-                          <span class="row-right"></span>
+                          <div class="row-right">
+                              <div class="item">
+                                  <div class="">00000259</div>
+
+                                  <hr/>
+
+                                  <div class="">资费计划名称</div>
+
+                                  <hr/>
+
+                                  <div class="">计划说明内容</div>
+                              </div>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -586,22 +617,6 @@
               }
 
               .info-wrap{
-                  .layout-row.no-pb {
-                      overflow: hidden;
-
-                      .row-left{
-                          float: left;
-                      }
-
-                      .row-right{
-                          float: left;
-
-                          >div {
-                              margin-bottom: 10px;
-                          }
-                      }
-                  }
-
                   .row-left{
                       color: #666666;
                       width: 145px;
@@ -615,10 +630,29 @@
 
           .base-info {
               margin-bottom: 38px;
+
+              .info-wrap {
+                  .layout-row.no-pb {
+                      overflow: hidden;
+
+                      .row-right {
+                          float: left;
+
+                          div {
+                              margin-bottom: 10px;
+                          }
+                      }
+
+                      .row-left {
+                          float: left;
+                          width: 149px;
+                      }
+                  }
+              }
           }
 
           .charges-info {
-              .scheme-list {
+              .list {
                   overflow: hidden;
 
                   h4 {
@@ -633,23 +667,50 @@
                       float: left;
                       width: 370px;
 
-                      .scheme-item:last-child {
-                          margin-top: 25px;
-                      }
-
                       .item {
-                          margin: 5px 0;
+                        margin: 5px 0;
                       }
+                  }
+              }
 
-                      .scheme-item:first-child {
-                          .item:last-child {
-                              letter-spacing: 1.2px;
-                              line-height: 16px;
+              .billing-list {
+                  .scheme-item:last-child {
+                      margin-top: 25px;
+                  }
+
+                  .scheme-item:first-child {
+                      .item:last-child {
+                          letter-spacing: 1.2px;
+                          line-height: 16px;
+                      }
+                  }
+
+                  .scheme-item {
+                      color: #333;
+                  }
+              }
+
+              .payment-way-list {
+
+              }
+
+              .charges-list {
+                  .row-right {
+                      .item {
+                          overflow: hidden;
+                          margin-top: 0;
+                          margin-bottom: 10px;
+
+                          hr {
+                              height: 10px;
+                              width: 0;
+                              float: left;
+                              margin: 0 8px;
                           }
-                      }
 
-                      .scheme-item {
-                          color: #333;
+                          div {
+                              float: left;
+                          }
                       }
                   }
               }
