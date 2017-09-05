@@ -31,7 +31,6 @@
             VHeader,
             VSideBar,
             BreadNav
-            
         },
         data () {
             return {
@@ -42,7 +41,7 @@
         },
         methods: {},
         mounted () {
-            
+
         },
         watch: {}
     };
@@ -52,7 +51,7 @@
         width: 100%;
         height: 100%;
     }
-    
+
     #app {
         width: 100%;
         height: 100%;

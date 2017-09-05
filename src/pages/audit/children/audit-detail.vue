@@ -4,307 +4,315 @@
           <div class="add-title">审批工作流</div>
 
           <table class="table-module">
-                  <thead>
-                      <tr>
-                          <td width="240">提交时间</td>
-                          <td>提交人</td>
-                          <td>申请类型</td>
-                          <td>审核时间</td>
-                          <td>审核人</td>
-                          <td>审批结果</td>
-                          <td>审批失败原因</td>
-                      </tr>
-                  </thead>
+              <thead>
+                  <tr>
+                      <td width="240">提交时间</td>
+                      <td>提交人</td>
+                      <td>申请类型</td>
+                      <td>审核时间</td>
+                      <td>审核人</td>
+                      <td>审批结果</td>
+                      <td>审批失败原因</td>
+                  </tr>
+              </thead>
 
-                  <tbody>
-                      <tr>
-                          <td>2017/08/22 09:30</td>
-                          <td>21222222</td>
-                          <td>变更审批</td>
-                          <td>2017/08/22 09:30</td>
-                          <td>小三</td>
-                          <td>
-                              <div class=" review-fail-pass">
-                                  <i class="icon icon-fail-pass mr-5"></i>
-                                  <span class="cl-fail-pass vt-middle">
-                                    不通过</span>
-                              </div>
-                          </td>
-                          <td>价格高于审批价格</td>
-                      </tr>
+              <tbody>
+                  <tr>
+                      <td>2017/08/22 09:30</td>
+                      <td>21222222</td>
+                      <td>变更审批</td>
+                      <td>2017/08/22 09:30</td>
+                      <td>小三</td>
+                      <td>
+                          <div class=" review-fail-pass">
+                              <i class="icon icon-fail-pass mr-5"></i>
+                              <span class="cl-fail-pass vt-middle">
+                                不通过</span>
+                          </div>
+                      </td>
+                      <td>价格高于审批价格</td>
+                  </tr>
 
-                      <tr>
-                          <td>2017/08/22 09:30</td>
-                          <td>21222222</td>
-                          <td>变更审批</td>
-                          <td>2017/08/22 09:30</td>
-                          <td>小三</td>
-                          <td>
-                            <div class=" review-pass">
-                                <i class="icon icon-pass mr-5"></i>
-                                <span class="cl-pass vt-middle">通过</span>
-                            </div>
-                          </td>
-                          <td>价格高于审批价格</td>
-                      </tr>
-                  </tbody>
-              </table>
+                  <tr>
+                      <td>2017/08/22 09:30</td>
+                      <td>21222222</td>
+                      <td>变更审批</td>
+                      <td>2017/08/22 09:30</td>
+                      <td>小三</td>
+                      <td>
+                        <div class=" review-pass">
+                            <i class="icon icon-pass mr-5"></i>
+                            <span class="cl-pass vt-middle">通过</span>
+                        </div>
+                      </td>
+                      <td>价格高于审批价格</td>
+                  </tr>
+              </tbody>
+          </table>
       </div>
 
-      <div class="product-manage-new-add table-wrapper">
-              <div class="add-title">
-                产品管理新增
+      <div class="product-manage-new-add">
+          <div class="add-title">
+            产品详情
+          </div>
+
+          <div class="list">
+              <div class="item">
+                  <div class="item-img"></div>
+                  <div class="item-txt">
+                      <p>
+                          {{product.productName}}
+                      </p>
+                      <p>
+                          产品名称
+                      </p>
+                  </div>
               </div>
 
-              <div class="list">
-                  <div class="item">
-                      <div class="item-img"></div>
-                      <div class="item-txt">
-                          <p>
-                              {{product.productName}}
-                          </p>
-                          <p>
-                              产品名称
-                          </p>
-                      </div>
+              <div class="item">
+                  <div class="item-img"></div>
+
+                  <div class="item-txt">
+                      <p>
+                          {{product.id}}
+                      </p>
+                      <p>
+                          产品ID
+                      </p>
                   </div>
+              </div>
 
-                  <div class="item">
-                      <div class="item-img"></div>
+              <div class="item">
+                  <div class="item-img"></div>
 
-                      <div class="item-txt">
-                          <p>
-                              {{product.id}}
-                          </p>
-                          <p>
-                              产品ID
-                          </p>
-                      </div>
+                  <div class="item-txt">
+                      <p>
+                          {{product.status}}
+                      </p>
+                      <p>
+                          产品状态
+                      </p>
                   </div>
+              </div>
 
-                  <div class="item">
-                      <div class="item-img"></div>
+              <!--<div class="review-mark item" v-if="false">
+                  <img src="../../../assets/review-pass.png">
+              </div>
 
-                      <div class="item-txt">
-                          <p>
-                              {{product.status}}
-                          </p>
-                          <p>
-                              产品状态
-                          </p>
-                      </div>
-                  </div>
+              <div class="review-mark item" v-else>
+                  <img src="../../../assets/review-reject.png">
+              </div>-->
 
-                  <div class="review-mark item" v-if="true">
-                      <img src="../../../assets/review-pass.png">
-                  </div>
+              <div class="btn-group review-btn">
+                  <button class="btn btn-primary btn-middle"
+                          @click="pass">通过</button>
 
-                  <div class="review-mark item" v-else>
-                      <img src="../../../assets/review-reject.png">
-                  </div>
+                  <button class="btn-default btn btn-middle"
+                          @click="noPass">不通过</button>
               </div>
           </div>
+      </div>
 
       <div class="info-container">
-              <div class="base-info info-list">
-                  <div class="info-title">
-                      基本信息
-                  </div>
-
-                  <div class="info-wrap clearfix">
-                      <div class="fl w-50">
-                          <div class="layout-row">
-                              <span class="row-left"> 产品描述：</span>
-                              <span class="row-right">
-                                  {{product.productDesc}}
-                              </span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 生效时间：</span>
-                              <span class="row-right">
-                                {{product.createTime}}
-                              </span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 业务归属地：</span>
-                              <span class="row-right"> 中国移动 </span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 是否会员产品：</span>
-                              <span class="row-right"> 非会员 </span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 是否体检产品：</span>
-                              <span class="row-right"></span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 创建用户：</span>
-                              <span class="row-right">
-                                {{product.createUser}}
-                              </span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 限定短信发送省份：</span>
-                              <span class="row-right"> 江苏省、浙江省 </span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left">
-                                  订购成功下发送推荐短信：
-                              </span>
-                              <span class="row-right">2017/08/21 16:00</span>
-                          </div>
-
-                          <div class="layout-row  no-pb">
-                              <div class="row-left"> 互斥产品：</div>
-
-                              <div class="row-right">
-                                  <div>动漫5元包 | 200192938</div>
-                                  <div>南京2017音乐包合集 | 2039338228</div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="fl w-50">
-                          <div class="layout-row">
-                              <span class="row-left"> 搜索关键字：</span>
-                              <span class="row-right"></span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 失效时间：</span>
-                              <span class="row-right"></span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 产品目录：</span>
-                              <span class="row-right">目录名称(日本漫画)</span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 是否重复订购：</span>
-                              <span class="row-right">是 </span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 体验产品周期：</span>
-                              <span class="row-right"></span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 创建时间：</span>
-                              <span class="row-right"></span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left">订购成功下发提示短信</span>
-                              <span class="row-right">
-                                恭喜您，成功订购每日一笑业务！
-                              </span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 合作伙伴：</span>
-                              <span class="row-right"></span>
-                          </div>
-
-                          <div class="layout-row no-pb">
-                              <span class="row-left"> 依赖产品：</span>
-                              <span class="row-right"> 动漫5元 | 2091272</span>
-                          </div>
-                      </div>
-                  </div>
+          <div class="base-info info-list">
+              <div class="info-title">
+                  基本信息
               </div>
 
-              <div class="charges-info info-list">
-                  <div class="info-title">
-                      资费信息
-                  </div>
-
-                  <div class="info-wrap clearfix">
-                      <div class="fl w-50">
-                          <div class="layout-row">
-                            <span class="row-left"> BOOS计费代码 ：</span>
-                            <span class="row-right"></span>
-                          </div>
-
-                          <div class="layout-row">
-                              <span class="row-left"> 计费类型 ：</span>
-                              <span class="row-right"></span>
-                          </div>
-
-                          <div class="layout-row scheme-list">
-                              <div class="row-left"> 计费策略 ：</div>
-
-                              <div class="row-right">
-                                  <div class="scheme-item">
-                                      <h4>方案一</h4>
-
-                                      <div class="item">
-                                          <span class="left"> 资费ID ：</span>
-                                          <span class="right">E1020293873</span>
-                                      </div>
-
-                                      <div class="item">
-                                        <span class="left"> 计划名称 ：</span>
-                                        <span class="right">E1020293873</span>
-                                      </div>
-
-                                      <div class="item">
-                                          <span class="left"> 计划说明 ：</span>
-                                          <span class="right">白金会员折后优惠：满足，会员级别与(1,2,3)并且,公司级别等于(5)后者，消费金额大于300 满足条件：内容类型=漫画 并且 产品编号等于漫画（100929828</span>
-                                      </div>
-                                  </div>
-
-                                  <div class="scheme-item">
-                                      <h4>方案二</h4>
-
-                                      <div class="item">免费</div>
-
-                                      <div class="item">
-                                          <span class="left"> 满足条件 ：</span>
-                                          <span class="right">内容类型=漫画 并且 产品编号等于漫画（100929828）</span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
+              <div class="info-wrap clearfix">
+                  <div class="fl w-50">
+                      <div class="layout-row">
+                          <span class="row-left"> 产品描述：</span>
+                          <span class="row-right">
+                              {{product.productDesc}}
+                          </span>
                       </div>
 
-                      <div class="fl w-50">
-                          <div class="layout-row">
-                              <span class="row-left"> 价格(分CN) ：</span>
-                              <span class="row-right"></span>
-                          </div>
+                      <div class="layout-row">
+                          <span class="row-left"> 生效时间：</span>
+                          <span class="row-right">
+                            {{product.createTime}}
+                          </span>
+                      </div>
 
-                          <div class="layout-row">
-                              <span class="row-left"> 支付方式 ：</span>
-                              <span class="row-right"></span>
+                      <div class="layout-row">
+                          <span class="row-left"> 业务归属地：</span>
+                          <span class="row-right"> 中国移动 </span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 是否会员产品：</span>
+                          <span class="row-right"> 非会员 </span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 是否体检产品：</span>
+                          <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 创建用户：</span>
+                          <span class="row-right">
+                            {{product.createUser}}
+                          </span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 限定短信发送省份：</span>
+                          <span class="row-right"> 江苏省、浙江省 </span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left">
+                              订购成功下发送推荐短信：
+                          </span>
+                          <span class="row-right">2017/08/21 16:00</span>
+                      </div>
+
+                      <div class="layout-row  no-pb">
+                          <div class="row-left"> 互斥产品：</div>
+
+                          <div class="row-right">
+                              <div>动漫5元包 | 200192938</div>
+                              <div>南京2017音乐包合集 | 2039338228</div>
                           </div>
                       </div>
                   </div>
-              </div>
 
-              <div class="channel-info info-list">
-                  <div class="info-title" >
-                      渠道信息
-                  </div>
+                  <div class="fl w-50">
+                      <div class="layout-row">
+                          <span class="row-left"> 搜索关键字：</span>
+                          <span class="row-right"></span>
+                      </div>
 
-                  <div class="layout-row-area">
-                      <div class="layout-row-wrapper layout-row-wrapper1">
-                          <div class="layout-row">
-                              <span class="row-left"> BOOS计费代码：</span>
-                              <span class="row-right">BOOS计费代码</span>
-                          </div>
+                      <div class="layout-row">
+                          <span class="row-left"> 失效时间：</span>
+                          <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 产品目录：</span>
+                          <span class="row-right">目录名称(日本漫画)</span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 是否重复订购：</span>
+                          <span class="row-right">是 </span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 体验产品周期：</span>
+                          <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 创建时间：</span>
+                          <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left">订购成功下发提示短信</span>
+                          <span class="row-right">
+                            恭喜您，成功订购每日一笑业务！
+                          </span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 合作伙伴：</span>
+                          <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row no-pb">
+                          <span class="row-left"> 依赖产品：</span>
+                          <span class="row-right"> 动漫5元 | 2091272</span>
                       </div>
                   </div>
               </div>
           </div>
+
+          <div class="charges-info info-list">
+              <div class="info-title">
+                  资费信息
+              </div>
+
+              <div class="info-wrap clearfix">
+                  <div class="fl w-50">
+                      <div class="layout-row">
+                        <span class="row-left"> BOOS计费代码 ：</span>
+                        <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 计费类型 ：</span>
+                          <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row scheme-list">
+                          <div class="row-left"> 计费策略 ：</div>
+
+                          <div class="row-right">
+                              <div class="scheme-item">
+                                  <h4>方案一</h4>
+
+                                  <div class="item">
+                                      <span class="left"> 资费ID ：</span>
+                                      <span class="right">E1020293873</span>
+                                  </div>
+
+                                  <div class="item">
+                                    <span class="left"> 计划名称 ：</span>
+                                    <span class="right">E1020293873</span>
+                                  </div>
+
+                                  <div class="item">
+                                      <span class="left"> 计划说明 ：</span>
+                                      <span class="right">白金会员折后优惠：满足，会员级别与(1,2,3)并且,公司级别等于(5)后者，消费金额大于300 满足条件：内容类型=漫画 并且 产品编号等于漫画（100929828</span>
+                                  </div>
+                              </div>
+
+                              <div class="scheme-item">
+                                  <h4>方案二</h4>
+
+                                  <div class="item">免费</div>
+
+                                  <div class="item">
+                                      <span class="left"> 满足条件 ：</span>
+                                      <span class="right">内容类型=漫画 并且 产品编号等于漫画（100929828）</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="fl w-50">
+                      <div class="layout-row">
+                          <span class="row-left"> 价格(分CN) ：</span>
+                          <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 支付方式 ：</span>
+                          <span class="row-right"></span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="channel-info info-list">
+              <div class="info-title" >
+                  渠道信息
+              </div>
+
+              <div class="layout-row-area">
+                  <div class="layout-row-wrapper layout-row-wrapper1">
+                      <div class="layout-row">
+                          <span class="row-left"> BOOS计费代码：</span>
+                          <span class="row-right">BOOS计费代码</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
 
       <v-confirm-popover-modal
           :confirmInfo="confirmInfo"
@@ -318,26 +326,31 @@
           :operateInfo="operateInfo"
           v-bind:style="styleOperateSuccess">
       </v-operate-success-modal>
+
+      <modal name="reviewRejectModal" :width="380" :height="300">
+          <t-modal-sub-container :title="'审批拒绝原因'" :name="'reviewRejectModal'">
+              <v-review-reject-modal
+                :modal-name="'reviewRejectModal'">
+              </v-review-reject-modal>
+          </t-modal-sub-container>
+      </modal>
   </div>
 </template>
 
 <script type="es6">
-  import vNav from "@/components/common/Nav"
-  import vPop from "@/components/common/Pop"
-  import InfoTable from "@/components/common/InfoTable"
-  import ConfirmBtn from "@/components/common/Button1"
-  import CancelBtn from "@/components/common/Button2"
   import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
   import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
+  import VReviewRejectModal from '../components/review-reject-moadl'
+
+  import TModalSubContainer from "@/components/modal-sub-container"
 
   export default {
       name: 'Review',
       components: {
-          vPop,
-          ConfirmBtn,
-          CancelBtn,
+          VReviewRejectModal,
           VConfirmPopoverModal,
-          VOperateSuccessModal
+          VOperateSuccessModal,
+          TModalSubContainer
       },
       data (){
           return {
@@ -431,37 +444,11 @@
               })
           },
 
-          offline() {
-              this.isHideConfim = false;
-
-              this.styleComfirm.top = '19.5%';
-
-              this.styleComfirm.right = '3.5%';
-
-              this.confirmInfo = "是否下线该产品";
+          noPass() {
+              this.$modal.show('reviewRejectModal');
           },
 
-          revocation() {
-              this.isHideConfim = false;
-
-              this.styleComfirm.top = '19.5%';
-
-              this.styleComfirm.right = '12.5%';
-
-              this.confirmInfo = "是否撤销该产品";
-          },
-
-          hide() {
-              this.isHideConfim = false;
-
-              this.styleComfirm.top = '91%';
-
-              this.styleComfirm.right = '10.5%';
-
-              this.confirmInfo = "是否隐藏该产品";
-          },
-
-          logout() {
+          pass() {
               this.isHideConfim = false;
 
               this.styleComfirm.top = '91%';
@@ -524,9 +511,16 @@
               background: #f2f8ff;
               overflow: hidden;
 
+              .review-btn {
+                  float: right;
+                  margin-right: 40px;
+                  margin-top: 10px;
+              }
+
               .item {
                   float: left;
                   margin-left: 40px;
+                  margin-top: 5px;
 
                   .item-img {
                       margin-right: 10px;
@@ -534,47 +528,47 @@
                       vertical-align: middle;
                   }
 
-                .item-txt {
-                  display: inline-block;
-                  vertical-align: middle;
-                  width: 165px;
+                  .item-txt {
+                      display: inline-block;
+                      vertical-align: middle;
+                      width: 165px;
 
-                  p {
-                    width: 100%;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
+                      p {
+                          width: 100%;
+                          overflow: hidden;
+                          white-space: nowrap;
+                          text-overflow: ellipsis;
+                      }
+
+                      p:nth-child(1) {
+                          font-size: 18px;
+                          margin-bottom: 11px;
+                          color: #6d7684;
+                      }
+
+                      p:nth-child(2) {
+                          font-size: 12px;
+                          color: #999;
+                      }
                   }
 
-                  p:nth-child(1) {
-                    font-size: 18px;
-                    margin-bottom: 11px;
-                    color: #6d7684;
+                  &:nth-child(1) {
+                      .item-img {
+                          @include bg("item-1.png", 40px, 40px);
+                      }
                   }
 
-                  p:nth-child(2) {
-                    font-size: 12px;
-                    color: #999;
+                  &:nth-child(2) {
+                      .item-img {
+                          @include bg("item-2.png", 40px, 40px);
+                      }
                   }
-                }
 
-                &:nth-child(1) {
-                  .item-img {
-                    @include bg("item-1.png", 40px, 40px);
+                  &:nth-child(3) {
+                      .item-img {
+                          @include bg("item-3.png", 40px, 40px);
+                      }
                   }
-                }
-
-                &:nth-child(2) {
-                  .item-img {
-                    @include bg("item-2.png", 40px, 40px);
-                  }
-                }
-
-                &:nth-child(3) {
-                  .item-img {
-                    @include bg("item-3.png", 40px, 40px);
-                  }
-                }
               }
 
               .review-mark {
