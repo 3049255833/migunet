@@ -25,6 +25,9 @@
                 } else if(this.details === 'businessCodeAdmin') {
 
                     this.bus.$emit('sendBusinessCodeAdminConfirmInfo', this.index);
+                } else if(this.details === 'auditDetailsComfirmInfo') {
+
+                    this.bus.$emit('sendAuditDetailsComfirmInfo', this.index);
                 } else {
 
                     this.bus.$emit('sendConfirmInfo', this.index);

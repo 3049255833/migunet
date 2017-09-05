@@ -317,7 +317,7 @@
       <v-confirm-popover-modal
           :confirmInfo="confirmInfo"
           :isHideConfim="isHideConfim"
-          details="details"
+          details="auditDetailsComfirmInfo"
           v-bind:style="styleComfirm">
       </v-confirm-popover-modal>
 
@@ -341,7 +341,6 @@
   import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
   import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
   import VReviewRejectModal from '../components/review-reject-moadl'
-
   import TModalSubContainer from "@/components/modal-sub-container"
 
   export default {
@@ -363,7 +362,7 @@
               isHideOperateModal: true,
               operateInfo: '',
               styleComfirm: {
-                  top: '19.5%',
+                  top: '21%',
                   right: '2%'
               },
               styleOperateSuccess: {
@@ -378,28 +377,20 @@
           /**
            * 接收来自确认modal框的信息
            * */
-          this.bus.$on('sendDetailsConfirmInfo', res => {
+          this.bus.$on('sendAuditDetailsComfirmInfo', res => {
+              let that = this;
+
               this.isHideConfim = true;
 
-              this.operateInfo = '操作成功';
+              this.operateInfo = '审核通过成功';
 
               this.isHideOperateModal = false;
 
-              if(this.confirmInfo === '是否撤销该产品' || this.confirmInfo === '是否下线该产品') {
-
-                  this.styleOperateSuccess.top = '18%';
-              } else {
-
-                  this.styleOperateSuccess.top = '85%';
-              }
-
-              let that = this;
+              this.styleOperateSuccess.top = '18%';
 
               setTimeout(function () {
-
                   that.isHideOperateModal = true;
-
-              }, 3000);
+              }, 2000);
           });
 
           /**
@@ -451,12 +442,12 @@
           pass() {
               this.isHideConfim = false;
 
-              this.styleComfirm.top = '91%';
-
-              this.styleComfirm.right = '0.6%';
-
-              this.confirmInfo = "是否注销该产品";
+              this.confirmInfo = "是否审核通过该产品";
           }
+      },
+      destroyed() {
+          this.bus.$off('sendAuditDetailsComfirmInfo');
+          this.bus.$off('sendDetailsCancelInfo');
       }
   }
 </script>
@@ -474,6 +465,7 @@
 
   .product-detail {
       background: #f4f4f4;
+      position: relative;
 
       .add-title {
           font-size: 14px;
