@@ -22,7 +22,7 @@
                     searchKey: '',
                     onlineStatus: '',
                     pageSize: '8',
-                    pageNum: '1',
+                    pageNum: '1'
                 },
                 totalItem: ''
             }
@@ -39,7 +39,6 @@
              * 初始请求
              * */
             this.getContractAuditList();
-
         },
 
         methods: {
@@ -90,7 +89,7 @@
                         });
                       
                     } else {
-                        
+
                     }
                 })
             },
@@ -126,30 +125,30 @@
     .main-wrapper {
         background: #f4f4f4;
     }
-    
+
     .nav-wrapper {
         float: left;
     }
-    
+
     .table-wrapper {
     }
-    
+
     .main-wrapper:after {
         content: '';
         display: block;
         clear: both;
     }
-    
+
     .date-wrapper {
-        
+
     }
-    
+
     .single-product {
         background-color: white;
         padding-bottom: 50px;
     }
-    
+
     input {
-        
+
     }
 </style>
