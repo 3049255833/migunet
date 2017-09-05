@@ -51,11 +51,12 @@
                     onlineStatus: this.postData.onlineStatus || '',
                     pageSize: this.postData.pageSize || '',
                     pageNo: this.postData.pageNum || '',
+                    auditStatus:''
                 }, {showLoading: true}).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         this.contractAuditList = res.productAuditList.list;
-                        this.totalItem = res.data.total;
+                        this.totalItem = res.productAuditList.total;
                     } else {
 
                     }

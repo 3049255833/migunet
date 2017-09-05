@@ -43,20 +43,14 @@
                             <div class="info-wrap clearfix">
                                 <div class="fl w-50">
                                     <div class="layout-row">
-                                        <span class="row-left"> 产品名称：</span>
+                                        <span class="row-left">业务状态：</span>
                                         <span class="row-right">
-                                            {{productDetail.productName}}
+                                            {{productDetail.onlineStatus}}
                                         </span>
                                     </div>
-                                    <div class="layout-row" v-show="productDetail.describe">
-                                        <span class="row-left"> 产品描述：</span>
-                                        <span class="row-right"> {{productDetail.describe}}</span>
-                                    </div>
-                                    <div class="layout-row">
-                                        <span class="row-left"> 审批状态：</span>
-                                        <span class="row-right">
-                                            {{productDetail.detailStatus}}
-                                        </span>
+                                    <div class="layout-row" >
+                                        <span class="row-left">搜索关键字：</span>
+                                        <span class="row-right">{{productDetail.searchKey}}</span>
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left"> 生效时间：</span>
@@ -74,15 +68,15 @@
                                 </div>
                                 <div class="fl w-50">
                                     <div class="layout-row">
-                                        <span class="row-left"> 搜索关键字：</span>
+                                        <span class="row-left">审批状态：</span>
                                         <span class="row-right">
-                                           {{productDetail.searchKey}}
+                                           {{productDetail.detailStatus}}
                                         </span>
                                     </div>
                                     <div class="layout-row">
-                                        <span class="row-left"> 业务状态：</span>
+                                        <span class="row-left">产品描述：</span>
                                         <span class="row-right">
-                                           {{productDetail.onlineStatus}}
+                                           {{productDetail.productDesc}}
                                         </span>
                                     </div>
                                    <!-- <div class="layout-row" >
@@ -113,7 +107,7 @@
                             <div class="layout-row-area">
                                 <div class="layout-row-wrapper">
                                     <div class="layout-row">
-                                        <span class="row-left"> 价格（分CN）：</span>
+                                        <span class="row-left">资费金额（分）：</span>
                                         <span class="row-right">
                                             {{productDetail.contentPrice}}
                                         </span>
@@ -189,7 +183,29 @@
                 }).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
-                        this.productDetail= res.data
+                        this.productDetail= res.data;
+                        switch (parseInt(this.productDetail.onlineStatus)){
+                          
+                            case 0:
+                                this.productDetail.onlineStatus='草稿';
+                                break;
+                            case 1:
+                                this.productDetail.onlineStatus='上线';
+                                break;
+                            case 2:
+                                this.productDetail.onlineStatus='隐藏';
+                                break;
+                            case 3:
+                                this.productDetail.onlineStatus='下线';
+                                break;
+                            case 4:
+                                this.productDetail.onlineStatus='注销';
+                                break;
+                            case 5:
+                                this.productDetail.onlineStatus='删除';
+                                break
+                            }
+                    
                     } else {
                             
                     }

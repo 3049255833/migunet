@@ -1,38 +1,36 @@
 <template>
     <div class="my-backlog">
-        <v-table-operate-head hideBtn="true"
-                              v-on:sendSingleOperateDataBus="getSingleOperateData"
-                              title="单品管理"></v-table-operate-head>
-        <v-my-backlog-table :productList="productList"></v-my-backlog-table>
+        <v-manage-table-operate-head hideBtn="true"
+                                     v-on:sendAuditDataBus="getAuditOperateData"
+                              title="单品管理"></v-manage-table-operate-head>
+        <v-product-audit-manage-table :contractAuditList="contractAuditList"></v-product-audit-manage-table>
         <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
     </div>
 </template>
 <script>
-    import VMyBacklogTable from '@/pages/audit/components/my-backlog-table.vue'
+    import VProductAuditManageTable from '@/pages/audit/components/product-audit-manage-table.vue'
     import VPaging from '@/components/paging'
-    import VTableOperateHead from '@/pages/audit/components/table-operate-head'
+    import VManageTableOperateHead from '@/pages/audit/components/manage-table-operate-head'
     export default {
         name: 'MyBacklog',
         data(){
             return {
                 formData: {},
-                productList: [],
+                contractAuditList: [],
                 operateHeadData: {},
                 postData: {
                     searchKey: '',
                     onlineStatus: '',
-                    detailStatus: '',
+                    auditStatus:'',
                     pageSize: '8',
                     pageNum: '1',
-                    effectiveTime: '',
-                    expireTime: ''
                 },
                 totalItem: ''
             }
         },
         components: {
-            VMyBacklogTable,
-            VTableOperateHead,
+            VProductAuditManageTable,
+            VManageTableOperateHead,
             VPaging
         },
         mounted(){
@@ -41,99 +39,31 @@
             /**
              * 初始请求
              * */
-            this.getSingleProductList();
-            /*  /!**
-             * 接收来自操作头部的信息
-             * *!/
-             this.$on('sendSingleOperateDataBus', res => {
-             this.postData.searchKey=res.searchKey;
-             this.postData.onlineStatus=res.onlineStatus;
-             this.postData.detailStatus=res.detailStatus;
-             this.postData.effectiveTime=res.effectiveTime;
-             this.postData.expireTime=res.expireTime;
-             this.getSingleProductList();
-             });*/
-
+            this.getContractAuditList();
         },
 
         methods: {
             /**
-             * 获取单品产品列表
-             * searchKey 搜索关键字 string
-             * status 产品状态 string
-             * detailStatus 审批状态 string
-             * pageSize 每页条数 string
-             * pageNum 页码数 string
-             * effectiveTime 生效时间 string
-             * expireTime 失效时间 string
+             * 获取我的代办列表
              * */
-            getSingleProductList(){
-                console.log('请求列表')
-                this.$http.get(this.api.getSingleProductList, {
-                    params: {
-                        searchKey: this.postData.searchKey || '',
-                        onlineStatus: this.postData.onlineStatus || '',
-                        detailStatus: this.postData.detailStatus || '',
-                        pageSize: this.postData.pageSize || '',
-                        pageNum: this.postData.pageNum || '',
-                        effectiveTime: this.postData.effectiveTime || '',
-                        expireTime: this.postData.expireTime || ''
-                    },
-                    showLoading: true
-                }).then(response => {
+            getContractAuditList(){
+                this.$http.post(this.api.getContractAuditList, {
+                    keys: this.postData.searchKey || '',
+                    onlineStatus: this.postData.onlineStatus || '',
+                    auditStatus: this.postData.auditStatus || '',
+                    pageSize: this.postData.pageSize || '',
+                    pageNo: this.postData.pageNum || '',
+                }, {showLoading: true}).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
-                        //todo: 注意，返回的字段这里list小写
-                        res.data.list.forEach(function (item) {
-                            switch (parseInt(item.onlineStatus)) {
-                                case 0:
-                                    item.onlineStatus = '草稿';
-                                    break;
-                                case 1:
-                                    item.onlineStatus = '上线';
-                                    break;
-                                case 2:
-                                    item.onlineStatus = '隐藏';
-                                    break;
-                                case 3:
-                                    item.onlineStatus = '下线';
-                                    break;
-                                case 4:
-                                    item.onlineStatus = '注销';
-                                    break;
-                                case 5:
-                                    item.onlineStatus = '删除';
-                                    break
-                            }
-                            switch (parseInt(item.detailStatus)) {
-                                case 3:
-                                    item.detailStatus = '上线报备中';
-                                    break;
-                                case 4:
-                                    item.detailStatus = '上线报备失败';
-                                    break;
-                                case 7:
-                                    item.detailStatus = '变更报备中';
-                                    break;
-                                case 8:
-                                    item.detailStatus = '变更报备失败';
-                                    break;
-                                case 9:
-                                    item.detailStatus = '下线报备中';
-                                    break;
-                                case 10:
-                                    item.detailStatus = '下线报备失败';
-                                    break;
-                            }
-                        });
-
-                        this.productList = res.data.list;
-                        this.totalItem = res.data.total;
+                        this.contractAuditList = res.productAuditList.list;
+                        this.totalItem = res.productAuditList.total;
                     } else {
 
                     }
                 })
             },
+
 
             /**
              * 获取分页信息
@@ -141,20 +71,17 @@
             getPage(res){
                 this.postData.pageNum = res.pagingValue;
                 this.postData.pageSize = res.pagingSize;
-                this.getSingleProductList();
+                this.getContractAuditList();
             },
 
             /**
              * 接收来自操作投
              * */
-            getSingleOperateData(res){
-                console.log('接收到头部')
+            getAuditOperateData(res){
                 this.postData.searchKey = res.searchKey;
                 this.postData.onlineStatus = res.onlineStatus;
-                this.postData.detailStatus = res.detailStatus;
-                this.postData.effectiveTime = res.effectiveTime;
-                this.postData.expireTime = res.expireTime;
-                this.getSingleProductList();
+                this.postData.auditStatus = res.auditStatus;
+                this.getContractAuditList();
             }
         },
         computed: {

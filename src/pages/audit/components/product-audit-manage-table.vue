@@ -16,20 +16,20 @@
             <tr v-for="(product,index) in contractAuditList">
                 <td><div class="limit-text-length name"
                          :title="product.productName">{{product.productName}}</div></td>
-
+                
                 <td><div class="limit-text-length code"
                          :title="product.productCode">{{product.productCode}}</div></td>
                 
                 <td><div class="limit-text-length price"
                          :title="''"></div></td>
-    
+                
                 <td><div class="limit-text-length type"
                          :title="product.targetStatus">{{product.targetStatus}}</div></td>
-    
-    
+                
+                
                 <td>{{product.createUser}}</td>
                 <td>{{product.createTime}}</td>
-    
+                
                 <td><div class="limit-text-length type"
                          :title="product.auditStatus">{{product.auditStatus}}</div></td>
                 
@@ -41,9 +41,9 @@
             </tr>
             </tbody>
         </table>
-
+        
         <div v-if="contractAuditList.length <= 0" class="no-asset-box">
-           <v-nolist :text="'暂无数据'"></v-nolist>
+            <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
     </div>
 </template>
@@ -87,7 +87,7 @@
         th:nth-child(1) {
             padding-left: 68px !important;
         }
-
+        
         td {
             .name {
                 max-width: 250px;
@@ -103,7 +103,7 @@
             }
         }
     }
-
+    
     .no-asset-box {
         text-align: center;
         margin-top: 85px;
