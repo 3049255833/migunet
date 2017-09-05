@@ -205,6 +205,26 @@
                                 this.productDetail.onlineStatus='删除';
                                 break
                             }
+                        switch (parseInt(this.productDetail.detailStatus)){
+                            case 3:
+                                this.productDetail.detailStatus='上线报备中';
+                                break;
+                            case 4:
+                                this.productDetail.detailStatus='上线报备失败';
+                                break;
+                            case 7:
+                                this.productDetail.detailStatus='变更报备中';
+                                break;
+                            case 8:
+                                this.productDetail.detailStatus='变更报备失败';
+                                break;
+                            case 9:
+                                this.productDetail.detailStatus='下线报备中';
+                                break;
+                            case 10:
+                                this.productDetail.detailStatus='下线报备失败';
+                                break;
+                        }
                     
                     } else {
                             
