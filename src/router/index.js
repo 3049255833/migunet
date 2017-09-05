@@ -15,8 +15,8 @@ const Step3 = resolve => require(['@/pages/contractProduct/children/contractProd
 
 /*审核员操作*/
 const Audit  = resolve => require(['@/pages/Audit'],resolve) ;       //入口页面
-const AuditDetail  = resolve => require(['@/pages/Audit/children/audit-detail'],resolve) ;       //审批详情
-const MyBacklog  = resolve => require(['@/pages/Audit/children/my-backlog'],resolve) ;           //入口页面
+const AuditDetail  = resolve => require(['@/pages/audit/children/audit-detail'],resolve) ;       //审批详情
+const MyBacklog  = resolve => require(['@/pages/audit/children/my-backlog'],resolve) ;           //入口页面
 const ProductAuditManage  = resolve => require(['@/pages/Audit/children/product-audit-manage'],resolve) ;       //审批管理
 
 
@@ -123,7 +123,7 @@ export default new Router({
                             path: 'audit_detail',
                             name: 'AuditDetail',
                             components: {
-                                default:Audit
+                                default:AuditDetail
                             }
                         },
                         {
