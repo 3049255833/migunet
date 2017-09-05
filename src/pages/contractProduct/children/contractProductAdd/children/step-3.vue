@@ -60,7 +60,7 @@
             </div>
             <div class="form-row">
                 <div class="row-left">
-                    依赖产品：
+                    依赖产品添加：
                 </div>
                 <div class="row-right">
                     <input class="form-input w-340 pointer"

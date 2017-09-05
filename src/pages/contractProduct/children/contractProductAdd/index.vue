@@ -4,7 +4,7 @@
             <div class="add-main">
                 <div class="table-wrapper">
                     <div class="add-title">
-                        产品管理新增
+                        合约产品新增
                     </div>
                     <div class="step-wrapper">
                         <div class="step">
@@ -243,7 +243,7 @@
     }
     
     .step {
-        width: 483px;
+        width: 500px;
         margin: 0 auto;
         position: relative;
     }
