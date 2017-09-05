@@ -125,6 +125,10 @@
                             this.addResultMsg = res.result.resultMessage;
                             this.$modal.show('addResultMsg');
                         }
+                    },
+                    response => {
+                        this.addResultMsg = '服务器错误';
+                        this.$modal.show('addResultMsg');
                     }
                 );
             }

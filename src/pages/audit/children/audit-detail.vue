@@ -358,7 +358,7 @@
           v-bind:style="styleOperateSuccess">
       </v-operate-success-modal>
 
-      <modal name="reviewRejectModal" :width="380" :height="300">
+      <modal name="reviewRejectModal" :width="380" :height="310">
           <t-modal-sub-container :title="'审批拒绝原因'" :name="'reviewRejectModal'">
               <v-review-reject-modal
                 :modal-name="'reviewRejectModal'">

@@ -76,7 +76,7 @@
                 <div class="row-left"></div>
                 <div class="row-right">
                     <div class="btn-group">
-                        <div class="btn btn-primary btn-middle" v-if="canSave&&this.$parent.step1Flag&&this.$parent.step2Flag"  @click="save">完成</div>
+                        <div class="btn btn-primary btn-middle" v-if="canSave&&this.$parent.step1Flag&&this.$parent.step2Flag&&$root.ajaxLock"  @click="save">完成</div>
                         <div class="btn btn-primary btn-middle   unable" v-else >完成</div>
                         <div class="btn btn-default btn-middle" @click="cancel">取消</div>
                     </div>
@@ -258,13 +258,13 @@
                     flag = false
                 }
             
-                if (!this.formData.mutuallyProductCodes) {
+              /*  if (!this.formData.mutuallyProductCodes) {
                     flag = false
                 }
           
                 if (!this.formData.dependentProductCodes) {
                     flag = false
-                }
+                }*/
                 return flag
             }
         },

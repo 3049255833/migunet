@@ -181,7 +181,7 @@
                 prmLists: [
                     {
                         pdRights: {
-                            isFree: '0',
+                            isFree: '1',
                             planCodeData: {},
                             planCode: '',
                             isAnd: '1',   //or :0 and:1
@@ -192,7 +192,7 @@
                             {
                                 tableName: '',      //表名
                                 fieldName: '',       //字段名
-                                operator: '=',        //操作符
+                                operator: '==',        //操作符
                                 valueType: '',        //数值类型
                                 matchValues: '',      //匹配内容
                                 pdContentList: [],      //匹配内容下拉框
@@ -274,7 +274,7 @@
             addItem(index){
                 this.prmLists.splice(index + 1, 0, {
                     pdRights: {
-                        isFree: '0',
+                        isFree: '1',
                         planCodeData: {},
                         planCode: '',
                         contentLimit: '1',
@@ -285,7 +285,7 @@
                         {
                             tableName: '',      //表名
                             fieldName: '',       //字段名
-                            operator: '=',        //操作符
+                            operator: '==',        //操作符
                             valueType: '',        //数值类型
                             matchValues: '',      //匹配内容
                             pdContentList: [],      //匹配内容下拉框
@@ -308,7 +308,7 @@
                 this.prmLists[index].pmLists.splice(subIndex + 1, 0, {
                     tableName: '',
                     fieldName: '',
-                    operator: '=',
+                    operator: '==',
                     valueType: '',
                     matchValues: '',
                     pdContentList: [],

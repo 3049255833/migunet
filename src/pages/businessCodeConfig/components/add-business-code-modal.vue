@@ -131,7 +131,7 @@
 
         <div class="btn-group btn-group-center">
             <div class="btn btn-primary btn-middle-100"
-                 v-if="canSave"
+                 v-if="canSave&&$root.ajaxLock"
                  v-bind:class="{unable: isActive}"
                  @click="confirm">确定</div>
 

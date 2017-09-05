@@ -69,27 +69,27 @@ module.exports = {
             },
             '/contractProduct/findCharge': {
                 /*获取业务代码详情*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findPdMatchFiled':{
                 /*获取匹配字段表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findPdContent':{
                 /*匹配内容限定*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findSmsTemplate': {
                 /*获取短信模板列表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findPdAttribution': {
                 /*获取区域选择列表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findChannel':{
@@ -100,19 +100,19 @@ module.exports = {
             },
             '/contractProduct/findPdFeePlanByCondition':{
                 /*通过关键字查询资费计划*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
 
             '/contractProduct/findProductCatalog': {
                 /*获取产品目录*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findFeePlan': {
                 /*获取产品目录*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
@@ -128,13 +128,13 @@ module.exports = {
             },
             '/contractProduct/saveContractProduct':{
                 /*整体保存*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
             '/contractProduct/findContractProductByStatus': {
                 /*获取互斥和依赖产品列表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/saveContractProductThree': {

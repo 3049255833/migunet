@@ -107,7 +107,7 @@ Vue.config.productionTip = false
 
 Vue.http.interceptors.push((request, next) => {
 
-
+    vm.ajaxLock=false;
     if (request.showLoading) {
         vm.isLoaging = true;
         //延迟2秒必定关闭
@@ -118,7 +118,7 @@ Vue.http.interceptors.push((request, next) => {
 
 
     next((response) => {
-
+        vm.ajaxLock=true;
         if (request.showLoading) {
             setTimeout(function () {
                 vm.isLoaging = false
@@ -136,6 +136,7 @@ var vm = new Vue({
     data(){
         return {
             isLoaging: false,
+            ajaxLock:true
         }
     },
     created () {
