@@ -393,7 +393,7 @@
               isHideOperateModal: true,
               operateInfo: '',
               styleComfirm: {
-                  top: '21%',
+                  top: '20%',
                   right: '2%'
               },
               styleOperateSuccess: {
