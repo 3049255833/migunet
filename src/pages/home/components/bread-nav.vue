@@ -32,7 +32,7 @@
             },
             nav3(){
                 if(this.$route.name=='Step1'||this.$route.name=='Step2'||this.$route.name=='Step3'){
-                    return '新增合约产品'
+                    return '合约产品新增'
                 }
                 if(this.$route.name=='ContractProductDetail'||this.$route.name=='SingleProductDetail'){
                     return '产品详情'
