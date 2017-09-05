@@ -33,7 +33,8 @@
     
                 <td>
                     <div class="operate-list">
-                        <span @click="getAuditDetail(product.productCode)" class="pointer mr-30 cl-blue">审批</span>
+                        <span v-if="product.auditStatus=='待审批'" @click="auditProduct(product.productCode)" class="pointer mr-30 cl-blue">审批</span>
+                        <span v-else @click="getAuditDetail(product.productCode)" class="pointer mr-30 cl-blue">详情</span>
                     </div>
                 </td>
             </tr>
@@ -70,6 +71,10 @@
 
         methods: {
             getAuditDetail(productCode){
+                this.$router.push({'name': 'AuditDetail',params:{'productCode':productCode}});
+            },
+
+            auditProduct(productCode){
                 this.$router.push({'name': 'AuditDetail',params:{'productCode':productCode}});
             }
         }

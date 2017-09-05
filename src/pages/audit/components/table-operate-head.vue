@@ -5,20 +5,27 @@
                 <div class="l-title">
                     {{title}}
                 </div>
-                <button class="btn btn-audit-module ml-24 mr-10">批量审批</button>
-    
-                <button @click="showAll" class="btn btn-add-module-white mr-10" >查看全部</button>
-          
+                <button v-if="!auditFlag" @click="auditAll"
+                        class="btn btn-audit-module ml-24 mr-10">批量审批
+                </button>
+                <button  v-if="!auditFlag" @click="showAll" class="btn btn-add-module-white mr-10">查看全部</button>
+                <button  v-if="auditFlag" class="btn btn-middle-88 ml-24 mr-10 btn-primary ">
+                    通过
+                </button>
+                <button v-if="auditFlag" class="btn btn-default mr-10 btn-middle-88">
+                    拒绝
+                </button>
+                <button @click="cancelAudit" v-if="auditFlag" class="btn btn-default mr-10 btn-middle-88">
+                    取消
+                </button>
             </div>
             <div class="vue-right">
                 <div class="l-space input-wrapper input-wrapper1">
                     <input type="text" class="form-input" placeholder="关键信息搜索"
                            v-model="operateData.searchKey"
                            @keyup.enter="sendOperateData"/>
-
                     <div class="search-icon" @click="sendOperateData"></div>
                 </div>
-             
                 <div class="l-space l-content-right">
                     <v-select-box
                             :w="100"
@@ -82,7 +89,8 @@
                         optionText: '恢复上线',
                         optionValue: '4'
                     }
-                ]
+                ],
+                auditFlag: false
             }
         },
         methods: {
@@ -96,9 +104,16 @@
                 }
                 this.$emit('sendAuditDataBus', this.operateData);
             },
-            
+
             showAll(){
                 this.$router.push({'name': 'ProductAuditManage'})
+            },
+
+            auditAll(){
+                this.auditFlag = true
+            },
+            cancelAudit(){
+                this.auditFlag=false
             },
 
             /**
@@ -108,8 +123,8 @@
                 this.operateData[res.selectBoxName] = res.selectOption.optionValue;
                 this.sendOperateData();
             },
-            
-            
+
+
             /**
              * 新增产品
              * */
@@ -117,7 +132,8 @@
                 location.hash = '/contract_product_add'
             }
         },
-        mounted(){}
+        mounted(){
+        }
     }
 </script>
 <style scoped lang="scss" rel="stylesheet/scss">
@@ -127,25 +143,25 @@
         color: #292c31;
         line-height: 34px;
     }
-
+    
     .l-content-head {
         clear: both;
         display: block;
         padding: 13px 20px;
     }
-
+    
     .l-content-head:after {
         content: '';
         display: block;
         clear: both;
     }
-
+    
     .l-content-head:after {
         content: '';
         display: block;
         clear: both;
     }
-
+    
     .l-content-left {
         float: left;
         font-size: 14px;
@@ -154,14 +170,14 @@
         height: 40px;
         line-height: 43px;
     }
-
+    
     .l-content-left2 {
         width: auto;
         margin-right: 20px;
         height: 30px;
         line-height: 34px;
     }
-
+    
     .StateSelect {
         height: 40px;
         background: #fcf9f9;
@@ -169,21 +185,21 @@
         color: #999;
         font-size: 14px;
     }
-
+    
     .StateSelect4 {
         width: 176px;
         height: 30px;
     }
-
+    
     .l-content-right, .tb-reset {
         float: left;
-
+        
     }
-
+    
     .l-content-right {
         height: 34px;
     }
-
+    
     .tb-reset {
         font-size: 14px;
         color: #46bafe;
@@ -196,7 +212,7 @@
         box-sizing: border-box;
         border-radius: 5px;
     }
-
+    
     /*.tb-reset:hover{
 
     }*/
@@ -204,24 +220,24 @@
         background: #46bafe;
         color: #ffffff;
     }
-
+    
     .l-content-w {
         margin-right: 20px;
     }
-
+    
     .NewTable2 td, .dialog-ctn, .l-content-button, .nl-table, .tb-reset {
         text-align: center;
     }
-
+    
     .StateSelect5 {
         width: 124px;
         height: 30px;
     }
-
+    
     .input-wrapper {
         float: left;
     }
-
+    
     .input-wrapper input {
         width: 150px;
         height: 34px;
@@ -229,19 +245,19 @@
         box-sizing: border-box;
         border: solid 1px #d6e1e5;
     }
-
+    
     .input-wrapper input::-webkit-input-placeholder {
         color: #d6e1e5;
     }
-
+    
     .input-wrapper1 {
         overflow: hidden;
-
+        
         input {
             float: left;
             padding-right: 30px;
         }
-
+        
         .search-icon {
             background: url('../../../assets/search.png') no-repeat 95% 50%;
             float: left;
@@ -252,16 +268,16 @@
             cursor: pointer;
         }
     }
-
+    
     .l-space {
         margin-right: 10px;
     }
-
+    
     .date-wrapper {
         float: left;
         margin-right: 10px;
     }
-
+    
     .btn-add {
         float: left;
         width: 80px;
@@ -278,26 +294,26 @@
             background-size: 100% 100%;
         }
     }
-
+    
     .vue-left {
         float: left;
     }
-
+    
     .vue-right {
         float: right;
     }
-
+    
     .date-container {
         position: relative;
         float: left;
         & + .date-container {
         }
     }
-
+    
     .addBtn {
         display: none;
     }
-
+    
     input {
         border-radius: 4px;
         &:focus {

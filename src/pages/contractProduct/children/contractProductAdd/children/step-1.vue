@@ -818,6 +818,7 @@
                     step:2,
                     data:this.postData
                 })
+                console.log('发送step-1bus')
             },
             
             

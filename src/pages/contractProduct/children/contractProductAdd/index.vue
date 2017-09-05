@@ -39,7 +39,7 @@
         
     </div>
 </template>
-<script type="es6">
+<script >
     /*   import Mock from 'mockjs'*/
     import VDate from '@/components/date'
     import VToast from '@/components/toast'
@@ -152,10 +152,12 @@
              * 获取步骤一的数据
              * */
             this.bus.$on('step1Bus', res => {
+                console.log('监听step-1bus')
                 let _step = parseInt(res.step);
                 this.step = _step;
                 this.step1PostData = res.data;
                 this.$router.push({'name': 'Step2'})
+                console.log('step-1路由跳转')
                 this.step1Flag = true;
 
                 Object.keys(this.step1PostData).forEach(function (context) {
@@ -168,10 +170,12 @@
              * 获取步骤二的数据
              * */
             this.bus.$on('step2Bus', res => {
+                console.log('监听step-2bus')
                 let _step = parseInt(res.step);
                 this.step = _step;
                 this.step2PostData = res.data;
-                this.$router.push({'name': 'Step3'})
+                this.$router.push({'name': 'Step3'});
+                console.log('step-2路由跳转')
                 this.step2Flag = true;
 
 
