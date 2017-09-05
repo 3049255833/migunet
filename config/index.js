@@ -178,17 +178,17 @@ module.exports = {
             /*审批*/
             '/productCenter/getContractAuditList': {
                 /*获取审批列表*/
-                target: proxy_service,
+                target:  proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/auditContractProduct': {
                 /*获取审批详情*/
-                target: proxy_service,
+                target:  proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/updateContractStatus': {
                 /*审批*/
-                target: proxy_service,
+                target:  proxy_service_ljy,
                 changeOrigin: true
             }
         },

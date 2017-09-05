@@ -23,7 +23,7 @@
                 return '产品管理'
             },
             nav2(){
-                if(this.$route.name=='SingleProduct'){
+                if(this.$route.name=='SingleProduct'||this.$route.name=='SingleProductDetail'){
                     return '单品管理'
                 }
                 if(this.$route.name=='ContractProduct'||this.$route.name=='Step1'||this.$route.name=='Step2'||this.$route.name=='Step3'||this.$route.name=='ContractProductDetail'){

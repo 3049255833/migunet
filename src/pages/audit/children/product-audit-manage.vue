@@ -7,7 +7,7 @@
         <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
     </div>
 </template>
-<script>
+<script type="es6">
     import VProductAuditManageTable from '@/pages/audit/components/product-audit-manage-table.vue'
     import VPaging from '@/components/paging'
     import VManageTableOperateHead from '@/pages/audit/components/manage-table-operate-head'
@@ -58,6 +58,36 @@
                     if (res.result.resultCode == '00000000') {
                         this.contractAuditList = res.productAuditList.list;
                         this.totalItem = res.productAuditList.total;
+                        this.contractAuditList.forEach(function(item){
+                            switch (parseInt(item.auditStatus)){
+                                case 0:
+                                    item.auditStatus='拒绝';
+                                    break;
+                                case 1:
+                                    item.auditStatus='通过';
+                                    break;
+                                case -1:
+                                    item.auditStatus='待审批';
+                                    break;
+                            }
+                            switch (parseInt(item.targetStatus)){
+                                case 0:
+                                    item.targetStatus='发布';
+                                    break;
+                                case 1:
+                                    item.targetStatus='修改';
+                                    break;
+                                case 2:
+                                    item.targetStatus='定价变更';
+                                    break;
+                                case 3:
+                                    item.targetStatus='下线';
+                                    break;
+                                case 4:
+                                    item.targetStatus='恢复上线';
+                                    break;
+                            }
+                        });
                     } else {
 
                     }

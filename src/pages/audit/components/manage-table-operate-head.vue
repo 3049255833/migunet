@@ -97,7 +97,7 @@
                     },
                     {
                         optionText: '待审批',
-                        optionValue: '2'
+                        optionValue: '-1'
                     },
                     {
                         optionText: '通过',

@@ -16,23 +16,21 @@
             <tr v-for="(product,index) in contractAuditList">
                 <td><div class="limit-text-length name"
                          :title="product.productName">{{product.productName}}</div></td>
-                
+    
                 <td><div class="limit-text-length code"
                          :title="product.productCode">{{product.productCode}}</div></td>
-                
-                <td><div class="limit-text-length price"
-                         :title="''"></div></td>
-                
+    
                 <td><div class="limit-text-length type"
-                         :title="product.targetStatus">{{product.targetStatus}}</div></td>
-                
-                
+                         :title="'product.targetStatus'">{{product.targetStatus}}</div></td>
+    
+    
+    
                 <td>{{product.createUser}}</td>
                 <td>{{product.createTime}}</td>
-                
+    
                 <td><div class="limit-text-length type"
                          :title="product.auditStatus">{{product.auditStatus}}</div></td>
-                
+    
                 <td>
                     <div class="operate-list">
                         <span @click="getAuditDetail(product.productCode)" class="pointer mr-30 cl-blue">审批</span>

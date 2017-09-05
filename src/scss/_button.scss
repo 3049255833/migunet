@@ -308,6 +308,64 @@
         }
     }
 
+    &.btn-audit-module{
+        width: 88px;
+        height: 34px;
+        line-height: 34px;
+        padding: 0;
+        background-color: #46BAFE;
+        color: white;
+        font-size: 12px;
+        vertical-align: middle;
+        &:before{
+            content:'';
+            display: inline-block;
+            vertical-align: sub;
+            @include bg("icon-audit.png",15px,15px);
+            margin: 0 6px 0 0;
+        }
+        &:hover{
+            background-color: #1D9AD2;
+
+        }
+        &:active{
+            background-color: #1D9AD2;
+
+        }
+    }
+
+    &.btn-audit-all-white{
+        width: 88px;
+        height: 34px;
+        padding: 0;
+        line-height: 32px;
+        border: 1px solid #46bafe;
+        color:  #46BAFE;
+        font-size: 12px;
+        background-color: white;
+        vertical-align: middle;
+        &:before{
+            content:'';
+            display: inline-block;
+            vertical-align: sub;
+            @include bg("icon-all.png",15px,15px);
+            margin: 0 6px 0 0;
+        }
+        &:hover{
+            background-color: #46BAFE;
+            color: white;
+            &:before{
+                @include bg("icon-all.png",15px,15px);
+            }
+        }
+        &:active{
+            background-color: #46BAFE;
+            color: white;
+            &:before{
+                @include bg("icon-all.png",15px,15px);
+            }
+        }
+    }
 
 }
 

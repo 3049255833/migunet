@@ -5,9 +5,9 @@
                 <div class="l-title">
                     {{title}}
                 </div>
-                <button class="btn btn-import-module ml-24 mr-10">批量审批</button>
+                <button class="btn btn-audit-module ml-24 mr-10">批量审批</button>
     
-                <button class="btn btn-add-module-white mr-10" >查看全部</button>
+                <button @click="showAll" class="btn btn-add-module-white mr-10" >查看全部</button>
           
             </div>
             <div class="vue-right">
@@ -95,6 +95,10 @@
                     e.target.blur();
                 }
                 this.$emit('sendAuditDataBus', this.operateData);
+            },
+            
+            showAll(){
+                this.$router.push({'name': 'ProductAuditManage'})
             },
 
             /**
