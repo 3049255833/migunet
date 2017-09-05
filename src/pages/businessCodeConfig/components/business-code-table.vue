@@ -198,7 +198,7 @@
 
                 .confirm-modal-container {
                     &:before {
-                        right: 43px;
+                        right: 33px;
                     }
                 }
             }
