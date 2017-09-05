@@ -1,16 +1,36 @@
 <template>
     <div class="review-reject-modal">
-        <textarea></textarea>
-
-        <button class="btn btn-primary btn-middle">通过</button>
+        <textarea v-model="rejectOpinion"></textarea>
+        <div class="btn-group btn-group-center">
+            <button v-if="rejectOpinion.length>0" @click="confirm" class="btn btn-primary btn-middle">确定</button>
+            <button v-else class="btn btn-primary unable btn-middle">确定</button>
+            <div class="btn btn-middle btn-default" @click="cancel">取消</div>
+        </div>
     </div>
 </template>
 
 <script type="es6">
   export default {
       name: 'ReviewReject',
+      props:['modalName'],
       components: {
 
+      },
+      data(){
+          return{
+             rejectOpinion:''
+          }
+      },
+      methods:{
+          confirm(){
+              this.$emit('rejectOpinionBus',this.rejectOpinion);
+          },
+          cancel(){
+              this.$modal.hide(this.modalName);
+          }
+      },
+      destroyed(){
+          this.$off('rejectOpinionBus');
       }
   }
 </script>
@@ -38,12 +58,11 @@
           height: 140px;
           max-height: 140px;
           border-radius: 0;
+          padding:10px;
       }
-
-      button {
-          float: right;
-          margin-right: 34px;
+      .btn-group{
           margin-top: 20px;
       }
+      
   }
 </style>

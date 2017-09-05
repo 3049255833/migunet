@@ -170,12 +170,12 @@
              * 获取步骤二的数据
              * */
             this.bus.$on('step2Bus', res => {
-                console.log('监听step-2bus')
+                console.log('监听step-2bus');
                 let _step = parseInt(res.step);
                 this.step = _step;
                 this.step2PostData = res.data;
                 this.$router.push({'name': 'Step3'});
-                console.log('step-2路由跳转')
+                console.log('step-2路由跳转');
                 this.step2Flag = true;
 
 

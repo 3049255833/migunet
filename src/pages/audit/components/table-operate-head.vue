@@ -8,11 +8,11 @@
                 <button v-if="!auditFlag" @click="auditAll"
                         class="btn btn-audit-module ml-24 mr-10">批量审批
                 </button>
-                <button  v-if="!auditFlag" @click="showAll" class="btn btn-add-module-white mr-10">查看全部</button>
-                <button  v-if="auditFlag" class="btn btn-middle-88 ml-24 mr-10 btn-primary ">
+                <button v-if="!auditFlag" @click="showAll" class="btn btn-add-module-white mr-10">查看全部</button>
+                <button v-if="auditFlag" @click="pass" class="btn btn-middle-88 ml-24 mr-10 btn-primary ">
                     通过
                 </button>
-                <button v-if="auditFlag" class="btn btn-default mr-10 btn-middle-88">
+                <button v-if="auditFlag" @click="reject" class="btn btn-default mr-10 btn-middle-88">
                     拒绝
                 </button>
                 <button @click="cancelAudit" v-if="auditFlag" class="btn btn-default mr-10 btn-middle-88">
@@ -110,12 +110,20 @@
             },
 
             auditAll(){
-                this.auditFlag = true
+                this.auditFlag = true;
+                this.$emit('auditFlagBus', this.auditFlag);
             },
             cancelAudit(){
-                this.auditFlag=false
+                this.auditFlag = false;
+                this.$emit('auditFlagBus', this.auditFlag);
             },
 
+            pass(){
+                this.$emit('passBus', true);
+            },
+            reject(){
+                this.$emit('passBus', false);
+            },
             /**
              * 获取下拉框的东西
              * */

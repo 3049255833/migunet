@@ -340,7 +340,7 @@
 <script type="es6">
   import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
   import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
-  import VReviewRejectModal from '../components/review-reject-moadl'
+  import VReviewRejectModal from '../components/review-reject-modal'
 
   import TModalSubContainer from "@/components/modal-sub-container"
 

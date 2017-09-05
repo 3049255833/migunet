@@ -26,23 +26,7 @@
         components: {
         },
         mounted(){},
-        created(){
-            /**
-             * 初始请求
-             * */
-          /*  /!**
-             * 接收来自操作头部的信息
-             * *!/
-            this.$on('sendSingleOperateDataBus', res => {
-                this.postData.searchKey=res.searchKey;
-                this.postData.onlineStatus=res.onlineStatus;
-                this.postData.detailStatus=res.detailStatus;
-                this.postData.effectiveTime=res.effectiveTime;
-                this.postData.expireTime=res.expireTime;
-                this.getSingleProductList();
-            });*/
-         
-        },
+        created(){},
         
         methods: {
             /**
