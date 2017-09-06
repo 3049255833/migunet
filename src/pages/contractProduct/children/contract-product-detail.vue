@@ -459,6 +459,8 @@
 
                         let res = response.body;
 
+                        console.log("res: " + JSON.stringify(res));
+
                         if (res.result.resultCode == '00000000') {
                             //todo: 注意，返回的字段这里list小写
                             this.product = res.product;
