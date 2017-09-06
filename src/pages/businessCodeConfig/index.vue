@@ -7,7 +7,7 @@
 
         <v-business-code-table :businessCodeList="businessCodeList"></v-business-code-table>
 
-        <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
+        <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
 
         <modal name="addBusinessCodeModal" :width="600" :height="580" @before-close="beforeClose">
             <t-modal-sub-container :title="modalTitle" :name="'addBusinessCodeModal'">
@@ -115,6 +115,9 @@
              * */
             searchKeyWordBus(res) {
                 this.postData.keys = res.keys;
+
+                this.postData.pageNo='1';
+                this.$refs.pagingModule.current=1;
 
                 console.log("postData search: " + JSON.stringify(this.postData));
 

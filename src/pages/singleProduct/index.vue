@@ -5,7 +5,7 @@
                                   v-on:sendSingleOperateDataBus="getSingleOperateData"
                                   title="单品管理" ></v-table-operate-head>
             <v-single-product-table :productList="productList"></v-single-product-table>
-            <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
+            <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
         </div>
     </div>
 </template>
@@ -155,6 +155,8 @@
                 this.postData.detailStatus=res.detailStatus;
                 this.postData.effectiveTime=res.effectiveTime;
                 this.postData.expireTime=res.expireTime;
+                this.postData.pageNum='1';
+                this.$refs.pagingModule.current=1;
                 this.getSingleProductList();
             }
         },

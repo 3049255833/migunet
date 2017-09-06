@@ -4,7 +4,7 @@
                                      v-on:sendAuditDataBus="getAuditOperateData"
                               title="单品管理"></v-manage-table-operate-head>
         <v-product-audit-manage-table :contractAuditList="contractAuditList"></v-product-audit-manage-table>
-        <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
+        <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
     </div>
 </template>
 <script type="es6">
@@ -111,6 +111,10 @@
                 this.postData.searchKey = res.searchKey;
                 this.postData.onlineStatus = res.onlineStatus;
                 this.postData.auditStatus = res.auditStatus;
+
+                this.postData.pageNo='1';
+                this.$refs.pagingModule.current=1;
+                
                 this.getContractAuditList();
             }
         },
