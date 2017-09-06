@@ -129,17 +129,25 @@
                             //list
                             that.postDataList.push({
                                 id: that.contractAuditList[index].id,
-                                productCode: that.contractAuditList[index].productCode,
+                                statusId: that.contractAuditList[index].statusId,
                                 auditStatus: res ? '1' : '0',
                                 auditOpinion: res ? '' : '不同意',
                                 auditTime: that.utils.getNowDate(),
                                 targetStatus: that.contractAuditList[index].targetStatusNum,
                                 auditPerson: 'admin',
-                                updateTime: that.utils.getNowDate()
+                                updateTime: that.utils.getNowDate(),
+                                detailStatus:''
                             });
                         })
                     }
-                    console.log(this.postDataList)
+                    that.$http.post(this.api.updateAuditStatusList,that.postDataList).then(response=>{
+                        let res = response.body;
+                        if (res.result.resultCode == '00000000') {
+                            
+                        } else {
+                            
+                        }
+                    })
                 }else{
                     //不同意
                     this.postDataList=[];
@@ -150,14 +158,23 @@
                             //list
                             that.postDataList.push({
                                 id: that.contractAuditList[index].id,
-                                productCode: that.contractAuditList[index].productCode,
+                                statusId: that.contractAuditList[index].statusId,
                                 auditStatus: res ? '1' : '0',
                                 auditOpinion: res ? '' : '不同意',
                                 auditTime: that.utils.getNowDate(),
                                 targetStatus: that.contractAuditList[index].targetStatusNum,
                                 auditPerson: 'admin',
-                                updateTime: that.utils.getNowDate()
+                                updateTime: that.utils.getNowDate(),
+                                detailStatus:that.contractAuditList[index].targetStatusNum+'2'
                             });
+                            that.$http.post(this.api.updateAuditStatusList,that.postDataList).then(response=>{
+                                let res = response.body;
+                                if (res.result.resultCode == '00000000') {
+                                    that.$modal.hide('reviewRejectModal')
+                                } else {
+
+                                }
+                            })
                         });
                     }
                 }
@@ -189,6 +206,10 @@
                 this.postData.detailStatus = res.detailStatus;
                 this.getContractAuditList();
             }
+        },
+        created(){
+            
+           
         },
         computed: {
             totalPage(){

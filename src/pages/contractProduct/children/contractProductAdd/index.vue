@@ -144,6 +144,7 @@
                 }
             }
         },
+        mounted(){},
         created () {
             let that = this;
             /**

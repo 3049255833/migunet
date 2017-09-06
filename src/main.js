@@ -136,7 +136,9 @@ var vm = new Vue({
     data(){
         return {
             isLoaging: false,
-            ajaxLock:true
+            ajaxLock:true,
+            toast:false,
+            toastText:''
         }
     },
     created () {
