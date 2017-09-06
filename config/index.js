@@ -59,12 +59,12 @@ module.exports = {
 
             '/productCenter/getContractProductList': {
                 /*合约产品列表的IP*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/productCenter/contractProductDetail': {
                 /*合约产品详情的IP*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findCharge': {
@@ -178,17 +178,17 @@ module.exports = {
             /*审批*/
             '/productCenter/getContractAuditList': {
                 /*获取审批列表*/
-                target:  proxy_service_ljy,
+                target:  proxy_service,
                 changeOrigin: true
             },
             '/productCenter/auditContractProduct': {
                 /*获取审批详情*/
-                target:  proxy_service_ljy,
+                target:  proxy_service,
                 changeOrigin: true
             },
             '/productCenter/updateContractStatus': {
                 /*审批*/
-                target:  proxy_service_ljy,
+                target:  proxy_service,
                 changeOrigin: true
             }
         },

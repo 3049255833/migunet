@@ -29,7 +29,7 @@
                               <span class="cl-fail-pass vt-middle">不通过</span>
                           </div>
                       </td>
-                      <td>价格高于审批价格</td>
+                      <td></td>
                   </tr>
               </tbody>
           </table>
@@ -121,7 +121,7 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 业务归属地：</span>
-                          <span class="row-right"> 中国移动 </span>
+                          <span class="row-right"></span>
                       </div>
 
                       <div class="layout-row">
@@ -376,7 +376,8 @@
               styleOperateSuccess: {
                   top: '18%',
                   right: '50%'
-              }
+              },
+              postDataList: []
           }
       },
       created(){
@@ -390,15 +391,20 @@
 
               this.isHideConfim = true;
 
-              this.operateInfo = '审核通过成功';
-
-              this.isHideOperateModal = false;
-
-              this.styleOperateSuccess.top = '18%';
-
-              setTimeout(function () {
-                  that.isHideOperateModal = true;
-              }, 2000);
+              that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
+                  let res = response.body;
+                  if (res.result.resultCode == '00000000') {
+                      this.$root.toastText = '审批成功';
+                      this.$root.toast = true;
+                      this.getAuditContractProduct(this.productCode);
+                  } else {
+                      this.$root.toastText = '审批失败';
+                      this.$root.toast = true;
+                  }
+              }, (response) => {
+                  this.$root.toastText = '服务器错误';
+                  this.$root.toast = true;
+              })
           });
 
           /**
@@ -455,9 +461,25 @@
           },
 
           pass() {
+              let that = this;
+
               this.isHideConfim = false;
 
               this.confirmInfo = "是否审核通过该产品";
+
+              that.postDataList.push({
+                  id: that.cProduct.id,
+                  statusId: that.cProduct.statusId,
+                  auditStatus: '1',
+                  auditOpinion: '',
+                  auditTime: that.utils.getNowDate(),
+                  targetStatus: that.productData.targetStatusNum,
+                  auditPerson: 'admin',
+                  cstModified: that.productData.getNowDate(),
+                  detailStatus: ''
+              });
+
+              console.log("postDataList: " + JSON.stringify(this.postDataList));
           }
       },
       computed: {
@@ -466,6 +488,7 @@
       destroyed() {
           this.bus.$off('sendAuditDetailsComfirmInfo');
           this.bus.$off('sendDetailsCancelInfo');
+          this.bus.$off('sendAuditProductData');
       }
   }
 </script>
