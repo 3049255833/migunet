@@ -417,48 +417,40 @@
 
                 let that = this;
 
-                //console.log("id: " + this.willDeleteID);
+                console.log("111： " + this.contractProductList[res].operateType);
 
-                //console.log("willDeleteDetailSatus: " + this.willDeleteDetailSatus);
+                if(this.contractProductList[res].operateType == "是否删除该产品") {
+                    console.log("id: " + this.willDeleteID);
 
-                this.$http.get(this.api.updateProductState,
-                    {
-                        params:{
-                            contractProductId:this.willDeleteID,
-                            onlineStatus:'5',
-                            detailStatus:this.willDeleteDetailSatus
+                    console.log("willDeleteDetailSatus: " + this.willDeleteDetailSatus);
+
+                    this.$http.get(this.api.updateProductState,
+                        {
+                            params:{
+                                contractProductId:this.willDeleteID,
+                                onlineStatus:'5',
+                                detailStatus:this.willDeleteDetailSatus
+                            }
+                        }).then(response => {
+
+                        let res = response.body;
+
+                        console.log("res: " + JSON.stringify(res));
+
+                        if(res.resultMessage =='成功'){
+
+                            that.$root.toastText = '删除成功';
+                            that.$root.toast = true;
+
+                            this.bus.$emit('sendDeleteContactProductInfo');
+                        } else {
+                            that.$root.toastText = '删除失败';
+                            that.$root.toast = true;
+
+                            console.log("Error res: " + JSON.stringify(res));
                         }
-                    }).then(response => {
-
-                    let res = response.body;
-
-                    console.log("res: " + JSON.stringify(res));
-
-                    if(res.resultMessage =='成功'){
-
-                        this.operateInfo = '删除成功';
-
-                        this.isHideOperateModal = false;
-
-                        this.bus.$emit('sendDeleteContactProductInfo');
-
-                        setTimeout(function () {
-                            that.isHideOperateModal = true;
-
-                        }, 3000);
-                    } else {
-
-                        this.operateInfo = '删除失败';
-
-                        this.isHideOperateModal = false;
-
-                        setTimeout(function () {
-                            that.isHideOperateModal = true;
-                        }, 3000);
-
-                        console.log("Error res: " + JSON.stringify(res));
-                    }
-                });
+                    });
+                }
             });
 
             /**
