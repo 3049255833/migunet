@@ -330,7 +330,8 @@
       <modal name="reviewRejectModal" :width="380" :height="310">
           <t-modal-sub-container :title="'审批拒绝原因'" :name="'reviewRejectModal'">
               <v-review-reject-modal
-                :modal-name="'reviewRejectModal'">
+                :modal-name="'reviewRejectModal'"
+                v-on:rejectOpinionBus="getRejectOpinion">
               </v-review-reject-modal>
           </t-modal-sub-container>
       </modal>
@@ -366,7 +367,9 @@
                   top: '15.8%',
                   right: '2%'
               },
-              postDataList: []
+              postDataList: [],
+              auditOpinion: '',
+              noPassPostDataList: []
           }
       },
       created(){
@@ -383,7 +386,7 @@
               that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
                   let res = response.body;
 
-                  console.log("postDataList: " + JSON.stringify(res));
+                  console.log("pass postDataList: " + JSON.stringify(res));
 
                   if (res.result.resultCode == '00000000') {
                       this.$root.toastText = '审批成功';
@@ -448,8 +451,49 @@
               })
           },
 
+          getRejectOpinion(res) {
+              let that = this;
+
+              this.auditOpinion = res;
+
+              that.noPassPostDataList.push({
+                  id: that.cProduct.id,
+                  auditStatus: '0',
+                  auditOpinion: this.auditOpinion,
+                  auditTime: that.utils.getNowDate(),
+                  targetStatus: this.targetStatus + '2',
+                  auditPerson: 'admin',
+                  cstModified: that.utils.getNowDate(),
+                  detailStatus: ''
+              });
+
+              console.log("no pass postDataList: " + JSON.stringify(this.noPassPostDataList));
+
+              that.$http.post(this.api.updateAuditStatusList,that.noPassPostDataList).then(response => {
+                  let res = response.body;
+
+                  if (res.result.resultCode == '00000000') {
+                      this.$root.toastText = '审批不通过成功';
+                      this.$root.toast = true;
+                  } else {
+                      this.$root.toastText = '审批不通过失败';
+                      this.$root.toast = true;
+                  }
+
+                  this.$modal.hide('reviewRejectModal');
+
+                  this.getAuditContractProduct(this.productCode);
+
+                }, (response) => {
+                    this.$root.toastText = '服务器错误';
+                    this.$root.toast = true
+              })
+          },
+
           noPass() {
               this.$modal.show('reviewRejectModal');
+
+              this.confirmInfo = "是否审核通过该产品";
           },
 
           pass() {
