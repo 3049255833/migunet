@@ -8,9 +8,8 @@
         <v-my-backlog-table ref="myBacklogTable" :auditFlag="auditFlag"
                             :contractAuditList="contractAuditList"></v-my-backlog-table>
         <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
-        
         <!--填入拒绝原因-->
-        <modal name="reviewRejectModal" :width="450" :height="310" >
+        <modal name="reviewRejectModal" :width="450" :height="310">
             <t-modal-sub-container :title="'审批拒绝原因'" :name="'reviewRejectModal'">
                 <v-review-reject-modal :modalName="'reviewRejectModal'"
                                        v-on:rejectOpinionBus="getAuditOpinion"
@@ -122,7 +121,7 @@
                 let that = this;
                 if (res) {
                     //同意审批
-                    this.postDataList=[];
+                    this.postDataList = [];
                     let _indexList = this.$refs.myBacklogTable.auditCheckbox;
                     if (_indexList.length > 0) {
                         _indexList.forEach(function (index) {
@@ -136,21 +135,26 @@
                                 targetStatus: that.contractAuditList[index].targetStatusNum,
                                 auditPerson: 'admin',
                                 updateTime: that.utils.getNowDate(),
-                                detailStatus:''
+                                detailStatus: ''
                             });
                         })
                     }
-                    that.$http.post(this.api.updateAuditStatusList,that.postDataList).then(response=>{
+                    that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
                         let res = response.body;
                         if (res.result.resultCode == '00000000') {
-                            
+                            this.$root.toastText = '审批成功';
+                            this.$root.toast = true
                         } else {
-                            
+                            this.$root.toastText = '审批失败';
+                            this.$root.toast = true
                         }
+                    }, (response) => {
+                        this.$root.toastText = '服务器错误';
+                        this.$root.toast = true
                     })
-                }else{
+                } else {
                     //不同意
-                    this.postDataList=[];
+                    this.postDataList = [];
                     let _indexList = this.$refs.myBacklogTable.auditCheckbox;
                     if (_indexList.length > 0) {
                         this.$modal.show('reviewRejectModal');
@@ -165,14 +169,17 @@
                                 targetStatus: that.contractAuditList[index].targetStatusNum,
                                 auditPerson: 'admin',
                                 updateTime: that.utils.getNowDate(),
-                                detailStatus:that.contractAuditList[index].targetStatusNum+'2'
+                                detailStatus: that.contractAuditList[index].targetStatusNum + '2'
                             });
-                            that.$http.post(this.api.updateAuditStatusList,that.postDataList).then(response=>{
+                            that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
                                 let res = response.body;
                                 if (res.result.resultCode == '00000000') {
-                                    that.$modal.hide('reviewRejectModal')
+                                    that.$modal.hide('reviewRejectModal');
+                                    this.$root.toastText = '审批成功';
+                                    this.$root.toast = true
                                 } else {
-
+                                    this.$root.toastText = '审批失败';
+                                    this.$root.toast = true
                                 }
                             })
                         });
@@ -181,9 +188,9 @@
             },
 
             getAuditOpinion(res){
-                let that=this;
-                this.postDataList.forEach(function(item){
-                    item.auditOpinion=res;
+                let that = this;
+                this.postDataList.forEach(function (item) {
+                    item.auditOpinion = res;
                 });
                 console.log(this.postDataList)
             },
@@ -206,10 +213,6 @@
                 this.postData.detailStatus = res.detailStatus;
                 this.getContractAuditList();
             }
-        },
-        created(){
-            
-           
         },
         computed: {
             totalPage(){

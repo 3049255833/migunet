@@ -116,19 +116,19 @@
                     response => {
                         let res = response.body;
                         if (res.result.resultCode == '00000000') {
-                            this.addResultMsg = '新增成功';
-                            this.$modal.show('addResultMsg');
+                            this.$root.toastText = '新增成功';
+                            this.$root.toast=true;
                             setTimeout(function(){
                                 that.$router.push({'name': 'ContractProduct'})
                             },2000);
                         } else if (res.result.resultCode='00000001'){
-                            this.addResultMsg = res.result.resultMessage;
-                            this.$modal.show('addResultMsg');
+                            this.$root.toastText = res.result.resultMessage;
+                            this.$root.toast=true;
                         }
                     },
                     response => {
-                        this.addResultMsg = '服务器错误';
-                        this.$modal.show('addResultMsg');
+                        this.$root.toastText = '服务器错误';
+                        this.$root.toast=true;
                     }
                 );
             }

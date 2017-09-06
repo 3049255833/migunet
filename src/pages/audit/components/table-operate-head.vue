@@ -9,7 +9,10 @@
                         class="btn btn-audit-module ml-24 mr-10">批量审批
                 </button>
                 <button v-if="!auditFlag" @click="showAll" class="btn btn-add-module-white mr-10">查看全部</button>
-                <button v-if="auditFlag" @click="pass" class="btn btn-middle-88 ml-24 mr-10 btn-primary ">
+                <button v-if="auditFlag&&$root.ajaxLock" @click="pass" class="btn btn-middle-88 ml-24 mr-10 btn-primary " >
+                    通过
+                </button>
+                <button v-if="auditFlag&&!$root.ajaxLock" @click="pass" class="btn btn-middle-88 ml-24 mr-10 btn-primary " >
                     通过
                 </button>
                 <button v-if="auditFlag" @click="reject" class="btn btn-default mr-10 btn-middle-88">
