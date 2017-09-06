@@ -246,7 +246,7 @@
         computed: {
             canSave(){
                 let flag = true;
-                if (!this.formData.limitSmsAreas) {
+             /*   if (!this.formData.limitSmsAreas) {
                     flag = false
                 }
             
@@ -256,7 +256,7 @@
               
                 if (!this.formData.recommendCodes) {
                     flag = false
-                }
+                }*/
             
               /*  if (!this.formData.mutuallyProductCodes) {
                     flag = false

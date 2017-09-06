@@ -2,16 +2,22 @@
     <div id="app">
         <router-view></router-view>
         <v-loading v-if="$root.isLoaging"></v-loading>
+        <v-toast v-if="$root.toast" :toast="$root.toast" :toastText="$root.toastText"></v-toast>
     </div>
 </template>
 <script>
     import VLoading from "@/components/loading";
+    import VToast from "@/components/new-toast";
     export default {
 
         name: 'app',
 
         components: {
-            VLoading
+            VLoading,
+            VToast
+        },
+        
+        watch:{
         }
 
     }
