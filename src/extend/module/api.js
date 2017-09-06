@@ -50,6 +50,7 @@ let api = {
     batchAddBossInfo: 'productCenter/batchAddBossInfo',  //批量添加业务代码
 
     getContractAuditList:'productCenter/getContractAuditList', //获取审批列表
+    getAuditContractProduct:'productCenter/auditContractProduct', //获取审批列表
     updateAuditStatusList:'productCenter/updateAuditStatusList'  //审批列表
 };
 

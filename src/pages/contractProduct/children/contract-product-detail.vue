@@ -61,7 +61,7 @@
                   <div class="item-img"></div>
                   <div class="item-txt">
                       <p>
-                        {{product.productName}}
+                        {{cProduct.productName}}
                       </p>
                       <p>
                         产品名称
@@ -73,7 +73,7 @@
                   <div class="item-img"></div>
 
                   <div class="item-txt">
-                      <p> {{product.id}}</p>
+                      <p> {{cProduct.id}}</p>
                       <p>产品ID</p>
                   </div>
               </div>
@@ -82,7 +82,7 @@
                   <div class="item-img"></div>
 
                   <div class="item-txt">
-                      <p> {{product.status}} </p>
+                      <p> {{cProduct.status}} </p>
                       <p>产品状态</p>
                   </div>
               </div>
@@ -97,10 +97,13 @@
 
               <div class="btn-group review-btn">
                   <button class="btn btn-primary btn-middle"
-                        @click="revocation">撤销</button>
+                          v-if="revocationT">{{revocationT}}</button>
 
                   <button class="btn-default btn btn-middle"
-                        @click="offline">下线</button>
+                          v-if="offlineT">{{offlineT}}</button>
+
+                  <button class="btn-default btn btn-middle"
+                          v-if="onlineT">{{onlineT}}</button>
               </div>
           </div>
       </div>
@@ -116,14 +119,14 @@
                       <div class="layout-row">
                           <span class="row-left"> 产品描述：</span>
                           <span class="row-right">
-                              {{product.productDesc}}
+                              {{cProduct.productDesc}}
                           </span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left"> 生效时间：</span>
                           <span class="row-right">
-                            {{product.createTime}}
+                            {{cProduct.createTime}}
                           </span>
                       </div>
 
@@ -145,7 +148,7 @@
                       <div class="layout-row">
                           <span class="row-left"> 创建用户：</span>
                           <span class="row-right">
-                            {{product.createUser}}
+                            {{cProduct.createUser}}
                         </span>
                       </div>
 
@@ -337,10 +340,15 @@
           </div>
 
           <div class="button-box">
-              <button class="btn btn-default btn-middle"
-                      @click="hide">隐藏</button>
               <button class="btn-default btn btn-middle"
-                      @click="logout">注销</button>
+                      v-if="hideT">{{hideT}}</button>
+
+              <button class="btn-default btn btn-middle"
+                      v-if="logoutT">{{logoutT}}</button>
+
+              <button class="btn-default btn btn-middle"
+                      v-if="deleteT">{{deleteT}}</button>
+
           </div>
       </div>
 
@@ -388,9 +396,10 @@
         data (){
             return {
                 productCode: this.$route.params.productCode,
-                product: {},
+                cProduct: {},
                 payTypes: [],
-                serviceCodes: [],
+                payTypeList: [],
+                feePlanList: [],
                 confirmInfo: '',
                 isHideConfim: true,
                 isHideOperateModal: true,
@@ -459,6 +468,8 @@
 
                         let res = response.body;
 
+                        console.log("res: " + JSON.stringify(res));
+
                         if (res.result.resultCode == '00000000') {
                             //todo: 注意，返回的字段这里list小写
                             this.product = res.product;
@@ -515,6 +526,144 @@
                 this.styleComfirm.right = '0.6%';
 
                 this.confirmInfo = "是否注销该产品";
+            }
+        },
+        computed: {
+            /*
+            *注销
+            * onlineStatus: 1 上线 && detailStatus：null
+            * onlineStatus: 1 上线 && detailStatus：6 变更审批失败
+            * onlineStatus: 1 上线 && detailStatus：8 变更报备失败
+            *
+            * onlineStatus: 3 下线 && detailStatus：null
+            * onlineStatus: 3 下线 && detailStatus：5 变更审批
+            * onlineStatus: 3 下线 && detailStatus：6 变更审批失败
+            * onlineStatus: 3 下线 && detailStatus：8 变更报备失败
+            *
+            * onlineStatus: 2 隐藏 && detailStatus：null
+            * onlineStatus: 2 隐藏 && detailStatus：6 变更审批失败
+            * onlineStatus: 2 隐藏 && detailStatus：8 变更报备失败
+            * */
+            logoutT() {
+              if((this.cProduct.onlineStatus == '1' &&
+                    (this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '6' ||
+                    this.cProduct.detailStatus == '8')) ||
+                (this.cProduct.onlineStatus == '3' &&
+                    (this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '5' ||
+                    this.cProduct.detailStatus == '6' ||
+                    this.cProduct.detailStatus == '8')) ||
+                (this.cProduct.onlineStatus == '2' &&
+                    (this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '6' ||
+                    this.cProduct.detailStatus == '8')) ) {
+
+                  return '注销';
+              }
+            },
+
+            /*
+             *下线
+             * onlineStatus: 1 上线 && detailStatus：null
+             * onlineStatus: 1 上线 && detailStatus：6 变更审批失败
+             * onlineStatus: 1 上线 && detailStatus：8 变更报备失败
+             *
+             * onlineStatus: 3 下线 && detailStatus：5 变更审批
+             *
+             *
+             * onlineStatus: 2 隐藏 && detailStatus：null
+             * onlineStatus: 2 隐藏 && detailStatus：6 变更审批失败
+             * onlineStatus: 2 隐藏 && detailStatus：8 变更报备失败
+             * */
+            offlineT() {
+                if((this.cProduct.onlineStatus == '1' &&
+                      (this.cProduct.detailStatus == null ||
+                      this.cProduct.detailStatus == '6' ||
+                      this.cProduct.detailStatus == '8')) ||
+                  (this.cProduct.onlineStatus == '3' && this.cProduct.detailStatus == '5') ||
+                  (this.cProduct.onlineStatus == '2' &&
+                      (this.cProduct.detailStatus == null ||
+                      this.cProduct.detailStatus == '6' ||
+                      this.cProduct.detailStatus == '8'))) {
+
+                  return '下线';
+                }
+            },
+
+            /*
+             *上线
+             *
+             * onlineStatus: 3 下线 && detailStatus：null
+             * onlineStatus: 3 下线 && detailStatus：6 变更审批失败
+             * onlineStatus: 3 下线 && detailStatus：8 变更报备失败
+             *
+             * onlineStatus: 2 隐藏 && detailStatus：null
+             * onlineStatus: 2 隐藏 && detailStatus：6 变更审批失败
+             * onlineStatus: 2 隐藏 && detailStatus：8 变更报备失败
+             * */
+            onlineT() {
+                if((this.cProduct.onlineStatus == '3' &&
+                      (this.cProduct.detailStatus == null ||
+                      this.cProduct.detailStatus == '6' ||
+                      this.cProduct.detailStatus == '8')) ||
+                (this.cProduct.onlineStatus == '2' &&
+                    (this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '6' ||
+                    this.cProduct.detailStatus == '8'))) {
+
+                    return '上线';
+                }
+            },
+
+            /*隐藏*
+            * onlineStatus: 1 上线 && detailStatus：null
+            * onlineStatus: 1 上线 && detailStatus：6 变更审批失败
+            * onlineStatus: 1 上线 && detailStatus：8 变更报备失败
+            *
+            * onlineStatus: 3 下线 && detailStatus：null
+            * onlineStatus: 3 下线 && detailStatus：5 变更审批
+            * onlineStatus: 3 下线 && detailStatus：6 变更审批失败
+            * onlineStatus: 3 下线 && detailStatus：8 变更报备失败
+            * */
+            hideT() {
+                if((this.cProduct.onlineStatus == '1' &&
+                      (this.cProduct.detailStatus == null ||
+                      this.cProduct.detailStatus == '6' ||
+                      this.cProduct.detailStatus == '8')) ||
+                (this.cProduct.onlineStatus == '3' &&
+                    (this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '5' ||
+                    this.cProduct.detailStatus == '6' ||
+                    this.cProduct.detailStatus == '8'))) {
+
+                    return '隐藏';
+                }
+            },
+
+            /*
+            * 撤销
+            * onlineStatus: 0 草稿; detailStatus：1 上线审批
+            * onlineStatus: 1 上线; detailStatus：5 变更审批中
+            * onlineStatus: 2 隐藏; detailStatus：5 变更审批中
+            * onlineStatus: 3 下线; detailStatus：5 变更审批中
+            * */
+            revocationT() {
+              if((this.cProduct.onlineStatus == '0' && this.cProduct.detailStatus == '1') ||
+                (this.cProduct.onlineStatus == '1' && this.cProduct.detailStatus == '5') ||
+                (this.cProduct.onlineStatus == '3' && this.cProduct.detailStatus == '5') ||                 (this.cProduct.onlineStatus == '2' && this.cProduct.detailStatus == '5')) {
+
+                  return '撤销';
+              }
+            },
+
+            /**删除
+             * onlineStatus: 0 草稿; detailStatus：null
+             * */
+            deleteT() {
+              if(this.cProduct.onlineStatus == '4' && this.cProduct.detailStatus == null) {
+                  return '删除';
+              }
             }
         }
     }

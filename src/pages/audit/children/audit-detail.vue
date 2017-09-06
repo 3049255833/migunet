@@ -61,7 +61,7 @@
                   <div class="item-img"></div>
                   <div class="item-txt">
                       <p>
-                          {{product.productName}}
+                          {{cProduct.productName}}
                       </p>
                       <p>
                           产品名称
@@ -74,7 +74,7 @@
 
                   <div class="item-txt">
                       <p>
-                          {{product.id}}
+                          {{cProduct.id}}
                       </p>
                       <p>
                           产品ID
@@ -87,7 +87,7 @@
 
                   <div class="item-txt">
                       <p>
-                          {{product.status}}
+                          {{cProduct.status}}
                       </p>
                       <p>
                           产品状态
@@ -124,14 +124,14 @@
                       <div class="layout-row">
                           <span class="row-left"> 产品描述：</span>
                           <span class="row-right">
-                              {{product.productDesc}}
+                              {{cProduct.productDesc}}
                           </span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left"> 生效时间：</span>
                           <span class="row-right">
-                            {{product.createTime}}
+                            {{cProduct.createTime}}
                           </span>
                       </div>
 
@@ -153,7 +153,7 @@
                       <div class="layout-row">
                           <span class="row-left"> 创建用户：</span>
                           <span class="row-right">
-                            {{product.createUser}}
+                            {{cProduct.createUser}}
                           </span>
                       </div>
 
@@ -371,10 +371,7 @@
 <script type="es6">
   import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
   import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
-
   import VReviewRejectModal from '../components/review-reject-modal'
-
-
   import TModalSubContainer from "@/components/modal-sub-container"
 
   export default {
@@ -388,9 +385,10 @@
       data (){
           return {
               productCode: this.$route.params.productCode,
-              product: {},
+              cProduct: {},
               payTypes: [],
-              serviceCodes: [],
+              payTypeList: [],
+              feePlanList: [],
               confirmInfo: '',
               isHideConfim: true,
               isHideOperateModal: true,
@@ -406,7 +404,7 @@
           }
       },
       created(){
-          this.getContractProductDetail(this.productCode);
+          this.getAuditContractProduct(this.productCode);
 
           /**
            * 接收来自确认modal框的信息
@@ -439,10 +437,10 @@
            * 获取单品详情
            * @param productCode 产品 string
            * */
-          getContractProductDetail(productCode) {
+          getAuditContractProduct(productCode) {
               console.log("productCode: " + productCode);
 
-              this.$http.get(this.api.getContractProductDetail,
+              this.$http.get(this.api.getAuditContractProduct,
                   {
                     params: {
                       productCode: productCode || ''
@@ -451,13 +449,17 @@
 
                   let res = response.body;
 
+                  console.log("res: " + JSON.stringify(res));
+
                   if (res.result.resultCode == '00000000') {
                       //todo: 注意，返回的字段这里list小写
-                      this.product = res.product;
+                      this.cProduct = res.contractProduct;
 
-                      this.payTypes = res.product.paytypes;
+                      this.payTypes = res.paytypes;
 
-                      this.serviceCodes = res.product.serviceCodes;
+                      this.payTypeList = res.payTypeList;
+
+                      this.feePlanList = res.feePlanList;
 
                       //console.log("res: " + JSON.stringify(this.paytypes));
 
@@ -478,6 +480,11 @@
 
               this.confirmInfo = "是否审核通过该产品";
           }
+      },
+      computed: {
+          /*if() {
+
+          }*/
       },
       destroyed() {
           this.bus.$off('sendAuditDetailsComfirmInfo');
