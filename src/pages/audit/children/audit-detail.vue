@@ -17,33 +17,17 @@
               </thead>
 
               <tbody>
-                  <tr>
-                      <td>2017/08/22 09:30</td>
-                      <td>21222222</td>
-                      <td>变更审批</td>
-                      <td>2017/08/22 09:30</td>
-                      <td>小三</td>
+                  <tr v-for="(item, index) in audit">
+                      <td>{{item.createTime}}</td>
+                      <td>{{item.createUser}}</td>
+                      <td>{{item.targetStatus}}</td>
+                      <td>{{item.auditTime}}</td>
+                      <td>{{item.auditPerson}}</td>
                       <td>
                           <div class=" review-fail-pass">
                               <i class="icon icon-fail-pass mr-5"></i>
-                              <span class="cl-fail-pass vt-middle">
-                                不通过</span>
+                              <span class="cl-fail-pass vt-middle">不通过</span>
                           </div>
-                      </td>
-                      <td>价格高于审批价格</td>
-                  </tr>
-
-                  <tr>
-                      <td>2017/08/22 09:30</td>
-                      <td>21222222</td>
-                      <td>变更审批</td>
-                      <td>2017/08/22 09:30</td>
-                      <td>小三</td>
-                      <td>
-                        <div class=" review-pass">
-                            <i class="icon icon-pass mr-5"></i>
-                            <span class="cl-pass vt-middle">通过</span>
-                        </div>
                       </td>
                       <td>价格高于审批价格</td>
                   </tr>
@@ -74,7 +58,7 @@
 
                   <div class="item-txt">
                       <p>
-                          {{cProduct.id}}
+                          {{cProduct.productCode}}
                       </p>
                       <p>
                           产品ID
@@ -87,7 +71,7 @@
 
                   <div class="item-txt">
                       <p>
-                          {{cProduct.status}}
+                          {{cProduct.onlineStatus}}
                       </p>
                       <p>
                           产品状态
@@ -131,7 +115,7 @@
                       <div class="layout-row">
                           <span class="row-left"> 生效时间：</span>
                           <span class="row-right">
-                            {{cProduct.createTime}}
+                            {{cProduct.effectiveTime}}
                           </span>
                       </div>
 
@@ -142,12 +126,14 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 是否会员产品：</span>
-                          <span class="row-right"> 非会员 </span>
+                          <span class="row-right" v-if="cProduct.isVip == '1'">会员</span>
+                          <span class="row-right" v-else>非会员</span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left"> 是否体检产品：</span>
-                          <span class="row-right"></span>
+                          <span class="row-right" v-if="cProduct.isExperience == '1'">是</span>
+                          <span class="row-right" v-else>否</span>
                       </div>
 
                       <div class="layout-row">
@@ -159,22 +145,23 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 限定短信发送省份：</span>
-                          <span class="row-right"> 江苏省、浙江省 </span>
+                          <span class="row-right">{{cProduct.limitSmsAreas}}</span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left">
                               订购成功下发送推荐短信：
                           </span>
-                          <span class="row-right">2017/08/21 16:00</span>
+                          <span class="row-right"></span>
                       </div>
 
                       <div class="layout-row  no-pb">
                           <div class="row-left"> 互斥产品：</div>
 
                           <div class="row-right">
-                              <div>动漫5元包 | 200192938</div>
-                              <div>南京2017音乐包合集 | 2039338228</div>
+                              <div v-for="mutexItem in mutex">
+                                  <div>{{mutexItem.name}} | {{mutexItem.id}}</div>
+                              </div>
                           </div>
                       </div>
                   </div>
@@ -182,17 +169,17 @@
                   <div class="fl w-50">
                       <div class="layout-row">
                           <span class="row-left"> 搜索关键字：</span>
-                          <span class="row-right"></span>
+                          <span class="row-right">{{cProduct.searchKey}}</span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left"> 失效时间：</span>
-                          <span class="row-right"></span>
+                          <span class="row-right">{{cProduct.expireTime}}</span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left"> 产品目录：</span>
-                          <span class="row-right">目录名称(日本漫画)</span>
+                          <span class="row-right">{{cProduct.catalogName}}</span>
                       </div>
 
                       <div class="layout-row">
@@ -207,14 +194,12 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 创建时间：</span>
-                          <span class="row-right"></span>
+                          <span class="row-right">{{cProduct.createTime}}</span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left">订购成功下发提示短信</span>
-                          <span class="row-right">
-                            恭喜您，成功订购每日一笑业务！
-                          </span>
+                          <span class="row-right"></span>
                       </div>
 
                       <div class="layout-row">
@@ -224,7 +209,7 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 依赖产品：</span>
-                          <span class="row-right"> 动漫5元 | 2091272</span>
+                          <span class="row-right"></span>
                       </div>
                   </div>
               </div>
@@ -240,32 +225,33 @@
                       <div class="layout-row list payment-way-list">
                           <div class="row-left"> 支付方式 ：</div>
 
-                          <div class="row-right">
+                          <div class="row-right" v-for="pay in payTypeList">
                               <h4>话费支付</h4>
 
                               <div class="item">
                                   <span class="left"> 业务代码 ：</span>
-                                  <span class="right">1000100001</span>
+                                  <span class="right">{{pay.serviceCode}}</span>
                               </div>
 
                               <div class="item">
                                   <span class="left"> 资费金额（分） ：</span>
-                                  <span class="right">1000100001</span>
+                                  <span class="right">{{pay.price}}</span>
                               </div>
 
                               <div class="item">
                                   <span class="left"> 资费类型 ：</span>
-                                  <span class="right">包月</span>
+                                  <span class="right">{{pay.feeType}}</span>
                               </div>
 
                               <div class="item">
                                   <span class="left"> 是否重复订购 ：</span>
-                                  <span class="right">否</span>
+                                  <span class="right" v-if="pay.isReorder == '1'">是</span>
+                                  <span class="right" v-else>否</span>
                               </div>
 
                               <div class="item">
                                   <span class="left"> 产品周期 ：</span>
-                                  <span class="right">永久有效</span>
+                                  <span class="right">{{pay.cycleUnitNum}}</span>
                               </div>
                           </div>
                       </div>
@@ -279,28 +265,17 @@
 
                                   <div class="item">
                                       <span class="left"> 资费ID ：</span>
-                                      <span class="right">E1020293873</span>
+                                      <span class="right"></span>
                                   </div>
 
                                   <div class="item">
                                     <span class="left"> 计划名称 ：</span>
-                                    <span class="right">E1020293873</span>
+                                    <span class="right"></span>
                                   </div>
 
                                   <div class="item">
                                       <span class="left"> 计划说明 ：</span>
-                                      <span class="right">白金会员折后优惠：满足，会员级别与(1,2,3)并且,公司级别等于(5)后者，消费金额大于300 满足条件：内容类型=漫画 并且 产品编号等于漫画（100929828</span>
-                                  </div>
-                              </div>
-
-                              <div class="scheme-item">
-                                  <h4>方案二</h4>
-
-                                  <div class="item">免费</div>
-
-                                  <div class="item">
-                                      <span class="left"> 满足条件 ：</span>
-                                      <span class="right">内容类型=漫画 并且 产品编号等于漫画（100929828）</span>
+                                      <span class="right"></span>
                                   </div>
                               </div>
                           </div>
@@ -312,16 +287,16 @@
                           <div class="row-left"> 资费计划 ：</div>
 
                           <div class="row-right">
-                              <div class="item">
-                                  <div class="">00000259</div>
+                              <div class="item" v-for="(feePlanItem, index) in feePlanList">
+                                  <div class="">{{feePlanItem.planCode}}</div>
 
                                   <hr/>
 
-                                  <div class="">资费计划名称</div>
+                                  <div class="">{{feePlanItem.planName}}</div>
 
                                   <hr/>
 
-                                  <div class="">计划说明内容</div>
+                                  <div class="">{{feePlanItem.planDesc}}</div>
                               </div>
                           </div>
                       </div>
@@ -338,7 +313,7 @@
                   <div class="layout-row-wrapper layout-row-wrapper1">
                       <div class="layout-row">
                           <span class="row-left"> BOOS计费代码：</span>
-                          <span class="row-right">BOOS计费代码</span>
+                          <span class="row-right"></span>
                       </div>
                   </div>
               </div>
@@ -386,9 +361,10 @@
           return {
               productCode: this.$route.params.productCode,
               cProduct: {},
-              payTypes: [],
               payTypeList: [],
               feePlanList: [],
+              mutex: [],
+              audit: [],
               confirmInfo: '',
               isHideConfim: true,
               isHideOperateModal: true,
@@ -453,11 +429,14 @@
 
                   if (res.result.resultCode == '00000000') {
                       //todo: 注意，返回的字段这里list小写
+
                       this.cProduct = res.contractProduct;
 
-                      this.payTypes = res.paytypes;
+                      this.audit = res.audit;
 
                       this.payTypeList = res.payTypeList;
+
+                      this.mutex = res.mutex;
 
                       this.feePlanList = res.feePlanList;
 
@@ -482,9 +461,7 @@
           }
       },
       computed: {
-          /*if() {
 
-          }*/
       },
       destroyed() {
           this.bus.$off('sendAuditDetailsComfirmInfo');

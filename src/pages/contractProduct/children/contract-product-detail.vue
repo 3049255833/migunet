@@ -57,7 +57,7 @@
                   <div class="item-img"></div>
 
                   <div class="item-txt">
-                      <p> {{cProduct.id}}</p>
+                      <p> {{cProduct.productCode}}</p>
                       <p>产品ID</p>
                   </div>
               </div>
@@ -368,7 +368,6 @@
             return {
                 productCode: this.$route.params.productCode,
                 cProduct: {},
-                payTypes: [],
                 payTypeList: [],
                 feePlanList: [],
                 mutex: [],
