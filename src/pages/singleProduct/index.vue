@@ -9,7 +9,7 @@
         </div>
     </div>
 </template>
-<script >
+<script type="es6" >
     import VSingleProductTable from '@/pages/singleProduct/components/single-product-table.vue'
     import VPaging from '@/components/paging'
     import VTableOperateHead from '@/pages/singleProduct/components/table-operate-head'
