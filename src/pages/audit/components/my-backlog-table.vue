@@ -51,7 +51,7 @@
                 </td>
                 <td>
                     <div class="operate-list">
-                        <span @click="getAuditDetail(product.productCode)" class="pointer mr-30 cl-blue">审批</span>
+                        <span @click="getAuditDetail(product.productCode, product.targetStatusNum)" class="pointer mr-30 cl-blue">审批</span>
                     </div>
                 </td>
             </tr>
@@ -88,7 +88,7 @@
                 ifAuditAll:[]
             }
         },
-        
+
         watch:{
             //监听全选
             'ifAuditAll'(a,b){
@@ -104,12 +104,12 @@
         },
 
         methods: {
-            getAuditDetail(productCode){
-                this.$router.push({'name': 'AuditDetail', params: {'productCode': productCode}});
+            getAuditDetail(productCode, targetStatus){
+                this.$router.push({'name': 'AuditDetail', params: {'productCode': productCode, 'targetStatus': targetStatus}});
             }
         },
         mounted(){
-           
+
         }
 
     }
@@ -123,7 +123,7 @@
         th:nth-child(1) {
             padding-left: 68px !important;
         }
-        
+
         td {
             .name {
                 max-width: 250px;
@@ -139,7 +139,7 @@
             }
         }
     }
-    
+
     .no-asset-box {
         text-align: center;
         margin-top: 85px;

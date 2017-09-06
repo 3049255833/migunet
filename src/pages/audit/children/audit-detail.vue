@@ -327,12 +327,6 @@
           v-bind:style="styleComfirm">
       </v-confirm-popover-modal>
 
-      <v-operate-success-modal
-          :isHideOperateModal="isHideOperateModal"
-          :operateInfo="operateInfo"
-          v-bind:style="styleOperateSuccess">
-      </v-operate-success-modal>
-
       <modal name="reviewRejectModal" :width="380" :height="310">
           <t-modal-sub-container :title="'审批拒绝原因'" :name="'reviewRejectModal'">
               <v-review-reject-modal
@@ -360,6 +354,7 @@
       data (){
           return {
               productCode: this.$route.params.productCode,
+              targetStatus: this.$route.params.targetStatus,
               cProduct: {},
               payTypeList: [],
               feePlanList: [],
@@ -367,15 +362,9 @@
               audit: [],
               confirmInfo: '',
               isHideConfim: true,
-              isHideOperateModal: true,
-              operateInfo: '',
               styleComfirm: {
-                  top: '20%',
+                  top: '15.8%',
                   right: '2%'
-              },
-              styleOperateSuccess: {
-                  top: '18%',
-                  right: '50%'
               },
               postDataList: []
           }
@@ -393,6 +382,9 @@
 
               that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
                   let res = response.body;
+
+                  console.log("postDataList: " + JSON.stringify(res));
+
                   if (res.result.resultCode == '00000000') {
                       this.$root.toastText = '审批成功';
                       this.$root.toast = true;
@@ -469,13 +461,12 @@
 
               that.postDataList.push({
                   id: that.cProduct.id,
-                  statusId: that.cProduct.statusId,
                   auditStatus: '1',
                   auditOpinion: '',
                   auditTime: that.utils.getNowDate(),
-                  targetStatus: that.productData.targetStatusNum,
+                  targetStatus: this.targetStatus,
                   auditPerson: 'admin',
-                  cstModified: that.productData.getNowDate(),
+                  cstModified: that.utils.getNowDate(),
                   detailStatus: ''
               });
 
