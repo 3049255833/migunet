@@ -35,7 +35,8 @@
                     searchKey: '',
                     onlineStatus: '',
                     pageSize: '8',
-                    pageNum: '1'
+                    pageNum: '1',
+                    
                 },
                 totalItem: '',
                 auditFlag: false,
@@ -134,7 +135,7 @@
                                 auditTime: that.utils.getNowDate(),
                                 targetStatus: that.contractAuditList[index].targetStatusNum,
                                 auditPerson: 'admin',
-                                updateTime: that.utils.getNowDate(),
+                                cstModified: that.utils.getNowDate(),
                                 detailStatus: ''
                             });
                         })
@@ -143,10 +144,12 @@
                         let res = response.body;
                         if (res.result.resultCode == '00000000') {
                             this.$root.toastText = '审批成功';
-                            this.$root.toast = true
+                            this.$root.toast = true;
+                            this.getContractAuditList();
                         } else {
                             this.$root.toastText = '审批失败';
-                            this.$root.toast = true
+                            this.$root.toast = true;
+                            this.getContractAuditList();
                         }
                     }, (response) => {
                         this.$root.toastText = '服务器错误';
@@ -168,20 +171,9 @@
                                 auditTime: that.utils.getNowDate(),
                                 targetStatus: that.contractAuditList[index].targetStatusNum,
                                 auditPerson: 'admin',
-                                updateTime: that.utils.getNowDate(),
+                                cstModified: that.utils.getNowDate(),
                                 detailStatus: that.contractAuditList[index].targetStatusNum + '2'
                             });
-                            that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
-                                let res = response.body;
-                                if (res.result.resultCode == '00000000') {
-                                    that.$modal.hide('reviewRejectModal');
-                                    this.$root.toastText = '审批成功';
-                                    this.$root.toast = true
-                                } else {
-                                    this.$root.toastText = '审批失败';
-                                    this.$root.toast = true
-                                }
-                            })
                         });
                     }
                 }
@@ -192,7 +184,22 @@
                 this.postDataList.forEach(function (item) {
                     item.auditOpinion = res;
                 });
-                console.log(this.postDataList)
+                console.log(this.postDataList);
+                that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
+                    let res = response.body;
+                    if (res.result.resultCode == '00000000') {
+                        this.$root.toastText = '审批成功';
+                        this.$root.toast = true;
+                    } else {
+                        this.$root.toastText = '审批失败';
+                        this.$root.toast = true;
+                    }
+                    this.$modal.hide('reviewRejectModal');
+                    this.getContractAuditList();
+                }, (response) => {
+                    this.$root.toastText = '服务器错误';
+                    this.$root.toast = true
+                })
             },
 
             /**

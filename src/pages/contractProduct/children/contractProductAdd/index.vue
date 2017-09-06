@@ -252,7 +252,7 @@
     }
     
     .step {
-        width: 500px;
+        width: 510px;
         margin: 0 auto;
         position: relative;
     }

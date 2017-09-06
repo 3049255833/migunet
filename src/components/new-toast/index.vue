@@ -1,6 +1,6 @@
 <template>
     <div class="operate-success-container clearfix" >
-        
+        <img src="../../assets/icon-pass.png">
         <div class="text">{{toastText}}！</div>
     </div>
 </template>

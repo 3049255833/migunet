@@ -55,7 +55,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 生效时间：</span>
                                         <span class="row-right">
-                                            {{productDetail.effectiveTime}}
+                                            {{productDetail.enableTime}}
                                         </span>
                                     </div>
                                     <div class="layout-row no-pb">
@@ -88,7 +88,7 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 失效时间：</span>
                                         <span class="row-right">
-                                            {{productDetail.expireTime}}
+                                            {{productDetail.disableTime}}
                                         </span>
                                     </div>
                                     <div class="layout-row  no-pb">

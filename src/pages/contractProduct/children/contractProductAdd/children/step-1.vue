@@ -108,14 +108,16 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="row-left">
+                <div class="row-left required">
                     产品目录：
                 </div>
                 <div class="row-right">
                     <v-select-box :w="'200'"
+                                  v-if='false'
                                   :selectBoxName="'productDistListSelectBox'"
                                   :defaultTitle="'产品目录'"
                                   :options="selectBoxList.productDistList"></v-select-box>
+                    <input value="动漫" disabled class="w-200  form-input w-200">
                     <span class="error-msg" v-if="$v.formData.catalogId.$error">{{errorMsg.catalogId}}</span>
                 </div>
             </div>
@@ -500,7 +502,7 @@
                     pdAttributionCodes: '',     //归属地编码
                     attributionText: '',     //归属地名称
                     pdChannelCodes: '',           //渠道编码
-                    catalogId: '1111',            //目录Id
+                    catalogId: '1',            //目录Id
                     isVip: '1',     //是否会员 1：会员 0 ：包月
                     isExperience: '1',         //是否体验产品 1：是 0 ：正式产品
                     expCycleUnitNum: '1',  //体验产品周期数

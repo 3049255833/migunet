@@ -2,7 +2,7 @@
     <div class="review-reject-modal">
         <textarea v-model="rejectOpinion"></textarea>
         <div class="btn-group btn-group-center">
-            <button v-if="rejectOpinion.length>0" @click="confirm" class="btn btn-primary btn-middle">确定</button>
+            <button v-if="rejectOpinion.length>0&&$root.ajaxLock" @click="confirm" class="btn btn-primary btn-middle">确定</button>
             <button v-else class="btn btn-primary unable btn-middle">确定</button>
             <div class="btn btn-middle btn-default" @click="cancel">取消</div>
         </div>

@@ -77,8 +77,8 @@
                         detailStatus:this.postData.detailStatus||'',
                         pageSize:this.postData.pageSize||'',
                         pageNum:this.postData.pageNum||'',
-                        effectiveTime:this.postData.effectiveTime||'',
-                        expireTime:this.postData.expireTime||''
+                        enableTime:this.postData.effectiveTime||'',
+                        disableTime:this.postData.expireTime||''
                     },
                     showLoading:true
                 }).then(response => {
