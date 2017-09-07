@@ -29,7 +29,7 @@
                               <span class="cl-fail-pass vt-middle">不通过</span>
                           </div>
                       </td>
-                      <td></td>
+                      <td>{{item.auditOpinion}}</td>
                   </tr>
               </tbody>
           </table>
@@ -132,7 +132,11 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 业务归属地：</span>
-                          <span class="row-right"></span>
+                          <span class="row-right">
+                            <span v-for="aItem in cProduct.attributionName">
+                                {{aItem}}
+                            </span>
+                          </span>
                       </div>
 
                       <div class="layout-row">
@@ -200,7 +204,22 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 体验产品周期：</span>
-                          <span class="row-right"></span>
+                          <span class="row-left">
+                              <span class="row-right"
+                                    v-if="cProduct.expCycleUnitNum == '-1'">永久有效</span>
+
+                              <span class="row-right" v-else>
+                                {{cProduct.expCycleUnitNum}}
+
+                                <span v-if="cProduct.expCycleUnit == '0'">天</span>
+
+                                <span v-else-if="cProduct.expCycleUnit == '1'">周</span>
+
+                                <span v-else-if="cProduct.expCycleUnit == '2'">月</span>
+
+                                <span v-else-if="cProduct.expCycleUnit == '3'">年</span>
+                              </span>
+                          </span>
                       </div>
 
                       <div class="layout-row">
@@ -220,7 +239,9 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 依赖产品：</span>
-                          <span class="row-right"></span>
+                          <span class="row-right">
+                              <span v-for="dItem in depend">{{dItem.name}} | {{dItem.id}}</span>
+                          </span>
                       </div>
                   </div>
               </div>
@@ -271,23 +292,49 @@
                           <div class="row-left"> 计费策略 ：</div>
 
                           <div class="row-right">
-                              <div class="scheme-item" v-for="rightItem in right">
-                                  <h4>方案一</h4>
+                              <div class="scheme-item" v-for="(rightItem, index) in right">
+                                  <div v-if="rightItem.planCode != ''">
+                                      <h4>方案{{index}}</h4>
 
-                                  <div class="item">
-                                      <span class="left"> 资费ID ：</span>
-                                      <span class="right"></span>
+                                      <div class="item">
+                                          <span class="left"> 资费ID ：</span>
+                                          <span class="right">
+                                            {{rightItem.pdFeePlan.planCode}}</span>
+                                      </div>
+
+                                      <div class="item">
+                                        <span class="left"> 计划名称 ：</span>
+                                        <span class="right">
+                                          {{rightItem.pdFeePlan.planName}}</span>
+                                      </div>
+
+                                      <div class="item">
+                                          <span class="left"> 计划说明 ：</span>
+                                          <span class="right">
+                                            {{rightItem.pdFeePlan.planDesc}}</span>
+                                      </div>
+                                  </div>
+                                  <div v-else>
+                                      <h4>方案{{index}}</h4>
+
+                                      <div class="item">
+                                          <span class="left">免费</span>>
+                                      </div>
+                                      <div class="item">
+                                          <span class="right">
+                                              满足条件：
+
+                                              <span v-for="pItem in rightItem.pdMatchList">
+                                                  {{pItem.fieldName}}{{pItem.operator}}{{pItem.matchValues}}
+                                              </span>
+
+                                              <span v-if="rightItem.isAnd == '0'">或者</span>
+                                              <span v-if-else="rightItem.isAnd == '1'">
+                                                并且</span>
+                                          </span>
+                                      </div>
                                   </div>
 
-                                  <div class="item">
-                                    <span class="left"> 计划名称 ：</span>
-                                    <span class="right"></span>
-                                  </div>
-
-                                  <div class="item">
-                                      <span class="left"> 计划说明 ：</span>
-                                      <span class="right"></span>
-                                  </div>
                               </div>
                           </div>
                       </div>
@@ -324,7 +371,9 @@
                   <div class="layout-row-wrapper layout-row-wrapper1">
                       <div class="layout-row">
                           <span class="row-left"> BOOS计费代码：</span>
-                          <span class="row-right"></span>
+                          <span class="row-right">
+                              {{channel.channelCode}}
+                          </span>
                       </div>
                   </div>
               </div>
@@ -371,6 +420,8 @@
               mutex: [],
               audit: [],
               right: [],
+              depend: [],
+              channel: {},
               confirmInfo: '',
               isHideConfim: true,
               styleComfirm: {
@@ -467,6 +518,10 @@
                       this.right = res.right;
 
                       this.auditstatus = res.auditstatus;
+
+                      this.depend = res.depend;
+
+                      this.channel = res.channel;
 
                       //console.log("cProduct: " + JSON.stringify(this.cProduct));
                       //console.log("contractProduct: " + JSON.stringify(res.contractProduct));

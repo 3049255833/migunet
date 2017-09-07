@@ -46,7 +46,7 @@
                              @click="deleteBtn(index, item.id, item.serviceCode)"></div>
 
                         <v-confirm-popover-modal
-                          :confirmInfo="'是否删除该业务代码'"
+                          :confirmInfo="'是否确定删除'"
                           :isHideConfim="item.isHideConfim"
                           :index="index"
                           details="businessCodeAdmin">
