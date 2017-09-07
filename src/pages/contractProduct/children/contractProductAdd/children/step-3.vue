@@ -158,7 +158,7 @@
              * 保存数据
              * */
             save(){
-                this.bus.$emit('step3Bus', {
+                this.$emit('step3Bus', {
                     step: 3,
                     data: this.formData
                 })
@@ -278,17 +278,19 @@
 
                     if (this.smsType === '1') {
 
+                        this.recommendSmsItem = res;
+
+                        this.formData.recommendCodes = this.recommendSmsItem.id;
+
+              
+                    } else {
+
                         this.promptSmsItem = res;
 
 
                         this.formData.promptSmsCodes = this.promptSmsItem.id;
 
-              
-                    } else {
-
-                        this.recommendSmsItem = res;
-
-                        this.formData.recommendCodes = this.recommendSmsItem.id;
+                      
                     }
 
                 }

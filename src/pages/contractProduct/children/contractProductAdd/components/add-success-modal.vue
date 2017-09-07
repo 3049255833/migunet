@@ -7,7 +7,7 @@
         </div>
         <div class="btn-group btn-group-center">
             <div  class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
-            <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
+            <div class="btn btn-default btn-middle-100" @click="next">继续新增</div>
         </div>
     </div>
 </template>
@@ -20,8 +20,17 @@ export default{
         confirm(){
             this.$modal.hide(this.modalName);
         },
-        cancel(){
+        next(){
+            //因为不刷新页面，得清楚数据
+            this.$parent.step1PostData={};
+            this.$parent.step2PostData={};
+            this.$parent.step3PostData={};
+            this.$parent.step3PostData={};
+            this.$parent.step3Flag=false;
+            this.$parent.step1Flag=false;
+            this.$parent.step2Flag=false;
             this.$modal.hide(this.modalName);
+            location.hash='/contract_product/contract_product_add/step1';
         }
     }
 }

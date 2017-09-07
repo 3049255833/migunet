@@ -361,7 +361,7 @@
                 /**
                  * 发送第二步数据到主页
                  * */
-                this.bus.$emit('step2Bus', {
+                this.$emit('step2Bus', {
                     step: 3,
                     data: this.postData
                 })

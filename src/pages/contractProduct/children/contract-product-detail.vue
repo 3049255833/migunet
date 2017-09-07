@@ -347,20 +347,20 @@
 </template>
 
 <script type="es6">
-    import vNav from "@/components/common/Nav"
+  /*  import vNav from "@/components/common/Nav"
     import vPop from "@/components/common/Pop"
     import InfoTable from "@/components/common/InfoTable"
     import ConfirmBtn from "@/components/common/Button1"
-    import CancelBtn from "@/components/common/Button2"
+    import CancelBtn from "@/components/common/Button2"*/
     import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
     import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
 
     export default {
         name: 'Review',
         components: {
-            vPop,
+         /*   vPop,
             ConfirmBtn,
-            CancelBtn,
+            CancelBtn,*/
             VConfirmPopoverModal,
             VOperateSuccessModal
         },

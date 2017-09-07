@@ -120,10 +120,7 @@
                                 }else{
                                     item.isManager='否'
                                 }
-
-
                         })
-
                         this.serviceCodeList = res.data;
                     } else {
 
