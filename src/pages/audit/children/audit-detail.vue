@@ -33,6 +33,10 @@
                   </tr>
               </tbody>
           </table>
+
+          <div v-if="audit.length <= 0" class="no-asset-box">
+            <v-nolist :text="'暂无数据'"></v-nolist>
+          </div>
       </div>
 
       <div class="product-manage-new-add">
@@ -79,22 +83,29 @@
                   </div>
               </div>
 
-              <!--<div class="review-mark item" v-if="false">
-                  <img src="../../../assets/review-pass.png">
-              </div>
-
-              <div class="review-mark item" v-else>
-                  <img src="../../../assets/review-reject.png">
-              </div>-->
-
-              <div class="btn-group review-btn">
+              <div class="btn-group review-btn" v-if="auditstatus == '-1'">
                   <button class="btn btn-primary btn-middle"
                           @click="pass">通过</button>
 
                   <button class="btn-default btn btn-middle"
                           @click="noPass">不通过</button>
               </div>
+
+              <div class="review-mark item" v-else-if="auditstatus == '1'">
+                  <img src="../../../assets/review-pass.png">
+              </div>
+
+              <div class="review-mark item" v-else-if="auditstatus == '0'">
+                  <img src="../../../assets/review-reject.png">
+              </div>
           </div>
+
+          <v-confirm-popover-modal
+              :confirmInfo="confirmInfo"
+              :isHideConfim="isHideConfim"
+              details="auditDetailsComfirmInfo"
+              v-bind:style="styleComfirm">
+          </v-confirm-popover-modal>
       </div>
 
       <div class="info-container">
@@ -320,13 +331,6 @@
           </div>
       </div>
 
-      <v-confirm-popover-modal
-          :confirmInfo="confirmInfo"
-          :isHideConfim="isHideConfim"
-          details="auditDetailsComfirmInfo"
-          v-bind:style="styleComfirm">
-      </v-confirm-popover-modal>
-
       <modal name="reviewRejectModal" :width="380" :height="310">
           <t-modal-sub-container :title="'审批拒绝原因'" :name="'reviewRejectModal'">
               <v-review-reject-modal
@@ -343,6 +347,7 @@
   import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
   import VReviewRejectModal from '../components/review-reject-modal'
   import TModalSubContainer from "@/components/modal-sub-container"
+  import VNolist from '@/components/no-list'
 
   export default {
       name: 'Review',
@@ -350,12 +355,16 @@
           VReviewRejectModal,
           VConfirmPopoverModal,
           VOperateSuccessModal,
-          TModalSubContainer
+          TModalSubContainer,
+          VNolist
       },
       data (){
           return {
               productCode: this.$route.params.productCode,
               targetStatus: this.$route.params.targetStatus,
+              statusId: this.$route.params.statusId,
+              id: this.$route.params.id,
+              auditstatus: '',
               cProduct: {},
               payTypeList: [],
               feePlanList: [],
@@ -365,7 +374,7 @@
               confirmInfo: '',
               isHideConfim: true,
               styleComfirm: {
-                  top: '15%',
+                  top: '25%',
                   right: '2%'
               },
               postDataList: [],
@@ -374,7 +383,9 @@
           }
       },
       created(){
-          this.getAuditContractProduct(this.productCode);
+          this.getAuditContractProduct(this.productCode, this.id);
+
+          console.log("targetStatus: " + this.targetStatus);
 
           /**
            * 接收来自确认modal框的信息
@@ -382,17 +393,29 @@
           this.bus.$on('sendAuditDetailsComfirmInfo', res => {
               let that = this;
 
+              that.postDataList.push({
+                  id: that.id,
+                  statusId: that.statusId,
+                  auditStatus: '1',
+                  auditOpinion: '',
+                  auditTime: that.utils.getNowDate(),
+                  targetStatus: that.targetStatus,
+                  auditPerson: 'admin',
+                  cstModified: that.utils.getNowDate(),
+                  detailStatus: ''
+              });
+
+              console.log("postDataList: " + JSON.stringify(this.postDataList));
+
               this.isHideConfim = true;
 
               that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
                   let res = response.body;
 
-                  console.log("pass postDataList: " + JSON.stringify(res));
-
                   if (res.result.resultCode == '00000000') {
                       this.$root.toastText = '审批成功';
                       this.$root.toast = true;
-                      this.getAuditContractProduct(this.productCode);
+                      this.getAuditContractProduct(this.productCode, this.id);
                   } else {
                       this.$root.toastText = '审批失败';
                       this.$root.toast = true;
@@ -415,13 +438,12 @@
            * 获取单品详情
            * @param productCode 产品 string
            * */
-          getAuditContractProduct(productCode) {
-              console.log("productCode: " + productCode);
-
+          getAuditContractProduct(productCode, id) {
               this.$http.get(this.api.getAuditContractProduct,
                   {
                     params: {
-                      productCode: productCode || ''
+                      productCode: productCode || '',
+                      id: id || ''
                     }
                   }).then(response => {
 
@@ -444,6 +466,8 @@
 
                       this.right = res.right;
 
+                      this.auditstatus = res.auditstatus;
+
                       //console.log("cProduct: " + JSON.stringify(this.cProduct));
                       //console.log("contractProduct: " + JSON.stringify(res.contractProduct));
 
@@ -460,7 +484,8 @@
               this.auditOpinion = res;
 
               that.noPassPostDataList.push({
-                  id: that.cProduct.id,
+                  id: that.id,
+                  statusId: that.statusId,
                   auditStatus: '0',
                   auditOpinion: this.auditOpinion,
                   auditTime: that.utils.getNowDate(),
@@ -478,14 +503,13 @@
                   if (res.result.resultCode == '00000000') {
                       this.$root.toastText = '审批不通过成功';
                       this.$root.toast = true;
+
+                      this.getAuditContractProduct(this.productCode, this.id);
                   } else {
                       this.$root.toastText = '审批不通过失败';
                       this.$root.toast = true;
                   }
-
                   this.$modal.hide('reviewRejectModal');
-
-                  this.getAuditContractProduct(this.productCode);
 
                 }, (response) => {
                     this.$root.toastText = '服务器错误';
@@ -500,24 +524,9 @@
           },
 
           pass() {
-              let that = this;
-
               this.isHideConfim = false;
 
               this.confirmInfo = "是否审核通过该产品";
-
-              that.postDataList.push({
-                  id: that.cProduct.productCode,
-                  auditStatus: '1',
-                  auditOpinion: '',
-                  auditTime: that.utils.getNowDate(),
-                  targetStatus: this.targetStatus,
-                  auditPerson: 'admin',
-                  cstModified: that.utils.getNowDate(),
-                  detailStatus: ''
-              });
-
-              console.log("postDataList: " + JSON.stringify(this.postDataList));
           }
       },
       computed: {
@@ -560,12 +569,17 @@
           .review-list {
               width: 100%;
           }
+
+          .no-asset-box {
+              padding: 30px 0 10px;
+          }
       }
 
       .product-manage-new-add {
           background: #ffffff;
           margin-top: 20px;
           padding-bottom: 30px;
+          position: relative;
 
           .add-title {
               font-size: 14px;

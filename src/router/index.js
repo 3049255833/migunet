@@ -129,7 +129,7 @@ export default new Router({
                             }
                         },
                         {
-                            path: 'audit_detail/:productCode',
+                            path: 'audit_detail/:productCode/:targetStatus/:statusId/:id',
                             name: 'AuditDetail',
                             components: {
                                 default:AuditDetail

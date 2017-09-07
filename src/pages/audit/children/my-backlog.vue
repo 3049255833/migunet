@@ -73,6 +73,7 @@
                     auditStatus: '-1'
                 }, {showLoading: true}).then(response => {
                     let res = response.body;
+
                     if (res.result.resultCode == '00000000') {
                         this.contractAuditList = res.productAuditList.list;
                         this.totalItem = res.productAuditList.total;
@@ -229,7 +230,7 @@
                 this.postData.detailStatus = res.detailStatus;
                 this.postData.pageNo='1';
                 this.$refs.pagingModule.current=1;
-                
+
                 this.getContractAuditList();
             }
         },
