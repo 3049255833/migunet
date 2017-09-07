@@ -19,7 +19,7 @@
         </modal>
     </div>
 </template>
-<script >
+<script type="es6" >
     import VMyBacklogTable from '@/pages/audit/components/my-backlog-table.vue'
     import VPaging from '@/components/paging'
     import VTableOperateHead from '@/pages/audit/components/table-operate-head'
@@ -65,6 +65,7 @@
              * 获取我的代办列表
              * */
             getContractAuditList(){
+                console.log(this.postData.pageNum);
                 this.$http.post(this.api.getContractAuditList, {
                     keys: this.postData.searchKey || '',
                     onlineStatus: this.postData.onlineStatus || '',
@@ -109,9 +110,11 @@
                                     break;
                             }
                         });
+                        this.$refs.myBacklogTable.auditCheckbox=[];
 
                     } else {
-                        this.contractAuditList = []
+                        this.contractAuditList = [];
+                        this.$refs.myBacklogTable.auditCheckbox=[];
                     }
                 })
             },
@@ -126,9 +129,10 @@
                     //同意审批
                     this.postDataList = [];
                     let _indexList = this.$refs.myBacklogTable.auditCheckbox;
+                    console.log(_indexList)
                     if (_indexList.length > 0) {
                         _indexList.forEach(function (index) {
-                            //list
+                            index=parseInt(index);
                             that.postDataList.push({
                                 id: that.contractAuditList[index].id,
                                 statusId: that.contractAuditList[index].statusId,
@@ -142,21 +146,22 @@
                             });
                         });
 
-                        that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
+                        that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response=> {
                             let res = response.body;
                             if (res.result.resultCode == '00000000') {
                                 this.$root.toastText = '审批成功';
                                 this.$root.toast = true;
-                                this.getContractAuditList();
                             } else {
                                 this.$root.toastText = '审批失败';
                                 this.$root.toast = true;
-                                this.getContractAuditList();
                             }
                             this.$refs.myBacklogHead.auditFlag=false;
                             this.auditFlag=false;
-                            this.postData.pageNo='1';
+                            this.postData.pageNum='1';
                             this.$refs.pagingModule.current=1;
+                            this.$refs.myBacklogTable.auditCheckbox=[];
+                            this.$refs.myBacklogTable.ifAuditAll=[]
+                            this.getContractAuditList();
                         }, (response) => {
                             this.$root.toastText = '服务器错误';
                             this.$root.toast = true
@@ -202,8 +207,10 @@
                     }
                     this.$refs.myBacklogHead.auditFlag=false;
                     this.auditFlag=false;
-                    this.postData.pageNo='1';
+                    this.postData.pageNum='1';
                     this.$refs.pagingModule.current=1;
+                    this.$refs.myBacklogTable.auditCheckbox=[];
+                    this.$refs.myBacklogTable.ifAuditAll=[];
                     this.$modal.hide('reviewRejectModal');
                     this.getContractAuditList();
                 }, (response) => {
@@ -228,7 +235,7 @@
                 this.postData.searchKey = res.searchKey;
                 this.postData.onlineStatus = res.onlineStatus;
                 this.postData.detailStatus = res.detailStatus;
-                this.postData.pageNo='1';
+                this.postData.pageNum='1';
                 this.$refs.pagingModule.current=1;
 
                 this.getContractAuditList();

@@ -5,7 +5,7 @@
                 <thead>
                 <tr v-show="serviceCodeList.length > 0">
                     <td>选择</td>
-                    <td>业务代码</td>
+                    <td>业务代码ID</td>
                     <td>业务代码名称</td>
                     <td>业务代码描述</td>
                     <td>分成类型</td>

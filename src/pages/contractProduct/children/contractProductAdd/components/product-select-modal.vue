@@ -21,13 +21,12 @@
                 <tbody>
                     <tr v-for="(item, index) in productList">
                         <td>
-                            <label v-if="productType==='1'"
-                                   @click="getProductList(index, item.productCode, item.productName,item.id)"
+                            <div v-if="productType==='1'"
                                    class="checkbox-module single">
-                                <input type="checkbox" :value="index" v-model="productCheckbox">
+                                <input type="checkbox"  @click="getProductList(index, item.productCode, item.productName,item.id)" :value="index" v-model="productCheckbox" >
 
                                 <span></span>
-                            </label>
+                            </div>
 
                             <label v-else class="radio-module single"
                                    @click="getProductItem(item.productCode, item.productName)">
@@ -46,7 +45,8 @@
         </div>
 
         <div class="btn-group btn-group-center">
-            <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
+            <div class="btn btn-primary btn-middle-100" v-if ='canSave' @click="confirm">确定</div>
+            <div class="btn btn-primary btn-middle-100 unable" v-else="" @click="confirm">确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
         <div class="paging-wrap">
@@ -90,7 +90,16 @@
                 _productList:{}
             }
         },
-        mounted () {
+        computed:{
+            canSave(){
+                if(this.productType==1){
+                    return (this.selectMutexProductList.length>0);
+                }else{
+                    return true
+                }
+            }
+        },
+        mounted(){
             /**
              * 获取互斥和依赖产品列表
              * */
@@ -116,9 +125,9 @@
 
                     let res = response.body;
                     
-                    
                     if (res.result.resultCode == '00000000') {
-
+                        that.productCheckbox=[];
+                        
                         //todo:
                         for(var i = 0; i < res.data.length; i++) {
                             res.data[i].active = false;
@@ -127,7 +136,10 @@
                         if(res.data){
                             res.data.forEach(function(item,index){
                                 that.selectMutexProductList.forEach(function(subItem,subIndex){
-                                
+                                    if(item.id==subItem.id){
+                                        item.active=true;
+                                        that.productCheckbox.push(index);
+                                    }
                                 })
                             })
                         }
@@ -180,20 +192,22 @@
 
             getProductList(index, productCode, content,id){
                 let that = this;
-
+                console.log(this.productList[index].active)
+                
                 this.productList[index].active=!this.productList[index].active;
 
                 if(this.productList[index].active) {
+                    console.log(1)
                     this.selectMutexProductList.push({
                         productCode:productCode,
                         content:content,
                         id:id
                     });
                 } else {
-
+                    console.log(2)
                     this.selectMutexProductList.forEach(function(item, cIndex){
 
-                        if(item.id == productCode){
+                        if(item.id == id){
 
                             that.selectMutexProductList.splice(cIndex, 1);
 
@@ -228,6 +242,15 @@
         .table-wrap {
             max-height: 350px;
             overflow-y: auto;
+            .checkbox-module{
+                cursor: default;
+                input[type='checkbox']{
+                    width: 20px;
+                    height: 20px;
+                    top: 0;
+                    cursor: pointer;
+                }
+            }
         }
 
         .sub-title {
