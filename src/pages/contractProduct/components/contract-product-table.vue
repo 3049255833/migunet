@@ -125,27 +125,27 @@
                                   :isHideConfim="cProduct.isHideConfim"
                                   :index="index">
                                 </v-confirm-popover-modal>
-                            </div>
 
-                            <div class="option-mask" :class="{opMask: cProduct.isShow}">
-                                <div class="option-item"
-                                      @click="offline(index)"
-                                      v-if="cProduct.detailStatus == '6' ||
-                                            cProduct.detailStatus == '' ||
-                                            cProduct.detailStatus == '8'">下线</div>
+                                <div class="option-mask" :class="{opMask: cProduct.isShow}">
+                                    <div class="option-item"
+                                          @click="offline(index)"
+                                          v-if="cProduct.detailStatus == '6' ||
+                                                cProduct.detailStatus == '' ||
+                                                cProduct.detailStatus == '8'">下线</div>
 
-                                <div class="option-item" @click="hide(index)"
-                                       v-if="cProduct.detailStatus == '6' ||
-                                            cProduct.detailStatus == '' ||
-                                            cProduct.detailStatus == '8'">隐藏</div>
+                                    <div class="option-item" @click="hide(index)"
+                                           v-if="cProduct.detailStatus == '6' ||
+                                                cProduct.detailStatus == '' ||
+                                                cProduct.detailStatus == '8'">隐藏</div>
 
-                                <div class="option-item" @click="logout(index)"
-                                     v-if="cProduct.detailStatus == '6' ||
-                                            cProduct.detailStatus == '' ||
-                                            cProduct.detailStatus == '8'">注销</div>
+                                    <div class="option-item" @click="logout(index)"
+                                         v-if="cProduct.detailStatus == '6' ||
+                                                cProduct.detailStatus == '' ||
+                                                cProduct.detailStatus == '8'">注销</div>
 
-                                <div class="option-item" @click="revocation(index)"
-                                     v-if="cProduct.detailStatus == '5'">撤销</div>
+                                    <div class="option-item" @click="revocation(index)"
+                                         v-if="cProduct.detailStatus == '5'">撤销</div>
+                                </div>
                             </div>
                         </div>
 
@@ -177,34 +177,33 @@
                                 <v-confirm-popover-modal
                                   :confirmInfo="cProduct.operateType"
                                   :isHideConfim="cProduct.isHideConfim"
-                                  :index="index"
-                                >
+                                  :index="index">
                                 </v-confirm-popover-modal>
-                            </div>
 
-                            <div class="option-mask" :class="{opMask: cProduct.isShow}">
-                                <div class="option-item" @click="online(index)"
-                                   v-if="cProduct.detailStatus == null ||
-                                        cProduct.detailStatus == '6' ||
-                                        cProduct.detailStatus == '8'">上线</div>
-
-                                <div class="option-item" @click="offline(index)"
-                                      v-if="cProduct.detailStatus == '5'">下线</div>
-
-                                <div class="option-item" @click="hide(index)"
-                                      v-if="cProduct.detailStatus == null ||
-                                            cProduct.detailStatus == '5' ||
+                                <div class="option-mask" :class="{opMask: cProduct.isShow}">
+                                    <div class="option-item" @click="online(index)"
+                                       v-if="cProduct.detailStatus == null ||
                                             cProduct.detailStatus == '6' ||
-                                            cProduct.detailStatus == '8'">隐藏</div>
+                                            cProduct.detailStatus == '8'">上线</div>
 
-                              <div class="option-item" @click="logout(index)"
-                                      v-if="cProduct.detailStatus == null ||
-                                      cProduct.detailStatus == '5' ||
-                                      cProduct.detailStatus == '6' ||
-                                      cProduct.detailStatus == '8'">注销</div>
+                                    <div class="option-item" @click="offline(index)"
+                                          v-if="cProduct.detailStatus == '5'">下线</div>
 
-                              <div class="option-item" @click="revocation(index)"
-                                      v-if="cProduct.detailStatus == '5'">撤销</div>
+                                    <div class="option-item" @click="hide(index)"
+                                          v-if="cProduct.detailStatus == null ||
+                                                cProduct.detailStatus == '5' ||
+                                                cProduct.detailStatus == '6' ||
+                                                cProduct.detailStatus == '8'">隐藏</div>
+
+                                    <div class="option-item" @click="logout(index)"
+                                          v-if="cProduct.detailStatus == null ||
+                                          cProduct.detailStatus == '5' ||
+                                          cProduct.detailStatus == '6' ||
+                                          cProduct.detailStatus == '8'">注销</div>
+
+                                    <div class="option-item" @click="revocation(index)"
+                                          v-if="cProduct.detailStatus == '5'">撤销</div>
+                                </div>
                             </div>
                         </div>
 
@@ -238,29 +237,29 @@
                                     :isHideConfim="cProduct.isHideConfim"
                                     :index="index">
                                  </v-confirm-popover-modal>
-                            </div>
 
-                            <div class="option-mask" :class="{opMask: cProduct.isShow}">
-                              <div class="option-item" @click="online(index)"
-                                   v-if="cProduct.detailStatus == null ||
-                                   cProduct.detailStatus == '6' ||
-                                   cProduct.detailStatus == '8'">上线</div>
+                                <div class="option-mask" :class="{opMask: cProduct.isShow}">
+                                    <div class="option-item" @click="online(index)"
+                                         v-if="cProduct.detailStatus == null ||
+                                         cProduct.detailStatus == '6' ||
+                                         cProduct.detailStatus == '8'">上线</div>
 
-                              <div class="option-item" @click="offline(index)"
-                                   v-if="cProduct.detailStatus == null ||
-                                   cProduct.detailStatus == '6' ||
-                                   cProduct.detailStatus == '8'">下线</div>
+                                    <div class="option-item" @click="offline(index)"
+                                         v-if="cProduct.detailStatus == null ||
+                                         cProduct.detailStatus == '6' ||
+                                         cProduct.detailStatus == '8'">下线</div>
 
-                              <div class="option-item" @click="hide(index)"
-                                   v-if="">隐藏</div>
+                                    <div class="option-item" @click="hide(index)"
+                                         v-if="">隐藏</div>
 
-                              <div class="option-item" @click="logout(index)"
-                                   v-if="cProduct.detailStatus == null ||
-                                   cProduct.detailStatus == '6' ||
-                                   cProduct.detailStatus == '8'">注销</div>
+                                    <div class="option-item" @click="logout(index)"
+                                         v-if="cProduct.detailStatus == null ||
+                                         cProduct.detailStatus == '6' ||
+                                         cProduct.detailStatus == '8'">注销</div>
 
-                              <div class="option-item" @click="revocation(index)"
-                                   v-if="cProduct.detailStatus == '5'">撤销</div>
+                                    <div class="option-item" @click="revocation(index)"
+                                         v-if="cProduct.detailStatus == '5'">撤销</div>
+                                </div>
                             </div>
                         </div>
 
@@ -527,7 +526,7 @@
         z-index: 88;
         background: #ffffff;
         width: 80px;
-        margin-left: 125px;
+        margin-left: -5px;
 
         &.opMask {
             display: block;

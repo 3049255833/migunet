@@ -5,7 +5,7 @@
                 <div class="add-main">
                     <div class="table-wrapper">
                         <div class="add-title">
-                            产品管理新增
+                            产品详情
                         </div>
                         <div class="product-detail-head">
                             <div class="item layout-center-y">
@@ -64,7 +64,7 @@
                                            {{productDetail.createTime}}
                                         </span>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="fl w-50">
                                     <div class="layout-row">
@@ -162,7 +162,7 @@
                     // product: '',
                     // channel: '',
                     // serviceCode: '',
-                    // productchannel:'',          
+                    // productchannel:'',
                 }
             }
         },
@@ -185,7 +185,7 @@
                     if (res.result.resultCode == '00000000') {
                         this.productDetail= res.data;
                         switch (parseInt(this.productDetail.onlineStatus)){
-                          
+
                             case 0:
                                 this.productDetail.onlineStatus='草稿';
                                 break;
@@ -225,9 +225,9 @@
                                 this.productDetail.detailStatus='下线报备失败';
                                 break;
                         }
-                    
+
                     } else {
-                            
+
                     }
                 })
             }
@@ -245,7 +245,7 @@
         background: url('#{$image-base-path}#{$URI}') $repeat $x $y;
         background-size: 100% 100%;
     }
-    
+
     .info {
         width: 808px;
         padding: 20px 0;
@@ -253,7 +253,7 @@
         position: relative;
         margin-top: 10px;
     }
-    
+
     .info:before {
         content: '';
         position: absolute;
@@ -263,20 +263,20 @@
         height: 10px;
         background: url("../../../assets/arrow-up.png") #ffffff no-repeat;
     }
-    
+
     .lable1 {
         width: 30px;
         display: inline;
         margin-right: 20px;
     }
-    
+
     .lable1 > input {
         display: inline-block;
         width: 15px;
         height: 15px;
         box-sizing: border-box;
     }
-    
+
     .tb-reset {
         display: inline-block;
         font-size: 14px;
@@ -292,27 +292,27 @@
         text-align: center;
         cursor: pointer;
     }
-    
+
     .tb-search {
         background: #46bafe;
         color: #ffffff;
     }
-    
+
     .l-content-w {
         margin-right: 20px;
     }
-    
+
     .step-wrapper {
         padding: 20px 0;
         background: #f2f8ff;
     }
-    
+
     .step {
         width: 483px;
         margin: 0 auto;
         position: relative;
     }
-    
+
     .step:before {
         content: '';
         width: 420px;
@@ -323,28 +323,28 @@
         left: 30px;
         top: 23px;
     }
-    
+
     .step:after {
         content: '';
         clear: both;
         display: block;
     }
-    
+
     .step-item {
         float: left;
     }
-    
+
     .step-item + .step-item {
         margin-left: 145px;
     }
-    
+
     .step-text {
         text-align: center;
         color: #171717;
         font-size: 12px;
         margin-top: 8px;
     }
-    
+
     .step-circle {
         width: 45px;
         height: 45px;
@@ -354,7 +354,7 @@
         margin: 0 auto;
         background: #f2f8ff;
     }
-    
+
     .step-circle:after {
         content: '';
         position: absolute;
@@ -367,81 +367,81 @@
         margin-top: -12px;
         border-radius: 50%;
     }
-    
+
     .step-circle.active:after {
         background: #46bafe;
     }
-    
+
     .add-product-wrapper {
         float: left;
         width: 100%;
     }
-    
+
     .bread-menu {
         font-size: 12px;
         color: #666666;
         padding: 16px 0 20px 16px;
         background: #ffffff;
     }
-    
+
     .container {
         width: 100%;
     }
-    
+
     .main-wrapper {
         background: #f4f4f4;
     }
-    
+
     .nav-wrapper {
         float: left;
     }
-    
+
     .table-wrapper {
         background: #ffffff;
     }
-    
+
     .main-wrapper:before,
     .main-wrapper:after {
         content: " ";
         display: table;
     }
-    
+
     .main-wrapper:after {
         clear: both;
     }
-    
+
     .date-wrapper {
-        
+
     }
-    
+
     .bread-link:hover {
         color: #46bafe;
         cursor: pointer;
     }
-    
+
     .input-row + .input-row {
         margin-top: 18px;
     }
-    
+
     .row-wrapper {
         display: inline-block;
         width: 200px;
         background: #ffffff;
         line-height: 32px;
     }
-    
-    
+
+
     .row-wrapper-ta {
         width: 340px;
         height: 80px;
     }
-    
+
     .row-wrapper textarea {
         width: 340px;
         height: 80px;
         box-sizing: border-box;
     }
-    
+
     .row-wrapper > input {
         width: 200px;
         height: 32px;
@@ -449,7 +449,7 @@
         box-sizing: border-box;
         border: solid 1px #d6e1e5;
     }
-    
+
     .input-text {
         width: 185px;
         display: inline-block;
@@ -458,8 +458,8 @@
         text-align: right;
         vertical-align: top;
     }
-    
-    
+
+
     .des-left {
         width: 165px;
         display: inline-block;
@@ -468,18 +468,18 @@
         vertical-align: top;
         line-height: 18px;
     }
-    
+
     .des-right {
         display: inline-block;
         vertical-align: top;
         width: 500px;
         line-height: 18px;
     }
-    
+
     .required {
         color: red;
     }
-    
+
     #city-select {
         background: #ffffff;
         width: 200px;
@@ -490,12 +490,12 @@
         background: url("../../../assets/def.png") no-repeat 97% 7px;
         border-radius: 0;
     }
-    
+
     .row-wrapper-no {
         background: transparent;
         margin-top: 10px;
     }
-    
+
     .add-title {
         font-size: 14px;
         color: #292c31;
@@ -503,16 +503,16 @@
         line-height: 60px;
         padding-left: 20px;
     }
-    
+
     .add-main {
         background: #f4f4f4;
     }
-    
+
     .input-area {
         margin-top: 30px;
         padding-left: 40px;
     }
-    
+
     .typeSelect {
         width: 200px;
         height: 30px;
@@ -522,15 +522,15 @@
         border: 1px solid #dedede;
         background: url('../../../assets/arrow-down.png') no-repeat 95% 11px;
     }
-    
+
     .info-left {
         display: inline-block;
     }
-    
+
     .info-right {
         display: inline-block;
     }
-    
+
     .modify {
         border-radius: 2px;
         color: #46bafe;
@@ -546,12 +546,12 @@
         border: solid 1px #d6e1e5;
         margin-bottom: 20px;
     }
-    
+
     .des-area {
         color: #6d7684;
         font-size: 12px;
     }
-    
+
     .modify-wrapper {
         background: #f2f8ff;
         margin-top: 20px;
@@ -559,74 +559,74 @@
         padding-bottom: 30px;
         margin-bottom: 20px;
     }
-    
+
     .input-feel {
         line-height: 19px;
         text-align: center;
         width: 165px;
         padding-left: 15px;
     }
-    
+
     .input-text-new {
         width: 150px;
     }
-    
+
     .input-row-spa {
         margin-top: 50px !important;
     }
-    
+
     .info-head {
         padding-left: 20px;
     }
-    
+
     .pro-info-title {
         font-size: 18px;
         color: #6d7684;
     }
-    
+
     .pro-info-des {
         font-size: 12px;
         color: #999999;
         margin-top: 8px;
     }
-    
+
     .pro-icon {
         width: 40px;
         height: 40px;
         display: inline-block;
         vertical-align: top;
     }
-    
+
     .pro-info {
         display: inline-block;
         vertical-align: top;
         margin-left: 10px;
     }
-    
+
     .pro-wrapper {
         display: inline-block;
         margin-left: 42px;
     }
-    
+
     .pro-btn {
         display: inline-block;
     }
-    
+
     .pro-btn-another {
         margin-left: 10px;
     }
-    
+
     .layout-row-wrapper {
         float: left;
     }
-    
+
     .layout-row-wrapper1 {
     }
-    
+
     .layout-row-wrapper2 {
         margin-left: 210px;
     }
-    
+
     .layout-row-area {
         &:after {
             display: block;
@@ -634,7 +634,7 @@
             clear: both;
         }
     }
-    
+
     .lay-title {
         font-size: 14px;
         color: #292c31;
@@ -642,11 +642,11 @@
         line-height: 50px;
         border-bottom: solid 1px #d6e1e5;
     }
-    
+
     .layout-row-area {
         margin-top: 20px;
     }
-    
+
     .lay-wrapper-three {
         background: #ffffff;
         padding-left: 40px;

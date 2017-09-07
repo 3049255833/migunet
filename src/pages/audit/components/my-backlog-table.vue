@@ -51,7 +51,9 @@
                 </td>
                 <td>
                     <div class="operate-list">
-                        <span @click="getAuditDetail(product.productCode, product.targetStatusNum)" class="pointer mr-30 cl-blue">审批</span>
+                        <span @click="getAuditDetail(product.productCode,
+                        product.targetStatusNum, product.statusId, product.id)"
+                              class="pointer mr-30 cl-blue">审批</span>
                     </div>
                 </td>
             </tr>
@@ -104,8 +106,12 @@
         },
 
         methods: {
-            getAuditDetail(productCode, targetStatus){
-                this.$router.push({'name': 'AuditDetail', params: {'productCode': productCode, 'targetStatus': targetStatus}});
+            getAuditDetail(productCode, targetStatus, statusId, id){
+                this.$router.push({'name': 'AuditDetail', params: {'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
+
+                console.log("statusId: " + statusId);
+                console.log("targetStatus: " + targetStatus);
+                console.log("id: " + id);
             }
         },
         mounted(){
