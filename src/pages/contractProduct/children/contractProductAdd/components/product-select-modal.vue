@@ -2,9 +2,9 @@
     <div class="product-code">
         <div class="list-modal-head">
             <div class="search-wrap">
-                <input  @keyup.enter="findContractByCondition" class="form-input vt-middle  w-150 radius-2 mr-6" v-model="postData.search" type="text"  placeholder="关键信息搜索">
+                <input  @keyup.enter="findContractBySearch" class="form-input vt-middle  w-150 radius-2 mr-6" v-model="postData.search" type="text"  placeholder="关键信息搜索">
                 <div class="search vt-middle">
-                    <i @click="findContractByCondition" class="icon pointer icon-search"></i>
+                    <i @click="findContractBySearch" class="icon pointer icon-search"></i>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
                     <tr v-for="(item, index) in productList">
                         <td>
                             <label v-if="productType==='1'"
-                                   @click="getProductList(index, item.productCode, item.productName)"
+                                   @click="getProductList(index, item.pdContract.productCode, item.pdContract.productName)"
                                    class="checkbox-module single">
                                 <input type="checkbox" :value="index" v-model="productCheckbox">
 
@@ -30,16 +30,15 @@
                             </label>
 
                             <label v-else class="radio-module single"
-                                   @click="getProductItem(item.productCode, item.productName)">
+                                   @click="getProductItem(item.pdContract.productCode, item.pdContract.productName)">
                                 <input type="radio" :value="index" v-model="productRadio">
 
                                 <span ></span>
                             </label>
                         </td>
-
-                        <td>{{item.productCode}}</td>
-
-                        <td>{{item.productName}}</td>
+    
+                        <td>{{item.pdContract.productCode}}</td>
+                        <td>{{item.pdContract.productName}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -49,7 +48,7 @@
             <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
-        <div class="paging-wrap">
+        <div class="paging-wrap" v-if="false">
             <v-paging ref="pagingModule" :type="'simple'" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
         </div>
     </div>
@@ -80,8 +79,8 @@
                     }*/
                 ],
                 postData:{
-                    pageNum:'1',
-                    pageSize:'8',
+                  /*  pageNum:'1',
+                    pageSize:'8',*/
                     search:'',
                 },
                 totalItem:'',
@@ -94,7 +93,7 @@
             /**
              * 获取互斥和依赖产品列表
              * */
-            this.findContractByCondition();
+            this.findContractBySearch();
             
            
         },
@@ -102,21 +101,26 @@
             /**
              * 获取互斥和依赖产品列表
              * */
-            findContractByCondition(e) {
+            findContractBySearch(e) {
                 if (e && e.target) {
                     e.target.blur();
-                    this.postData.pageNum='1';
-                    this.$refs.pagingModule.current=1;
-                    this.smsRadio='';
+                    //todo:分页的
+                  /*  this.postData.pageNum='1';
+                    this.$refs.pagingModule.current=1;*/
+                   
                 }
 
-                this.$http.get(this.api.findContractByCondition,
+                this.$http.get(this.api.findContractBySearch,
                     { params: this.postData,showLoading:true }).then(response => {
 
                     let res = response.body;
 
-                    //console.log("productList data1: " + JSON.stringify(res));
 
+                    this.selectMutexProductList=[];
+                    this.selectRelyProductItem=[];
+                    this.productCheckbox=[];
+                    this.productRadio='';
+                    
                     if (res.result.resultCode == '00000000') {
 
                         //todo:
@@ -132,6 +136,7 @@
                         
                     } else {
 
+                        
                     }
                 });
             },
@@ -154,13 +159,14 @@
 
             /**
              * 获取分页信息
+             * todo:暂时隐藏
              * */
             getPage(res){
                 this.postData.pageNum=res.pagingValue;
                 this.postData.pageSize=res.pagingSize;
                 this.productCheckbox=[];
                 this.productRadio='';
-                this.findContractByCondition();
+                this.findContractBySearch();
             },
 
             getProductItem(productCode, content){
@@ -175,6 +181,10 @@
 
                 this.productList[index].active=!this.productList[index].active;
 
+              /*  this.selectMutexProductList.forEach(function(item,index){
+                    
+                });*/
+                
                 if(this.productList[index].active) {
                     this.selectMutexProductList.push({
                         productCode:productCode,
@@ -248,9 +258,7 @@
 
         .btn-group {
             text-align: center;
-            position: absolute;
-            bottom: 30px;
-            left: 300px;
+            margin-top: 33px;
 
             .btn:nth-child(1) {
                 margin-right: 20px;

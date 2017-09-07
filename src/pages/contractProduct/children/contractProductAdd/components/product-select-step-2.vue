@@ -40,7 +40,7 @@
         </div>
     </div>
 </template>
-<script >
+<script type="es6">
     export default{
         name: 'ProductSelectModal',
         props: ['productType', 'modalName', 'index'],
@@ -98,16 +98,16 @@
                         }
 
                         this.productList = res.data;
-
+                        this.productCheckbox=[];
 
                     } else {
-
+                        this.productCheckbox=[];
                     }
                 });
             },
 
             confirm() {
-                let that = this
+                let that = this;
 
                 let _data = [];
 
@@ -196,11 +196,7 @@ a
         }
         
         .btn-group {
-            text-align: center;
-            position: absolute;
-            bottom: 30px;
-            left: 300px;
-            
+            margin-top: 33px;
             .btn:nth-child(1) {
                 margin-right: 20px;
             }
