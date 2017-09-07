@@ -816,7 +816,7 @@
                 this.postData.pdChannelCodes=this.formData.pdChannelCodes;
                 
                 
-                this.bus.$emit('step1Bus',{
+                this.$emit('step1Bus',{
                     step:2,
                     data:this.postData
                 })
@@ -1065,7 +1065,6 @@
             this.bus.$off('dateBus');
             this.bus.$off('selectBoxBus');
             this.bus.$off('step1Bus');
-            this.bus.$off('sendProductNameBus');
         }
     }
 </script>

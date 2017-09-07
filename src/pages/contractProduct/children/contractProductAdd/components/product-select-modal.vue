@@ -227,6 +227,7 @@
         }
         
         .table-wrap {
+            min-height: 350px;
             max-height: 350px;
             overflow-y: auto;
         }

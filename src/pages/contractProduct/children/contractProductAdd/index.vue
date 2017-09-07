@@ -26,6 +26,9 @@
                     </div>
                     <router-view :productDistList="initData.productDistList"
                                  :periodUnitList="initData.experiencePeriodUnitList"
+                                 v-on:step1Bus="step1Bus"
+                                 v-on:step2Bus="step2Bus"
+                                 v-on:step3Bus="step3Bus"
                                  :experiencePeriodUnitList="initData.experiencePeriodUnitList">
                     </router-view>
                 </div>
@@ -114,6 +117,56 @@
                 this.$router.push({'name': 'ContractProduct'});
             },
             
+            step1Bus(res){
+                let that=this;
+                console.log('监听step-1bus');
+                let _step = parseInt(res.step);
+                this.step = _step;
+                this.step1PostData = res.data;
+                this.$router.push({'name': 'Step2'})
+                console.log('step-1路由跳转')
+                this.step1Flag = true;
+
+                Object.keys(this.step1PostData).forEach(function (context) {
+                    that.postData[context] = that.step1PostData[context];
+                });
+
+                console.log('step-1',this.postData);
+            },
+            
+            step2Bus(res){
+                let that=this;
+                console.log('监听step-2bus');
+                let _step = parseInt(res.step);
+                this.step = _step;
+                this.step2PostData = res.data;
+                this.$router.push({'name': 'Step3'});
+                console.log('step-2路由跳转');
+                this.step2Flag = true;
+
+
+                Object.keys(this.step2PostData).forEach(function (context) {
+                    that.postData[context] = that.step2PostData[context];
+                });
+
+                console.log('step-2',this.postData);
+            },
+            
+            step3Bus(res){
+                let that=this;
+                this.step3PostData = res.data;
+                Object.keys(this.step3PostData).forEach(function (context) {
+                    that.postData[context] = that.step3PostData[context];
+                });
+                this.step3Flag = true;
+
+                console.log('step-3',this.postData);
+                if(this.step1Flag&&this.step2Flag&&this.step3Flag){
+                    console.log('触发了保存')
+                    this.save();
+                }
+            },
+            
             /**
              * 提交所有数据
              * */
@@ -161,28 +214,11 @@
             this.getProductDistList();
 
             
-            /**
-             * 获取步骤一的数据
-             * */
-            this.bus.$on('step1Bus', res => {
-                console.log('监听step-1bus')
-                let _step = parseInt(res.step);
-                this.step = _step;
-                this.step1PostData = res.data;
-                this.$router.push({'name': 'Step2'})
-                console.log('step-1路由跳转')
-                this.step1Flag = true;
-
-                Object.keys(this.step1PostData).forEach(function (context) {
-                    that.postData[context] = that.step1PostData[context];
-                });
-                
-                console.log('step-1',this.postData);
-            });
+          
             /**
              * 获取步骤二的数据
              * */
-            this.bus.$on('step2Bus', res => {
+       /*     this.bus.$on('step2Bus', res => {
                 console.log('监听step-2bus');
                 let _step = parseInt(res.step);
                 this.step = _step;
@@ -197,11 +233,11 @@
                 });
 
                 console.log('step-2',this.postData);
-            });
+            });*/
             /**
              * 获取步骤三的数据
              * */
-            this.bus.$on('step3Bus', res => {
+           /* this.bus.$on('step3Bus', res => {
     
                 this.step3PostData = res.data;
                 Object.keys(this.step3PostData).forEach(function (context) {
@@ -214,7 +250,7 @@
                     console.log('触发了保存')
                     this.save();
                 }
-            });
+            });*/
             /**
              * 获取产品名
              * */
