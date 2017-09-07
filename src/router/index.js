@@ -12,6 +12,8 @@ const ContractProductAdd  = resolve => require(['@/pages/contractProduct/childre
 const Step1 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-1'],resolve) ;
 const Step2 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-2'],resolve) ;
 const Step3 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-3'],resolve) ;
+const TestStep2 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/test-step-2'],resolve) ;
+
 
 /*审核员操作*/
 const Audit  = resolve => require(['@/pages/Audit'],resolve) ;       //入口页面
@@ -101,7 +103,14 @@ export default new Router({
                             components: {
                                 default: Step3
                             }
-                        }
+                        },
+                        {
+                            path: 'test-Step2',
+                            name: 'TestStep2',
+                            components: {
+                                default: TestStep2
+                            }
+                        },
                     ]
                 },
 

@@ -110,6 +110,7 @@
                     if (res.result.resultCode == '00000000') {
                         //todo:
                         this.planCodeList = res.data;
+                        this.planCodeCheckbox=[];
                     } else {
 
                     }
