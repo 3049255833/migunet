@@ -260,7 +260,7 @@
                           <div class="row-left"> 计费策略 ：</div>
 
                           <div class="row-right">
-                              <div class="scheme-item">
+                              <div class="scheme-item" v-for="rightItem in right">
                                   <h4>方案一</h4>
 
                                   <div class="item">
@@ -361,10 +361,11 @@
               feePlanList: [],
               mutex: [],
               audit: [],
+              right: [],
               confirmInfo: '',
               isHideConfim: true,
               styleComfirm: {
-                  top: '15.8%',
+                  top: '15%',
                   right: '2%'
               },
               postDataList: [],
@@ -441,10 +442,12 @@
 
                       this.feePlanList = res.feePlanList;
 
-                      //console.log("res: " + JSON.stringify(this.paytypes));
+                      this.right = res.right;
+
+                      //console.log("cProduct: " + JSON.stringify(this.cProduct));
+                      //console.log("contractProduct: " + JSON.stringify(res.contractProduct));
 
                       //console.log("product: " + JSON.stringify(this.product));
-
                   } else {
 
                   }
@@ -504,7 +507,7 @@
               this.confirmInfo = "是否审核通过该产品";
 
               that.postDataList.push({
-                  id: that.cProduct.id,
+                  id: that.cProduct.productCode,
                   auditStatus: '1',
                   auditOpinion: '',
                   auditTime: that.utils.getNowDate(),
