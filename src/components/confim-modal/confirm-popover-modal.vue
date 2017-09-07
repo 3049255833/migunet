@@ -33,6 +33,7 @@
                     this.bus.$emit('sendConfirmInfo', this.index);
                 }
 
+                event.stopPropagation();
             },
             cancel() {
                 if(this.details === 'details') {
@@ -42,6 +43,8 @@
 
                     this.bus.$emit('sendCancelInfo', this.index);
                 }
+
+                event.stopPropagation();
             }
         }
     }

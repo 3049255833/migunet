@@ -84,14 +84,15 @@
                                 变更信息
                             </div>
 
-                            <v-confirm-popover-modal
-                                    :confirmInfo="cProduct.operateType"
-                                    :isHideConfim="cProduct.isHideConfim"
-                                    :index="index">
-                            </v-confirm-popover-modal>
+                            <div class="mr-30 pointer cl-blue revocation" @click="revocation(index)"
+                                 v-if="cProduct.detailStatus == '1'">撤销
 
-                            <div class="mr-30 pointer cl-blue" @click="revocation(index)"
-                                 v-if="cProduct.detailStatus == '1'">撤销</div>
+                                <v-confirm-popover-modal
+                                  :confirmInfo="cProduct.operateType"
+                                  :isHideConfim="cProduct.isHideConfim"
+                                  :index="index">
+                                </v-confirm-popover-modal>
+                            </div>
                         </div>
 
                         <div class="operate-list clearfix"
@@ -109,13 +110,7 @@
                                   变更信息
                             </div>
 
-                            <v-confirm-popover-modal
-                                :confirmInfo="cProduct.operateType"
-                                :isHideConfim="cProduct.isHideConfim"
-                                :index="index">
-                            </v-confirm-popover-modal>
-
-                            <div class="pointer mr-30 cl-blue"
+                            <div class="pointer mr-30 cl-blue more"
                                  :class="{'active':cProduct.isShow}"
                                  @click.stop="showSelect(index)"
                                  v-if="cProduct.detailStatus == '6' ||
@@ -124,6 +119,12 @@
                                         cProduct.detailStatus == '5'">
                                 更多
                                 <i class="icon icon-arrow-down-blue"></i>
+
+                                <v-confirm-popover-modal
+                                  :confirmInfo="cProduct.operateType"
+                                  :isHideConfim="cProduct.isHideConfim"
+                                  :index="index">
+                                </v-confirm-popover-modal>
                             </div>
 
                             <div class="option-mask" :class="{opMask: cProduct.isShow}">
@@ -163,14 +164,7 @@
                                 变更信息
                             </div>
 
-                            <v-confirm-popover-modal
-                                :confirmInfo="cProduct.operateType"
-                                :isHideConfim="cProduct.isHideConfim"
-                                :index="index"
-                            >
-                            </v-confirm-popover-modal>
-
-                            <div class="pointer mr-30 cl-blue"
+                            <div class="pointer mr-30 cl-blue more"
                                  :class="{'active':cProduct.isShow}"
                                  @click.stop="showSelect(index)"
                                  v-if="cProduct.detailStatus == '' ||
@@ -179,6 +173,13 @@
                                         cProduct.detailStatus == '5'">
                                 更多
                                 <i class="icon icon-arrow-down-blue"></i>
+
+                                <v-confirm-popover-modal
+                                  :confirmInfo="cProduct.operateType"
+                                  :isHideConfim="cProduct.isHideConfim"
+                                  :index="index"
+                                >
+                                </v-confirm-popover-modal>
                             </div>
 
                             <div class="option-mask" :class="{opMask: cProduct.isShow}">
@@ -222,22 +223,21 @@
                               变更信息
                             </div>
 
-                            <v-confirm-popover-modal
-                              :confirmInfo="cProduct.operateType"
-                              :isHideConfim="cProduct.isHideConfim"
-                              :index="index"
-                            >
-                            </v-confirm-popover-modal>
-
-                            <div class="pointer mr-30 cl-blue"
+                            <div class="pointer mr-30 cl-blue more"
                                  :class="{'active':cProduct.isShow}"
                                  @click.stop="showSelect(index)"
                                  v-if="cProduct.detailStatus == null ||
                                         cProduct.detailStatus == '6' ||
                                         cProduct.detailStatus == '8' ||
                                         cProduct.detailStatus == '5'">
-                              更多
-                              <i class="icon icon-arrow-down-blue"></i>
+                                  更多
+                                 <i class="icon icon-arrow-down-blue"></i>
+
+                                 <v-confirm-popover-modal
+                                    :confirmInfo="cProduct.operateType"
+                                    :isHideConfim="cProduct.isHideConfim"
+                                    :index="index">
+                                 </v-confirm-popover-modal>
                             </div>
 
                             <div class="option-mask" :class="{opMask: cProduct.isShow}">
@@ -272,15 +272,16 @@
                               详情
                             </div>
 
-                            <v-confirm-popover-modal
-                              :confirmInfo="cProduct.operateType"
-                              :isHideConfim="cProduct.isHideConfim"
-                              :index="index">
-                            </v-confirm-popover-modal>
-
-                            <div class="mr-30 pointer cl-blue"
+                            <div class="mr-30 pointer cl-blue delete"
                                  @click="deleteBtn(index,cProduct.id,cProduct.detailStatus)"
-                                v-if="cProduct.detailStatus == null">删除</div>
+                                v-if="cProduct.detailStatus == null">删除
+
+                                <v-confirm-popover-modal
+                                  :confirmInfo="cProduct.operateType"
+                                  :isHideConfim="cProduct.isHideConfim"
+                                  :index="index">
+                                </v-confirm-popover-modal>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -417,48 +418,40 @@
 
                 let that = this;
 
-                //console.log("id: " + this.willDeleteID);
+                console.log("111： " + this.contractProductList[res].operateType);
 
-                //console.log("willDeleteDetailSatus: " + this.willDeleteDetailSatus);
+                if(this.contractProductList[res].operateType == "是否删除该产品") {
+                    console.log("id: " + this.willDeleteID);
 
-                this.$http.get(this.api.updateProductState,
-                    {
-                        params:{
-                            contractProductId:this.willDeleteID,
-                            onlineStatus:'5',
-                            detailStatus:this.willDeleteDetailSatus
+                    console.log("willDeleteDetailSatus: " + this.willDeleteDetailSatus);
+
+                    this.$http.get(this.api.updateProductState,
+                        {
+                            params:{
+                                contractProductId:this.willDeleteID,
+                                onlineStatus:'5',
+                                detailStatus:this.willDeleteDetailSatus
+                            }
+                        }).then(response => {
+
+                        let res = response.body;
+
+                        console.log("res: " + JSON.stringify(res));
+
+                        if(res.resultMessage =='成功'){
+
+                            that.$root.toastText = '删除成功';
+                            that.$root.toast = true;
+
+                            this.bus.$emit('sendDeleteContactProductInfo');
+                        } else {
+                            that.$root.toastText = '删除失败';
+                            that.$root.toast = true;
+
+                            console.log("Error res: " + JSON.stringify(res));
                         }
-                    }).then(response => {
-
-                    let res = response.body;
-
-                    console.log("res: " + JSON.stringify(res));
-
-                    if(res.resultMessage =='成功'){
-
-                        this.operateInfo = '删除成功';
-
-                        this.isHideOperateModal = false;
-
-                        this.bus.$emit('sendDeleteContactProductInfo');
-
-                        setTimeout(function () {
-                            that.isHideOperateModal = true;
-
-                        }, 3000);
-                    } else {
-
-                        this.operateInfo = '删除失败';
-
-                        this.isHideOperateModal = false;
-
-                        setTimeout(function () {
-                            that.isHideOperateModal = true;
-                        }, 3000);
-
-                        console.log("Error res: " + JSON.stringify(res));
-                    }
-                });
+                    });
+                }
             });
 
             /**
@@ -487,7 +480,30 @@
             position: relative;
 
             .name, .code {
-                max-width: 350px;
+                max-width: 200px;
+            }
+
+            .more {
+                position: relative;
+            }
+
+            .confirm-modal-container {
+                top: -43px;
+                right: -70px;
+
+                &:before {
+                    right: 95px;
+                }
+            }
+
+            .revocation,
+            .delete {
+                position: relative;
+
+                .confirm-modal-container {
+                    top: -43px;
+                    right: -90px;
+                }
             }
         }
     }
