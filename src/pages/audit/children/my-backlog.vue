@@ -7,7 +7,7 @@
                               title="我的待办"></v-table-operate-head>
         <v-my-backlog-table ref="myBacklogTable" :auditFlag="auditFlag"
                             :contractAuditList="contractAuditList"></v-my-backlog-table>
-        <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
+        <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
         <!--填入拒绝原因-->
         <modal name="reviewRejectModal" :width="450" :height="310">
             <t-modal-sub-container :title="'审批拒绝原因'" :name="'reviewRejectModal'">
@@ -129,7 +129,7 @@
                             //list
                             that.postDataList.push({
                                 id: that.contractAuditList[index].id,
-                                statusId: that.contractAuditList[index].statusId,
+                            /*    statusId: that.contractAuditList[index].statusId,*/
                                 auditStatus: res ? '1' : '0',
                                 auditOpinion: res ? '' : '不同意',
                                 auditTime: that.utils.getNowDate(),
@@ -165,7 +165,7 @@
                             //list
                             that.postDataList.push({
                                 id: that.contractAuditList[index].id,
-                                statusId: that.contractAuditList[index].statusId,
+                                /*statusId: that.contractAuditList[index].statusId,*/
                                 auditStatus: res ? '1' : '0',
                                 auditOpinion: res ? '' : '不同意',
                                 auditTime: that.utils.getNowDate(),
@@ -218,6 +218,9 @@
                 this.postData.searchKey = res.searchKey;
                 this.postData.onlineStatus = res.onlineStatus;
                 this.postData.detailStatus = res.detailStatus;
+                this.postData.pageNo='1';
+                this.$refs.pagingModule.current=1;
+                
                 this.getContractAuditList();
             }
         },

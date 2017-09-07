@@ -23,7 +23,7 @@ module.exports = {
         assetsRoot: path.resolve(__dirname, '../dist'),
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
-        productionSourceMap: true,
+        productionSourceMap: false,
         // Gzip off by default as many popular static hosts such as
         // Surge or Netlify already gzip all static assets for you.
         // Before setting to `true`, make sure to:
@@ -137,6 +137,22 @@ module.exports = {
                 target: proxy_service,
                 changeOrigin: true
             },
+            '/contractProduct/findContractBySearch':{
+                /*第二步获取产品列表*/
+                target: proxy_service,
+                changeOrigin: true
+            },
+            '/contractProduct/findSmsByCondition':{
+                /*短信模板*/
+                target: proxy_service,
+                changeOrigin: true
+            },
+            '/contractProduct/findContractByCondition':{
+                /*产品互斥新接口*/
+                target: proxy_service,
+                changeOrigin: true
+            },
+
             '/contractProduct/saveContractProductThree': {
                 /*添加产品保存第三步*/
                 target: proxy_service,
@@ -186,7 +202,7 @@ module.exports = {
                 target:  proxy_service,
                 changeOrigin: true
             },
-            '/productCenter/updateContractStatus': {
+            '/productCenter/updateAuditStatusList': {
                 /*审批*/
                 target:  proxy_service,
                 changeOrigin: true

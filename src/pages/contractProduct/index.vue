@@ -7,7 +7,7 @@
                     :contractProductList="contractProductList">
             </v-contract-product-table>
 
-            <v-paging :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
+            <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
         </div>
     </div>
 </template>
@@ -103,8 +103,10 @@
                 //this.postData.productCatalog = res.productCatalog;
                 this.postData.effectiveTime = res.effectiveTime;
                 this.postData.expireTime = res.expireTime;
-
-                console.log("postData: " + JSON.stringify(this.postData));
+                
+                this.postData.pageNo='1';
+                this.$refs.pagingModule.current=1;
+                
 
                 this.getContractProductList();
             },
