@@ -47,7 +47,6 @@
     </div>
 </template>
 <script>
-    import VSearch from '@/components/search'
     import VPaging from '@/components/paging'
     import axios from 'axios'
     // zqy
@@ -58,7 +57,6 @@
             contractAuditList: Array,
         },
         components: {
-            VSearch,
             VPaging,
             // zqy
             VNolist

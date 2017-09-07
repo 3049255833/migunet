@@ -116,14 +116,11 @@
                                 }
 
                                 if(item.isManager==1){
-                                    item.isManager='专用'
+                                    item.isManager='是'
                                 }else{
                                     item.isManager='否'
                                 }
-
-
                         })
-
                         this.serviceCodeList = res.data;
                     } else {
 

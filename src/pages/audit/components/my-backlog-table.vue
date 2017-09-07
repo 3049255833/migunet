@@ -63,9 +63,8 @@
     </div>
 </template>
 <script>
-    import VSearch from '@/components/search'
+  
     import VPaging from '@/components/paging'
-    import axios from 'axios'
     // zqy
     import VNolist from '@/components/no-list'
     export default {
@@ -75,7 +74,6 @@
             auditFlag: Boolean
         },
         components: {
-            VSearch,
             VPaging,
             // zqy
             VNolist

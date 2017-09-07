@@ -39,14 +39,12 @@
 </template>
 
 <script>
-    import VSearch from '@/components/search'
     import VPaging from '@/components/paging'
     import Bus from './bus'
 
     export default {
         name: 'Table',
         components: {
-            VSearch,
             VPaging
         },
         data () {

@@ -300,7 +300,6 @@
     </div>
 </template>
 <script>
-    import VSearch from '@/components/search'
     import VPaging from '@/components/paging'
     import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
     import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
@@ -321,7 +320,6 @@
             }
         },
         components: {
-            VSearch,
             VPaging,
             VConfirmPopoverModal,
             VOperateSuccessModal,

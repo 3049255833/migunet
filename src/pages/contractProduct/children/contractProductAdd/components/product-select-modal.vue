@@ -48,7 +48,7 @@
             <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
-        <div class="paging-wrap" v-if="false">
+        <div class="paging-wrap" >
             <v-paging ref="pagingModule" :type="'simple'" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
         </div>
     </div>
