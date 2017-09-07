@@ -2,9 +2,9 @@
     <div class="sms-list">
         <div class="list-modal-head">
             <div class="search-wrap">
-                <input class="form-input  w-150 radius-2 mr-6" type="text" placeholder="关键信息搜索">
+                <input  @keyup.enter="getSmsTemplateList" class="form-input vt-middle  w-150 radius-2 mr-6" v-model="postData.search" type="text"  placeholder="关键信息搜索">
                 <div class="search vt-middle">
-                    <i class="icon icon-search"></i>
+                    <i @click="getSmsTemplateList" class="icon pointer icon-search"></i>
                 </div>
             </div>
         </div>
@@ -45,17 +45,17 @@
         </div>
 
         <div class="paging-wrap">
-            <v-paging :type="'simple'"></v-paging>
+            <v-paging ref="pagingModule" :type="'simple'" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
         </div>
     </div>
 </template>
-<script type="es6">
+<script >
     import VPaging from '@/components/paging'
     export default{
         name: 'SmsList',
         props: {
             modalName: String,
-            smsTitle: String
+            smsType: String
         },
         data(){
             return {
@@ -71,7 +71,15 @@
                 ],
                 selectPromptSmsItem: {},
                 selectRecommendSmsItem: {},
-                smsRadio:''
+                smsRadio:'',
+                totalItem:'',
+                search:'',
+                postData:{
+                    pageNum:'1',
+                    pageSize:'8',
+                    search:'',
+                    smsType:this.smsType
+                }
             }
         },
         components:{
@@ -87,9 +95,19 @@
             /**
              * 获取短信模板列表
              * */
-            getSmsTemplateList() {
-                this.$http.get(this.api.getSmsTemplateList,
-                    { params: {} }).then(response => {
+            getSmsTemplateList(e) {
+                if (e && e.target) {
+                    e.target.blur();
+                    this.postData.pageNum='1';
+                    this.$refs.pagingModule.current=1;
+                    this.smsRadio='';
+                }
+
+                this.$http.get(this.api.findSmsByCondition,
+                    {
+                        params: this.postData,
+                        showLoading:true
+                    }).then(response => {
 
                     let res = response.body;
 
@@ -97,6 +115,7 @@
                     if (res.result.resultCode == '00000000') {
 
                         this.smsTemplateList = res.data;
+                        this.totalItem=res.total
 
                     } else {
 
@@ -130,7 +149,17 @@
 
                     this.selectRecommendSmsItem.content = content;
                 }
-            }
+            },
+
+            /**
+             * 获取分页信息
+             * */
+            getPage(res){
+                this.postData.pageNum=res.pagingValue;
+                this.postData.pageSize=res.pagingSize;
+                this.smsRadio='';
+                this.getSmsTemplateList();
+            },
         },
         watch:{
             'smsRadio'(a){
@@ -144,8 +173,6 @@
 
         .list-modal-head {
             padding-bottom: 13px;
-            display: none;
-
             .search {
                 display: inline-block;
                 width: 34px;
@@ -161,7 +188,6 @@
             position: absolute;
             bottom: 32px;
             right: 20px;
-            display: none;
         }
     }
 

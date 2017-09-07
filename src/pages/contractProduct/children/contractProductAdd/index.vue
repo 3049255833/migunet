@@ -31,10 +31,13 @@
                 </div>
             </div>
         </div>
+        
     
-        <!-- 操作结果modal start -->
-        <modal name="addResultMsg" :adaptive="true" :draggable="true" :width="200" :height="80">
-            <v-toast :name="'addResultMsg'">{{addResultMsg}}</v-toast>
+        <!--操作结果-->
+        <modal name="addSuccessModal" :width="450" :height="300" @before-close="beforeClose">
+            <t-modal-sub-container :title="'新增产品结果'" :name="'addSuccessModal'">
+                <v-add-success-modal :modalName="'addSuccessModal'"></v-add-success-modal>
+            </t-modal-sub-container>
         </modal>
         
     </div>
@@ -42,12 +45,14 @@
 <script >
     /*   import Mock from 'mockjs'*/
     import VDate from '@/components/date'
-    import VToast from '@/components/toast'
+    import VAddSuccessModal from './components/add-success-modal'
+    import TModalSubContainer from "@/components/modal-sub-container";
     export default {
         name: 'ContractProductAdd',
         components: {
             VDate,
-            VToast
+            VAddSuccessModal,
+            TModalSubContainer
         },
         data () {
             return {
@@ -105,8 +110,10 @@
                 })
             },
 
-         
-
+            beforeClose(){
+                this.$router.push({'name': 'ContractProduct'});
+            },
+            
             /**
              * 提交所有数据
              * */
@@ -116,11 +123,10 @@
                     response => {
                         let res = response.body;
                         if (res.result.resultCode == '00000000') {
-                            this.$root.toastText = '新增成功';
-                            this.$root.toast=true;
-                            setTimeout(function(){
+                           that.$modal.show('addSuccessModal');
+                        /*    setTimeout(function(){
                                 that.$router.push({'name': 'ContractProduct'})
-                            },2000);
+                            },2000);*/
                         } else if (res.result.resultCode='00000001'){
                             this.$root.toastText = res.result.resultMessage;
                             this.$root.toast=true;
@@ -144,7 +150,9 @@
                 }
             }
         },
-        mounted(){},
+        mounted(){
+        /*    this.$modal.show('addSuccessModal');*/
+        },
         created () {
             let that = this;
             /**

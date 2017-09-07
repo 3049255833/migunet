@@ -129,7 +129,7 @@
                             //list
                             that.postDataList.push({
                                 id: that.contractAuditList[index].id,
-                                statusId: that.contractAuditList[index].statusId,
+                            /*    statusId: that.contractAuditList[index].statusId,*/
                                 auditStatus: res ? '1' : '0',
                                 auditOpinion: res ? '' : '不同意',
                                 auditTime: that.utils.getNowDate(),
@@ -165,7 +165,7 @@
                             //list
                             that.postDataList.push({
                                 id: that.contractAuditList[index].id,
-                                statusId: that.contractAuditList[index].statusId,
+                                /*statusId: that.contractAuditList[index].statusId,*/
                                 auditStatus: res ? '1' : '0',
                                 auditOpinion: res ? '' : '不同意',
                                 auditTime: that.utils.getNowDate(),

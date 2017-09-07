@@ -209,7 +209,7 @@
             showPromptSmsModal(){
                 this.smsTitle = '动漫包提示短信模板选择';
 
-                this.smsType = '1';
+                this.smsType = '2';
 
                 this.$modal.show('smsListModal');
             },
@@ -220,7 +220,7 @@
             showRecommendSmsModal(){
                 this.smsTitle = '动漫包推荐短信模板选择';
 
-                this.smsType = '2';
+                this.smsType = '1';
 
                 this.$modal.show('smsListModal');
             },

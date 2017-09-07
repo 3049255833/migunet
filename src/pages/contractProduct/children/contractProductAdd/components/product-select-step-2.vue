@@ -1,5 +1,14 @@
 <template>
     <div class="product-code">
+        <div class="list-modal-head">
+            <div class="search-wrap" >
+                <input class="form-input vt-middle  w-150 radius-2 mr-6" type="text" v-model.trim="search"
+                       @keyup.enter="findContractBySearch" placeholder="关键信息搜索">
+                <div @click="findContractBySearch" class="pointer search vt-middle">
+                    <i class="icon icon-search"></i>
+                </div>
+            </div>
+        </div>
         <div class="table-wrap">
             <table class="table-module">
                 <thead>
@@ -31,7 +40,7 @@
         </div>
     </div>
 </template>
-<script type="es6">
+<script >
     export default{
         name: 'ProductSelectModal',
         props: ['productType', 'modalName', 'index'],
@@ -52,6 +61,7 @@
                      active: false
                      }*/
                 ],
+                search:'',
                 selectMutexProductList: [],
                 selectRelyProductItem: {}
             }
@@ -60,15 +70,23 @@
             /**
              * 获取互斥和依赖产品列表
              * */
-            this.getContractProductByStatus();
+            this.findContractBySearch();
         },
         methods: {
             /**
              * 获取互斥和依赖产品列表
              * */
-            getContractProductByStatus() {
-                this.$http.get(this.api.getContractProductByStatus,
-                    {params: {}}).then(response => {
+            findContractBySearch(e) {
+                if (e && e.target) {
+                    e.target.blur();
+                }
+                this.$http.get(this.api.findContractBySearch,
+                    {
+                        params: {
+                            search:this.search
+                        },
+                        showLoading:true
+                    }).then(response => {
 
                     let res = response.body;
 
@@ -107,8 +125,33 @@
 
             cancel() {
                 this.$modal.hide(this.modalName);
-            },
+            }
 
+           /* findContractBySearch(){
+                this.$http.get(this.api.findContractBySearch,
+                    {
+                        params: {
+                          
+                    }}).then(response => {
+
+                    let res = response.body;
+
+
+                if (res.result.resultCode == '00000000') {
+
+                    for (var i = 0; i < res.data.length; i++) {
+                        res.data[i].active = false;
+                    }
+
+                    this.productList = res.data;
+
+
+                } else {
+a
+                }
+            });
+            }
+*/
 
         },
         computed: {
@@ -120,10 +163,10 @@
 </script>
 <style lang='scss' scoped rel='stylesheet/scss'>
     .product-code {
-        padding: 30px;
+        padding:13px 30px 31px;
         
         .table-wrap {
-            max-height: 400px;
+            max-height: 350px;
             overflow-y: auto;
         }
         
@@ -160,6 +203,20 @@
             
             .btn:nth-child(1) {
                 margin-right: 20px;
+            }
+        }
+    
+        .list-modal-head {
+            padding-bottom: 13px;
+        
+            .search {
+                display: inline-block;
+                width: 34px;
+                height: 34px;
+                line-height: 34px;
+                text-align: center;
+                border-radius: 3px;
+                background: #46BAFE;
             }
         }
     }

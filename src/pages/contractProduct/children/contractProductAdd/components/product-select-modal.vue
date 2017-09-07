@@ -1,5 +1,13 @@
 <template>
     <div class="product-code">
+        <div class="list-modal-head">
+            <div class="search-wrap">
+                <input  @keyup.enter="findContractByCondition" class="form-input vt-middle  w-150 radius-2 mr-6" v-model="postData.search" type="text"  placeholder="关键信息搜索">
+                <div class="search vt-middle">
+                    <i @click="findContractByCondition" class="icon pointer icon-search"></i>
+                </div>
+            </div>
+        </div>
         <div class="table-wrap">
             <table class="table-module">
                 <thead>
@@ -14,7 +22,7 @@
                     <tr v-for="(item, index) in productList">
                         <td>
                             <label v-if="productType==='1'"
-                                   @click="getProductList(index, item.pdContract.productCode, item.pdContract.productName)"
+                                   @click="getProductList(index, item.productCode, item.productName)"
                                    class="checkbox-module single">
                                 <input type="checkbox" :value="index" v-model="productCheckbox">
 
@@ -22,16 +30,16 @@
                             </label>
 
                             <label v-else class="radio-module single"
-                                   @click="getProductItem(item.pdContract.productCode, item.pdContract.productName)">
+                                   @click="getProductItem(item.productCode, item.productName)">
                                 <input type="radio" :value="index" v-model="productRadio">
 
                                 <span ></span>
                             </label>
                         </td>
 
-                        <td>{{item.pdContract.productCode}}</td>
+                        <td>{{item.productCode}}</td>
 
-                        <td>{{item.pdContract.productName}}</td>
+                        <td>{{item.productName}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -41,14 +49,20 @@
             <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
+        <div class="paging-wrap">
+            <v-paging ref="pagingModule" :type="'simple'" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
+        </div>
     </div>
 </template>
 
-<script type="es6">
+<script>
+    import VPaging from '@/components/paging'
     export default{
         name: 'ProductSelectModal',
         props: ['productType','modalName','index'],
-        
+        components:{
+            VPaging
+        },
         data(){
             return {
                 productCheckbox:[],
@@ -65,23 +79,39 @@
                         active: false
                     }*/
                 ],
+                postData:{
+                    pageNum:'1',
+                    pageSize:'8',
+                    search:'',
+                },
+                totalItem:'',
                 selectMutexProductList: [],
-                selectRelyProductItem: {}
+                selectRelyProductItem: {},
+                _productList:{}
             }
         },
         mounted () {
             /**
              * 获取互斥和依赖产品列表
              * */
-            this.getContractProductByStatus();
+            this.findContractByCondition();
+            
+           
         },
         methods: {
             /**
              * 获取互斥和依赖产品列表
              * */
-            getContractProductByStatus() {
-                this.$http.get(this.api.getContractProductByStatus,
-                    { params: {} }).then(response => {
+            findContractByCondition(e) {
+                if (e && e.target) {
+                    e.target.blur();
+                    this.postData.pageNum='1';
+                    this.$refs.pagingModule.current=1;
+                    this.smsRadio='';
+                }
+
+                this.$http.get(this.api.findContractByCondition,
+                    { params: this.postData,showLoading:true }).then(response => {
 
                     let res = response.body;
 
@@ -89,13 +119,17 @@
 
                     if (res.result.resultCode == '00000000') {
 
+                        //todo:
                         for(var i = 0; i < res.data.length; i++) {
                             res.data[i].active = false;
                         }
+                        
+                        //todo:
 
                         this.productList = res.data;
-
-                        //console.log("productList data2: " + JSON.stringify(this.productList));
+                        
+                        this.totalItem=res.total;
+                        
                     } else {
 
                     }
@@ -116,6 +150,17 @@
 
             cancel() {
                 this.$modal.hide(this.modalName);
+            },
+
+            /**
+             * 获取分页信息
+             * */
+            getPage(res){
+                this.postData.pageNum=res.pagingValue;
+                this.postData.pageSize=res.pagingSize;
+                this.productCheckbox=[];
+                this.productRadio='';
+                this.findContractByCondition();
             },
 
             getProductItem(productCode, content){
@@ -156,10 +201,23 @@
 </script>
 <style lang='scss' scoped rel='stylesheet/scss'>
     .product-code {
-        padding: 30px;
-
+        padding: 13px 30px 31px;
+        
+        .list-modal-head {
+            padding-bottom: 13px;
+            .search {
+                display: inline-block;
+                width: 34px;
+                height: 34px;
+                line-height: 34px;
+                text-align: center;
+                border-radius: 3px;
+                background: #46BAFE;
+            }
+        }
+        
         .table-wrap {
-            max-height: 400px;
+            max-height: 350px;
             overflow-y: auto;
         }
 
@@ -197,6 +255,12 @@
             .btn:nth-child(1) {
                 margin-right: 20px;
             }
+        }
+    
+        .paging-wrap{
+            position: absolute;
+            bottom: 32px;
+            right: 20px;
         }
     }
 </style>

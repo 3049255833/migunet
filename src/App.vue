@@ -27,7 +27,9 @@
         padding: 0;
         margin: 0;
     }
-    
+    .testHash{
+        display: none;
+    }
     #app {
         font-family: 'Microsoft YaHei', 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;

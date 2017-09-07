@@ -49,6 +49,10 @@ let api = {
     updateBossInfo: 'productCenter/updateBossInfo',  //编辑业务代码
     batchAddBossInfo: 'productCenter/batchAddBossInfo',  //批量添加业务代码
 
+    findContractBySearch:'contractProduct/findContractBySearch', //第二步获取产品
+    findSmsByCondition:'contractProduct/findSmsByCondition',     //第二步获取短信模板
+    findContractByCondition:'contractProduct/findContractByCondition',  //互斥产品新接口
+
     getContractAuditList:'productCenter/getContractAuditList', //获取审批列表
     getAuditContractProduct:'productCenter/auditContractProduct', //获取审批列表
     updateAuditStatusList:'productCenter/updateAuditStatusList'  //审批列表
