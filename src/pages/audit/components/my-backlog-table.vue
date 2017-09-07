@@ -108,10 +108,6 @@
         methods: {
             getAuditDetail(productCode, targetStatus, statusId, id){
                 this.$router.push({'name': 'AuditDetail', params: {'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
-
-                console.log("statusId: " + statusId);
-                console.log("targetStatus: " + targetStatus);
-                console.log("id: " + id);
             }
         },
         mounted(){

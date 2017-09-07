@@ -120,7 +120,7 @@ export default new Router({
                             }
                         },
                         {
-                            path: 'audit_detail/:productCode',
+                            path: 'audit_detail/:productCode/:id',
                             name: 'AuditDetail',
                             components: {
                                 default:AuditDetail

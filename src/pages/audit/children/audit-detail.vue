@@ -83,20 +83,20 @@
                   </div>
               </div>
 
-              <div class="review-mark item" v-if="false">
-                  <img src="../../../assets/review-pass.png">
-              </div>
-
-              <div class="review-mark item" v-else>
-                  <img src="../../../assets/review-reject.png">
-              </div>
-
-              <div class="btn-group review-btn">
+              <div class="btn-group review-btn" v-if="auditstatus == '-1'">
                   <button class="btn btn-primary btn-middle"
                           @click="pass">通过</button>
 
                   <button class="btn-default btn btn-middle"
                           @click="noPass">不通过</button>
+              </div>
+
+              <div class="review-mark item" v-else-if="auditstatus == '1'">
+                  <img src="../../../assets/review-pass.png">
+              </div>
+
+              <div class="review-mark item" v-else-if="auditstatus == '0'">
+                  <img src="../../../assets/review-reject.png">
               </div>
           </div>
 
@@ -364,6 +364,7 @@
               targetStatus: this.$route.params.targetStatus,
               statusId: this.$route.params.statusId,
               id: this.$route.params.id,
+              auditstatus: '',
               cProduct: {},
               payTypeList: [],
               feePlanList: [],
@@ -382,7 +383,9 @@
           }
       },
       created(){
-          this.getAuditContractProduct(this.productCode);
+          this.getAuditContractProduct(this.productCode, this.id);
+
+          console.log("targetStatus: " + this.targetStatus);
 
           /**
            * 接收来自确认modal框的信息
@@ -390,17 +393,29 @@
           this.bus.$on('sendAuditDetailsComfirmInfo', res => {
               let that = this;
 
+              that.postDataList.push({
+                  id: that.id,
+                  statusId: that.statusId,
+                  auditStatus: '1',
+                  auditOpinion: '',
+                  auditTime: that.utils.getNowDate(),
+                  targetStatus: that.targetStatus,
+                  auditPerson: 'admin',
+                  cstModified: that.utils.getNowDate(),
+                  detailStatus: ''
+              });
+
+              console.log("postDataList: " + JSON.stringify(this.postDataList));
+
               this.isHideConfim = true;
 
               that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
                   let res = response.body;
 
-                  //console.log("pass postDataList: " + JSON.stringify(res));
-
                   if (res.result.resultCode == '00000000') {
                       this.$root.toastText = '审批成功';
                       this.$root.toast = true;
-                      this.getAuditContractProduct(this.productCode);
+                      this.getAuditContractProduct(this.productCode, this.id);
                   } else {
                       this.$root.toastText = '审批失败';
                       this.$root.toast = true;
@@ -423,13 +438,12 @@
            * 获取单品详情
            * @param productCode 产品 string
            * */
-          getAuditContractProduct(productCode) {
-              console.log("productCode: " + productCode);
-
+          getAuditContractProduct(productCode, id) {
               this.$http.get(this.api.getAuditContractProduct,
                   {
                     params: {
-                      productCode: productCode || ''
+                      productCode: productCode || '',
+                      id: id || ''
                     }
                   }).then(response => {
 
@@ -451,6 +465,8 @@
                       this.feePlanList = res.feePlanList;
 
                       this.right = res.right;
+
+                      this.auditstatus = res.auditstatus;
 
                       //console.log("cProduct: " + JSON.stringify(this.cProduct));
                       //console.log("contractProduct: " + JSON.stringify(res.contractProduct));
@@ -488,7 +504,7 @@
                       this.$root.toastText = '审批不通过成功';
                       this.$root.toast = true;
 
-                      this.getAuditContractProduct(this.productCode);
+                      this.getAuditContractProduct(this.productCode, this.id);
                   } else {
                       this.$root.toastText = '审批不通过失败';
                       this.$root.toast = true;
@@ -508,25 +524,9 @@
           },
 
           pass() {
-              let that = this;
-
               this.isHideConfim = false;
 
               this.confirmInfo = "是否审核通过该产品";
-
-              that.postDataList.push({
-                  id: that.id,
-                  statusId: that.statusId,
-                  auditStatus: '1',
-                  auditOpinion: '',
-                  auditTime: that.utils.getNowDate(),
-                  targetStatus: that.targetStatus,
-                  auditPerson: 'admin',
-                  cstModified: that.utils.getNowDate(),
-                  detailStatus: ''
-              });
-
-              console.log("postDataList: " + JSON.stringify(this.postDataList));
           }
       },
       computed: {

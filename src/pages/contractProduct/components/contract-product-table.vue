@@ -249,9 +249,6 @@
                                          cProduct.detailStatus == '6' ||
                                          cProduct.detailStatus == '8'">下线</div>
 
-                                    <div class="option-item" @click="hide(index)"
-                                         v-if="">隐藏</div>
-
                                     <div class="option-item" @click="logout(index)"
                                          v-if="cProduct.detailStatus == null ||
                                          cProduct.detailStatus == '6' ||
