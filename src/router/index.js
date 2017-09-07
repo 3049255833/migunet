@@ -123,7 +123,6 @@ export default new Router({
                     path: 'audit',
                     name: 'Audit',
                     component: Audit,
-                    redirect: 'audit/my_backlog',
                     children:[
                         {
                             path: 'my_backlog',
@@ -148,9 +147,9 @@ export default new Router({
                         },
                         {
                             path: 'product_audit_manage/audit_detail/:productCode/:targetStatus/:statusId/:id',
-                            name: 'ProductAuditManageDetail',
+                            name: 'AuditDetail',
                             components: {
-                                default:ProductAuditManageDetail
+                                default:AuditDetail
                             }
                         }
                     ]

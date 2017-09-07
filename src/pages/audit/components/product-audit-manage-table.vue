@@ -66,7 +66,6 @@
             VPaging,
             // zqy
             VNolist
-
         },
         data ()
         {
@@ -74,16 +73,12 @@
         },
 
         methods: {
-            /*getAuditDetail(productCode){
-                this.$router.push({'name': 'AuditDetail',params:{'productCode':productCode}});
-            },*/
-
             auditProduct(productCode, targetStatus, statusId, id){
-              this.$router.push({'name': 'ProductAuditManageDetail', params: {'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
+              this.$router.push({'name': 'AuditDetail', params: {'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
             },
 
             getAuditDetail(productCode, targetStatus, statusId, id){
-                this.$router.push({'name': 'ProductAuditManageDetail',params:{'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
+                this.$router.push({'name': 'AuditDetail',params:{'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
             }
         }
 

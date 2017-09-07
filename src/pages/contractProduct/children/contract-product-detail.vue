@@ -24,15 +24,28 @@
                       <td>{{item.auditTime}}</td>
                       <td>{{item.auditPerson}}</td>
                       <td>
-                          <div class=" review-fail-pass">
-                            <i class="icon icon-fail-pass mr-5"></i>
-                            <span class="cl-fail-pass vt-middle">不通过</span>
+                          <div class=" review-fail-pass" v-if="item.auditStatus == '-1'">
+                              <span class="cl-fail-pass vt-middle">待审核</span>
+                          </div>
+
+                          <div class=" review-fail-pass" v-else-if="item.auditStatus == '1'">
+                              <i class="icon icon-pass mr-5"></i>
+                              <span class="cl-fail-pass vt-middle">通过</span>
+                          </div>
+
+                          <div class=" review-fail-pass" v-else-if="item.auditStatus == '0'">
+                              <i class="icon icon-fail-pass mr-5"></i>
+                              <span class="cl-fail-pass vt-middle">不通过</span>
                           </div>
                       </td>
-                      <td>价格高于审批价格</td>
+                      <td>{{item.auditOpinion}}</td>
                   </tr>
               </tbody>
           </table>
+
+          <div v-if="audit.length <= 0" class="no-asset-box">
+              <v-nolist :text="'暂无数据'"></v-nolist>
+          </div>
       </div>
 
       <div class="product-manage-new-add">
@@ -108,7 +121,11 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 业务归属地：</span>
-                          <span class="row-right"> </span>
+                          <span class="row-right">
+                              <span v-for="aItem in cProduct.attributionName">
+                                  {{aItem}}
+                              </span>
+                            </span>
                       </div>
 
                       <div class="layout-row">
@@ -178,7 +195,22 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 体验产品周期：</span>
-                          <span class="row-right"></span>
+                          <span class="row-left">
+                              <span class="row-right"
+                                    v-if="cProduct.expCycleUnitNum == '-1'">永久有效</span>
+
+                              <span class="row-right" v-else>
+                                {{cProduct.expCycleUnitNum}}
+
+                                <span v-if="cProduct.expCycleUnit == '0'">天</span>
+
+                                <span v-else-if="cProduct.expCycleUnit == '1'">周</span>
+
+                                <span v-else-if="cProduct.expCycleUnit == '2'">月</span>
+
+                                <span v-else-if="cProduct.expCycleUnit == '3'">年</span>
+                              </span>
+                          </span>
                       </div>
 
                       <div class="layout-row">
@@ -200,7 +232,9 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 依赖产品：</span>
-                          <span class="row-right"></span>
+                          <span class="row-right">
+                              <span v-for="dItem in depend">{{dItem.name}} | {{dItem.id}}</span>
+                          </span>
                       </div>
                   </div>
               </div>
@@ -251,23 +285,49 @@
                           <div class="row-left"> 计费策略 ：</div>
 
                           <div class="row-right">
-                              <div class="scheme-item">
-                                  <h4>方案一</h4>
+                              <div class="scheme-item" v-for="(rightItem, index) in right">
+                                  <div v-if="rightItem.planCode != null">
+                                      <h4>方案{{index}}</h4>
 
-                                  <div class="item">
-                                      <span class="left"> 资费ID ：</span>
-                                      <span class="right"></span>
+                                      <div class="item">
+                                        <span class="left"> 资费ID ：</span>
+                                        <span class="right">
+                                                    {{rightItem.pdFeePlan.planCode}}</span>
+                                      </div>
+
+                                      <div class="item">
+                                        <span class="left"> 计划名称 ：</span>
+                                        <span class="right">
+                                                  {{rightItem.pdFeePlan.planName}}</span>
+                                      </div>
+
+                                      <div class="item">
+                                        <span class="left"> 计划说明 ：</span>
+                                        <span class="right">
+                                                    {{rightItem.pdFeePlan.planDesc}}</span>
+                                      </div>
+                                  </div>
+                                  <div v-else>
+                                      <h4>方案{{index}}</h4>
+
+                                      <div class="item">
+                                          <span class="left">免费</span>
+                                      </div>
+                                      <div class="item">
+                                          <span class="right">
+                                              满足条件：
+
+                                              <span v-for="pItem in rightItem.pdMatchList">
+                                                  {{pItem.fieldName}}{{pItem.operator}}{{pItem.matchValues}}
+                                              </span>
+
+                                              <span v-if="rightItem.isAnd == '0'">或者</span>
+                                              <span v-else-if="rightItem.isAnd == '1'">
+                                                并且</span>
+                                          </span>
+                                      </div>
                                   </div>
 
-                                  <div class="item">
-                                      <span class="left"> 计划名称 ：</span>
-                                      <span class="right"></span>
-                                  </div>
-
-                                  <div class="item">
-                                      <span class="left"> 计划说明 ：</span>
-                                      <span class="right"></span>
-                                  </div>
                               </div>
                           </div>
                       </div>
@@ -304,7 +364,7 @@
                   <div class="layout-row-wrapper layout-row-wrapper1">
                       <div class="layout-row">
                           <span class="row-left"> BOOS计费代码：</span>
-                          <span class="row-right"></span>
+                          <span class="row-right">{{channel.channelCode}}</span>
                       </div>
                   </div>
               </div>
@@ -354,6 +414,7 @@
     import CancelBtn from "@/components/common/Button2"*/
     import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
     import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
+    import VNolist from '@/components/no-list'
 
     export default {
         name: 'Review',
@@ -362,16 +423,21 @@
             ConfirmBtn,
             CancelBtn,*/
             VConfirmPopoverModal,
-            VOperateSuccessModal
+            VOperateSuccessModal,
+            VNolist
         },
         data (){
             return {
                 productCode: this.$route.params.productCode,
                 cProduct: {},
+                auditstatus: '',
                 payTypeList: [],
                 feePlanList: [],
                 mutex: [],
                 audit: [],
+                right: [],
+                depend: [],
+                channel: {},
                 confirmInfo: '',
                 isHideConfim: true,
                 isHideOperateModal: true,
@@ -454,6 +520,13 @@
 
                             this.feePlanList = res.feePlanList;
 
+                            this.right = res.right;
+
+                            this.auditstatus = res.auditstatus;
+
+                            this.depend = res.depend;
+
+                            this.channel = res.channel;
                             //console.log("res: " + JSON.stringify(this.paytypes));
 
                             //console.log("product: " + JSON.stringify(this.product));

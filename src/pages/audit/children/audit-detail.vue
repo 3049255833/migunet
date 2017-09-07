@@ -24,7 +24,16 @@
                       <td>{{item.auditTime}}</td>
                       <td>{{item.auditPerson}}</td>
                       <td>
-                          <div class=" review-fail-pass">
+                          <div class=" review-fail-pass" v-if="item.auditStatus == '-1'">
+                              <span class="cl-fail-pass vt-middle">待审核</span>
+                          </div>
+
+                          <div class=" review-fail-pass" v-else-if="item.auditStatus == '1'">
+                              <i class="icon icon-pass mr-5"></i>
+                              <span class="cl-fail-pass vt-middle">通过</span>
+                          </div>
+
+                          <div class=" review-fail-pass" v-else-if="item.auditStatus == '0'">
                               <i class="icon icon-fail-pass mr-5"></i>
                               <span class="cl-fail-pass vt-middle">不通过</span>
                           </div>
@@ -141,8 +150,8 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 是否会员产品：</span>
-                          <span class="row-right" v-if="cProduct.isVip == '1'">会员</span>
-                          <span class="row-right" v-else>非会员</span>
+                          <span class="row-right" v-if="cProduct.isVip == '1'">是</span>
+                          <span class="row-right" v-else>否</span>
                       </div>
 
                       <div class="layout-row">
@@ -199,7 +208,7 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 是否重复订购：</span>
-                          <span class="row-right">是 </span>
+                          <span class="row-right"></span>
                       </div>
 
                       <div class="layout-row">
@@ -293,7 +302,7 @@
 
                           <div class="row-right">
                               <div class="scheme-item" v-for="(rightItem, index) in right">
-                                  <div v-if="rightItem.planCode != ''">
+                                  <div v-if="rightItem.planCode != null">
                                       <h4>方案{{index}}</h4>
 
                                       <div class="item">
@@ -318,7 +327,7 @@
                                       <h4>方案{{index}}</h4>
 
                                       <div class="item">
-                                          <span class="left">免费</span>>
+                                          <span class="left">免费</span>
                                       </div>
                                       <div class="item">
                                           <span class="right">
@@ -329,7 +338,7 @@
                                               </span>
 
                                               <span v-if="rightItem.isAnd == '0'">或者</span>
-                                              <span v-if-else="rightItem.isAnd == '1'">
+                                              <span v-else-if="rightItem.isAnd == '1'">
                                                 并且</span>
                                           </span>
                                       </div>
