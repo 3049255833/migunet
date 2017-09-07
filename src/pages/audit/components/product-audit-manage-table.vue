@@ -34,7 +34,8 @@
                 <td>
                     <div class="operate-list">
                         <span v-if="product.auditStatus=='待审批'"
-                              @click="auditProduct(product.productCode, product.id)"
+                              @click="auditProduct(product.productCode,
+                        product.targetStatusNum, product.statusId, product.id)"
                               class="pointer mr-30 cl-blue">审批</span>
                         <span v-else
                               @click="getAuditDetail(product.productCode,
@@ -78,11 +79,11 @@
             },*/
 
             auditProduct(productCode, targetStatus, statusId, id){
-              this.$router.push({'name': 'AuditDetail', params: {'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
+              this.$router.push({'name': 'ProductAuditManageDetail', params: {'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
             },
 
-            getAuditDetail(productCode, id){
-                this.$router.push({'name': 'AuditDetail',params:{'productCode':productCode,'id': id}});
+            getAuditDetail(productCode, targetStatus, statusId, id){
+                this.$router.push({'name': 'ProductAuditManageDetail',params:{'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
             }
         }
 

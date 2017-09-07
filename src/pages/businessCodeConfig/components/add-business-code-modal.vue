@@ -121,7 +121,7 @@
                     <v-select-box
                           w="200"
                           selectTitle="是"
-                          :selectValue="'1'"
+                          :selectValue="'0'"
                           :selectBoxName="'isManagerSelectBox'"
                           v-bind:options="selectBoxList.isManagerList">
                     </v-select-box>
@@ -252,11 +252,11 @@
 
                             if(res.resultCode == '00000000') {
 
-                                this.$emit('sendSaveSuccess', '编辑成功');
-
+                                this.$root.toastText = '编辑成功';
                             } else {
-                                this.$emit('sendSaveSuccess', '编辑失败');
+                                this.$root.toastText = '编辑失败';
                             }
+                            this.$root.toast = true;
 
                             this.$modal.hide(this.modalName);
                         }
@@ -268,11 +268,13 @@
 
                             if(res.resultCode == '00000000') {
 
-                                this.$emit('sendSaveSuccess', '添加成功');
+                                this.$root.toastText = '添加成功';
 
                             } else {
-                                this.$emit('sendSaveSuccess', '添加失败');
+                                this.$root.toastText = '添加失败';
                             }
+
+                            this.$root.toast = true;
 
                             this.$modal.hide(this.modalName);
                         }
