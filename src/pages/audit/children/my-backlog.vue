@@ -1,6 +1,7 @@
 <template>
     <div class="my-backlog">
         <v-table-operate-head hideBtn="true"
+                              ref="myBacklogHead"
                               v-on:sendAuditDataBus="getAuditOperateData"
                               v-on:auditFlagBus="changeAuditFlag"
                               v-on:passBus="auditOperate"
@@ -18,7 +19,7 @@
         </modal>
     </div>
 </template>
-<script>
+<script >
     import VMyBacklogTable from '@/pages/audit/components/my-backlog-table.vue'
     import VPaging from '@/components/paging'
     import VTableOperateHead from '@/pages/audit/components/table-operate-head'
@@ -138,23 +139,28 @@
                                 cstModified: that.utils.getNowDate(),
                                 detailStatus: ''
                             });
+                        });
+
+                        that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
+                            let res = response.body;
+                            if (res.result.resultCode == '00000000') {
+                                this.$root.toastText = '审批成功';
+                                this.$root.toast = true;
+                                this.getContractAuditList();
+                            } else {
+                                this.$root.toastText = '审批失败';
+                                this.$root.toast = true;
+                                this.getContractAuditList();
+                            }
+                            this.$refs.myBacklogHead.auditFlag=false;
+                            this.auditFlag=false;
+                            this.postData.pageNo='1';
+                            this.$refs.pagingModule.current=1;
+                        }, (response) => {
+                            this.$root.toastText = '服务器错误';
+                            this.$root.toast = true
                         })
                     }
-                    that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
-                        let res = response.body;
-                        if (res.result.resultCode == '00000000') {
-                            this.$root.toastText = '审批成功';
-                            this.$root.toast = true;
-                            this.getContractAuditList();
-                        } else {
-                            this.$root.toastText = '审批失败';
-                            this.$root.toast = true;
-                            this.getContractAuditList();
-                        }
-                    }, (response) => {
-                        this.$root.toastText = '服务器错误';
-                        this.$root.toast = true
-                    })
                 } else {
                     //不同意
                     this.postDataList = [];
@@ -184,7 +190,6 @@
                 this.postDataList.forEach(function (item) {
                     item.auditOpinion = res;
                 });
-                console.log(this.postDataList);
                 that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
@@ -194,6 +199,10 @@
                         this.$root.toastText = '审批失败';
                         this.$root.toast = true;
                     }
+                    this.$refs.myBacklogHead.auditFlag=false;
+                    this.auditFlag=false;
+                    this.postData.pageNo='1';
+                    this.$refs.pagingModule.current=1;
                     this.$modal.hide('reviewRejectModal');
                     this.getContractAuditList();
                 }, (response) => {
