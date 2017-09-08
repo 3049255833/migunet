@@ -30,7 +30,7 @@
 
                           <div class=" review-fail-pass" v-else-if="item.auditStatus == '1'">
                               <i class="icon icon-pass mr-5"></i>
-                              <span class="cl-fail-pass vt-middle">通过</span>
+                              <span class="cl-pass vt-middle">通过</span>
                           </div>
 
                           <div class=" review-fail-pass" v-else-if="item.auditStatus == '0'">
