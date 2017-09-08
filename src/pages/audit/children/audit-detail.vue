@@ -20,7 +20,23 @@
                   <tr v-for="(item, index) in audit">
                       <td>{{item.createTime}}</td>
                       <td>{{item.createUser}}</td>
-                      <td>{{item.targetStatus}}</td>
+                      <td v-if="item.targetStatus == '0'">
+                          发布
+                      </td>
+                      <td v-else-if="item.targetStatus == '1'">
+                          修改
+                      </td>
+                      <td v-else-if="item.targetStatus == '2'">
+                          定价变更
+                      </td>
+                      <td v-else-if="item.targetStatus == '3'">
+                          下线
+                      </td>
+                      <td v-else-if="item.targetStatus == '4'">
+                          恢复上线
+                      </td>
+                      <td v-else></td>
+
                       <td>{{item.auditTime}}</td>
                       <td>{{item.auditPerson}}</td>
                       <td>
