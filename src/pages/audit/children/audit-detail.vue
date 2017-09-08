@@ -486,7 +486,9 @@
                   targetStatus: that.targetStatus,
                   auditPerson: 'admin',
                   cstModified: that.utils.getNowDate(),
-                  detailStatus: ''
+                  detailStatus: '',
+                  productCode: that.productCode,
+                  productName: that.cProduct.productName
               });
 
               console.log("postDataList: " + JSON.stringify(this.postDataList));
