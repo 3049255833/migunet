@@ -222,11 +222,11 @@
                           <span class="row-right">{{cProduct.catalogName}}</span>
                       </div>
 
-                      <div class="layout-row">
+                      <!--<div class="layout-row">
                           <span class="row-left"> 是否重复订购：</span>
                           <span class="right" v-if="cProduct.isReorder == '1'">是</span>
                           <span class="right" v-else>否</span>
-                      </div>
+                      </div>-->
 
                       <div class="layout-row">
                           <span class="row-left"> 体验产品周期：</span>
