@@ -146,6 +146,7 @@
             <t-modal-sub-container :title="'产品选择'" :name="'productSelectModal'">
                 <v-product-select-step-2
                         :index="productIndex"
+                        :prmLists="prmLists"
                         :modal-name="'productSelectModal'"
                         :productType="'1'"></v-product-select-step-2>
             </t-modal-sub-container>

@@ -511,7 +511,7 @@
                     pts: [],
                     ifUseServiceCode: '1',     //是否使用业务代码,
 
-                    pdFeePlanCodes: '',              //资费计划
+                    pdFeePlanCodes: ''           //资费计划
                 },
                 postData:{
                     pdContract:{},

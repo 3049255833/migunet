@@ -3,7 +3,7 @@
         <table class="table-module">
             <thead>
             <tr>
-                <td>产品名称</td>
+                <td>产品ID</td>
                 <td>产品编码</td>
                 <td>审批类型</td>
                 <td>申请人</td>

@@ -43,7 +43,7 @@
 <script type="es6">
     export default{
         name: 'ProductSelectModal',
-        props: ['productType', 'modalName', 'index'],
+        props: ['productType', 'modalName', 'index','prmLists'],
 
         data(){
             return {
@@ -63,7 +63,8 @@
                 ],
                 search:'',
                 selectMutexProductList: [],
-                selectRelyProductItem: {}
+                selectRelyProductItem: {},
+                productDataSelected:[]  //所有已选的值
             }
         },
         mounted () {
@@ -77,6 +78,24 @@
              * 获取互斥和依赖产品列表
              * */
             findContractBySearch(e) {
+                let productDataSelected=this.productDataSelected;
+                let _that=this;
+                //筛选已选额值
+                if(this.prmLists.length>0){
+                    this.prmLists.forEach(function(item,index){
+                        let productData=item.pmLists[0].productData;
+                        if(index!=_that.index){
+                            console.log(productData)
+                            productData.forEach(function(item){
+                                
+                            })
+                            productDataSelected.concat(productData)
+                        }
+                    })
+                }
+                console.log( productDataSelected)
+                
+                //筛选已选的值
                 if (e && e.target) {
                     e.target.blur();
                 }
@@ -126,33 +145,7 @@
             cancel() {
                 this.$modal.hide(this.modalName);
             }
-
-           /* findContractBySearch(){
-                this.$http.get(this.api.findContractBySearch,
-                    {
-                        params: {
-                          
-                    }}).then(response => {
-
-                    let res = response.body;
-
-
-                if (res.result.resultCode == '00000000') {
-
-                    for (var i = 0; i < res.data.length; i++) {
-                        res.data[i].active = false;
-                    }
-
-                    this.productList = res.data;
-
-
-                } else {
-a
-                }
-            });
-            }
-*/
-
+            
         },
         computed: {
             canSave(){
