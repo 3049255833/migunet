@@ -69,7 +69,7 @@
             this.bus.$on('sendAddBusinessCodeTitle', res => {
                 this.cmd = 'add';
 
-                this.modalTitle = '添加业务代码';
+                this.modalTitle = '新增业务代码';
 
                 this.$modal.show('addBusinessCodeModal');
             });

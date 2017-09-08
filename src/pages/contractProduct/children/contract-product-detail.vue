@@ -364,7 +364,13 @@
                   <div class="layout-row-wrapper layout-row-wrapper1">
                       <div class="layout-row">
                           <span class="row-left"> BOOS计费代码：</span>
-                          <span class="row-right">{{channel.channelCode}}</span>
+                          <span class="row-right">
+                              <span v-for="(channelItem, index) in channel">
+                                  {{channelItem.channelCode}}
+
+                                  <span v-if="index != channel.length-1">,</span>
+                              </span>
+                          </span>
                       </div>
                   </div>
               </div>
@@ -746,6 +752,10 @@
 
           .review-list {
               width: 100%;
+          }
+
+          .no-asset-box {
+              padding: 30px 0 10px;
           }
       }
 
