@@ -2,9 +2,9 @@
     <div class="product-code">
         <div class="list-modal-head">
             <div class="search-wrap">
-                <input  @keyup.enter="findContractBySearch" class="form-input vt-middle  w-150 radius-2 mr-6" v-model="postData.search" type="text"  placeholder="关键信息搜索">
+                <input  @keyup.enter="findContractByCondition" class="form-input vt-middle  w-150 radius-2 mr-6" v-model="postData.search" type="text"  placeholder="关键信息搜索">
                 <div class="search vt-middle">
-                    <i @click="findContractBySearch" class="icon pointer icon-search"></i>
+                    <i @click="findContractByCondition" class="icon pointer icon-search"></i>
                 </div>
             </div>
         </div>
@@ -21,34 +21,35 @@
                 <tbody>
                     <tr v-for="(item, index) in productList">
                         <td>
-                            <label v-if="productType==='1'"
-                                   @click="getProductList(index, item.pdContract.productCode, item.pdContract.productName)"
+                            <div v-if="productType==='1'"
                                    class="checkbox-module single">
-                                <input type="checkbox" :value="index" v-model="productCheckbox">
+                                <input type="checkbox"  @click="getProductList(index, item.productCode, item.productName,item.id)" :value="index" v-model="productCheckbox" >
 
                                 <span></span>
-                            </label>
+                            </div>
 
                             <label v-else class="radio-module single"
-                                   @click="getProductItem(item.pdContract.productCode, item.pdContract.productName)">
+                                   @click="getProductItem(item.productCode, item.productName)">
                                 <input type="radio" :value="index" v-model="productRadio">
 
                                 <span ></span>
                             </label>
                         </td>
-    
-                        <td>{{item.pdContract.productCode}}</td>
-                        <td>{{item.pdContract.productName}}</td>
+
+                        <td>{{item.productCode}}</td>
+
+                        <td>{{item.productName}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="btn-group btn-group-center">
-            <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
+            <div class="btn btn-primary btn-middle-100" v-if ='canSave' @click="confirm">确定</div>
+            <div class="btn btn-primary btn-middle-100 unable" v-else="" @click="confirm">确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
-        <div class="paging-wrap" >
+        <div class="paging-wrap">
             <v-paging ref="pagingModule" :type="'simple'" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
         </div>
     </div>
@@ -79,8 +80,8 @@
                     }*/
                 ],
                 postData:{
-                  /*  pageNum:'1',
-                    pageSize:'8',*/
+                    pageNum:'1',
+                    pageSize:'8',
                     search:'',
                 },
                 totalItem:'',
@@ -89,11 +90,20 @@
                 _productList:{}
             }
         },
-        mounted () {
+        computed:{
+            canSave(){
+                if(this.productType==1){
+                    return (this.selectMutexProductList.length>0);
+                }else{
+                    return true
+                }
+            }
+        },
+        mounted(){
             /**
              * 获取互斥和依赖产品列表
              * */
-            this.findContractBySearch();
+            this.findContractByCondition();
             
            
         },
@@ -101,31 +111,37 @@
             /**
              * 获取互斥和依赖产品列表
              * */
-            findContractBySearch(e) {
+            findContractByCondition(e) {
+                let that=this;
                 if (e && e.target) {
                     e.target.blur();
-                    //todo:分页的
-                  /*  this.postData.pageNum='1';
-                    this.$refs.pagingModule.current=1;*/
-                   
+                    this.postData.pageNum='1';
+                    this.$refs.pagingModule.current=1;
+                    this.smsRadio='';
                 }
 
-                this.$http.get(this.api.findContractBySearch,
+                this.$http.get(this.api.findContractByCondition,
                     { params: this.postData,showLoading:true }).then(response => {
 
                     let res = response.body;
-
-
-                    this.selectMutexProductList=[];
-                    this.selectRelyProductItem=[];
-                    this.productCheckbox=[];
-                    this.productRadio='';
                     
                     if (res.result.resultCode == '00000000') {
-
+                        that.productCheckbox=[];
+                        
                         //todo:
                         for(var i = 0; i < res.data.length; i++) {
                             res.data[i].active = false;
+                        }
+                        
+                        if(res.data){
+                            res.data.forEach(function(item,index){
+                                that.selectMutexProductList.forEach(function(subItem,subIndex){
+                                    if(item.id==subItem.id){
+                                        item.active=true;
+                                        that.productCheckbox.push(index);
+                                    }
+                                })
+                            })
                         }
                         
                         //todo:
@@ -136,7 +152,6 @@
                         
                     } else {
 
-                        
                     }
                 });
             },
@@ -159,14 +174,13 @@
 
             /**
              * 获取分页信息
-             * todo:暂时隐藏
              * */
             getPage(res){
                 this.postData.pageNum=res.pagingValue;
                 this.postData.pageSize=res.pagingSize;
                 this.productCheckbox=[];
                 this.productRadio='';
-                this.findContractBySearch();
+                this.findContractByCondition();
             },
 
             getProductItem(productCode, content){
@@ -176,25 +190,24 @@
                
             },
 
-            getProductList(index, productCode, content){
+            getProductList(index, productCode, content,id){
                 let that = this;
-
+                console.log(this.productList[index].active)
+                
                 this.productList[index].active=!this.productList[index].active;
 
-              /*  this.selectMutexProductList.forEach(function(item,index){
-                    
-                });*/
-                
                 if(this.productList[index].active) {
+                    console.log(1)
                     this.selectMutexProductList.push({
                         productCode:productCode,
-                        content:content
+                        content:content,
+                        id:id
                     });
                 } else {
-
+                    console.log(2)
                     this.selectMutexProductList.forEach(function(item, cIndex){
 
-                        if(item.id == productCode){
+                        if(item.id == id){
 
                             that.selectMutexProductList.splice(cIndex, 1);
 
@@ -227,9 +240,17 @@
         }
         
         .table-wrap {
-            min-height: 350px;
             max-height: 350px;
             overflow-y: auto;
+            .checkbox-module{
+                cursor: default;
+                input[type='checkbox']{
+                    width: 20px;
+                    height: 20px;
+                    top: 0;
+                    cursor: pointer;
+                }
+            }
         }
 
         .sub-title {
@@ -259,7 +280,9 @@
 
         .btn-group {
             text-align: center;
-            margin-top: 33px;
+            position: absolute;
+            bottom: 30px;
+            left: 300px;
 
             .btn:nth-child(1) {
                 margin-right: 20px;

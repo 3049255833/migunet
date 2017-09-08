@@ -112,7 +112,7 @@
                 this.postData.onlineStatus = res.onlineStatus;
                 this.postData.auditStatus = res.auditStatus;
 
-                this.postData.pageNo='1';
+                this.postData.pageNum='1';
                 this.$refs.pagingModule.current=1;
                 
                 this.getContractAuditList();
