@@ -99,23 +99,20 @@
                   <div class="item-img"></div>
 
                   <div class="item-txt">
-                      <p v-if="cProduct.onlineStatus == '0'">
-                        草稿
+                      <p v-if="auditstatus.targetStatus == '0'">
+                        发布
                       </p>
-                      <p v-else-if="cProduct.onlineStatus == '1'">
-                        上线
+                      <p v-else-if="auditstatus.targetStatus == '1'">
+                        修改
                       </p>
-                      <p v-else-if="cProduct.onlineStatus == '2'">
-                        隐藏
+                      <p v-else-if="auditstatus.targetStatus == '2'">
+                        定价变更
                       </p>
-                      <p v-else-if="cProduct.onlineStatus == '3'">
+                      <p v-else-if="auditstatus.targetStatus == '3'">
                         下线
                       </p>
-                      <p v-else-if="cProduct.onlineStatus == '4'">
-                        注销
-                      </p>
-                      <p v-else-if="cProduct.onlineStatus == '5'">
-                        删除
+                      <p v-else-if="auditstatus.targetStatus == '4'">
+                        恢复上线
                       </p>
                       <p v-else=""></p>
                       <p>
@@ -124,7 +121,7 @@
                   </div>
               </div>
 
-              <div class="btn-group review-btn" v-if="auditstatus == '-1'">
+              <div class="btn-group review-btn" v-if="auditstatus.auditStatus == '-1'">
                   <button class="btn btn-primary btn-middle"
                           @click="pass">通过</button>
 
@@ -132,11 +129,11 @@
                           @click="noPass">不通过</button>
               </div>
 
-              <div class="review-mark item" v-else-if="auditstatus == '1'">
+              <div class="review-mark item" v-else-if="auditstatus.auditStatus == '1'">
                   <img src="../../../assets/review-pass.png">
               </div>
 
-              <div class="review-mark item" v-else-if="auditstatus == '0'">
+              <div class="review-mark item" v-else-if="auditstatus.auditStatus == '0'">
                   <img src="../../../assets/review-reject.png">
               </div>
           </div>
