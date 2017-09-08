@@ -83,8 +83,23 @@
                   <div class="item-img"></div>
 
                   <div class="item-txt">
-                      <p>
-                          {{cProduct.onlineStatus}}
+                      <p v-if="cProduct.onlineStatus == '0'">
+                        草稿
+                      </p>
+                      <p v-else-if="cProduct.onlineStatus == '1'">
+                        上线
+                      </p>
+                      <p v-else-if="cProduct.onlineStatus == '2'">
+                        隐藏
+                      </p>
+                      <p v-else-if="cProduct.onlineStatus == '3'">
+                        下线
+                      </p>
+                      <p v-else-if="cProduct.onlineStatus == '4'">
+                        注销
+                      </p>
+                      <p v-else-if="cProduct.onlineStatus == '5'">
+                        删除
                       </p>
                       <p>
                           产品状态
