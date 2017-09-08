@@ -73,7 +73,7 @@
 
                     <td>
                         <div class="operate-list clearfix" v-if="cProduct.onlineStatus == '0'">
-                            <div @click="showContractProductDetail(cProduct.id)"
+                            <div @click="showContractProductDetail(cProduct.productCode)"
                                  class="mr-30 pointer cl-blue">
                                 详情
                             </div>

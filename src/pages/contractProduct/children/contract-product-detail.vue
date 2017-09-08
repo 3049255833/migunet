@@ -308,7 +308,7 @@
                                       </div>
                                   </div>
                                   <div v-else>
-                                      <h4>方案{{index}}</h4>
+                                      <h4>方案{{index + 1}}</h4>
 
                                       <div class="item">
                                           <span class="left">免费</span>
@@ -318,12 +318,14 @@
                                               满足条件：
 
                                               <span v-for="pItem in rightItem.pdMatchList">
-                                                  {{pItem.fieldName}}{{pItem.operator}}{{pItem.matchValues}}
-                                              </span>
+                                                  {{pItem.fieldName}}{{pItem.operator}}
+                                                  {{pItem.matchValues}}
 
-                                              <span v-if="rightItem.isAnd == '0'">或者</span>
-                                              <span v-else-if="rightItem.isAnd == '1'">
-                                                并且</span>
+                                                  <span v-if="rightItem.isAnd == '0'">
+                                                    或者</span>
+                                                  <span v-else-if="rightItem.isAnd == '1'">
+                                                    并且</span>
+                                              </span>
                                           </span>
                                       </div>
                                   </div>

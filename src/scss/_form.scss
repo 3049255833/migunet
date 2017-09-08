@@ -150,7 +150,8 @@
 }
 
 input {
-    &[type='text'] {
+    &[type='text'],
+    &[type='number'] {
         border-radius: 4px;
         color: #333333;
         border: 1px solid #D6E1E5 !important;

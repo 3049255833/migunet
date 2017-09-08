@@ -198,7 +198,7 @@
                 },
                 isActive: false,
                 sharingTypeText: '分成',
-                isManagerText: '是'
+                isManagerText: '否'
             }
         },
         validations: {
