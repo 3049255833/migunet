@@ -1,7 +1,7 @@
 <template>
     <div class="product-code">
         <div class="list-modal-head">
-            <div class="search-wrap" >
+            <div class="search-wrap">
                 <input class="form-input vt-middle  w-150 radius-2 mr-6" type="text" v-model.trim="search"
                        @keyup.enter="findContractBySearch" placeholder="关键信息搜索">
                 <div @click="findContractBySearch" class="pointer search vt-middle">
@@ -21,11 +21,10 @@
                 <tbody>
                 <tr v-for="(item, index) in productList">
                     <td>
-                        <label v-if="productType==='1'"
-                               class="checkbox-module single">
-                            <input :value="index" v-model="productCheckbox" type="checkbox">
+                        <div v-if="productType==='1'" class="checkbox-module single">
+                            <input :value="index" v-model="productCheckbox" type="checkbox" @click="getProductList(index, item.pdContract.productCode,item.pdContract.productName,item.pdContract.id)">
                             <span></span>
-                        </label>
+                        </div>
                     </td>
                     <td>{{item.pdContract.productCode}}</td>
                     <td>{{item.pdContract.productName}}</td>
@@ -43,7 +42,7 @@
 <script type="es6">
     export default{
         name: 'ProductSelectModal',
-        props: ['productType', 'modalName', 'index'],
+        props: ['productType', 'modalName', 'index', 'prmLists'],
 
         data(){
             return {
@@ -61,9 +60,10 @@
                      active: false
                      }*/
                 ],
-                search:'',
-                selectMutexProductList: [],
-                selectRelyProductItem: {}
+                search: '',
+                productListCurSelected: [],
+                selectRelyProductItem: {},
+                productListAllSelected: []  //所有已选的值
             }
         },
         mounted () {
@@ -77,48 +77,128 @@
              * 获取互斥和依赖产品列表
              * */
             findContractBySearch(e) {
+                let productListAllSelected = this.productListAllSelected;
+                let _that = this;
+                //获取所有已选值
+                if (this.prmLists.length > 0) {
+                    this.prmLists.forEach(function (item, index) {
+                        let productData = item.pmLists[0].productData;
+                        if (index != _that.index) {
+                            productData.forEach(function (item) {
+                                productListAllSelected.push(item);
+                            });
+                        }
+                    })
+                }
+               
                 if (e && e.target) {
                     e.target.blur();
                 }
                 this.$http.get(this.api.findContractBySearch,
                     {
                         params: {
-                            search:this.search
+                            search: this.search
                         },
-                        showLoading:true
+                        showLoading: true
                     }).then(response => {
 
                     let res = response.body;
-
+                    
 
                     if (res.result.resultCode == '00000000') {
+
+                        let that=this;
+                        
+                        that.productCheckbox=[];   //一进页面要先清除checkbox
 
                         for (var i = 0; i < res.data.length; i++) {
                             res.data[i].active = false;
                         }
 
+                        if (res.data) {
+                            let data = res.data;
+                            let that = this;
+                            let _index = 0 ;            //前端开发人员自己校检index为所有已选的值的长度
+                            /*   console.log(data.length);*/
+                           /* console.log(that.productListAllSelected);*/   //打印所有已选
+
+
+                            //去除所有已选的值
+                            that.productListAllSelected.forEach(function (selectItem, selectIndex) {
+                                data.forEach(function (item, index) {
+                                    if (selectItem.productCode == item.pdContract.productCode) {
+                                        console.log(1, ++_index);
+                                        data.splice(index,1);
+                                    }
+                                });
+                            });
+                            
+                            
+                            //让当前框已选的值显示
+                            
+                            data.forEach(function(item,index){
+                                that.productListCurSelected.forEach(function(subItem,subIndex){
+                                   
+                                    if(item.pdContract.productCode==subItem.productCode){
+                                        item.active=true;
+                                        that.productCheckbox.push(index);
+                                    }
+                                })
+                            })
+                            
+                        }
+                        
+
+
                         this.productList = res.data;
-                        this.productCheckbox=[];
+                       /* console.log(this.productList)*/
 
                     } else {
-                        this.productCheckbox=[];
+                        this.productCheckbox = [];
                     }
                 });
             },
 
-            confirm() {
+            /**
+             * 点击获取选项
+             */
+
+            getProductList(index, productCode, content,id){
+                
                 let that = this;
 
-                let _data = [];
+                this.productList[index].active=!this.productList[index].active;
 
-                this.productCheckbox.forEach(function (item) {
-                    _data.push({
-                        productCode: that.productList[item].pdContract.productCode,
-                        content: that.productList[item].pdContract.productName
+                if(this.productList[index].active) {
+                    this.productListCurSelected.push({
+                        productCode:productCode,
+                        content:content,
+                        id:id
+                    });
+                /*    console.log(this.productListCurSelected)*/
+                } else {
+                    this.productListCurSelected.forEach(function(item, cIndex){
+
+                        if(item.productCode == productCode){
+
+                            that.productListCurSelected.splice(cIndex, 1);
+
+                            return;
+                        }
                     })
-                });
 
-                this.bus.$emit('productSelectStep2Bus', {index: this.index, data: _data});
+
+                }
+                
+            },
+            
+            /**
+             * 点击确认
+             * */
+            confirm() {
+                let that = this;
+                
+                this.bus.$emit('productSelectStep2Bus', {index: this.index, data:this.productListCurSelected});
 
                 this.$modal.hide(this.modalName);
             },
@@ -127,47 +207,32 @@
                 this.$modal.hide(this.modalName);
             }
 
-           /* findContractBySearch(){
-                this.$http.get(this.api.findContractBySearch,
-                    {
-                        params: {
-                          
-                    }}).then(response => {
-
-                    let res = response.body;
-
-
-                if (res.result.resultCode == '00000000') {
-
-                    for (var i = 0; i < res.data.length; i++) {
-                        res.data[i].active = false;
-                    }
-
-                    this.productList = res.data;
-
-
-                } else {
-a
-                }
-            });
-            }
-*/
-
+        },
+        watch:{
+          /*  'productCheckbox'(a,b){
+                console.log('变化了',a)
+            }*/
         },
         computed: {
             canSave(){
-                return this.productCheckbox.length > 0
+                return this.productListCurSelected.length > 0
             }
         }
     }
 </script>
 <style lang='scss' scoped rel='stylesheet/scss'>
     .product-code {
-        padding:13px 30px 31px;
+        padding: 13px 30px 31px;
         
         .table-wrap {
             max-height: 350px;
             overflow-y: auto;
+            input[type='checkbox']{
+                width: 20px;
+                height: 20px;
+                top: 0;
+                cursor: pointer;
+            }
         }
         
         .sub-title {
@@ -201,10 +266,10 @@ a
                 margin-right: 20px;
             }
         }
-    
+        
         .list-modal-head {
             padding-bottom: 13px;
-        
+            
             .search {
                 display: inline-block;
                 width: 34px;

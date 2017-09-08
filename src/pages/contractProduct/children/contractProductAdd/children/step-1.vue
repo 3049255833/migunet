@@ -502,7 +502,7 @@
                     pdAttributionCodes: '',     //归属地编码
                     attributionText: '',     //归属地名称
                     pdChannelCodes: '',           //渠道编码
-                    catalogId: '1',            //目录Id
+                    catalogId: '1001',            //目录Id
                     isVip: '1',     //是否会员 1：会员 0 ：包月
                     isExperience: '1',         //是否体验产品 1：是 0 ：正式产品
                     expCycleUnitNum: '1',  //体验产品周期数
@@ -511,7 +511,7 @@
                     pts: [],
                     ifUseServiceCode: '1',     //是否使用业务代码,
 
-                    pdFeePlanCodes: '',              //资费计划
+                    pdFeePlanCodes: ''           //资费计划
                 },
                 postData:{
                     pdContract:{},

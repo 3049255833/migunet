@@ -2,7 +2,7 @@
     <div class="my-backlog">
         <v-manage-table-operate-head hideBtn="true"
                                      v-on:sendAuditDataBus="getAuditOperateData"
-                              title="单品管理"></v-manage-table-operate-head>
+                              title="产品审批管理"></v-manage-table-operate-head>
         <v-product-audit-manage-table :contractAuditList="contractAuditList"></v-product-audit-manage-table>
         <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
     </div>
