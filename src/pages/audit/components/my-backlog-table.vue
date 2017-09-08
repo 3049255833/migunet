@@ -65,12 +65,12 @@
     </div>
 </template>
 <script>
-  
+
     import VPaging from '@/components/paging'
     // zqy
     import VNolist from '@/components/no-list'
     export default {
-        name: 'ContractProductTable',
+        name: 'MybackLogTable',
         props: {
             contractAuditList: Array,
             auditFlag: Boolean

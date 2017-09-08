@@ -35,11 +35,11 @@
                     <div class="operate-list">
                         <span v-if="product.auditStatus=='待审批'"
                               @click="auditProduct(product.productCode,
-                        product.targetStatusNum, product.statusId, product.id)"
+                        product.targetStatus, product.statusId, product.id)"
                               class="pointer mr-30 cl-blue">审批</span>
                         <span v-else
                               @click="getAuditDetail(product.productCode,
-                        product.targetStatusNum, product.statusId, product.id)"
+                        product.targetStatus, product.statusId, product.id)"
                               class="pointer mr-30 cl-blue">详情</span>
                     </div>
                 </td>
@@ -58,7 +58,7 @@
     // zqy
     import VNolist from '@/components/no-list'
     export default {
-        name: 'ContractProductTable',
+        name: 'ProductAuditManageTable',
         props:{
             contractAuditList: Array,
         },
@@ -73,12 +73,48 @@
         },
 
         methods: {
+            /*审批*/
             auditProduct(productCode, targetStatus, statusId, id){
-              this.$router.push({'name': 'AuditDetail', params: {'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
+                if(targetStatus == '发布') {
+                    targetStatus = '0';
+
+                } else if(targetStatus == '修改') {
+
+                    targetStatus = '1';
+                } else if(targetStatus == '定价变更') {
+
+                    targetStatus = '2';
+                } else if(targetStatus == '下线') {
+
+                    targetStatus = '3';
+                } else if(targetStatus == '恢复上线') {
+
+                    targetStatus = '4';
+                }
+
+                this.$router.push({'name': 'ProductAuditManageDetail', params: {'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
             },
 
+            /*详情*/
             getAuditDetail(productCode, targetStatus, statusId, id){
-                this.$router.push({'name': 'AuditDetail',params:{'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
+                if(targetStatus == '发布') {
+                    targetStatus = '0';
+
+                } else if(targetStatus == '修改') {
+
+                    targetStatus = '1';
+                } else if(targetStatus == '定价变更') {
+
+                    targetStatus = '2';
+                } else if(targetStatus == '下线') {
+
+                    targetStatus = '3';
+                } else if(targetStatus == '恢复上线') {
+
+                    targetStatus = '4';
+                }
+
+                this.$router.push({'name': 'ProductAuditManageDetail',params:{'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
             }
         }
 

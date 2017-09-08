@@ -381,7 +381,11 @@
                       <div class="layout-row">
                           <span class="row-left"> BOOS计费代码：</span>
                           <span class="row-right">
-                              {{channel.channelCode}}
+                              <span v-for="(channelItem, index) in channel">
+                                  {{channelItem.channelCode}}
+
+                                  <span v-if="index != channel.length-1">,</span>
+                              </span>
                           </span>
                       </div>
                   </div>

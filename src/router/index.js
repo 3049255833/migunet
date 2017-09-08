@@ -147,9 +147,9 @@ export default new Router({
                         },
                         {
                             path: 'product_audit_manage/audit_detail/:productCode/:targetStatus/:statusId/:id',
-                            name: 'AuditDetail',
+                            name: 'ProductAuditManageDetail',
                             components: {
-                                default:AuditDetail
+                                default:ProductAuditManageDetail
                             }
                         }
                     ]
