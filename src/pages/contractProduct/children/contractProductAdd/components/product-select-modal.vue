@@ -128,7 +128,7 @@
                     if (res.result.resultCode == '00000000') {
                         that.productCheckbox=[];
                         
-                        //todo:
+                        //给所有item附上active的值，根据active来为后续已选未选作判断
                         for(var i = 0; i < res.data.length; i++) {
                             res.data[i].active = false;
                         }
