@@ -106,7 +106,7 @@
                 <div class="row-right">
                     <v-select-box
                         w="200"
-                        selectTitle="分成"
+                        :selectTitle="sharingTypeText"
                         :selectValue="'0'"
                         :selectBoxName="'sharingTypeSelectBox'"
                         v-bind:options="selectBoxList.sharingTypeList">
@@ -120,7 +120,7 @@
                 <div class="row-right">
                     <v-select-box
                           w="200"
-                          selectTitle="是"
+                          :selectTitle="isManagerText"
                           :selectValue="'0'"
                           :selectBoxName="'isManagerSelectBox'"
                           v-bind:options="selectBoxList.isManagerList">
@@ -163,7 +163,7 @@
                     companyCode: '',
                     serviceName: '',
                     serviceDesc: '',
-                    sharingType: '0',
+                    sharingType: '',
                     feeAmount: '',
                     isManager: '1'
                 },
@@ -196,7 +196,9 @@
                         }
                     ]
                 },
-                isActive: false
+                isActive: false,
+                sharingTypeText: '分成',
+                isManagerText: '是'
             }
         },
         validations: {
@@ -282,7 +284,7 @@
                 }
             }
         },
-        mounted () {
+        created () {
             /**
              * 获取下拉框的值
              * */
@@ -302,6 +304,17 @@
 
                 this.postData = this.passModal;
 
+                if(this.postData.sharingType == '1') {
+                    this.sharingTypeText = '买断';
+                } else if(this.postData.sharingType == '0') {
+                    this.sharingTypeText = '分成';
+                }
+
+                if(this.postData.isManager == '1') {
+                    this.isManagerText = '是'
+                } else if(this.postData.isManager == '0') {
+                    this.isManagerText = '否';
+                }
                 //console.log("passModal: " + JSON.stringify(this.postData));
             }
         },
@@ -316,6 +329,9 @@
                     return false;
                 }
             }
+        },
+        destroyed (){
+            this.bus.$off('selectBoxBus');
         }
     }
 </script>
