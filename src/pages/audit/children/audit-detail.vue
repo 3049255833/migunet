@@ -101,6 +101,7 @@
                       <p v-else-if="cProduct.onlineStatus == '5'">
                         删除
                       </p>
+                      <p v-else=""></p>
                       <p>
                           产品状态
                       </p>
