@@ -142,7 +142,9 @@
                                 targetStatus: that.contractAuditList[index].targetStatusNum,
                                 auditPerson: 'admin',
                                 cstModified: that.utils.getNowDate(),
-                                detailStatus: ''
+                                detailStatus: '',
+                                productCode:that.contractAuditList[index].productCode,
+                                productName:that.contractAuditList[index].productName
                             });
                         });
 
@@ -184,7 +186,9 @@
                                 targetStatus: that.contractAuditList[index].targetStatusNum,
                                 auditPerson: 'admin',
                                 cstModified: that.utils.getNowDate(),
-                                detailStatus: that.contractAuditList[index].targetStatusNum + '2'
+                                detailStatus: that.contractAuditList[index].targetStatusNum + '2',
+                                productCode:that.contractAuditList[index].productCode,
+                                productName:that.contractAuditList[index].productName
                             });
                         });
                     }
