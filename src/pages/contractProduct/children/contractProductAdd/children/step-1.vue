@@ -415,8 +415,11 @@
                     资费计划：
                 </div>
                 <div class="row-right">
-                    <div class="textarea-module w-700 pd-10" type="text"
-                         @click="chosePlanCode">
+                    <!--选了支付1和业务代码，就不能选这个-->
+                    <div v-if="forbidChosePlanCode" class="not-allowed textarea-module w-700 pd-10" type="text" >
+                        <i class="icon icon-select"></i>
+                    </div>
+                    <div v-else  class="textarea-module w-700 pd-10" type="text" @click="chosePlanCode">
                         <table class="table-module" v-if="planCodeTableData.length>0">
                             <thead>
                             <tr>
@@ -697,7 +700,7 @@
             },
 
             validationGroup: ['formData.productName', 'formData.searchKey',
-                 'formData.effectiveTime','formData.expireTime','formData.attributionText','formData.pdChannelCodes','formData.pdFeePlanCodes']
+                 'formData.effectiveTime','formData.expireTime','formData.attributionText','formData.pdChannelCodes']
         },
         computed: {
             ifUseServiceCode(){
@@ -750,6 +753,7 @@
                         }
                     }
                     
+                    
                 } else {
                     flag = false
                 }
@@ -771,7 +775,17 @@
 
                 }
 
+                if(!this.forbidChosePlanCode){   //如果能选
+                    if(!(this.formData.pdFeePlanCodes.length>0)){
+                        flag = false
+                    }
+                }
+
                 return flag
+            },
+            forbidChosePlanCode(){
+                //如果选了支付1且使用业务代码，则不能使用
+                return this.formData.paytype.contains('1')&&this.ifUseServiceCode;
             }
 
         },
@@ -811,7 +825,7 @@
                 this.postData.pdContract.expCycleUnitNum=this.formData.expCycleUnitNum;
                 this.postData.pdContract.expCycleUnit=this.formData.expCycleUnit;
                 this.postData.pts=this.formData.pts;
-                this.postData.pdFeePlanCodes=this.formData.pdFeePlanCodes;
+                this.postData.pdFeePlanCodes=this.forbidChosePlanCode?'':this.formData.pdFeePlanCodes;
                 this.postData.pdAttributionCodes=this.formData.pdAttributionCodes;
                 this.postData.pdChannelCodes=this.formData.pdChannelCodes;
                 
