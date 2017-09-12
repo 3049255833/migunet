@@ -149,10 +149,20 @@
                       </div>
 
                       <div class="layout-row">
-                          <span class="row-left"> 生效时间：</span>
+                          <span class="row-left"> 业务状态：</span>
+                          <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 生效方式：</span>
                           <span class="row-right">
-                            {{cProduct.effectiveTime}}
+                            <!--{{cProduct.effectiveTime}}-->
                           </span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 失效时间：</span>
+                          <span class="row-right">{{cProduct.expireTime}}</span>
                       </div>
 
                       <div class="layout-row">
@@ -161,7 +171,7 @@
                               <span v-for="aItem in cProduct.attributionName">
                                   {{aItem}}
                               </span>
-                            </span>
+                          </span>
                       </div>
 
                       <div class="layout-row">
@@ -171,20 +181,14 @@
                       </div>
 
                       <div class="layout-row">
-                          <span class="row-left"> 是否体检产品：</span>
-                          <span class="row-right" v-if="cProduct.isExperience == '1'">是</span>
-                          <span class="row-right" v-else>否</span>
-                      </div>
-
-                      <div class="layout-row">
                           <span class="row-left"> 创建用户：</span>
                           <span class="row-right">
-                            {{cProduct.createUser}}
-                        </span>
+                              {{cProduct.createUser}}
+                          </span>
                       </div>
 
                       <div class="layout-row">
-                          <span class="row-left"> 限定短信发送省份：</span>
+                          <span class="row-left"> 限制发送提示短信省份：</span>
                           <span class="row-right">
                             {{cProduct.limitSmsAreas}}
                           </span>
@@ -192,7 +196,7 @@
 
                       <div class="layout-row">
                           <span class="row-left">
-                              订购成功下发送推荐短信：
+                              订购成功下发推荐短信：
                           </span>
                           <span class="row-right"></span>
                       </div>
@@ -215,13 +219,24 @@
                       </div>
 
                       <div class="layout-row">
-                          <span class="row-left"> 失效时间：</span>
-                          <span class="row-right">{{cProduct.expireTime}}</span>
+                          <span class="row-left"> 审批状态：</span>
+                          <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 生效时间：</span>
+                          <span class="row-right">{{cProduct.effectiveTime}}</span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left"> 产品目录：</span>
                           <span class="row-right">{{cProduct.catalogName}}</span>
+                      </div>
+
+                      <div class="layout-row">
+                          <span class="row-left"> 是否体检产品：</span>
+                          <span class="row-right" v-if="cProduct.isExperience == '1'">是</span>
+                          <span class="row-right" v-else>否</span>
                       </div>
 
                       <!--<div class="layout-row">
@@ -263,14 +278,11 @@
                       </div>
 
                       <div class="layout-row">
-                          <span class="row-left"> 合作伙伴：</span>
-                          <span class="row-right"></span>
-                      </div>
-
-                      <div class="layout-row">
                           <span class="row-left"> 依赖产品：</span>
                           <span class="row-right">
-                              <span v-for="dItem in depend">{{dItem.name}} | {{dItem.id}}</span>
+                              <span v-for="dItem in depend">
+                                  {{dItem.name}} | {{dItem.id}}
+                              </span>
                           </span>
                       </div>
                   </div>
@@ -402,10 +414,10 @@
               <div class="layout-row-area">
                   <div class="layout-row-wrapper layout-row-wrapper1">
                       <div class="layout-row">
-                          <span class="row-left"> BOOS计费代码：</span>
+                          <span class="row-left"> 渠道ID：</span>
                           <span class="row-right">
                               <span v-for="(channelItem, index) in channel">
-                                  {{channelItem.channelCode}}
+                                  {{channelItem.id}} | {{channelItem.channelCode}}
 
                                   <span v-if="index != channel.length-1">,</span>
                               </span>
