@@ -443,7 +443,7 @@
       <v-confirm-popover-modal
           :confirmInfo="confirmInfo"
           :isHideConfim="isHideConfim"
-          details="auditDetailsComfirmInfo"
+          details="contractProductDetails"
           v-bind:style="styleComfirm">
       </v-confirm-popover-modal>
 
@@ -515,7 +515,7 @@
             /**
              * 接收来自确认modal框的信息
              * */
-            this.bus.$on('sendDetailsConfirmInfo', res => {
+            this.bus.$on('contractProductDetailsConfirmInfoBus', res => {
                 this.isHideConfim = true;
 
                 this.operateInfo = '操作成功';
@@ -542,7 +542,7 @@
             /**
              * 接收来自取消modal框的信息
              * */
-            this.bus.$on('sendDetailsCancelInfo', res => {
+            this.bus.$on('contractProductDetailsCancelInfoBus', res => {
                 this.isHideConfim = true;
             });
         },
@@ -772,6 +772,10 @@
                   return '删除';
               }
             }
+        },
+        destroyed() {
+          this.bus.$off('contractProductDetailsConfirmInfoBus');
+          this.bus.$off('contractProductDetailsCancelInfoBus');
         }
     }
 </script>

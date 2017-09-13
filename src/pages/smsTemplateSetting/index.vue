@@ -28,7 +28,6 @@
 </template>
 
 <script type="es6">
-    import Mock from 'mockjs'
     import VSmsTemplateTable from '@/pages/smsTemplateSetting/components/sms-template-table'
     import VTableOperateHead from '@/pages/smsTemplateSetting/components/table-operate-head'
     import VPaging from '@/components/paging'
@@ -54,7 +53,7 @@
                 modalTitle: '新增短信模板',
                 postData:{
                     keys:'',
-                    pageSize:'8',
+                    pageSize:'3',
                     pageNo:'1'
                 },
                 totalItem:'',
@@ -66,25 +65,25 @@
 
             /*
             * 接收来自添加modal的title*/
-            this.bus.$on('sendAddBusinessCodeTitle', res => {
+            this.bus.$on('addSmsTemPlateBus', res => {
                 this.cmd = 'add';
 
-                this.modalTitle = '新增业务代码';
+                this.modalTitle = '新增短信模板';
 
-                this.$modal.show('addBusinessCodeModal');
+                this.$modal.show('updateSmsTemplateModal');
             });
 
             /**
              * 接收来自编辑的信息
              * */
-            this.bus.$on('editPassModal', res => {
+            this.bus.$on('editSmsTemplateBus', res => {
                 this.passModal = res;
 
                 this.cmd = 'edit';
 
-                this.modalTitle = '修改业务代码';
+                this.modalTitle = '修改短信模板';
 
-                this.$modal.show('addBusinessCodeModal');
+                this.$modal.show('updateSmsTemplateModal');
             });
 
             /**
@@ -188,8 +187,8 @@
             }
         },
         destroyed() {
-            this.bus.$off('sendAddBusinessCodeTitle');
-            this.bus.$off('editPassModal');
+            this.bus.$off('addSmsTemPlateBus');
+            this.bus.$off('editSmsTemplateBus');
             this.bus.$off('sendDeleteInfo');
             this.bus.$off('sendBatchAddBossInfo');
         }

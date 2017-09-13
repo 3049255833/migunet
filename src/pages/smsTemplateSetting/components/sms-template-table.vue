@@ -29,7 +29,7 @@
 
                     <td class="operation">
                         <div class="edit icon icon-edit-gray"
-                             @click="editBusinessCode(item)"></div>
+                             @click="editSmsTemplate(item)"></div>
 
                         <div class="delete icon icon-del-gray"
                              @click="deleteBtn(index, item.id, item.serviceCode)"></div>
@@ -38,7 +38,7 @@
                           :confirmInfo="'是否确定删除'"
                           :isHideConfim="item.isHideConfim"
                           :index="index"
-                          details="businessCodeAdmin">
+                          details="smsTemplate">
                         </v-confirm-popover-modal>
                     </td>
                 </tr>
@@ -94,9 +94,9 @@
 
                 //console.log("willDeleteId: " + this.willDelete.id);
             },
-            editBusinessCode(item) {
+            editSmsTemplate(item) {
 
-                this.bus.$emit('editPassModal', item);
+                this.bus.$emit('editSmsTemplateBus', item);
 
                 //this.$modal.show('addBusinessCodeModal');
             }
@@ -105,7 +105,7 @@
             /**
              * 接收来自确认modal框的信息
              * */
-            this.bus.$on('sendBusinessCodeAdminConfirmInfo', res => {
+            this.bus.$on('smsTemplateComfirmInfoBus', res => {
                 this.smsTemplateList[res].isHideConfim = true;
 
                 let that = this;
@@ -149,6 +149,10 @@
             this.bus.$on('sendCancelInfo', res => {
                 this.smsTemplateList[res].isHideConfim = true;
             });
+        },
+        destroyed(){
+            this.bus.$off('smsTemplateComfirmInfoBus');
+            this.bus.$off('sendCancelInfo');
         }
     }
 </script>

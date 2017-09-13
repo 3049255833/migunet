@@ -118,7 +118,7 @@
             /**
              * 接收来自确认modal框的信息
              * */
-            this.bus.$on('sendBusinessCodeAdminConfirmInfo', res => {
+            this.bus.$on('businessCodeAdminConfirmInfoBus', res => {
                 this.businessCodeList[res].isHideConfim = true;
 
                 let that = this;

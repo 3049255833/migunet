@@ -3,7 +3,7 @@
 
         <div class="form-wrap">
             <div class="form-row">
-                <div class="row-left required">业务代码ID：</div>
+                <div class="row-left required">短信模板ID：</div>
 
                 <div class="row-right">
                     <input class="form-input pointer w-200"
@@ -20,7 +20,7 @@
             </div>
 
             <div class="form-row">
-                <div class="row-left required">企业代码：</div>
+                <div class="row-left required">短信模板名称：</div>
 
                 <div class="row-right">
                     <input class="form-input pointer w-200"
@@ -37,24 +37,25 @@
             </div>
 
             <div class="form-row">
-                <div class="row-left required">业务代码名称：</div>
+                <div class="row-left required">短信模板描述：</div>
 
                 <div class="row-right">
-                    <input class="form-input pointer w-200"
-                           type="text"
-                           :class="{'error':$v.postData.serviceName.$error}"
-                           @input="$v.postData.serviceName.$touch()"
-                           v-model.trim="postData.serviceName"
-                           placeholder="请输入"/>
+                    <textarea
+                        class="textarea-module w-200"
+                        type="text"
+                        :class="{'error':$v.postData.serviceDesc.$error}"
+                        @input="$v.postData.serviceDesc.$touch()"
+                        v-model.trim="postData.serviceDesc"
+                        placeholder="请输入"></textarea>
 
-                    <span class="error-msg" v-if="$v.postData.serviceName.$error">
-                        {{errorMsg.serviceName}}
+                    <span class="error-msg" v-if="$v.postData.serviceDesc.$error">
+                          {{errorMsg.serviceDesc}}
                     </span>
                 </div>
             </div>
 
             <div class="form-row">
-                <div class="row-left required">业务代码描述：</div>
+                <div class="row-left required">短信模板内容：</div>
 
                 <div class="row-right">
                     <textarea
@@ -68,51 +69,6 @@
                     <span class="error-msg" v-if="$v.postData.serviceDesc.$error">
                         {{errorMsg.serviceDesc}}
                     </span>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="row-left required">资费金额（分）：</div>
-
-                <div class="row-right">
-                    <input class="form-input pointer w-200"
-                           type="number"
-                           :class="{'error':$v.postData.feeAmount.$error}"
-                           @input="$v.postData.feeAmount.$touch()"
-                           v-model.trim="postData.feeAmount"
-                           placeholder="请输入"/>
-
-                    <span class="error-msg" v-if="$v.postData.feeAmount.$error">
-                        {{errorMsg.feeAmount}}
-                    </span>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="row-left required">分成类型：</div>
-
-                <div class="row-right">
-                    <v-select-box
-                        w="200"
-                        :selectTitle="sharingTypeText"
-                        :selectValue="'0'"
-                        :selectBoxName="'sharingTypeSelectBox'"
-                        v-bind:options="selectBoxList.sharingTypeList">
-                    </v-select-box>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="row-left required">是否管理员专用：</div>
-
-                <div class="row-right">
-                    <v-select-box
-                          w="200"
-                          :selectTitle="isManagerText"
-                          :selectValue="'0'"
-                          :selectBoxName="'isManagerSelectBox'"
-                          v-bind:options="selectBoxList.isManagerList">
-                    </v-select-box>
                 </div>
             </div>
         </div>

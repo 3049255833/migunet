@@ -9,7 +9,7 @@
 
             <button class="btn btn-import-module mr-10">批量导入</button>
 
-            <button class="btn btn-add-module-white mr-10" @click="addBusinessCode">新增短信模板</button>
+            <button class="btn btn-add-module-white mr-10" @click="addSmsTemplate">新增短信模板</button>
             <button class="btn btn-import-module mr-10 batch-delete">批量删除</button>
         </div>
 
@@ -52,8 +52,8 @@
             }
         },
         methods: {
-            addBusinessCode() {
-                this.bus.$emit('sendAddBusinessCodeTitle');
+            addSmsTemplate() {
+                this.bus.$emit('addSmsTemPlateBus');
             },
             /**
              * 触发事件，将封装的数据传给index
@@ -115,10 +115,6 @@
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
-    .batch-delete {
-        display: none;
-    }
-
     #upload {
         width: 88px;
         height: 33px;
@@ -173,6 +169,11 @@
             .new-add-code-btn {
                 border: 1px solid #46BAFE;
                 color: #46BAFE
+            }
+
+            .btn-add-module-white {
+                width: auto;
+                padding: 0 5px;
             }
         }
 
