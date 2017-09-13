@@ -5,6 +5,7 @@ const Home = resolve => require(['@/pages/home'],resolve) ;
 const ContractProduct  = resolve => require(['@/pages/ContractProduct'],resolve) ;
 const SingleProduct  = resolve => require(['@/pages/singleProduct'],resolve) ;
 const BusinessCodeConfig  = resolve => require(['@/pages/businessCodeConfig'],resolve) ;
+const SmsTemplateSetting  = resolve => require(['@/pages/SmsTemplateSetting'],resolve) ;
 const productCatalogManage  = resolve => require(['@/pages/productCatalogManage'],resolve) ;
 const SingleProductDetail  = resolve => require(['@/pages/singleProduct/children/single-product-detail'],resolve) ;
 const ContractProductDetail  = resolve => require(['@/pages/contractProduct/children/contract-product-detail'],resolve) ;
@@ -65,6 +66,13 @@ export default new Router({
                     name: 'BusinessCodeConfig',
                     components: {
                         default: BusinessCodeConfig
+                    }
+                },
+                {
+                    path: 'sms_template_setting',
+                    name: 'SmsTemplateSetting',
+                    components: {
+                        default: SmsTemplateSetting
                     }
                 },
                 {
