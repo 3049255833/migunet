@@ -34,15 +34,15 @@
                 </div>
             </div>
         </div>
-        
-    
+
+
         <!--操作结果-->
         <modal name="addSuccessModal" :width="450" :height="300" @before-close="beforeClose">
             <t-modal-sub-container :title="'新增产品结果'" :name="'addSuccessModal'">
                 <v-add-success-modal :modalName="'addSuccessModal'"></v-add-success-modal>
             </t-modal-sub-container>
         </modal>
-        
+
     </div>
 </template>
 <script >
@@ -109,22 +109,21 @@
                     } else {
 
                     }
-
                 })
             },
 
             beforeClose(){
                 this.$router.push({'name': 'ContractProduct'});
             },
-            
+
             step1Bus(res){
                 let that=this;
                 console.log('监听step-1bus');
                 let _step = parseInt(res.step);
                 this.step = _step;
                 this.step1PostData = res.data;
-                this.$router.push({'name': 'Step2'})
-                console.log('step-1路由跳转')
+                this.$router.push({'name': 'Step2'});
+                console.log('step-1路由跳转');
                 this.step1Flag = true;
 
                 Object.keys(this.step1PostData).forEach(function (context) {
@@ -133,7 +132,7 @@
 
                 console.log('step-1',this.postData);
             },
-            
+
             step2Bus(res){
                 let that=this;
                 console.log('监听step-2bus');
@@ -144,14 +143,13 @@
                 console.log('step-2路由跳转');
                 this.step2Flag = true;
 
-
                 Object.keys(this.step2PostData).forEach(function (context) {
                     that.postData[context] = that.step2PostData[context];
                 });
 
                 console.log('step-2',this.postData);
             },
-            
+
             step3Bus(res){
                 let that=this;
                 this.step3PostData = res.data;
@@ -162,11 +160,11 @@
 
                 console.log('step-3',this.postData);
                 if(this.step1Flag&&this.step2Flag&&this.step3Flag){
-                    console.log('触发了保存')
+                    console.log('触发了保存');
                     this.save();
                 }
             },
-            
+
             /**
              * 提交所有数据
              * */
@@ -194,12 +192,17 @@
         },
         watch:{
             '$route.name'(a,b){
-                if(a=='Step1'){
-                    this.step=1
-                }else if(a=='Step2'){
-                    this.step=2
-                }else{
-                    this.step=3
+                if(a=='Step1') {
+
+                    this.step=1;
+
+                } else if(a=='Step2') {
+
+                    this.step=2;
+
+                } else {
+
+                    this.step=3;
                 }
             }
         },
@@ -213,8 +216,6 @@
              * */
             this.getProductDistList();
 
-            
-          
             /**
              * 获取步骤二的数据
              * */
@@ -238,7 +239,7 @@
              * 获取步骤三的数据
              * */
            /* this.bus.$on('step3Bus', res => {
-    
+
                 this.step3PostData = res.data;
                 Object.keys(this.step3PostData).forEach(function (context) {
                     that.postData[context] = that.step3PostData[context];
@@ -277,30 +278,30 @@
         text-align: center;
         cursor: pointer;
     }
-    
+
     /*.tb-reset:hover{
-      
+
     }*/
     .tb-search {
         background: #46bafe;
         color: #ffffff;
     }
-    
+
     .l-content-w {
         margin-right: 20px;
     }
-    
+
     .step-wrapper {
         padding: 15px 0;
         background: #f2f8ff;
     }
-    
+
     .step {
         width: 510px;
         margin: 0 auto;
         position: relative;
     }
-    
+
     .step:before {
         content: '';
         width: 420px;
@@ -311,29 +312,29 @@
         left: 30px;
         top: 23px;
     }
-    
+
     .step:after {
         content: '';
         clear: both;
         display: block;
     }
-    
+
     .step-item {
         float: left;
     }
-    
+
     .step-item + .step-item {
-        
+
         margin-left: 145px;
     }
-    
+
     .step-text {
         text-align: center;
         color: #171717;
         font-size: 12px;
         margin-top: 8px;
     }
-    
+
     .step-circle {
         position: relative;
         width: 40px;
@@ -343,7 +344,7 @@
         margin: 0 auto;
         background: #f2f8ff;
     }
-    
+
     .step-circle:after {
         content: attr(data-attr-step);
         position: absolute;
@@ -359,23 +360,23 @@
         transform: translate(-50%, -50%);
         border-radius: 50%;
     }
-    
+
     .step-circle.active:after {
         background: #46bafe;
     }
-    
+
     .container {
         width: 100%;
     }
-    
+
     .main-wrapper {
         background: #f4f4f4;
     }
-    
+
     .nav-wrapper {
         float: left;
     }
-    
+
     .table-wrapper {
         /*float: left;*/
         /*margin-left: 20px;*/
@@ -383,7 +384,7 @@
         background: #ffffff;
         padding-bottom: 30px;
     }
-    
+
     /*.main-wrapper:after{
       content: '';
       display: block;
@@ -394,41 +395,41 @@
         content: " ";
         display: table;
     }
-    
+
     .main-wrapper:after {
         clear: both;
     }
-    
+
     .date-wrapper {
-        
+
     }
-    
+
     .bread-link:hover {
         color: #46bafe;
         cursor: pointer;
     }
-    
+
     .input-row + .input-row {
         margin-top: 18px;
     }
-    
+
     .row-wrapper {
         display: inline-block;
         width: 200px;
         background: #ffffff;
     }
-    
+
     .row-wrapper-ta {
         width: 340px;
         height: 80px;
     }
-    
+
     .row-wrapper textarea {
         width: 340px;
         height: 80px;
         box-sizing: border-box;
     }
-    
+
     .row-wrapper input {
         width: 200px;
         height: 32px;
@@ -436,7 +437,7 @@
         box-sizing: border-box;
         border: solid 1px #d6e1e5;
     }
-    
+
     .input-text {
         width: 165px;
         display: inline-block;
@@ -445,11 +446,11 @@
         text-align: right;
         vertical-align: top;
     }
-    
+
     .required {
         color: red;
     }
-    
+
     #city-select {
         background: #ffffff;
         width: 200px;
@@ -460,12 +461,12 @@
         background: url("../../../../assets/def.png") no-repeat 97% 7px;
         border-radius: 0;
     }
-    
+
     .row-wrapper-no {
         background: transparent;
         margin-top: 10px;
     }
-    
+
     .add-title {
         font-size: 14px;
         color: #292c31;
@@ -473,11 +474,11 @@
         line-height: 50px;
         padding-left: 20px;
     }
-    
+
     .add-main {
         background: #f4f4f4;
     }
-    
+
     .input-area {
         margin-top: 30px;
         padding-left: 40px;

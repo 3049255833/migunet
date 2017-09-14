@@ -67,7 +67,7 @@
                            placeholder="请选择"
                            v-model="relyProductItem.content"
                            @click="showRelyProduct"
-                           
+
                            readonly>
                     <i class="icon icon-select"></i>
                 </div>
@@ -76,8 +76,9 @@
                 <div class="row-left"></div>
                 <div class="row-right">
                     <div class="btn-group">
-                        <div class="btn btn-primary btn-middle" v-if="canSave&&this.$parent.step1Flag&&this.$parent.step2Flag&&$root.ajaxLock"  @click="save">完成</div>
-                        <div class="btn btn-primary btn-middle   unable" v-else >完成</div>
+                        <div class="btn btn-primary btn-middle"
+                             v-if="canSave&&this.$parent.step1Flag&&this.$parent.step2Flag&&$root.ajaxLock"  @click="save">完成</div>
+                        <div class="btn btn-primary btn-middle unable" v-else >完成</div>
                         <div class="btn btn-default btn-middle" @click="cancel">取消</div>
                     </div>
                 </div>
@@ -105,7 +106,7 @@
                         :productType="productType"></v-product-select-modal>
             </t-modal-sub-container>
         </modal>
-    
+
         <!-- 操作结果modal start -->
         <modal name="addResultMsgModal" :draggable="true" :width="200" :height="80">
             <v-toast :name="'addResultMsgModal'" >{{addResultMsg}}</v-toast>
@@ -123,6 +124,14 @@
     import VProductSelectModal from '../components/product-select-modal'
 
     export default{
+        components: {
+            VAreaChose,
+            TModalSubContainer,
+            VSmsList,
+            VPaging,
+            VProductSelectModal,
+            VToast
+        },
         data(){
             return {
                 addResultMsg:'',
@@ -145,14 +154,6 @@
                 relyProductItem: {}
             }
         },
-        components: {
-            VAreaChose,
-            TModalSubContainer,
-            VSmsList,
-            VPaging,
-            VProductSelectModal,
-            VToast
-        },
         methods: {
             /**
              * 保存数据
@@ -162,20 +163,20 @@
                     step: 3,
                     data: this.formData
                 })
-
             },
-            
+
             test(){
-                this.addResultMsg='新增成功'
+                this.addResultMsg = '新增成功';
                 this.$modal.show('addResultMsgModal');
             },
+
             /**
              * 取消
              * */
             cancel(){
-                this.$router.push({'name': 'ContractProduct'})
+                this.$router.push({'name': 'ContractProduct'});
             },
-            
+
             /**
              * 获取地区
              * */
@@ -193,14 +194,16 @@
                     //this.formData.limitSmsAreasCode = areaCodeArr.join(',');
                 }
             },
-            
+
             /**
              * 显示地方
              * */
             showAreaChoseModal(){
                 this.$modal.show('areaChoseModal');
             },
+
             beforeClose(){
+
             },
 
             /**
@@ -249,19 +252,19 @@
              /*   if (!this.formData.limitSmsAreas) {
                     flag = false
                 }
-            
+
                 if (!this.formData.promptSmsCodes) {
                     flag = false
                 }
-              
+
                 if (!this.formData.recommendCodes) {
                     flag = false
                 }*/
-            
+
               /*  if (!this.formData.mutuallyProductCodes) {
                     flag = false
                 }
-          
+
                 if (!this.formData.dependentProductCodes) {
                     flag = false
                 }*/
@@ -269,7 +272,7 @@
             }
         },
         mounted () {
-            
+
             /*
              * 获取选择的短信模板信息
              * */
@@ -282,7 +285,7 @@
 
                         this.formData.recommendCodes = this.recommendSmsItem.id;
 
-              
+
                     } else {
 
                         this.promptSmsItem = res;
@@ -290,13 +293,13 @@
 
                         this.formData.promptSmsCodes = this.promptSmsItem.id;
 
-                      
+
                     }
 
                 }
                 this.$modal.hide('smsListModal');
             });
-            
+
             /*
              * 获取选择的互斥和依赖产品信息
              * */
@@ -324,13 +327,13 @@
 
                         this.formData.dependentProductCodes = this.relyProductItem.productCode;
                     }
-                 
+
                 }
             });
         },
         destroyed(){
             this.bus.$off('getSelectSms');
-            
+
             this.bus.$off('getSelectProduct');
 
             this.bus.$off('step3Bus');
@@ -347,33 +350,33 @@
         background: url('#{$image-base-path}#{$URI}') $repeat $x $y;
         background-size: 100% 100%;
     }
-    
+
     .add-step-3 {
         font-size: 14px;
         color: #333333;
         box-sizing: border-box;
-        
+
         .form-wrap {
             padding: 40px 80px;
             .row-left {
                 width: 220px;
             }
             .row-right {
-                
+
             }
         }
-        
+
         .btn-group {
             margin: 25px 0 50px;
         }
     }
-    
+
     .mutex-product-item {
         .item {
             > div, hr {
                 float: left;
             }
-            
+
             hr {
                 width: 0;
                 height: 10px;
