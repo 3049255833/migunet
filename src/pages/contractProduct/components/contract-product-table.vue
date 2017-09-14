@@ -425,11 +425,9 @@
             },
 
             changeInfo(itemObj) {
-                console.log("itemObj1: " + JSON.stringify(itemObj));
+                //console.log("itemObj1: " + JSON.stringify(itemObj));
 
-                //this.bus.$emit('changeInfoBus1', itemObj);
-
-                this.$router.push({ 'name': 'ContractProductUpdate', query: { plan: itemObj}});
+                this.$router.push({ 'name': 'ContractProductUpdate'});
             }
         },
         mounted(){

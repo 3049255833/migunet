@@ -76,15 +76,10 @@
             }
         },
         created(){
-            /**
-             * 接收变更信息的产品对象
-             * */
-            this.formData = this.$route.query.plan;
 
-            console.log("formData2: " + JSON.stringify(this.formData));
         },
         destroyed(){
-            this.bus.$off('changeInfoBus');
+            //this.bus.$off('changeInfoBus');
         }
     }
 </script>

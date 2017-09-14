@@ -170,6 +170,7 @@
              * */
             save(){
                 let that=this;
+
                 this.$http.post(this.api.saveContractProduct, this.postData).then(
                     response => {
                         let res = response.body;
