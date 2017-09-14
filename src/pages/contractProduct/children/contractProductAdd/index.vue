@@ -11,16 +11,16 @@
                             <div class="step-item">
                                 <div class="step-circle " :class="{'active': step===1||step===2||step===3}"
                                      data-attr-step='1'></div>
-                                <div class="step-text">基本信息填写</div>
+                                <div class="step-text">产品信息填写</div>
                             </div>
                             <div class="step-item">
                                 <div class="step-circle" :class="{'active': step===3||step===2}"
                                      data-attr-step='2'></div>
-                                <div class="step-text">批价配置</div>
+                                <div class="step-text">产品权益配置</div>
                             </div>
                             <div class="step-item">
                                 <div class="step-circle" :class="{'active': step===3}" data-attr-step='3'></div>
-                                <div class="step-text">资费信息配置</div>
+                                <div class="step-text">产品关系配置</div>
                             </div>
                         </div>
                     </div>

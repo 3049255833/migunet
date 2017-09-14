@@ -7,7 +7,7 @@
         <div class="panel-item">
             <div class="panel-heading" @click="toggle('base')">
                 <i class="icon-th-list"></i>
-                基本信息
+                产品信息填写
             </div>
 
             <div class="panel-collapse" v-show="toggleStatus1">
@@ -18,7 +18,7 @@
         <div class="panel-item">
             <div class="panel-heading" @click="toggle('info')">
                 <i class="icon-th-list"></i>
-                产品权益信息
+                产品权益配置
             </div>
 
             <div class="panel-collapse" v-show="toggleStatus2">
@@ -29,7 +29,7 @@
         <div class="panel-item">
             <div class="panel-heading" @click="toggle('config')">
                 <i class="icon-th-list"></i>
-                产品关系配置信息
+                产品关系配置
             </div>
 
             <div class="panel-collapse" v-show="toggleStatus3">
