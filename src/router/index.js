@@ -10,6 +10,7 @@ const productCatalogManage  = resolve => require(['@/pages/productCatalogManage'
 const SingleProductDetail  = resolve => require(['@/pages/singleProduct/children/single-product-detail'],resolve) ;
 const ContractProductDetail  = resolve => require(['@/pages/contractProduct/children/contract-product-detail'],resolve) ;
 const ContractProductAdd  = resolve => require(['@/pages/contractProduct/children/contractProductAdd'],resolve) ;
+const ContractProductUpdate = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/update-contract-product'],resolve) ;
 const Step1 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-1'],resolve) ;
 const Step2 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-2'],resolve) ;
 const Step3 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-3'],resolve) ;
@@ -124,6 +125,13 @@ export default new Router({
                             }
                         },
                     ]
+                },
+                {
+                    path: 'contract_product/contract_product_update',
+                    name: 'ContractProductUpdate',
+                    components: {
+                      default: ContractProductUpdate
+                    }
                 },
 
                 /*审核员操作*/

@@ -37,7 +37,8 @@
                     pageSize:'8',
                     pageNo:'1'
                 },
-                totalItem:''
+                totalItem:'',
+                changeInfo: {}
             }
         },
         created(){
@@ -52,6 +53,18 @@
             this.bus.$on('sendDeleteContactProductInfo', res => {
                 this.getContractProductList();
             });
+
+            /**
+             * 接收变更信息的产品对象
+             * */
+            /*this.bus.$on('changeInfoBus1', res => {
+
+                this.bus.$emit('changeInfoBus2', res);
+
+                this.changeInfo = res;
+
+                console.log("changeInfoBus2: " + JSON.stringify(this.changeInfo));
+            });*/
         },
         methods: {
             /**
@@ -103,10 +116,10 @@
                 //this.postData.productCatalog = res.productCatalog;
                 this.postData.effectiveTime = res.effectiveTime;
                 this.postData.expireTime = res.expireTime;
-                
+
                 this.postData.pageNo='1';
                 this.$refs.pagingModule.current=1;
-                
+
 
                 this.getContractProductList();
             },

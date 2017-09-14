@@ -79,6 +79,7 @@
                             </div>
 
                             <div class="mr-30 pointer cl-blue"
+                                 @click="changeInfo(cProduct)"
                                  v-if="cProduct.detailStatus == '2' ||
                                  cProduct.detailStatus == '4'">
                                 变更信息
@@ -104,6 +105,7 @@
                             </div>
 
                             <div class="mr-30 pointer cl-blue"
+                                 @click="changeInfo(cProduct)"
                                  v-if="cProduct.detailStatus == '6' ||
                                  cProduct.detailStatus == '8' ||
                                  cProduct.detailStatus == null">
@@ -168,6 +170,7 @@
                             </div>
 
                             <div class="mr-30 pointer cl-blue"
+                                 @click="changeInfo(cProduct)"
                                  v-if="cProduct.detailStatus == null ||
                                         cProduct.detailStatus == '6' ||
                                         cProduct.detailStatus == '8'">
@@ -226,6 +229,7 @@
                             </div>
 
                             <div class="mr-30 pointer cl-blue"
+                                 @click="changeInfo(cProduct)"
                                  v-if="cProduct.detailStatus == null ||
                                  cProduct.detailStatus == '6' ||
                                  cProduct.detailStatus == '8'">
@@ -418,6 +422,14 @@
                 this.willDeleteDetailSatus = detailStatus;
 
                 //console.log("contractProductId: " + id + ', onlineStatus: ' + onlineStatus + ", detailStatus: " + detailStatus);
+            },
+
+            changeInfo(itemObj) {
+                console.log("itemObj1: " + JSON.stringify(itemObj));
+
+                //this.bus.$emit('changeInfoBus1', itemObj);
+
+                this.$router.push({ 'name': 'ContractProductUpdate', query: { plan: itemObj}});
             }
         },
         mounted(){
