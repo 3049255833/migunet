@@ -3,6 +3,13 @@
         <table class="table-module">
             <thead>
                 <tr>
+                    <th class="pl-30" v-if="smsTFlag">
+                        <label class="checkbox-module checkbox-single">
+                            <input type="checkbox" :value="1" v-model="ifSmsTAll">
+                            <span></span>
+                        </label>
+                        全选
+                    </th>
                     <th>短信模板ID</th>
                     <th>短信模板名称</th>
                     <th>短信模板描述</th>
@@ -13,6 +20,13 @@
 
             <tbody>
                 <tr v-for="(item, index) in smsTemplateList">
+                    <td v-if="smsTFlag" class="pl-30">
+                        <label class="checkbox-module checkbox-single">
+                            <input type="checkbox" :value="index" v-model="smsTCheckbox">
+                            <span></span>
+                        </label>
+                    </td>
+
                     <td>
                         <div class="l-app-name limit-text-length id"
                              :title="item.serviceCode">{{item.serviceCode}}</div>
@@ -65,7 +79,8 @@
     export default {
         name: 'smsTemplateList',
         props:{
-            smsTemplateList: Array
+            smsTemplateList: Array,
+            smsTFlag: Boolean
         },
         data() {
             return {
@@ -75,7 +90,9 @@
                     id: '',
                     serviceCode: ''
                 },
-                operateInfo: ''
+                operateInfo: '',
+                smsTCheckbox: [],
+                ifSmsTAll:[]
             }
         },
         components: {
@@ -99,6 +116,22 @@
                 this.bus.$emit('editSmsTemplateBus', item);
 
                 //this.$modal.show('addBusinessCodeModal');
+            }
+        },
+        watch:{
+            //监听全选
+            'ifSmsTAll'(a, b){
+                if(a.length > 0){
+                    let _length = this.smsTemplateList.length;
+
+                    for(let i = 0; i < _length; i++){
+
+                        this.smsTCheckbox.push(i);
+                    }
+                } else {
+
+                    this.smsTCheckbox=[];
+                }
             }
         },
         created() {

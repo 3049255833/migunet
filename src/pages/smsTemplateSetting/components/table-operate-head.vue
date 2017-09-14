@@ -5,12 +5,28 @@
                 {{title}}
             </div>
 
-            <input @change="upload" type="file" class="pointer" id="upload" name="file"/>
+            <button v-if="smsTFlag&&$root.ajaxLock"
+                    @click="batchDelete"
+                    class="btn btn-middle-88 ml-24 mr-10 btn-primary">删除</button>
 
-            <button class="btn btn-import-module mr-10">批量导入</button>
+            <button @click="cancelAudit"
+                    v-if="smsTFlag"
+                    class="btn btn-default mr-10 btn-middle-88">取消</button>
 
-            <button class="btn btn-add-module-white mr-10" @click="addSmsTemplate">新增短信模板</button>
-            <button class="btn btn-import-module mr-10 batch-delete">批量删除</button>
+            <input @change="upload" v-if="!smsTFlag"
+                   type="file" class="pointer" id="upload" name="file"/>
+
+            <button v-if="!smsTFlag" class="btn btn-import-module mr-10">批量导入</button>
+
+            <button v-if="!smsTFlag" class="btn btn-import-module mr-10">模板下载</button>
+
+            <button class="btn btn-add-module-white mr-10"
+                    v-if="!smsTFlag"
+                    @click="addSmsTemplate">新增短信模板</button>
+
+            <button v-if="!smsTFlag"
+                    @click="smsTAll"
+                    class="btn btn-import-module batch-delete ml-24 mr-10">批量删除</button>
         </div>
 
         <div class="right">
@@ -48,13 +64,15 @@
                 },
                 operateData: {
                     keys: ''  //关键字
-                }
+                },
+                smsTFlag: false
             }
         },
         methods: {
             addSmsTemplate() {
                 this.bus.$emit('addSmsTemPlateBus');
             },
+
             /**
              * 触发事件，将封装的数据传给index
              * 该组件内可以调用该方法传数据
@@ -66,6 +84,7 @@
 
                 this.$emit('searchKeyWordBus',this.operateData);
             },
+
             upload() {
                 let that = this;
 
@@ -109,6 +128,20 @@
 
                     this.bus.$emit('sendBatchAddBossInfo', '上传格式错误');
                 }
+            },
+
+            smsTAll(){
+                this.smsTFlag = true;
+                this.$emit('smsTFlagBus', this.smsTFlag);
+            },
+
+            cancelAudit(){
+                this.smsTFlag = false;
+                this.$emit('smsTFlagBus', this.smsTFlag);
+            },
+
+            batchDelete(){
+                this.$emit('smsTbatchDeleteBus', true);
             }
         }
     }

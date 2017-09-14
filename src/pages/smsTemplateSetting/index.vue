@@ -1,11 +1,15 @@
 <template>
     <div class="sms-template-setting-container">
         <v-table-operate-head
-          title="短信模板设置"
-          v-on:searchKeyWordBus="searchKeyWordBus">
+            title="短信模板设置"
+            v-on:smsTFlagBus="changeSmsTFlag"
+            v-on:smsTbatchDeleteBus="smsTbatchDelete"
+            v-on:searchKeyWordBus="searchKeyWordBus">
         </v-table-operate-head>
 
-        <v-sms-template-table :smsTemplateList="smsTemplateList"></v-sms-template-table>
+        <v-sms-template-table
+          :smsTemplateList="smsTemplateList"
+          :smsTFlag="smsTFlag"></v-sms-template-table>
 
         <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
 
@@ -57,7 +61,8 @@
                     pageNo:'1'
                 },
                 totalItem:'',
-                addResultMsg:''
+                addResultMsg:'',
+                smsTFlag: false,
             }
         },
         created() {
@@ -109,6 +114,14 @@
             });
         },
         methods: {
+            changeSmsTFlag(res){
+                this.smsTFlag = res;
+            },
+
+            smsTbatchDelete(res) {
+
+            },
+
             /**
              * 接收来自头部搜索
              * */
