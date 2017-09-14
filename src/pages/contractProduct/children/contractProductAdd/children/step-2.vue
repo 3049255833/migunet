@@ -153,6 +153,7 @@
         </modal>
     </div>
 </template>
+
 <script type="es6">
     import VSelectBox from '@/components/select-box';
     import VContentLimitSelectBox from '@/pages/contractProduct/children/contractProductAdd/components/content-limit-select-box.vue'
@@ -163,21 +164,26 @@
     import VPlanCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/plan-code-list.vue'
     import VProductSelectStep2 from '../components/product-select-step-2'
 
-
     export default{
+        components: {
+            VSelectBox,
+            VProductCodeList,
+            TModalSubContainer,
+            VPlanCodeList,
+            VContentLimitSelectBox,
+            VPdContentSelectBox,
+            VIsAndSelectBox,
+            VProductSelectStep2
+        },
         data(){
             return {
                 productNameFromStep1: '',
-
                 planCodeIndex: 0,
-
                 pmListIndex: {
                     index: 0,
                     subIndex: 0
                 },
-
                 productIndex: 0,
-
                 formData: {},
                 prmLists: [
                     {
@@ -202,24 +208,12 @@
                         ],
                     }
                 ],
-
                 postData: {
                     prmLists: []
                 },
                 pdMatchFiledLists: [],
                 initPdMatchFileDListsOption: {}
-
             }
-        },
-        components: {
-            VSelectBox,
-            VProductCodeList,
-            TModalSubContainer,
-            VPlanCodeList,
-            VContentLimitSelectBox,
-            VPdContentSelectBox,
-            VIsAndSelectBox,
-            VProductSelectStep2
         },
         methods: {
             nextStep(){
@@ -247,7 +241,6 @@
                     } else {
 
                     }
-
                 })
             },
             /**
@@ -353,7 +346,7 @@
 
 
                 this.postData.prmLists = this.prmLists;
-                
+
                 /*this.$http.post(this.api.saveContractProductTwo, this.postData).then(
                  response => {
                  let res = response.body;
@@ -375,7 +368,6 @@
                 this.$router.push({'name': 'ContractProduct'})
             },
         },
-
         computed: {
             canSave(){
                 let flag = true;
@@ -422,11 +414,9 @@
                 return flag
             }
         },
-
         watch: {
-            
-            //草，兼听不到孙级的变化
 
+            //草，兼听不到孙级的变化
             'prmLists': {
                 handler: function (a,b) {
                     /*console.log(a);
@@ -444,16 +434,13 @@
                 }
             }
         },
-
         created(){
             let that = this;
-
 
             /**
              * 获取匹配字段表
              * */
             this.findPdMatchFiled();
-
 
             /**
              * 选中匹配字段下拉框选项
@@ -515,7 +502,7 @@
                     let selectOption = res.selectOption;
                     this.prmLists[index].pmLists[subIndex].matchValues = selectOption;
                 }
-            })
+            });
 
             /**
              * 选中产品弹框
@@ -537,11 +524,9 @@
                     this.prmLists[index].pmLists[0].valueType = '2';
                     this.prmLists[index].pmLists[0].operator = '';
                     this.prmLists[index].pmLists[0].productData = data;
-
-
                 }
-            })
-            
+            });
+
             /*  /!**
              * 获取产品名
              * *!/
@@ -550,18 +535,16 @@
              this.productNameFromStep1=res;
              })*/
         },
-
         destroyed(){
             this.bus.$off('productSelectStep2Bus');
             this.bus.$off('pdContentSelectBoxBus');
             this.bus.$off('contentLimitSelectBoxBus');
             this.bus.$off('isAndSelectBoxBus');
             this.bus.$off('step2Bus');
-
-
         }
     }
 </script>
+
 <style lang='scss' scoped rel='stylesheet/scss'>
     $image-base-path: '../../../../../assets/';
     @mixin bg($URI, $w: null, $h: null, $x: top, $y: center, $repeat: no-repeat) {
@@ -572,12 +555,12 @@
         background: url('#{$image-base-path}#{$URI}') $repeat $x $y;
         background-size: 100% 100%;
     }
-    
+
     .add-step-2 {
         font-size: 14px;
         color: #333333;
         box-sizing: border-box;
-        
+
         .required {
             position: relative;
             padding-left: 12px;
@@ -592,9 +575,9 @@
         }
         .step-layout {
             padding: 40px 87px 40px 70px;
-            
+
         }
-        
+
         .product-txt {
             height: 54px;
             line-height: 54px;
@@ -611,7 +594,7 @@
                 }
             }
         }
-        
+
         .strategy-type-content {
             h3 {
                 margin-bottom: 8px;
@@ -675,11 +658,11 @@
                     cursor: pointer;
                 }
                 input {
-                    
+
                 }
             }
         }
-        
+
         .icon {
             &-select {
                 position: absolute;
@@ -710,7 +693,7 @@
             }
             cursor: pointer;
         }
-        
+
         .btn-group {
             margin: 100px 0 50px;
             padding-left: 160px;

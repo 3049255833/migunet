@@ -3,19 +3,16 @@
         <table class="table-module">
             <thead>
                 <tr>
-                    <th>业务代码ID</th>
-                    <th>企业代码</th>
-                    <th>业务代码名称</th>
-                    <th>业务代码描述</th>
-                    <th>分成类型</th>
-                    <th>资费金额（分）</th>
-                    <th>是否管理员专用</th>
+                    <th>短信模板ID</th>
+                    <th>短信模板名称</th>
+                    <th>短信模板描述</th>
+                    <th>短信模板内容</th>
                     <th>操作</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr v-for="(item, index) in businessCodeList">
+                <tr v-for="(item, index) in smsTemplateList">
                     <td>
                         <div class="l-app-name limit-text-length id"
                              :title="item.serviceCode">{{item.serviceCode}}</div>
@@ -30,17 +27,9 @@
                     <td><div class="limit-text-length des"
                              :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
 
-                    <td v-if="item.sharingType == '0'">分成</td>
-                    <td v-else>买断</td>
-
-                    <td>{{item.feeAmount}}</td>
-
-                    <td v-if="item.isManager == '1'">是</td>
-                    <td v-else>否</td>
-
                     <td class="operation">
                         <div class="edit icon icon-edit-gray"
-                             @click="editBusinessCode(item)"></div>
+                             @click="editSmsTemplate(item)"></div>
 
                         <div class="delete icon icon-del-gray"
                              @click="deleteBtn(index, item.id, item.serviceCode)"></div>
@@ -49,15 +38,14 @@
                           :confirmInfo="'是否确定删除'"
                           :isHideConfim="item.isHideConfim"
                           :index="index"
-                          details="businessCodeAdmin">
+                          details="smsTemplate">
                         </v-confirm-popover-modal>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <div v-if="businessCodeList.length <= 0" class="no-asset-box">
-            <!--<img src="../../../assets/no-asset-show.png">-->
+        <div v-if="smsTemplateList.length <= 0" class="no-asset-box">
             <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
 
@@ -69,16 +57,15 @@
 </template>
 
 <script>
-    /*import VSearch from '@/components/search'*/
     import VPaging from '@/components/paging'
     import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
     import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
     import VNolist from '@/components/no-list'
 
     export default {
-        name: 'businessCodeTable',
+        name: 'smsTemplateList',
         props:{
-            businessCodeList: Array
+            smsTemplateList: Array
         },
         data() {
             return {
@@ -99,7 +86,7 @@
         },
         methods: {
             deleteBtn(index, id, code) {
-                this.businessCodeList[index].isHideConfim = false;
+                this.smsTemplateList[index].isHideConfim = false;
 
                 this.willDelete.id = id;
 
@@ -107,9 +94,9 @@
 
                 //console.log("willDeleteId: " + this.willDelete.id);
             },
-            editBusinessCode(item) {
+            editSmsTemplate(item) {
 
-                this.bus.$emit('editPassModal', item);
+                this.bus.$emit('editSmsTemplateBus', item);
 
                 //this.$modal.show('addBusinessCodeModal');
             }
@@ -118,8 +105,8 @@
             /**
              * 接收来自确认modal框的信息
              * */
-            this.bus.$on('businessCodeAdminConfirmInfoBus', res => {
-                this.businessCodeList[res].isHideConfim = true;
+            this.bus.$on('smsTemplateComfirmInfoBus', res => {
+                this.smsTemplateList[res].isHideConfim = true;
 
                 let that = this;
 
@@ -160,17 +147,20 @@
              * 接收来自取消modal框的信息
              * */
             this.bus.$on('sendCancelInfo', res => {
-                this.businessCodeList[res].isHideConfim = true;
+                this.smsTemplateList[res].isHideConfim = true;
             });
+        },
+        destroyed(){
+            this.bus.$off('smsTemplateComfirmInfoBus');
+            this.bus.$off('sendCancelInfo');
         }
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
     .no-asset-box {
-      text-align: center;
-      margin-top: 85px;
+        text-align: center;
+        margin-top: 85px;
     }
 
     table {

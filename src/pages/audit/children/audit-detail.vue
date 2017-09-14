@@ -141,7 +141,7 @@
           <v-confirm-popover-modal
               :confirmInfo="confirmInfo"
               :isHideConfim="isHideConfim"
-              details="auditDetailsComfirmInfo"
+              details="auditDetails"
               v-bind:style="styleComfirm">
           </v-confirm-popover-modal>
       </div>
@@ -487,7 +487,7 @@
           /**
            * 接收来自确认modal框的信息
            * */
-          this.bus.$on('sendAuditDetailsComfirmInfo', res => {
+          this.bus.$on('auditDetailsComfirmInfoBus', res => {
               let that = this;
 
               that.postDataList.push({
@@ -528,7 +528,7 @@
           /**
            * 接收来自取消modal框的信息
            * */
-          this.bus.$on('sendDetailsCancelInfo', res => {
+          this.bus.$on('sendCancelInfo', res => {
               this.isHideConfim = true;
           });
       },
@@ -636,9 +636,8 @@
 
       },
       destroyed() {
-          this.bus.$off('sendAuditDetailsComfirmInfo');
-          this.bus.$off('sendDetailsCancelInfo');
-          this.bus.$off('sendAuditProductData');
+          this.bus.$off('auditDetailsComfirmInfoBus');
+          this.bus.$off('sendCancelInfo');
       }
   }
 </script>

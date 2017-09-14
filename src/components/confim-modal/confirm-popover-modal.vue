@@ -19,26 +19,33 @@
         },
         methods: {
             confirm() {
-                if(this.details === 'details') {
+                if(this.details === 'contractProductDetails') {
 
-                    this.bus.$emit('sendDetailsConfirmInfo', this.index);
+                    this.bus.$emit('contractProductDetailsConfirmInfoBus', this.index);
+
                 } else if(this.details === 'businessCodeAdmin') {
 
-                    this.bus.$emit('sendBusinessCodeAdminConfirmInfo', this.index);
-                } else if(this.details === 'auditDetailsComfirmInfo') {
+                    this.bus.$emit('businessCodeAdminConfirmInfoBus', this.index);
 
-                    this.bus.$emit('sendAuditDetailsComfirmInfo', this.index);
+                } else if(this.details === 'auditDetails') {
+
+                    this.bus.$emit('auditDetailsComfirmInfoBus', this.index);
+
+                } else if(this.details === 'smsTemplate') {
+
+                    this.bus.$emit('smsTemplateComfirmInfoBus', this.index);
+
                 } else {
-
+                    //合约产品列表页
                     this.bus.$emit('sendConfirmInfo', this.index);
                 }
 
                 event.stopPropagation();
             },
             cancel() {
-                if(this.details === 'details') {
+                if(this.details === 'contractProductDetails') {
 
-                    this.bus.$emit('sendDetailsCancelInfo', this.index);
+                    this.bus.$emit('contractProductDetailsCancelInfoBus', this.index);
                 } else {
 
                     this.bus.$emit('sendCancelInfo', this.index);

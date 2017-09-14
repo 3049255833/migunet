@@ -638,7 +638,7 @@
                 },
                 //目录Id
                 catalogId: {
-                
+
                 },
                 //体验产品周期数
                 expCycleUnitNum: {
@@ -655,9 +655,9 @@
                 pdFeePlanCodes:{
                     required
                 }
-                
-                
-                
+
+
+
                 /*   catalogId: '',           //目录Id
                  isVip: '1',    //是否会员 1：会员 0 ：包月
                  isExperience: '1',       //是否体验产品 1：是 0 ：正式产品
@@ -672,8 +672,8 @@
                  isReorder: '0',         //是否重复订购
                  cycleUnitNum: '',        //周期单位数 -1：永久有效
                  cycleUnit: '',            // 周期单位 0：天 1：周 2：月 3：年
-                 
-                 
+
+
                  businessArea: '',
                  vipProduct: '1',
                  repeatBuy: '1',
@@ -726,13 +726,13 @@
                     if((!this.formData.paytype.contains('1'))&&(!this.formData.paytype.contains('2'))){
                         flag=false
                     }
- 
+
                     if (this.formData.paytype.contains('1')) {
                         if(this.formData.ifUseServiceCode==1){     //使用了业务代码
                             if(!this.paytype1.serviceCode){
                                 flag = false
                             }else {
-                              
+
                             }
                         }else{
                             if (!/^\d+|-\d+$/g.test(this.paytype1.cycleUnitNum)) {
@@ -752,8 +752,8 @@
                             flag = false
                         }
                     }
-                    
-                    
+
+
                 } else {
                     flag = false
                 }
@@ -765,11 +765,11 @@
                     expireTime=parseInt(expireTime.split('-').join(''));
                     effectiveTime=parseInt(effectiveTime.split('-').join(''));
                     if(expireTime<effectiveTime){
-                       
+
                         flag=false;
                         this.errorMsg.timeErrorMsg='生效时间必须早于失效时间'
                     }else{
-                
+
                         this.errorMsg.timeErrorMsg=''
                     }
 
@@ -811,7 +811,7 @@
                 if(this.formData.paytype.contains('2')){
                     this.formData.pts.push(this.paytype2)
                 }
-                
+
                 //存数据postData里面
                 this.postData.pdContract.productName=this.formData.productName;
                 this.postData.pdContract.productDesc=this.formData.productDesc;
@@ -828,23 +828,23 @@
                 this.postData.pdFeePlanCodes=this.forbidChosePlanCode?'':this.formData.pdFeePlanCodes;
                 this.postData.pdAttributionCodes=this.formData.pdAttributionCodes;
                 this.postData.pdChannelCodes=this.formData.pdChannelCodes;
-                
-                
+
+
                 this.$emit('step1Bus',{
                     step:2,
                     data:this.postData
-                })
-                console.log('发送step-1bus')
+                });
+                console.log('发送step-1bus');
             },
-            
-            
+
+
             /**
              * 取消
              * */
             cancel(){
-                this.$router.push({'name': 'ContractProduct'})
+                this.$router.push({'name': 'ContractProduct'});
             },
-            
+
             /**
              * 获取资费计划
              * */
@@ -860,7 +860,7 @@
                     this.planCodeTableData=res.planCodeData;
                 }
             },
-            
+
             /**
              * 获取地区
              * */
@@ -877,7 +877,7 @@
                     this.formData.pdAttributionCodes = attributionCodeArr.join('|');
                 }
             },
-            
+
             /**
              * 当变量canHideModal为false时，无法关闭弹框
              * */
@@ -889,7 +889,7 @@
              * 选择业务代码
              * */
             choseServiceCode(){
-                this.$modal.show('serviceCodeModal')
+                this.$modal.show('serviceCodeModal');
             },
 
             /**
@@ -912,7 +912,7 @@
             nextStep(){
                 //将产品名送给步骤2
                 this.bus.$emit('sendProductNameBus',this.formData.productName);
-                
+
                 this.save();
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
             },
@@ -996,8 +996,8 @@
         },
         created () {
             let that = this;
-            
-            
+
+
             /**
              * 获取下拉框的值
              * */
@@ -1070,8 +1070,8 @@
                 }
             })
 
-          
-            
+
+
         },
         destroyed (){
             this.bus.$off('channelCodeBus');
@@ -1092,12 +1092,12 @@
         background: url('#{$image-base-path}#{$URI}') $repeat $x $y;
         background-size: 100% 100%;
     }
-    
+
     .add-step-1 {
         font-size: 14px;
         color: #333333;
         box-sizing: border-box;
-        
+
         .form-wrap {
             padding: 40px 110px;
             .form-row {
@@ -1107,11 +1107,11 @@
                 width: 193px;
             }
             .row-right {
-                
+
             }
-            
+
         }
-        
+
         .type-area {
             width: 700px;
             border: 1px solid #D6E1E5;
@@ -1132,7 +1132,7 @@
                 }
             }
         }
-        
+
         .icon {
             &-close-round {
                 position: absolute;
@@ -1152,7 +1152,7 @@
                 @include bg("icon-recommend.png", 57px, 26px);
             }
         }
-        
+
         .btn-group {
             margin: 25px 0 50px;
         }

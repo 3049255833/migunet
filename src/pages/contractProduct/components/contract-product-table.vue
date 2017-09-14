@@ -477,6 +477,7 @@
         },
         destroyed(){
             this.bus.$off('sendConfirmInfo');
+            this.bus.$off('sendCancelInfo');
         }
     }
 </script>
