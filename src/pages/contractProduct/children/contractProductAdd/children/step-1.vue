@@ -484,7 +484,7 @@
     import TModalSubContainer from "@/components/modal-sub-container";
     import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose.vue'
     import VSelectBox from '@/components/select-box'
-    import VDate from '@/components/date'
+    import VDate from '@/components/new-date'
     import VServiceCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/service-code-list.vue'
     import VChannelCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/channel-code-list.vue'
     import VPlanCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/plan-code-list.vue'

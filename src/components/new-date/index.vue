@@ -23,16 +23,24 @@
                        readonly>
             </div>
         </div>
+
         <transition name="fade">
-            <div class="calendar-dropdown" :style="{'left':(calendar3.left-460)+'px','top':(calendar3.top-80)+'px'}" v-if="calendar3.show">
-                <calendar :zero="calendar3.zero" :lunar="calendar3.lunar" :value="calendar3.value" :begin="calendar3.begin" :end="calendar3.end" @select="calendar3.select"></calendar>
+            <div class="calendar-dropdown"
+                :style="{'left':(calendar3.left-460)+'px','top':(calendar3.top-80)+'px'}"
+                v-if="calendar3.show">
+
+                <calendar :zero="calendar3.zero"
+                    :lunar="calendar3.lunar"
+                    :value="calendar3.value"
+                    :begin="calendar3.begin"
+                    :end="calendar3.end"
+                    @select="calendar3.select"></calendar>
             </div>
         </transition>
     </div>
-
 </template>
 
-<script type="es6">
+<script type="text/ecmascript-6">
     import calendar from '../common/calendar.vue'
     export default {
         name: 'PickDate',
@@ -40,23 +48,23 @@
         components:{
             calendar
         },
-        data(){
+        data() {
             return {
-                calendar3:{
-                    display:'',
-                    show:false,
-                    zero:true,
+                calendar3: {
+                    display: '',
+                    show: false,
+                    zero: true,
                     // value:[2018,2,16], //默认日期
-                    lunar:false, //显示农历
-                    select:(value)=>{
-                        this.calendar3.show=false;
-                        this.calendar3.value=value;
-                        this.calendar3.display=value.join("-");
-                        if(this.startTime=='true'){
+                    lunar: false, //显示农历
+                    select: (value)=> {
+                        this.calendar3.show = false;
+                        this.calendar3.value = value;
+                        this.calendar3.display = value.join("-");
+
+                        if(this.startTime == 'true') {
                             // this.$store.dispatch('changeStartTime',this.calendar3.value.join("-"));
                         }
-                        if(this.startTime=='false')
-                        {
+                        if(this.startTime == 'false') {
                             // this.$store.dispatch('changeEndTime',this.calendar3.value.join("-"));
                         }
                     }
@@ -64,24 +72,24 @@
             }
         },
         methods:{
-
             openByDrop(e){
-                this.calendar3.show=true;
-                this.calendar3.left=e.target.offsetLeft+199;
-                this.calendar3.top=e.target.offsetTop+120;
+                this.calendar3.show = true;
+                this.calendar3.left = e.target.offsetLeft + 199;
+                this.calendar3.top = e.target.offsetTop + 120;
 
                 e.stopPropagation();
-                window.setTimeout(()=>{
-                    document.addEventListener("click",(e)=>{
-                        this.calendar3.show=false;
+
+                window.setTimeout(()=> {
+
+                    document.addEventListener("click",(e)=> {
+                        this.calendar3.show = false;
                         document.removeEventListener("click",()=>{},false);
                     },false);
+
                 },1000)
             },
-            
-            sendDate(){
-            }
 
+            sendDate(){}
         },
         watch:{
             /**
@@ -91,19 +99,16 @@
                 this.$emit('dateBus',{
                     dateName:this.dateName,
                     dateValue:this.calendar3.display
-                })
-                console.log('触发日期')
-            },
+                });
+                console.log('触发日期');
+            }
         },
-        mounted(){
-        }
-        
+        mounted(){}
     }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
-    
+
     .date-wrapper{
         width: 100%;
         position: relative;
@@ -117,7 +122,7 @@
                 }
             }
         }
-        
+
     }
     input{
         cursor: pointer;
@@ -169,7 +174,7 @@
         height: 34px;
         line-height: 34px;
     }
-    
+
     /*transition*/
     .fade-enter-active,
     .fade-leave-active {
@@ -178,9 +183,9 @@
     .fade-enter,.fade-leave-active{
         opacity: 0;
         transform: translateY(-10px);
-        
+
     }
-    
+
     /*下拉框*/
     .calendar-dropdown{
         background: #fff;
@@ -194,21 +199,21 @@
     }
     .calendar-dropdown:before {
         position: absolute;
-        left:30px;
         top: -10px;
+        right: 30px;
         content: "";
         border:5px solid rgba(0, 0, 0, 0);
         border-bottom-color: #DEDEDE;
     }
     .calendar-dropdown:after {
         position: absolute;
-        left:30px;
         top: -9px;
         content: "";
         border:5px solid rgba(0, 0, 0, 0);
+        right: 30px;
         border-bottom-color: #fff;
     }
-    
+
     /*弹出框*/
     .calendar-dialog{
         position: absolute;
@@ -217,13 +222,13 @@
         right:0;
         bottom:0;
     }
-    
+
     .calendar-dialog-mask{
         background:rgba(255,255,255,.5);
         width:100%;
         height:100%;
     }
-    
+
     .calendar-dialog-body{
         background: #fff;
         position: absolute;
