@@ -10,19 +10,24 @@
                            v-model.trim="formData.productName" type="text"
                            @input="$v.formData.productName.$touch()"
                            placeholder="请输入"/>
-                    <span class="error-msg" v-if="$v.formData.productName.$error">{{errorMsg.productName}}</span>
+
+                    <span class="error-msg"
+                        v-if="$v.formData.productName.$error">
+                        {{errorMsg.productName}}</span>
                 </div>
             </div>
+
             <!--产品描述-->
             <div class="form-row">
                 <div class="row-left">产品描述（中文）：</div>
                 <div class="row-right">
                     <textarea class="textarea-module w-340"
-                              type="text"
-                              v-model.trim="formData.productDesc"
-                              placeholder="请输入"></textarea>
+                        type="text"
+                        v-model.trim="formData.productDesc"
+                        placeholder="请输入"></textarea>
                 </div>
             </div>
+
             <!--搜索关键字-->
             <div class="form-row">
                 <div class="row-left required">
@@ -30,13 +35,15 @@
                 </div>
                 <div class="row-right">
                     <textarea class="textarea-module w-340" type="text"
-                              :class="{'error':$v.formData.searchKey.$error}"
-                              v-model.trim="formData.searchKey"
-                              @input="$v.formData.searchKey.$touch()"
-                              placeholder="搜索关键字将用于用户搜索功能，请输入断句，逗号 ‘，’隔开，例：‘漫画，青少年’"></textarea>
-                    <span class="error-msg" v-if="$v.formData.searchKey.$error">{{errorMsg.searchKey}}</span>
+                        :class="{'error':$v.formData.searchKey.$error}"
+                        v-model.trim="formData.searchKey"
+                        @input="$v.formData.searchKey.$touch()"
+                        placeholder="搜索关键字将用于用户搜索功能，请输入断句，逗号 ‘，’隔开，例：‘漫画，青少年’"></textarea>
+                    <span class="error-msg"
+                          v-if="$v.formData.searchKey.$error">{{errorMsg.searchKey}}</span>
                 </div>
             </div>
+
             <!--生效方式-->
             <div class="form-row">
                 <div class="row-left required">
@@ -44,13 +51,13 @@
                 </div>
                 <div class="row-right">
                     <v-select-box :w="'200'"
-                                  :selectTitle="'立即生效'"
-                                  :selectValue="'1'"
-                                  :selectBoxName="'effectiveWaySelectBox'"
-                                  :options="selectBoxList.effectiveWayList">
-                    </v-select-box>
+                        :selectTitle="'立即生效'"
+                        :selectValue="'1'"
+                        :selectBoxName="'effectiveWaySelectBox'"
+                        :options="selectBoxList.effectiveWayList"></v-select-box>
                 </div>
             </div>
+
             <!--生效时间-->
             <div class="form-row">
                 <div class="required row-left">
@@ -58,11 +65,13 @@
                 </div>
                 <div class="row-right">
                     <v-date :class="{'w-200':true,'error':errorMsg.timeErrorMsg}"
-                            :dateName="'step1EffectiveTime'"
-                            :defaultText="'生效时间'"></v-date>
-                    <span class="error-msg" v-if="errorMsg.timeErrorMsg">{{errorMsg.timeErrorMsg}}</span>
+                        :dateName="'step1EffectiveTime'"
+                        :defaultText="'生效时间'"></v-date>
+                    <span class="error-msg"
+                          v-if="errorMsg.timeErrorMsg">{{errorMsg.timeErrorMsg}}</span>
                 </div>
             </div>
+
             <!--失效时间-->
             <div class="form-row">
                 <div class="required row-left">
@@ -70,11 +79,13 @@
                 </div>
                 <div class="row-right">
                     <v-date :class="{'w-200':true,'error':errorMsg.timeErrorMsg}"
-                            :dateName="'step1ExpireTime'"
-                            :defaultText="'失效时间'"></v-date>
-                    <span class="error-msg" v-if="errorMsg.timeErrorMsg">{{errorMsg.timeErrorMsg}}</span>
+                        :dateName="'step1ExpireTime'"
+                        :defaultText="'失效时间'"></v-date>
+                    <span class="error-msg"
+                          v-if="errorMsg.timeErrorMsg">{{errorMsg.timeErrorMsg}}</span>
                 </div>
             </div>
+
             <!--业务归属地-->
             <div class="form-row">
                 <div class="row-left required">
@@ -82,45 +93,53 @@
                 </div>
                 <div class="row-right">
                     <input @click="showBusinessAreaModal "
-                           class="form-input w-200 pointer"
-                           :class="{'error':$v.formData.attributionText.$error}"
-                           v-model="formData.attributionText"
-                           type="text"
-                           readonly
-                           placeholder="请输入"/>
+                         class="form-input w-200 pointer"
+                         :class="{'error':$v.formData.attributionText.$error}"
+                         v-model="formData.attributionText"
+                         type="text"
+                         readonly
+                         placeholder="请输入"/>
                     <i class="icon icon-select"></i>
                     <span class="error-msg"
-                          v-if="$v.formData.attributionText.$error">{{errorMsg.attributionText}}</span>
+                        v-if="$v.formData.attributionText.$error">
+                        {{errorMsg.attributionText}}</span>
                 </div>
             </div>
+
             <!--渠道编码-->
             <div class="form-row">
                 <div class="row-left required">
                     渠道编码：
                 </div>
                 <div class="row-right">
-                    <input type="text" class="form-input w-200 pointer"
-                           readonly
-                           @click="choseChannelCode"
-                           v-model.trim="formData.pdChannelCodes" placeholder="请输入"/>
+                    <input type="text"
+                         class="form-input w-200 pointer"
+                         readonly
+                         @click="choseChannelCode"
+                         v-model.trim="formData.pdChannelCodes" placeholder="请输入"/>
                     <i class="icon icon-select"></i>
-                    <span class="error-msg" v-if="$v.formData.pdChannelCodes.$error">{{errorMsg.pdChannelCodes}}</span>
+                    <span class="error-msg"
+                        v-if="$v.formData.pdChannelCodes.$error">
+                        {{errorMsg.pdChannelCodes}}</span>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left required">
                     产品目录：
                 </div>
                 <div class="row-right">
                     <v-select-box :w="'200'"
-                                  v-if='false'
-                                  :selectBoxName="'productDistListSelectBox'"
-                                  :defaultTitle="'产品目录'"
-                                  :options="selectBoxList.productDistList"></v-select-box>
+                        v-if='false'
+                        :selectBoxName="'productDistListSelectBox'"
+                        :defaultTitle="'产品目录'"
+                        :options="selectBoxList.productDistList"></v-select-box>
                     <input value="动漫" disabled class="w-200  form-input w-200">
-                    <span class="error-msg" v-if="$v.formData.catalogId.$error">{{errorMsg.catalogId}}</span>
+                    <span class="error-msg"
+                          v-if="$v.formData.catalogId.$error">{{errorMsg.catalogId}}</span>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left required">
                     是否会员产品：
@@ -129,49 +148,54 @@
                     <div class="radio-wrap">
                         <label class="radio-module w-70">
                             <input value="1"
-                                   v-model="formData.isVip"
-                                   name="isVip"
-                                   type="radio">
+                               v-model="formData.isVip"
+                               name="isVip"
+                               type="radio">
                             <span class="mr-3"></span>
                             <span class="txt">会员</span>
                         </label>
+
                         <label class="radio-module">
                             <input value="0"
-                                   v-model="formData.isVip"
-                                   name="isVip"
-                                   type="radio">
+                               v-model="formData.isVip"
+                               name="isVip"
+                               type="radio">
                             <span class="mr-3"></span>
                             <span class="txt">包月</span>
                         </label>
                     </div>
                 </div>
             </div>
+
             <!--是否体验产品-->
             <div class="form-row">
                 <div class="row-left required">
                     是否体验产品：
                 </div>
+
                 <div class="row-right">
                     <div class="radio-wrap">
                         <label class="radio-module w-70">
                             <input value="1"
-                                   v-model="formData.isExperience"
-                                   name="isExperience"
-                                   type="radio">
+                               v-model="formData.isExperience"
+                               name="isExperience"
+                               type="radio">
                             <span class="mr-3"></span>
                             <span class="txt">是</span>
                         </label>
+
                         <label class="radio-module">
                             <input value="0"
-                                   name="isExperience"
-                                   v-model="formData.isExperience"
-                                   type="radio">
+                               name="isExperience"
+                               v-model="formData.isExperience"
+                               type="radio">
                             <span class="mr-3"></span>
                             <span class="txt">否</span>
                         </label>
                     </div>
                 </div>
             </div>
+
             <!--体验产品填入-->
             <div class="form-row" v-if="formData.isExperience=='1'">
                 <div class="row-left required">
@@ -179,20 +203,22 @@
                 </div>
                 <div class="row-right">
                     <input v-model="formData.expCycleUnitNum"
-                           @input="$v.formData.expCycleUnitNum.$touch()"
-                           :class="{'error':$v.formData.expCycleUnitNum.$error}"
-                           type="number"
-                           class="mr-10 form-input w-80 vt-middle">
+                         @input="$v.formData.expCycleUnitNum.$touch()"
+                         :class="{'error':$v.formData.expCycleUnitNum.$error}"
+                         type="number"
+                         class="mr-10 form-input w-80 vt-middle">
                     <div class="layout-inline-middle">
                         <v-select-box :w="'110'"
-                                      :selectTitle="'月'"
-                                      :selectBoxName="'expCycleUnitListSelectBox'"
-                                      v-bind:options="selectBoxList.expCycleUnitList"></v-select-box>
+                            :selectTitle="'月'"
+                            :selectBoxName="'expCycleUnitListSelectBox'"
+                            v-bind:options="selectBoxList.expCycleUnitList"></v-select-box>
                     </div>
                     <span class="error-msg"
-                          v-if="$v.formData.expCycleUnitNum.$error">{{errorMsg.expCycleUnitNum}}</span>
+                        v-if="$v.formData.expCycleUnitNum.$error">
+                        {{errorMsg.expCycleUnitNum}}</span>
                 </div>
             </div>
+
             <!--支付方式 -->
             <div class="form-row">
                 <div class="row-left required">
@@ -204,188 +230,236 @@
                         <div class="item">
                             <div class="item-head ">
                                 <label class="checkbox-module">
-                                    <input type="checkbox" value="1" v-model="formData.paytype">
+                                    <input type="checkbox"
+                                           value="1"
+                                           v-model="formData.paytype">
                                     <span></span>
                                     <span class="txt">话费支付</span>
                                 </label>
                                 <i class="icon-recommend layout-center-y"></i>
                             </div>
+
                             <div v-if="formData.paytype.contains('1')" class="form-wrap">
                                 <div class="form-row pb-18">
                                     <div class="row-left w-200 required">使用业务代码：</div>
+
                                     <div class="row-right">
                                         <div class="radio-wrap">
                                             <label class="radio-module w-70">
-                                                <input value="1" v-model="formData.ifUseServiceCode" type="radio">
+                                                <input value="1"
+                                                       v-model="formData.ifUseServiceCode"
+                                                       type="radio">
                                                 <span></span>
                                                 <span class="txt">是</span>
                                             </label>
+
                                             <label class="radio-module w-70">
-                                                <input value="0" v-model="formData.ifUseServiceCode" type="radio">
+                                                <input value="0"
+                                                       v-model="formData.ifUseServiceCode"
+                                                       type="radio">
                                                 <span></span>
                                                 <span class="txt">否</span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div v-if="ifUseServiceCode" class="form-row">
                                     <div class="row-left w-200 required">业务代码选择：</div>
                                     <div class="row-right">
                                         <input class="form-input w-200 pointer"
-                                               type="text" readonly
-                                               @click="choseServiceCode"
-                                               v-model="paytype1.serviceCode"
-                                               placeholder="业务代码选择">
+                                             type="text" readonly
+                                             @click="choseServiceCode"
+                                             v-model="paytype1.serviceCode"
+                                             placeholder="业务代码选择">
                                         <i class="icon-select icon"></i>
                                     </div>
                                 </div>
-                                <div v-if="ifUseServiceCode&&paytype1.serviceCode" class="form-row">
-                                    <div class="row-left w-200 required">资费金额（分）：</div>
+
+                                <div v-if="ifUseServiceCode&&paytype1.serviceCode"
+                                     class="form-row">
+
+                                    <div class="row-left w-200 required">
+                                        资费金额（分）：</div>
+
                                     <div class="row-right">
                                         <input class="form-input w-200"
-                                               type="text"
-                                               disabled
-                                               v-model="paytype1.price">
+                                           type="text"
+                                           disabled
+                                           v-model="paytype1.price">
                                     </div>
                                 </div>
-                                <div v-if="ifUseServiceCode&&paytype1.serviceCode" class="form-row">
+
+                                <div v-if="ifUseServiceCode&&paytype1.serviceCode"
+                                     class="form-row">
                                     <div class="row-left w-200 required">企业代码：</div>
                                     <div class="row-right">
                                         <input class="form-input w-200"
-                                               type="text"
-                                               disabled
-                                               v-model="paytype1.companyCode"
-                                        >
+                                           type="text"
+                                           disabled
+                                           v-model="paytype1.companyCode">
                                     </div>
                                 </div>
+
                                 <div v-if="!ifUseServiceCode" class="form-row">
                                     <div class="row-left w-200 required">资费金额：</div>
                                     <div class="row-right">
                                         <input class="form-input w-200"
-                                               type="text"
-                                               :class="{'error':$v.paytype1.price.$error}"
-                                               v-model.trim="paytype1.price"
-                                               @input="$v.paytype1.price.$touch()"
-                                        >
-                                        <i v-show="paytype1.price" class="icon icon-close-round"
+                                             type="text"
+                                             :class="{'error':$v.paytype1.price.$error}"
+                                             v-model.trim="paytype1.price"
+                                             @input="$v.paytype1.price.$touch()">
+
+                                        <i v-show="paytype1.price"
+                                           class="icon icon-close-round"
                                            @click="remove('price','paytype1')"></i>
+
                                         <span class="error-msg"
-                                              v-if="$v.paytype1.price.$error">{{errorMsg.paytype1.price}}</span>
+                                            v-if="$v.paytype1.price.$error">
+                                            {{errorMsg.paytype1.price}}</span>
                                     </div>
                                 </div>
+
                                 <div class="form-row">
                                     <div class="row-left w-200 required">资费类型：</div>
                                     <div class="row-right">
                                         <p class="txt font-14">{{feeTypeText}}</p>
                                     </div>
                                 </div>
+
                                 <div class="form-row">
                                     <div class="row-left w-200 required">是否重复订购：</div>
                                     <div class="row-right">
                                         <div class="radio-wrap">
                                             <label class="radio-module w-70">
-                                                <input value="1" v-model="paytype1.isReorder" type="radio">
+                                                <input value="1"
+                                                       v-model="paytype1.isReorder"
+                                                       type="radio">
                                                 <span></span>
                                                 <span class="txt">是</span>
                                             </label>
+
                                             <label class="radio-module w-70">
-                                                <input value="0" v-model="paytype1.isReorder" type="radio">
+                                                <input value="0"
+                                                       v-model="paytype1.isReorder"
+                                                       type="radio">
                                                 <span></span>
                                                 <span class="txt">否</span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div v-if="ifUseServiceCode" class="form-row ">
                                     <div class="row-left w-200 required">产品周期：</div>
                                     <div class="row-right">
-                                        <input class="form-input w-200" disabled value="永久有效">
+                                        <input class="form-input w-200"
+                                             disabled value="永久有效">
                                     </div>
                                 </div>
+
                                 <div v-if="!ifUseServiceCode" class="form-row ">
                                     <div class="row-left w-200 required">产品周期：</div>
                                     <div class="row-right">
                                         <div class="block-dom pb-20">
                                             <v-select-box w="200"
-                                                          :selectTitle="'有限周期'"
-                                                          :selectValue="'0'"
-                                                          :selectBoxName="'paytype1UnitSelectBox'"
-                                                          v-bind:options="[{optionText:'有限周期',optionValue:'0'},{optionText:'永久有效',optionValue:'1'}]"></v-select-box>
+                                                :selectTitle="'有限周期'"
+                                                :selectValue="'0'"
+                                                :selectBoxName="'paytype1UnitSelectBox'"
+                                                v-bind:options="[{optionText:'有限周期',optionValue:'0'},{optionText:'永久有效',optionValue:'1'}]"></v-select-box>
                                         </div>
-                                        <div class="block-dom " v-if="this.paytype1.cycleUnitSelect=='0'">
+
+                                        <div class="block-dom "
+                                             v-if="this.paytype1.cycleUnitSelect=='0'">
+
                                             <input class="mr-10 form-input w-80 vt-middle"
-                                                   v-model="paytype1.cycleUnitNum"
-                                                   @input="$v.paytype1.cycleUnitNum.$touch()"
-                                                   :class="{'error':$v.paytype1.cycleUnitNum.$error}"
-                                                   type="text">
+                                                 v-model="paytype1.cycleUnitNum"
+                                                 @input="$v.paytype1.cycleUnitNum.$touch()"
+                                                 :class="{'error':$v.paytype1.cycleUnitNum.$error}"
+                                                 type="text">
+
                                             <div class="layout-inline-middle">
-                                                <v-select-box w="110" :selectTitle="'月'"
-                                                              :selectBoxName="'paytype1CycleUnitListSelectBox'"
-                                                              v-bind:options="selectBoxList.cycleUnitList"></v-select-box>
+                                                <v-select-box w="110"
+                                                    :selectTitle="'月'"
+                                                    :selectBoxName="'paytype1CycleUnitListSelectBox'"
+                                                    v-bind:options="selectBoxList.cycleUnitList"></v-select-box>
                                             </div>
+
                                             <span class="error-msg"
-                                                  v-if="$v.paytype1.cycleUnitNum.$error">{{errorMsg.paytype1.cycleUnitNum}}</span>
+                                                v-if="$v.paytype1.cycleUnitNum.$error">
+                                                {{errorMsg.paytype1.cycleUnitNum}}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <!--第三方支付-->
                         <div class="item">
                             <div class="item-head ">
                                 <label class="checkbox-module">
-                                    <input type="checkbox" value="2" v-model="formData.paytype">
+                                    <input type="checkbox" value="2"
+                                           v-model="formData.paytype">
                                     <span></span>
                                     <span class="txt">第三方支付</span>
                                 </label>
                             </div>
+
                             <div v-if="formData.paytype.contains('2')" class="form-wrap">
                                 <div class="form-row">
                                     <div class="row-left w-200 required">资费金额（分）：</div>
                                     <div class="row-right">
                                         <input type="text"
-                                               class="form-input w-200" v-model="paytype2.price"
-                                               :class="{'error':$v.paytype2.price.$error}"
-                                               v-model.trim="paytype2.price"
-                                               @input="$v.paytype2.price.$touch()"
-                                               placeholder="请输入"/>
+                                             class="form-input w-200" v-model="paytype2.price"
+                                             :class="{'error':$v.paytype2.price.$error}"
+                                             v-model.trim="paytype2.price"
+                                             @input="$v.paytype2.price.$touch()"
+                                             placeholder="请输入"/>
                                         <i v-show="paytype2.price" class="icon icon-close-round"
                                            @click="remove('price','paytype2')"></i>
                                         <span class="error-msg"
-                                              v-if="$v.paytype2.price.$error">{{errorMsg.paytype1.price}}</span>
+                                            v-if="$v.paytype2.price.$error">
+                                            {{errorMsg.paytype1.price}}</span>
                                     </div>
                                 </div>
+
                                 <div class="form-row">
                                     <div class="row-left w-200 required">消费类型：</div>
                                     <div class="row-right">
                                         <p class="txt font-14">点播</p>
                                     </div>
                                 </div>
+
                                 <div class="form-row">
                                     <div class="row-left w-200 required">是否重复订购：</div>
                                     <div class="row-right">
                                         <div class="radio-wrap">
                                             <label class="radio-module w-70">
-                                                <input value="1" v-model="paytype2.isReorder" type="radio">
+                                                <input value="1"
+                                                       v-model="paytype2.isReorder"
+                                                       type="radio">
                                                 <span></span>
                                                 <span class="txt">是</span>
                                             </label>
                                             <label class="radio-module w-70">
-                                                <input value="0" v-model="paytype2.isReorder" type="radio">
+                                                <input value="0"
+                                                       v-model="paytype2.isReorder"
+                                                       type="radio">
                                                 <span></span>
                                                 <span class="txt">否</span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-row ">
                                     <div class="row-left w-200 required">产品周期：</div>
                                     <div class="row-right">
                                         <div class="block-dom pb-20">
                                             <v-select-box w="200" :selectTitle="'有限周期'"
-                                                          :selectValue="'0'"
-                                                          :selectBoxName="'paytype2UnitSelectBox'"
-                                                          v-bind:options="[{optionText:'有限周期',optionValue:'0'},{optionText:'永久有效',optionValue:'1'}]"></v-select-box>
+                                                :selectValue="'0'"
+                                                :selectBoxName="'paytype2UnitSelectBox'"
+                                                v-bind:options="[{optionText:'有限周期',optionValue:'0'},{optionText:'永久有效',optionValue:'1'}]"></v-select-box>
                                             </v-select-box>
                                         </div>
                                         <div class="block-dom" v-if="this.paytype2.cycleUnitSelect=='0'">
@@ -396,11 +470,12 @@
                                                    type="text">
                                             <div class="layout-inline-middle">
                                                 <v-select-box w="110" :selectTitle="'月'"
-                                                              :selectBoxName="'paytype2CycleUnitListSelectBox'"
-                                                              v-bind:options="selectBoxList.cycleUnitList"></v-select-box>
+                                                    :selectBoxName="'paytype2CycleUnitListSelectBox'"
+                                                    v-bind:options="selectBoxList.cycleUnitList"></v-select-box>
                                             </div>
                                             <span class="error-msg"
-                                                  v-if="$v.paytype2.cycleUnitNum.$error">{{errorMsg.paytype2.cycleUnitNum}}</span>
+                                                v-if="$v.paytype2.cycleUnitNum.$error">
+                                                {{errorMsg.paytype2.cycleUnitNum}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -409,6 +484,7 @@
                     </div>
                 </div>
             </div>
+
             <!--资费计划-->
             <div class="form-row">
                 <div class="row-left required">
@@ -445,7 +521,9 @@
                 <div class="row-left"></div>
                 <div class="row-right">
                     <div class="btn-group">
-                        <div v-if="canSave" class="btn btn-primary btn-middle" @click="nextStep">下一步</div>
+                        <div v-if="canSave"
+                             class="btn btn-primary btn-middle"
+                             @click="nextStep">下一步</div>
                         <div v-else class="btn unable btn-primary btn-middle">下一步</div>
                         <div class="btn btn-default btn-middle" @click="cancel">取消</div>
                     </div>
@@ -456,8 +534,8 @@
         <modal name="businessAreaModal" :width="800" :height="520" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'businessAreaModal'">
                 <v-area-chose :modal-name="'businessAreaModal'"
-                              v-on:areaChoseBus="getArea"
-                              :selectType="'single'"></v-area-chose>
+                    v-on:areaChoseBus="getArea"
+                    :selectType="'single'"></v-area-chose>
             </t-modal-sub-container>
         </modal>
         <!--业务代码modal-->

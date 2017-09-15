@@ -6,35 +6,45 @@
                     <div class="add-title">
                         合约产品新增
                     </div>
+
                     <div class="step-wrapper">
                         <div class="step">
                             <div class="step-item">
-                                <div class="step-circle " :class="{'active': step===1||step===2||step===3}"
+                                <div class="step-circle "
+                                     :class="{'active': step===1||step===2||step===3}"
                                      data-attr-step='1'></div>
+
                                 <div class="step-text">产品信息填写</div>
                             </div>
+
                             <div class="step-item">
-                                <div class="step-circle" :class="{'active': step===3||step===2}"
+                                <div class="step-circle"
+                                     :class="{'active': step===3||step===2}"
                                      data-attr-step='2'></div>
+
                                 <div class="step-text">产品权益配置</div>
                             </div>
+
                             <div class="step-item">
-                                <div class="step-circle" :class="{'active': step===3}" data-attr-step='3'></div>
+                                <div class="step-circle"
+                                     :class="{'active': step===3}"
+                                     data-attr-step='3'></div>
+
                                 <div class="step-text">产品关系配置</div>
                             </div>
                         </div>
                     </div>
+
                     <router-view :productDistList="initData.productDistList"
-                                 :periodUnitList="initData.experiencePeriodUnitList"
-                                 v-on:step1Bus="step1Bus"
-                                 v-on:step2Bus="step2Bus"
-                                 v-on:step3Bus="step3Bus"
-                                 :experiencePeriodUnitList="initData.experiencePeriodUnitList">
+                         :periodUnitList="initData.experiencePeriodUnitList"
+                         v-on:step1Bus="step1Bus"
+                         v-on:step2Bus="step2Bus"
+                         v-on:step3Bus="step3Bus"
+                         :experiencePeriodUnitList="initData.experiencePeriodUnitList">
                     </router-view>
                 </div>
             </div>
         </div>
-
 
         <!--操作结果-->
         <modal name="addSuccessModal" :width="450" :height="300" @before-close="beforeClose">
