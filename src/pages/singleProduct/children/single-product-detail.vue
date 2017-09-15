@@ -11,14 +11,16 @@
                             <div class="item layout-center-y">
                                 <div class="item-img"></div>
                                 <div class="item-txt">
-                                    <p>{{productDetail.productName}}</p>
+                                    <p :title="productDetail.productName">
+                                        {{productDetail.productName}}</p>
                                     <p>产品名称</p>
                                 </div>
                             </div>
                             <div class="item layout-center-y">
                                 <div class="item-img"></div>
                                 <div class="item-txt">
-                                    <p>{{productCode}}</p>
+                                    <p :title="productCode">
+                                        {{productCode}}</p>
                                     <p>产品ID</p>
                                 </div>
                             </div>
@@ -137,7 +139,7 @@
     </div>
 </template>
 <script type="es6">
-  
+
 /*
     import VDate from "@/components/date";
     import vPop from "@/components/common/Pop";

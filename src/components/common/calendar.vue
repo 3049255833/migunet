@@ -45,8 +45,8 @@
             </tr>
             </table>
         </div>
- 
- 
+
+
     </div>
 </template>
 
@@ -161,11 +161,11 @@ export default {
                 if (this.range) {
                     this.year = parseInt(this.value[0][0])
                     this.month = parseInt(this.value[0][1]) - 1
-                    this.day = parseInt(this.value[0][2]) 
+                    this.day = parseInt(this.value[0][2])
 
                     let year2 = parseInt(this.value[1][0])
                     let month2 = parseInt(this.value[1][1]) - 1
-                    let day2 = parseInt(this.value[1][2]) 
+                    let day2 = parseInt(this.value[1][2])
 
                     this.rangeBegin = [this.year, this.month,this.day]
                     this.rangeEnd = [year2, month2 , day2]
@@ -173,7 +173,7 @@ export default {
                 }else{
                     this.year = parseInt(this.value[0])
                     this.month = parseInt(this.value[1]) - 1
-                    this.day = parseInt(this.value[2]) 
+                    this.day = parseInt(this.value[2])
                 }
             }
             this.render(this.year, this.month)
@@ -205,7 +205,7 @@ export default {
                         k++;
                     }
                 }
-       
+
                 // 范围
                 if (this.range) {
                     // console.log("日期范围",this.getLunarInfo(this.year,this.month+1,i))
@@ -356,7 +356,7 @@ export default {
                     this.rangeBeginTemp = this.rangeBegin
                     this.rangeEnd = [this.year, this.month, this.days[k1][k2].day]
                     this.rangeEndTemp = 0
-                    
+
                 } else {
                     this.rangeEnd = [this.year, this.month,this.days[k1][k2].day]
                     this.rangeEndTemp = 1
@@ -472,7 +472,7 @@ export default {
     float:right;
     text-align: center;
 }
- 
+
 .calendar table {
     clear: both;
     width: 100%;
@@ -496,16 +496,22 @@ export default {
 .calendar td.week{
     font-size:10px;
     pointer-events:none !important;
-    cursor: default !important;    
+    cursor: default !important;
 }
 .calendar td.disabled {
     color: #ccc;
     pointer-events:none !important;
     cursor: default !important;
+
+    span {
+        color: #ccc;
+    }
 }
+
 .calendar td.disabled div{
     color: #ccc;
 }
+
 .calendar td span{
     display:block;
     max-width:40px;
