@@ -5,19 +5,19 @@
                 <input v-if="defaultText=='生效时间'"
                        style="position:relative"
                        type="text"
-                       @click="openByDrop($event)"
+                       @click="openByDrop('efTime', $event)"
                        placeholder="生效时间"
                        v-model="calendar3.display"
                        readonly>
                 <input v-else-if="defaultText=='失效时间'" style="position:relative"
                        type="text"
-                       @click="openByDrop($event)"
+                       @click="openByDrop('exTime', $event)"
                        placeholder="失效时间"
                        v-model="calendar3.display"
                        readonly>
                 <input v-else style="position:relative"
                        type="text"
-                       @click="openByDrop($event)"
+                       @click="openByDrop('selTime', $event)"
                        placeholder="选择时间"
                        v-model="calendar3.display"
                        readonly>
@@ -27,7 +27,8 @@
         <transition name="fade">
             <div class="calendar-dropdown"
                 :style="{'left':(calendar3.left-460)+'px','top':(calendar3.top-80)+'px'}"
-                v-if="calendar3.show">
+                v-if="calendar3.efTimeShow ||
+                calendar3.exTimeShow || calendar3.selTimeShow || calendar3.show">
 
                 <calendar :zero="calendar3.zero"
                     :lunar="calendar3.lunar"
@@ -53,6 +54,9 @@
                 calendar3: {
                     display: '',
                     show: false,
+                    exTimeShow: false,
+                    efTimeShow: false,
+                    selTime: false,
                     zero: true,
                     // value:[2018,2,16], //默认日期
                     lunar: false, //显示农历
@@ -72,21 +76,48 @@
             }
         },
         methods:{
-            openByDrop(e){
-                this.calendar3.show = true;
+            openByDrop(type, e){
+                //this.calendar3.show = false;
+
+                console.log("type: " + type);
+
+                e.stopPropagation();
+
+                if(type == 'efTime') {
+
+                    this.calendar3.efTimeShow = false;
+                    this.calendar3.selTimeShow = false;
+
+                    this.calendar3.exTimeShow = true;
+                } else if (type == 'exTime') {
+
+                    this.calendar3.exTimeShow = false;
+                    this.calendar3.selTimeShow = false;
+
+                    this.calendar3.efTimeShow = true;
+                } else if (type == 'selTime') {
+                    this.calendar3.exTimeShow = false;
+                    this.calendar3.efTimeShow = false;
+
+                    this.calendar3.selTimeShow = true;
+                }
+
                 this.calendar3.left = e.target.offsetLeft + 199;
                 this.calendar3.top = e.target.offsetTop + 120;
 
-                e.stopPropagation();
+
 
                 window.setTimeout(()=> {
 
                     document.addEventListener("click",(e)=> {
-                        this.calendar3.show = false;
+                        this.calendar3.exTimeShow = false;
+                        this.calendar3.efTimeShow = false;
+                        this.calendar3.selTimeShow = false;
+
                         document.removeEventListener("click",()=>{},false);
                     },false);
 
-                },1000)
+                },1000);
             },
 
             sendDate(){}
