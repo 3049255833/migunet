@@ -139,6 +139,14 @@
                         optionValue: '2'
                     },
                     {
+                      optionText: '新增报备中',
+                      optionValue: '3'
+                    },
+                    {
+                      optionText: '新增报备失败',
+                      optionValue: '4'
+                    },
+                    {
                         optionText: '变更审批中',
                         optionValue: '5'
                     },
@@ -153,7 +161,7 @@
                     {
                         optionText: '变更报备失败',
                         optionValue: '8'
-                    },
+                    }/*,
                     {
                         optionText: '下线报备中',
                         optionValue: ''
@@ -161,7 +169,7 @@
                     {
                         optionText: '下线报备失败',
                         optionValue: ''
-                    }
+                    }*/
                 ],
                 distOperateList: [
                     {

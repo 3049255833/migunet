@@ -528,7 +528,7 @@
           /**
            * 接收来自取消modal框的信息
            * */
-          this.bus.$on('sendCancelInfo', res => {
+          this.bus.$on('auditDetailsCancelInfoBus', res => {
               this.isHideConfim = true;
           });
       },
@@ -637,7 +637,7 @@
       },
       destroyed() {
           this.bus.$off('auditDetailsComfirmInfoBus');
-          this.bus.$off('sendCancelInfo');
+          this.bus.$off('auditDetailsCancelInfoBus');
       }
   }
 </script>

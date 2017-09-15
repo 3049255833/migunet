@@ -27,8 +27,7 @@
         <transition name="fade">
             <div class="calendar-dropdown"
                 :style="{'left':(calendar3.left-460)+'px','top':(calendar3.top-80)+'px'}"
-                v-if="calendar3.efTimeShow ||
-                calendar3.exTimeShow || calendar3.selTimeShow || calendar3.show">
+                v-if="calendar3.show">
 
                 <calendar :zero="calendar3.zero"
                     :lunar="calendar3.lunar"
@@ -77,13 +76,11 @@
         },
         methods:{
             openByDrop(type, e){
-                //this.calendar3.show = false;
-
-                console.log("type: " + type);
+                this.calendar3.show = true;
 
                 e.stopPropagation();
 
-                if(type == 'efTime') {
+                /*if(type == 'efTime') {
 
                     this.calendar3.efTimeShow = false;
                     this.calendar3.selTimeShow = false;
@@ -100,19 +97,15 @@
                     this.calendar3.efTimeShow = false;
 
                     this.calendar3.selTimeShow = true;
-                }
+                }*/
 
                 this.calendar3.left = e.target.offsetLeft + 199;
                 this.calendar3.top = e.target.offsetTop + 120;
 
-
-
                 window.setTimeout(()=> {
 
                     document.addEventListener("click",(e)=> {
-                        this.calendar3.exTimeShow = false;
-                        this.calendar3.efTimeShow = false;
-                        this.calendar3.selTimeShow = false;
+                        this.calendar3.show = false;
 
                         document.removeEventListener("click",()=>{},false);
                     },false);

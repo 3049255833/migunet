@@ -46,6 +46,10 @@
                 if(this.details === 'contractProductDetails') {
 
                     this.bus.$emit('contractProductDetailsCancelInfoBus', this.index);
+
+                } else if(this.details === 'auditDetails') {
+
+                    this.bus.$emit('auditDetailsCancelInfoBus', this.index);
                 } else {
 
                     this.bus.$emit('sendCancelInfo', this.index);
