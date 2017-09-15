@@ -37,6 +37,22 @@
             </div>
 
             <div class="form-row">
+                <div class="row-left required">模板类型：</div>
+
+                <div class="row-right">
+                    <v-select-box :w="'200'"
+                        :selectTitle="'订购成功短信模板'"
+                        :selectValue="'0'"
+                        :selectBoxName="'smsTemplateType'"
+                        :options="selectBoxList.smsTemplateTypeList"></v-select-box>
+
+                    <span class="error-msg" v-if="$v.postData.companyCode.$error">
+                          {{errorMsg.companyCode}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-row">
                 <div class="row-left required">短信模板描述：</div>
 
                 <div class="row-right">
@@ -137,6 +153,20 @@
                         {
                             optionText: '买断',
                             optionValue: '1'
+                        }
+                    ],
+                    smsTemplateTypeList: [
+                        {
+                            optionText: '订购成功短信模板',
+                            optionValue: '0'
+                        },
+                        {
+                            optionText: '到期提醒短信模板',
+                            optionValue: '1'
+                        },
+                        {
+                            optionText: '推荐短信模板',
+                            optionValue: '2'
                         }
                     ]
                 },
@@ -241,6 +271,10 @@
                 if (res.selectBoxName == 'sharingTypeSelectBox') {
 
                     this.postData.sharingType = res.selectOption.optionValue;
+                }
+
+                if (res.selectBoxName == 'effectiveWaySelectBox') {
+                    this.formData.effectiveWay = res.selectOption.optionValue;
                 }
             });
 

@@ -12,6 +12,7 @@
                     </th>
                     <th>短信模板ID</th>
                     <th>短信模板名称</th>
+                    <th>模板类型</th>
                     <th>短信模板描述</th>
                     <th>短信模板内容</th>
                     <th>操作</th>
@@ -37,6 +38,10 @@
 
                     <td><div class="limit-text-length name"
                              :title="item.serviceName">{{item.serviceName}}</div></td>
+
+                    <td><div class="limit-text-length type"
+                           :title="item.serviceCode">{{item.serviceCode}}</div>
+                    </td>
 
                     <td><div class="limit-text-length des"
                              :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
