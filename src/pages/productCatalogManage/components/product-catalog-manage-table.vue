@@ -3,7 +3,13 @@
       <table class="table-module">
           <thead>
               <tr>
-                  <th class="">选择</th>
+                  <th class="pl-30" v-if="pCatalogFlag">
+                      <label class="checkbox-module checkbox-single">
+                          <input type="checkbox" :value="1" v-model="willDeleteAll">
+                          <span></span>
+                      </label>
+                      全选
+                  </th>
                   <th class="">产品目录ID</th>
                   <th class="">产品目录名称</th>
                   <th></th>
@@ -12,9 +18,9 @@
 
           <tbody>
               <tr v-for="(item, index) in productCatalogManageList">
-                  <td class="first">
-                      <label class="checkbox-module">
-                          <input type="checkbox">
+                  <td v-if="pCatalogFlag" class="pl-30">
+                      <label class="checkbox-module checkbox-single">
+                          <input type="checkbox" :value="index" v-model="pcmCheckbox">
                           <span></span>
                       </label>
                   </td>
@@ -58,6 +64,9 @@
 
     export default {
         name: 'ProductCatalogManageTable',
+        props: {
+            pCatalogFlag: Boolean
+        },
         components: {
             VPaging,
             VNolist
@@ -86,7 +95,25 @@
                         id: '10004'
                     }
                 ],
-                willDeleteId: ''
+                willDeleteId: '',
+                willDeleteAll:[],
+                pcmCheckbox: []
+            }
+        },
+        watch:{
+            //监听全选
+            'willDeleteAll'(a, b){
+                if(a.length > 0){
+                    let _length = this.smsTemplateList.length;
+
+                    for(let i = 0; i < _length; i++){
+
+                      this.pcmCheckbox.push(i);
+                    }
+                } else {
+
+                    this.pcmCheckbox=[];
+                }
             }
         },
         methods: {

@@ -5,8 +5,21 @@
                 {{title}}
             </div>
 
-            <button class="mr-10 btn btn-add-module-blue" @click="addCatalogBtn">新增目录</button>
-            <button class="btn btn-del-module">批量目录</button>
+            <button v-if="pCatalogFlag && $root.ajaxLock"
+                    @click="batchDeletePCM"
+                    class="btn btn-middle-88 ml-24 mr-10 btn-primary">删除</button>
+
+            <button @click="cancelDeletePCM"
+                    v-if="pCatalogFlag"
+                    class="btn btn-default mr-10 btn-middle-88">取消</button>
+
+            <button v-if="!pCatalogFlag"
+                    class="mr-10 btn btn-add-module-blue"
+                    @click="addCatalogBtn">新增目录</button>
+
+            <button v-if="!pCatalogFlag"
+                    @click="pcmAll"
+                    class="btn btn-del-module">批量删除</button>
         </div>
 
         <modal name="addProductCatalogModal" :width="320" :height="200" @before-close="beforeClose">
@@ -28,12 +41,30 @@
             VAddProductCatalogModal,
             TModalSubContainer
         },
+        data() {
+            return {
+                pCatalogFlag: false
+            }
+        },
         methods:{
             addCatalogBtn() {
                 this.$modal.show('addProductCatalogModal');
             },
             beforeClose() {
 
+            },
+            pcmAll(){
+                this.pCatalogFlag = true;
+                this.$emit('cancelDeletePCMBus', this.pCatalogFlag);
+            },
+
+            cancelDeletePCM(){
+                this.pCatalogFlag = false;
+                this.$emit('cancelDeletePCMBus', this.pCatalogFlag);
+            },
+
+            batchDeletePCM(){
+                this.$emit('batchDeletePCMBus', true);
             }
         }
     }

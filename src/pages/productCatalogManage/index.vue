@@ -1,7 +1,14 @@
 <template>
     <div class="product-catalog-manage">
-        <v-table-operate-head hideBtn="true" title="产品目录管理"></v-table-operate-head>
-        <v-product-catalog-manage-table></v-product-catalog-manage-table>
+        <v-table-operate-head
+            hideBtn="true"
+            v-on:cancelDeletePCMBus="cancelDeletePCM"
+            v-on:batchDeletePCMBus="batchDeletePCM"
+            title="产品目录管理"></v-table-operate-head>
+
+        <v-product-catalog-manage-table
+            :pCatalogFlag="pCatalogFlag"></v-product-catalog-manage-table>
+
         <v-paging></v-paging>
 
         <modal name="confirmDeleteModal" :width="390" :height="200" @before-close="beforeClose">
@@ -31,8 +38,17 @@
             TModalSubContainer,
             VConfirmDeleteModal
         },
+        data() {
+            return {
+                pCatalogFlag: false
+            }
+        },
         methods: {
-            beforeClose() {}
+            beforeClose() {},
+            cancelDeletePCM(res) {
+                this.pCatalogFlag = res;
+            },
+            batchDeletePCM() {}
         }
     }
 </script>
