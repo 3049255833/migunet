@@ -7,6 +7,7 @@
             title="产品目录管理"></v-table-operate-head>
 
         <v-product-catalog-manage-table
+            :productCatalogList="productCatalogList"
             :pCatalogFlag="pCatalogFlag"></v-product-catalog-manage-table>
 
         <v-paging></v-paging>
@@ -40,7 +41,29 @@
         },
         data() {
             return {
-                pCatalogFlag: false
+                pCatalogFlag: false,
+                productCatalogList: [
+                    {
+                        message: "默认",
+                        id: '10000'
+                    },
+                    {
+                        message: "漫画类型1",
+                        id: '10001'
+                    },
+                    {
+                        message: "漫画类型2",
+                        id: '10002'
+                    },
+                    {
+                        message: "漫画类型3",
+                        id: '10003'
+                    },
+                    {
+                        message: "漫画类型4",
+                        id: '10004'
+                    }
+                ],
             }
         },
         methods: {

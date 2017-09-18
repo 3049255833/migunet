@@ -3,37 +3,40 @@
       <table class="table-module">
           <thead>
               <tr>
-                  <th class="pl-30" v-if="pCatalogFlag">
+                  <th class="pl-75" v-if="pCatalogFlag">
                       <label class="checkbox-module checkbox-single">
                           <input type="checkbox" :value="1" v-model="willDeleteAll">
                           <span></span>
                       </label>
                       全选
                   </th>
-                  <th class="">产品目录ID</th>
+                  <th class="product-catalog-id">产品目录ID</th>
                   <th class="">产品目录名称</th>
                   <th></th>
               </tr>
           </thead>
 
           <tbody>
-              <tr v-for="(item, index) in productCatalogManageList">
-                  <td v-if="pCatalogFlag" class="pl-30">
+              <tr v-for="(item, index) in productCatalogList">
+                  <td v-if="pCatalogFlag" class="pl-75">
                       <label class="checkbox-module checkbox-single">
                           <input type="checkbox" :value="index" v-model="pcmCheckbox">
                           <span></span>
                       </label>
                   </td>
 
-                  <td>
+                  <td class="product-catalog-id">
                       <div class="id limit-text-length">{{item.id}}</div>
                   </td>
 
-                  <td>
-                      <div class="content limit-text-length">{{item.message}}</div>
+                  <td class="catalog-name">
+                      <div class="content limit-text-length"
+                           :title="item.message">{{item.message}}</div>
 
                       <div class="search-wrap hide">
-                          <input v-model="item.message" class="form-input  w-200 radius-2 mr-6" type="text" placeholder="请输入">
+                          <input v-model="item.message"
+                                 class="form-input w-200 radius-2 mr-6"
+                                 type="text" placeholder="请输入">
 
                           <div class="btn btn-primary btn-middle"
                                @click="confirm">确定</div>
@@ -51,7 +54,7 @@
           </tbody>
       </table>
 
-      <div v-if="productCatalogManageList.length <= 0" class="no-asset-box">
+      <div v-if="productCatalogList.length <= 0" class="no-asset-box">
          <!--<img src="../../../assets/no-asset-show.png">-->
           <v-nolist :text="'暂无数据'"></v-nolist>
       </div>
@@ -65,7 +68,8 @@
     export default {
         name: 'ProductCatalogManageTable',
         props: {
-            pCatalogFlag: Boolean
+            pCatalogFlag: Boolean,
+            productCatalogList: Array
         },
         components: {
             VPaging,
@@ -73,28 +77,6 @@
         },
         data () {
             return {
-                productCatalogManageList: [
-                    {
-                      message: "默认",
-                      id: '10000'
-                    },
-                    {
-                        message: "漫画类型1",
-                        id: '10001'
-                    },
-                    {
-                        message: "漫画类型2",
-                        id: '10002'
-                    },
-                    {
-                        message: "漫画类型3",
-                        id: '10003'
-                    },
-                    {
-                        message: "漫画类型4",
-                        id: '10004'
-                    }
-                ],
                 willDeleteId: '',
                 willDeleteAll:[],
                 pcmCheckbox: []
@@ -104,7 +86,7 @@
             //监听全选
             'willDeleteAll'(a, b){
                 if(a.length > 0){
-                    let _length = this.smsTemplateList.length;
+                    let _length = this.productCatalogList.length;
 
                     for(let i = 0; i < _length; i++){
 
@@ -118,9 +100,9 @@
         },
         methods: {
             editBtn(event) {
-                event.currentTarget.parentNode.parentNode.children[2].children[0].style.display="none";
+                event.currentTarget.parentNode.parentNode.children[1].children[0].style.display="none";
 
-                event.currentTarget.parentNode.parentNode.children[2].children[1].style.display="block";
+                event.currentTarget.parentNode.parentNode.children[1].children[1].style.display="block";
             },
 
             deleteBtn(index) {
@@ -200,22 +182,27 @@
     }
 
     table {
+        .product-catalog-id {
+            padding-left: 70px !important;
+            width: 300px;
+        }
 
-        thead tr {
-
-            th {
-
-            }
-
-            .first {
-
-            }
+        .pl-75 {
+            width: 100px;
         }
 
         tbody {
 
             tr {
                 border-bottom: 1px solid #ddd;
+
+                .catalog-name {
+                    width: 453px;
+
+                    .limit-text-length {
+                        max-width: 453px;
+                    }
+                }
 
                 &:hover {
                     background-color: #f7f7f7;
