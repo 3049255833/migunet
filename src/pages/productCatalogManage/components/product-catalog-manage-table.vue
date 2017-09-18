@@ -1,82 +1,112 @@
 <template>
-    <table>
-        <thead>
-            <tr>
-                <th class="first">选择</th>
-                <th class="sencod">目录列表</th>
-                <th></th>
-            </tr>
-        </thead>
+  <div>
+      <table class="table-module">
+          <thead>
+              <tr>
+                  <th class="">选择</th>
+                  <th class="">产品目录ID</th>
+                  <th class="">产品目录名称</th>
+                  <th></th>
+              </tr>
+          </thead>
 
-        <tbody>
-            <tr v-for="(item, index) in items">
-                <td class="first">
-                    <label class="checkbox-module">
-                        <input type="checkbox">
-                        <span></span>
-                    </label>
-                </td>
+          <tbody>
+              <tr v-for="(item, index) in productCatalogManageList">
+                  <td class="first">
+                      <label class="checkbox-module">
+                          <input type="checkbox">
+                          <span></span>
+                      </label>
+                  </td>
 
-                <td class="sencod">
-                    <div class="content">{{item.message}}</div>
+                  <td>
+                      <div class="id limit-text-length">{{item.id}}</div>
+                  </td>
 
-                    <div class="search-wrap hide">
-                        <input v-model="item.message" class="form-input  w-200 radius-2 mr-6" type="text" placeholder="请输入">
-                        <div class="search vt-middle" @click="confirm">
-                            确认
-                        </div>
-                    </div>
-                </td>
+                  <td>
+                      <div class="content limit-text-length">{{item.message}}</div>
 
-                <td class="operation">
-                    <div class="edit icon icon-edit-gray" @click="editBtn"></div>
+                      <div class="search-wrap hide">
+                          <input v-model="item.message" class="form-input  w-200 radius-2 mr-6" type="text" placeholder="请输入">
 
-                    <div class="delete icon icon-del-gray" @click="deleteBtn(index)"></div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                          <div class="btn btn-primary btn-middle"
+                               @click="confirm">确定</div>
+
+                          <div class="btn btn-default btn-middle" @click="cancel">取消</div>
+                      </div>
+                  </td>
+
+                  <td class="operation">
+                      <div class="edit icon icon-edit-gray" @click="editBtn"></div>
+
+                      <div class="delete icon icon-del-gray" @click="deleteBtn(index)"></div>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+
+      <div v-if="productCatalogManageList.length <= 0" class="no-asset-box">
+         <!--<img src="../../../assets/no-asset-show.png">-->
+          <v-nolist :text="'暂无数据'"></v-nolist>
+      </div>
+  </div>
 </template>
 
 <script>
     import VPaging from '@/components/paging'
     import Bus from './bus'
+    import VNolist from '@/components/no-list'
 
     export default {
         name: 'Table',
         components: {
-            VPaging
+            VPaging,
+            VNolist
         },
         data () {
             return {
-                items: [
+                productCatalogManageList: [
                     {
-                        message: "漫画类型1"
+                      message: "默认",
+                      id: '10000'
                     },
                     {
-                        message: "漫画类型2"
+                        message: "漫画类型1",
+                        id: '10001'
                     },
                     {
-                        message: "漫画类型3"
+                        message: "漫画类型2",
+                        id: '10002'
                     },
                     {
-                        message: "漫画类型4"
+                        message: "漫画类型3",
+                        id: '10003'
+                    },
+                    {
+                        message: "漫画类型4",
+                        id: '10004'
                     }
                 ],
             }
         },
         methods: {
             editBtn(event) {
-                event.currentTarget.parentNode.parentNode.children[1].children[0].style.display="none";
+                event.currentTarget.parentNode.parentNode.children[2].children[0].style.display="none";
 
-                event.currentTarget.parentNode.parentNode.children[1].children[1].style.display="block";
+                event.currentTarget.parentNode.parentNode.children[2].children[1].style.display="block";
             },
 
             deleteBtn(index) {
-                this.items.splice(index, 1);
+                this.productCatalogManageList.splice(index, 1);
             },
 
             confirm(event) {
+                event.currentTarget.parentNode.style.display="none";
+
+                event.currentTarget.parentNode.parentNode.children[0].style.display="block";
+            },
+
+            cancel() {
                 event.currentTarget.parentNode.style.display="none";
 
                 event.currentTarget.parentNode.parentNode.children[0].style.display="block";
@@ -84,7 +114,7 @@
         },
         created() {
             Bus.$on('addCatalog', target => {
-                this.items.push({message: target});
+                this.productCatalogManageList.push({message: target});
             });
         }
     }
@@ -92,6 +122,11 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss" rel="stylesheet/scss">
+    .no-asset-box {
+        text-align: center;
+        margin-top: 85px;
+    }
+
     .search-wrap {
         display: none;
 
@@ -113,28 +148,22 @@
             line-height: 34px;
             text-align: center;
             border-radius: 3px;
-            background: #46BAFE;
+            //background: #46BAFE;
             color: #fff;
             cursor: pointer;
         }
     }
 
     table {
-        width: 100%;
 
         thead tr {
-            background-color: #f2f8ff;
 
             th {
-                padding: 22px 0;
-                font-size: 14px;
-                color: #4a4a4a;
-                text-align: left;
+
             }
 
             .first {
-                width: 19%;
-                padding-left: 70px;
+
             }
         }
 
@@ -154,11 +183,7 @@
                 }
 
                 td {
-                    padding: 15px 0;
-                }
-
-                .first {
-                    padding-left: 70px;
+                    //padding: 15px 0;
                 }
 
                 .operation {
