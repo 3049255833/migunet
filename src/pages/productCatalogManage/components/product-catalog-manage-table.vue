@@ -54,11 +54,10 @@
 
 <script>
     import VPaging from '@/components/paging'
-    import Bus from './bus'
     import VNolist from '@/components/no-list'
 
     export default {
-        name: 'Table',
+        name: 'ProductCatalogManageTable',
         components: {
             VPaging,
             VNolist
@@ -87,6 +86,7 @@
                         id: '10004'
                     }
                 ],
+                willDeleteId: ''
             }
         },
         methods: {
@@ -97,7 +97,9 @@
             },
 
             deleteBtn(index) {
-                this.productCatalogManageList.splice(index, 1);
+                this.willDeleteId = index;
+
+                this.$modal.show('confirmDeleteModal');
             },
 
             confirm(event) {
@@ -113,9 +115,25 @@
             }
         },
         created() {
-            Bus.$on('addCatalog', target => {
-                this.productCatalogManageList.push({message: target});
+            this.bus.$on('addCatalog', res => {
+                this.productCatalogManageList.push({message: res});
             });
+
+            /*接收确认删除产品目录信息*/
+            this.bus.$on('productCatalogManageConfirmBus', res => {
+
+                this.productCatalogManageList.splice(this.willDeleteId, 1);
+
+                this.$modal.hide('confirmDeleteModal');
+            });
+
+            /*接收取消删除产品目录信息*/
+            this.bus.$on('productCatalogManageCancelBus', res => {
+                this.$modal.hide('confirmDeleteModal');
+            });
+        },
+        destroyed() {
+            this.bus.$off('addCatalog');
         }
     }
 </script>

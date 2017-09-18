@@ -10,15 +10,13 @@
 </template>
 
 <script>
-  import Bus from './bus';
-
   export default {
       name: 'AddProductContainer',
       methods: {
           confirm() {
-              var name = document.getElementById("name").value;
+              let name = document.getElementById("name").value;
 
-              Bus.$emit('addCatalog', name);
+              this.bus.$emit('addCatalog', name);
           }
       }
   }
