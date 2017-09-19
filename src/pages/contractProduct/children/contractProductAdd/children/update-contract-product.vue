@@ -6,8 +6,11 @@
 
         <div class="panel-item">
             <div class="panel-heading" @click="toggle('base')">
-                <i class="icon-th-list"></i>
-                产品信息填写
+                <img src="../../../../../assets/change-info-1.png">
+
+                <div class="toggle-title">产品信息填写</div>
+
+                <i class="arrow" :class="[toggleStatus1 ? 'up' : 'down']"></i>
             </div>
 
             <div class="panel-collapse" v-show="toggleStatus1">
@@ -17,8 +20,11 @@
 
         <div class="panel-item">
             <div class="panel-heading" @click="toggle('info')">
-                <i class="icon-th-list"></i>
-                产品权益配置
+                <img src="../../../../../assets/change-info-2.png">
+
+                <div class="toggle-title">产品权益配置</div>
+
+                <i class="arrow" :class="[toggleStatus2 ? 'up' : 'down']"></i>
             </div>
 
             <div class="panel-collapse" v-show="toggleStatus2">
@@ -28,8 +34,11 @@
 
         <div class="panel-item">
             <div class="panel-heading" @click="toggle('config')">
-                <i class="icon-th-list"></i>
-                产品关系配置
+                <img src="../../../../../assets/change-info-3.png">
+
+                <div class="toggle-title">产品关系配置</div>
+
+                <i class="arrow" :class="[toggleStatus3 ? 'up' : 'down']"></i>
             </div>
 
             <div class="panel-collapse" v-show="toggleStatus3">
@@ -87,6 +96,7 @@
 <style scoped lang="scss" rel="stylesheet/scss">
   .contract-product-update-container {
       background-color: #fff;
+      min-height: 2000px;
 
       .update-title {
           font-size: 14px;
@@ -97,10 +107,41 @@
       }
 
       .panel-item {
+          margin: 1px 0;
+
           .panel-heading {
-              border: 1px solid #ddd;
-              background-color: #ececec;
-              padding: 15px 40px;
+              background-color: #f2f8ff;
+              padding: 18px 40px;
+              font-size: 14px;
+              overflow: hidden;
+
+              img, .toggle-title {
+                  float: left;
+                  margin: 0 5px;
+              }
+
+              .arrow {
+                  float: right;
+                  margin-right: 20px;
+                  width: 15px;
+                  height: 10px;
+
+                  &.up {
+                      background: url('../../../../../assets/cp-arrow-up.png') no-repeat;
+                  }
+
+                  &.down {
+                      background: url('../../../../../assets/cp-arrow-down.png') no-repeat;
+                  }
+              }
+
+              .toggle-title {
+                  margin-top: 2px;
+              }
+
+              &:hover {
+                  background-color: #ccecfe;
+              }
           }
 
           .panel-collapse {

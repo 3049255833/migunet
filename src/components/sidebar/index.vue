@@ -114,7 +114,7 @@
         top: 0;
         left: 0;
         width: 170px;
-        height: 700px;
+        height: 100%;
         background: #e5e6e8;
     }
 

@@ -12,7 +12,7 @@
         name:'BreadNav',
         data(){
             return{
-                
+
             }
         },
         computed:{
@@ -20,27 +20,39 @@
                 return true
             },
             nav1(){
-                return '产品管理'
+                return '产品管理';
             },
             nav2(){
                 if(this.$route.name=='SingleProduct'||this.$route.name=='SingleProductDetail'){
-                    return '单品管理'
+                    return '单品管理';
                 }
-                if(this.$route.name=='ContractProduct'||this.$route.name=='Step1'||this.$route.name=='Step2'||this.$route.name=='Step3'||this.$route.name=='ContractProductDetail'){
-                    return '合约产品管理'
+
+                if(this.$route.name=='ContractProduct'||
+                    this.$route.name=='Step1'||
+                    this.$route.name=='Step2'||
+                    this.$route.name=='Step3'||
+                    this.$route.name=='ContractProductDetail' ||
+                    this.$route.name=='ContractProductUpdate') {
+
+                    return '合约产品管理';
                 }
             },
             nav3(){
                 if(this.$route.name=='Step1'||this.$route.name=='Step2'||this.$route.name=='Step3'){
-                    return '合约产品新增'
+                    return '合约产品新增';
                 }
+
                 if(this.$route.name=='ContractProductDetail'||this.$route.name=='SingleProductDetail'){
-                    return '产品详情'
+                    return '产品详情';
+                }
+
+                if(this.$route.name=='ContractProductUpdate'){
+                    return '合约产品变更信息';
                 }
             }
         },
         mounted(){
-            console.log(this.$route.name)
+            console.log(this.$route.name);
         }
     }
 </script>
