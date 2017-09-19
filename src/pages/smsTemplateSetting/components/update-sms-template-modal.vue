@@ -104,7 +104,6 @@
 </template>
 
 <script type="es6">
-    import Bus from './bus';
     import VSelectBox from '@/components/select-box'
 
     import {required, numeric, between} from 'vuelidate/lib/validators';
