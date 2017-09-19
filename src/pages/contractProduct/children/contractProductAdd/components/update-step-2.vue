@@ -1,13 +1,7 @@
 <template>
     <div class="add-step-2">
         <div class="step-layout">
-            <div class="product-txt">
-                <p>
-                    <!-- <span class="left">产品ID：209000000920</span>
-                     <span class="middle">|</span>-->
-                    <span class="right">产品名称（中文）：{{$parent.productName}}</span>
-                </p>
-            </div>
+
             <div class="strategy-type-content">
                 <h3 class="required">批价策略类型</h3>
                 <div class="type-list">
@@ -53,7 +47,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="row-left font-12 required w-100">条件选择：</div>
+                            <div class="row-left font-12 required w-100">限定条件：</div>
                             <div class="row-right">
                                 <div class="select-group-item">
                                     <div class="radio-wrap">
@@ -574,8 +568,7 @@
             }
         }
         .step-layout {
-            padding: 40px 87px 40px 70px;
-
+            padding: 25px 60px 35px;
         }
 
         .product-txt {

@@ -58,7 +58,7 @@
         data() {
             return{
                 formData: {},
-                toggleStatus1: true,
+                toggleStatus1: false,
                 toggleStatus2: false,
                 toggleStatus3: false
             }
@@ -142,10 +142,6 @@
               &:hover {
                   background-color: #ccecfe;
               }
-          }
-
-          .panel-collapse {
-              margin: 20px 60px;
           }
       }
   }

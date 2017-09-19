@@ -2,6 +2,58 @@
     <div class="add-step-3">
         <div class="form-wrap ">
             <div class="form-row">
+                <div class="row-left required">
+                    CP/SP ID：
+                </div>
+                <div class="row-right">
+                    <div v-if="false"
+                         class="not-allowed textarea-module w-700 pd-10"
+                         type="text">
+                        <i class="icon icon-select"></i>
+                    </div>
+                    <div v-else class="textarea-module w-700 pd-10"
+                         type="text"
+                         @click="chosePlanCode">
+
+                        <table class="table-module" v-if="0>0">
+                            <thead>
+                              <tr>
+                                  <td>企业名称</td>
+                                  <td>企业代码</td>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in planCodeTableData">
+                                    <td>{{item.planCode}}</td>
+                                    <td>{{item.planName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <i class="icon icon-select"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="row-left required">发送平台：</div>
+                <div class="row-right">
+                    <div class="radio-wrap">
+                        <label class="checkbox-module w-70">
+                            <input value="0" type="checkbox">
+                            <span></span>
+                            <span class="txt">彩印</span>
+                        </label>
+
+                        <label class="checkbox-module w-70">
+                            <input value="1" type="checkbox">
+                            <span></span>
+                            <span class="txt">彩铃</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
                 <div class="row-left">
                     限制发送提示短信省份：
                 </div>
@@ -15,6 +67,7 @@
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left">
                     订购成功下发提示短信：
@@ -28,10 +81,12 @@
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left">
                     订购成功下发推荐短信：
                 </div>
+
                 <div class="row-right">
                     <div class="textarea-module"
                          @click="showRecommendSmsModal"
@@ -41,10 +96,12 @@
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row mutex-product-item">
                 <div class="row-left">
                     互斥产品添加：
                 </div>
+
                 <div class="row-right">
                     <div class="textarea-module"
                          placeholder="请选择"
@@ -58,10 +115,12 @@
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left">
                     依赖产品添加：
                 </div>
+
                 <div class="row-right">
                     <input class="form-input w-340 pointer"
                            placeholder="请选择"
@@ -72,8 +131,10 @@
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left"></div>
+
                 <div class="row-right">
                     <div class="btn-group">
                         <div class="btn btn-primary btn-middle"
@@ -84,6 +145,7 @@
                 </div>
             </div>
         </div>
+
         <modal name="areaChoseModal" :width="800" :height="520" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'areaChoseModal'">
                 <v-area-chose
@@ -93,11 +155,13 @@
                 </v-area-chose>
             </t-modal-sub-container>
         </modal>
+
         <modal name="smsListModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="smsTitle" :name="'smsListModal'">
                 <v-sms-list :modal-name="'smsListModal'" :smsType="smsType"></v-sms-list>
             </t-modal-sub-container>
         </modal>
+
         <modal name="productSelectModal"
                :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="productSelectTitle" :name="'productSelectModal'">

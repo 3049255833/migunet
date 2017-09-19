@@ -93,10 +93,10 @@
                           v-if="$v.formData.attributionText.$error">{{errorMsg.attributionText}}</span>
                 </div>
             </div>
-            <!--渠道编码-->
+            <!--渠道ID-->
             <div class="form-row">
                 <div class="row-left required">
-                    渠道编码：
+                    渠道ID：
                 </div>
                 <div class="row-right">
                     <input type="text" class="form-input w-200 pointer"
@@ -146,6 +146,34 @@
                     </div>
                 </div>
             </div>
+
+            <!--是否可以赠送-->
+            <div class="form-row">
+                <div class="row-left required">
+                  是否可以赠送：
+                </div>
+                <div class="row-right">
+                    <div class="radio-wrap">
+                        <label class="radio-module w-70">
+                            <input value="1"
+                                   v-model="formData.isVip"
+                                   name="isVip"
+                                   type="radio">
+                            <span class="mr-3"></span>
+                            <span class="txt">是</span>
+                        </label>
+                        <label class="radio-module">
+                            <input value="0"
+                                   v-model="formData.isVip"
+                                   name="isVip"
+                                   type="radio">
+                            <span class="mr-3"></span>
+                            <span class="txt">否</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <!--是否体验产品-->
             <div class="form-row">
                 <div class="row-left required">
@@ -412,7 +440,7 @@
             <!--资费计划-->
             <div class="form-row">
                 <div class="row-left required">
-                    资费计划：
+                    产品资费计划：
                 </div>
                 <div class="row-right">
                     <!--选了支付1和业务代码，就不能选这个-->
@@ -423,7 +451,7 @@
                         <table class="table-module" v-if="planCodeTableData.length>0">
                             <thead>
                             <tr>
-                                <td>计划编码</td>
+                                <td>计划ID</td>
                                 <td>计划名称</td>
                                 <td>计划说明</td>
                             </tr>
