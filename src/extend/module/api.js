@@ -55,7 +55,10 @@ let api = {
 
     getContractAuditList:'productCenter/getContractAuditList', //获取审批列表
     getAuditContractProduct:'productCenter/auditContractProduct', //获取审批列表
-    updateAuditStatusList:'productCenter/updateAuditStatusList'  //审批列表
+    updateAuditStatusList:'productCenter/updateAuditStatusList',  //审批列表
+
+    deleteSmsTemplate: 'smsTemplate/deleteSmsTemplate',           //删除短信模板
+    findSmsTemplate: 'smsTemplate/findSmsTemplate'                  //获取短信模板
 };
 
 for (let key in api) {

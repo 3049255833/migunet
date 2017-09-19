@@ -30,21 +30,21 @@
 
                     <td>
                         <div class="l-app-name limit-text-length id"
-                             :title="item.serviceCode">{{item.serviceCode}}</div>
+                             :title="item.serviceCode">{{item.id}}</div>
                     </td>
 
                     <td><div class="limit-text-length code"
-                             :title="item.companyCode">{{item.companyCode}}</div></td>
-
-                    <td><div class="limit-text-length name"
-                             :title="item.serviceName">{{item.serviceName}}</div></td>
+                             :title="item.companyCode">{{item.smsName}}</div></td>
 
                     <td><div class="limit-text-length type"
-                           :title="item.serviceCode">{{item.serviceCode}}</div>
+                           :title="item.serviceCode">{{item.smsType}}</div>
                     </td>
 
                     <td><div class="limit-text-length des"
-                             :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
+                             :title="item.serviceDesc">{{item.smsDesc}}</div></td>
+
+                    <td><div class="limit-text-length content"
+                             :title="item.serviceName">{{item.templateContent}}</div></td>
 
                     <td class="operation">
                         <div class="edit icon icon-edit-gray"
@@ -82,7 +82,7 @@
     import VNolist from '@/components/no-list'
 
     export default {
-        name: 'smsTemplateList',
+        name: 'smsTemplateTable',
         props:{
             smsTemplateList: Array,
             smsTFlag: Boolean
@@ -126,6 +126,8 @@
         watch:{
             //监听全选
             'ifSmsTAll'(a, b){
+                console.log("a: " + a);
+                console.log("b: " + b);
                 if(a.length > 0){
                     let _length = this.smsTemplateList.length;
 

@@ -8,6 +8,7 @@
         </v-table-operate-head>
 
         <v-sms-template-table
+          ref="smsTemplateTable"
           :smsTemplateList="smsTemplateList"
           :smsTFlag="smsTFlag"></v-sms-template-table>
 
@@ -51,7 +52,32 @@
         },
         data () {
             return {
-                smsTemplateList: [],
+                smsTemplateList: [
+                    {
+                        id:"1001",
+                        smsType:"推荐短信模板",
+                        smsName:"短信01",
+                        smsDesc:"短信01描述",
+                        templateContent:"短信01内容",
+                        isHideConfim: true
+                    },
+                    {
+                        id:"1002",
+                        smsType:"推荐短信模板",
+                        smsName:"短信02",
+                        smsDesc:"短信02描述",
+                        templateContent:"短信02内容",
+                        isHideConfim: true
+                    },
+                    {
+                        id:"1003",
+                        smsType:"推荐短信模板",
+                        smsName:"短信03",
+                        smsDesc:"短信03描述",
+                        templateContent:"短信03内容",
+                        isHideConfim: true
+                    }
+                ],
                 passModal: {},
                 cmd: '',
                 modalTitle: '新增短信模板',
@@ -66,7 +92,7 @@
             }
         },
         created() {
-            this.getBossInfo();
+            this.getFindSmsTemplate();
 
             /*
             * 接收来自添加modal的title*/
@@ -102,7 +128,7 @@
              * 接收来自批量导入的信息
              * */
             this.bus.$on('sendBatchAddBossSuccessInfo', res => {
-                this.getBossInfo();
+                this.getFindSmsTemplate();
             });
 
             this.bus.$on('sendBatchAddBossInfo', res => {
@@ -119,7 +145,53 @@
             },
 
             smsTbatchDelete(res) {
+                let that = this;
 
+                if (res) {
+                    //同意审批
+                    this.postDataList = [];
+
+                    let _indexList = this.$refs.smsTemplateTable.smsTCheckbox;
+
+                    console.log("_indexList: " + _indexList);
+
+                    if (_indexList.length > 0) {
+                        _indexList.forEach(function (index) {
+                            index=parseInt(index);
+                            that.postDataList.push({
+                                id: that.smsTemplateList[index].id,
+                                smsName: that.smsTemplateList[index].smsName
+                            });
+                        });
+
+                        console.log("postDataList: " + JSON.stringify(that.postDataList));
+
+                        that.$http.post(this.api.deleteSmsTemplate, that.postDataList).then(response=> {
+                            let res = response.body;
+
+                            if (res.result.resultCode == '00000000') {
+                                this.$root.toastText = '删除成功';
+                                this.$root.toast = true;
+                            } else {
+                                this.$root.toastText = '删除失败';
+                                this.$root.toast = true;
+                            }
+
+                            /*this.$refs.myBacklogHead.auditFlag=false;
+                            this.auditFlag=false;
+                            this.postData.pageNum='1';
+                            this.$refs.pagingModule.current=1;
+                            this.$refs.myBacklogTable.auditCheckbox=[];
+                            this.$refs.myBacklogTable.ifAuditAll=[]
+                            this.getContractAuditList();*/
+                        }, (response) => {
+                            this.$root.toastText = '服务器错误';
+                            this.$root.toast = true
+                        })
+                    }
+                } else {
+
+                }
             },
 
             /**
@@ -137,27 +209,25 @@
             },
 
             /**
-             * 获取业务代码列表
+             * 获取短信模板列表
              * */
-            getBossInfo(){
-                this.$http.post(this.api.getBossInfo, this.postData, {showLoading:true}).then(
+            getFindSmsTemplate(){
+                this.$http.post(this.api.findSmsTemplate, this.postData, {showLoading:true}).then(
                     response => {
                         let res = response.body;
 
-                        //console.log("res: " + JSON.stringify(res));
+                        console.log("res: " + JSON.stringify(res));
 
                         if(res.result.resultCode=='00000000'){
 
                             for(var i = 0; i < res.service.list.length; i++) {
 
-                                res.service.list[i].isHideConfim = true;
+                                res.data[i].isHideConfim = true;
                             }
 
-                            this.smsTemplateList = res.service.list;
+                            this.smsTemplateList = res.data;
 
-                            this.totalItem = res.service.total;
-
-                            //console.log("list2: " + JSON.stringify(res));
+                            console.log("smsTemplateList: " + JSON.stringify(this.smsTemplateList));
                         } else {
 
                             console.log("res: " + JSON.stringify(res));
