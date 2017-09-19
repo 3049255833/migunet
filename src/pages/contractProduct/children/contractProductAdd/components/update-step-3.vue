@@ -7,11 +7,11 @@
                 </div>
                 <div class="row-right">
                     <div v-if="false"
-                         class="not-allowed textarea-module w-700 pd-10"
+                         class="not-allowed textarea-module w-500 pd-10"
                          type="text">
                         <i class="icon icon-select"></i>
                     </div>
-                    <div v-else class="textarea-module w-700 pd-10"
+                    <div v-else class="textarea-module w-500 pd-10"
                          type="text"
                          @click="chosePlanCode">
 
