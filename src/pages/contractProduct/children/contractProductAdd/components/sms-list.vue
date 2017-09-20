@@ -2,7 +2,14 @@
     <div class="sms-list">
         <div class="list-modal-head">
             <div class="search-wrap">
-                <input  @keyup.enter="getSmsTemplateList" class="form-input vt-middle  w-150 radius-2 mr-6" v-model="postData.search" type="text"  placeholder="关键信息搜索">
+                <input  @keyup.enter="getSmsTemplateList"
+                        class="form-input vt-middle  w-150 radius-2 mr-6"
+                        v-model="postData.search"
+                        type="text"
+                        onfocus="this.placeholder=''"
+                        onblur="this.placeholder='关键信息搜索'"
+                        placeholder="关键信息搜索">
+
                 <div class="search vt-middle">
                     <i @click="getSmsTemplateList" class="icon pointer icon-search"></i>
                 </div>

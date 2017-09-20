@@ -2,8 +2,14 @@
     <div class="sms-list">
         <div class="list-modal-head">
             <div class="search-wrap" >
-                <input class="form-input  w-150 radius-2 mr-6" type="text" v-model.trim="condition"
-                       @keyup.enter="getPlanCodeListByCondition" placeholder="关键信息搜索">
+                <input class="form-input w-150 radius-2 mr-6"
+                       type="text"
+                       v-model.trim="condition"
+                       @keyup.enter="getPlanCodeListByCondition"
+                       onfocus="this.placeholder=''"
+                       onblur="this.placeholder='关键信息搜索'"
+                       placeholder="关键信息搜索">
+
                 <div @click="getPlanCodeListByCondition" class="pointer search vt-middle">
                     <i class="icon icon-search"></i>
                 </div>
@@ -169,10 +175,10 @@
             right: 20px;
         }
     }
-    
+
     .list-modal-head {
         padding-bottom: 13px;
-        
+
         .search {
             display: inline-block;
             width: 34px;
@@ -183,12 +189,12 @@
             background: #46BAFE;
         }
     }
-    
+
     .table-wrap {
         height: 350px;
         overflow-y: scroll;
     }
-    
+
     .table-module {
         width: 100%;
         border-collapse: collapse;
@@ -203,7 +209,7 @@
             td {
                 color: #6d7684;
                 padding: 0 10px;
-                
+
             }
         }
         tbody {
@@ -226,10 +232,10 @@
             }
         }
         tr {
-            
+
         }
     }
-    
+
     .btn-group {
         text-align: center;
         margin-top: 33px;

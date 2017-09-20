@@ -2,7 +2,13 @@
     <div class="product-code">
         <div class="list-modal-head">
             <div class="search-wrap">
-                <input  @keyup.enter="findContractByCondition" class="form-input vt-middle  w-150 radius-2 mr-6" v-model="postData.search" type="text"  placeholder="关键信息搜索">
+                <input  @keyup.enter="findContractByCondition"
+                        class="form-input vt-middle  w-150 radius-2 mr-6"
+                        v-model="postData.search"
+                        type="text"
+                        onfocus="this.placeholder=''"
+                        onblur="this.placeholder='关键信息搜索'"
+                        placeholder="关键信息搜索">
                 <div class="search vt-middle">
                     <i @click="findContractByCondition" class="icon pointer icon-search"></i>
                 </div>
@@ -104,8 +110,8 @@
              * 获取互斥和依赖产品列表
              * */
             this.findContractByCondition();
-            
-           
+
+
         },
         methods: {
             /**
@@ -124,15 +130,15 @@
                     { params: this.postData,showLoading:true }).then(response => {
 
                     let res = response.body;
-                    
+
                     if (res.result.resultCode == '00000000') {
                         that.productCheckbox=[];
-                        
+
                         //给所有item附上active的值，根据active来为后续已选未选作判断
                         for(var i = 0; i < res.data.length; i++) {
                             res.data[i].active = false;
                         }
-                        
+
                         if(res.data){
                             res.data.forEach(function(item,index){
                                 that.selectMutexProductList.forEach(function(subItem,subIndex){
@@ -143,13 +149,13 @@
                                 })
                             })
                         }
-                        
+
                         //todo:
 
                         this.productList = res.data;
-                        
+
                         this.totalItem=res.total;
-                        
+
                     } else {
 
                     }
@@ -158,10 +164,10 @@
 
             confirm() {
                 if(this.productType === '1') {
-                    
+
                     this.bus.$emit('getSelectProduct', {index:this.index,data:this.selectMutexProductList});
                 } else {
-                    
+
                     this.bus.$emit('getSelectProduct', {index:this.index,data: this.selectRelyProductItem});
                 }
 
@@ -187,13 +193,13 @@
                 this.selectRelyProductItem.productCode = productCode;
 
                 this.selectRelyProductItem.content = content;
-               
+
             },
 
             getProductList(index, productCode, content,id){
                 let that = this;
                 console.log(this.productList[index].active)
-                
+
                 this.productList[index].active=!this.productList[index].active;
 
                 if(this.productList[index].active) {
@@ -225,7 +231,7 @@
 <style lang='scss' scoped rel='stylesheet/scss'>
     .product-code {
         padding: 13px 30px 31px;
-        
+
         .list-modal-head {
             padding-bottom: 13px;
             .search {
@@ -238,7 +244,7 @@
                 background: #46BAFE;
             }
         }
-        
+
         .table-wrap {
             max-height: 350px;
             overflow-y: auto;
@@ -288,7 +294,7 @@
                 margin-right: 20px;
             }
         }
-    
+
         .paging-wrap{
             position: absolute;
             bottom: 32px;
