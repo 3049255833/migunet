@@ -34,7 +34,7 @@
                     //productCatalog:1,
                     effectiveTime:'',
                     expireTime:'',
-                    pageSize:'8',
+                    pageSize:'5',
                     pageNo:'1'
                 },
                 totalItem:''
