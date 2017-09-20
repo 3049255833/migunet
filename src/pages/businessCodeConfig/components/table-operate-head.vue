@@ -16,6 +16,8 @@
         <div class="right">
             <input type="text"
                    placeholder="关键信息搜索"
+                   onfocus="this.placeholder=''"
+                   onblur="this.placeholder='关键信息搜索'"
                    @keyup.enter="searchKeyWord"
                    v-model="operateData.keys"/>
 

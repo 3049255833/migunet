@@ -24,7 +24,7 @@
                     searchKey:'',
                     onlineStatus:'',
                     detailStatus:'',
-                    pageSize:'8',
+                    pageSize:'5',
                     pageNum:'1',
                     effectiveTime:'',
                     expireTime:''

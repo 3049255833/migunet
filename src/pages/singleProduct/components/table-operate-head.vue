@@ -8,7 +8,10 @@
             </div>
             <div class="vue-right">
                 <div class="l-space input-wrapper input-wrapper1">
-                    <input type="text" class="form-input" placeholder="关键信息搜索"
+                    <input type="text" class="form-input"
+                           placeholder="关键信息搜索"
+                           onfocus="this.placeholder=''"
+                           onblur="this.placeholder='关键信息搜索'"
                            v-model="operateData.searchKey"
                            @keyup.enter="sendOperateData"/>
 

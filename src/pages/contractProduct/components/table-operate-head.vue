@@ -13,6 +13,8 @@
                 <div class="l-space input-wrapper input-wrapper1">
                     <input type="text"
                            placeholder="关键信息搜索"
+                           onfocus="this.placeholder=''"
+                           onblur="this.placeholder='关键信息搜索'"
                            v-model="operateData.keys"
                            @keyup.enter="cSendOperateData"/>
 

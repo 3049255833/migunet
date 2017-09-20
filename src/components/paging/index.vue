@@ -5,8 +5,8 @@
 
             <v-select-box v-if="!showElement" :w="90"
                           :selectBoxName="'pageSize'"
-                          :selectTitle="'8条 / 页'"
-                          :selectValue="'8'"
+                          :selectTitle="'5条 / 页'"
+                          :selectValue="'5'"
                           v-on:selectBoxBus="getPageSize"
                           v-bind:options="pageSizeOperateList"></v-select-box>
 
@@ -46,10 +46,6 @@
                     {
                         optionText: '5条 / 页 ',
                         optionValue: '5'
-                    },
-                    {
-                        optionText: '8条 / 页 ',
-                        optionValue: '8'
                     },
                     {
                         optionText: '10条 / 页 ',
@@ -126,7 +122,7 @@
                     alert('请输入数字')
                 }
             },
-            
+
             getPageSize:function(res){
                 this.current = 1;
                 this.pageSize = res.selectOption.optionValue;
@@ -151,7 +147,7 @@
             }
         },
         created(){
-          
+
         },
         mounted(){
         }
@@ -164,16 +160,16 @@
         display: block;
         clear: both;
     }
-    
+
     .pageNum {
         margin-top: 30px;
-        
+
         .perPage {
             display: block;
             float: left;
             margin-left: 20px;
         }
-        
+
         .pagination {
             position: relative;
             text-align: right;
@@ -182,7 +178,7 @@
             font-size: 10px;
             color: #333;
             margin: 0;
-            
+
             .whichPage input {
                 width: 30px;
                 height: 30px;
@@ -192,14 +188,14 @@
                 border-radius: 0;
                 margin-right: 5px;
             }
-            
+
             li {
                 display: inline;
-                
+
                 &.travel-to {
                     margin: 0 4px 0 10px;
                 }
-                
+
                 span {
                     width: 31px;
                     height: 31px;
@@ -216,18 +212,18 @@
                     &:hover {
                         background: #eee;
                     }
-                    
+
                     &.prev {
                         color: #999999;
                         font-weight: bold;
                     }
-                    
+
                     &.next {
                         color: #999999;
                         font-weight: bold;
                     }
                 }
-                
+
                 .prev {
                     position: relative;
                     float: left;
@@ -251,7 +247,7 @@
             }
         }
     }
-    
+
     .s-select {
         height: 26px;
         display: block;
