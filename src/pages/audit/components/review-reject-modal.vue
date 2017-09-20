@@ -1,8 +1,15 @@
 <template>
     <div class="review-reject-modal">
-        <textarea v-model="rejectOpinion" maxlength="200"></textarea>
+        <textarea v-model="rejectOpinion"
+                  :class="{'error':isReject}"
+                  maxlength="256"></textarea>
+
+        <span class="error-msg" v-if="isReject">
+            {{errorMsg}}
+        </span>
+
         <div class="btn-group btn-group-center">
-            <button v-if="rejectOpinion.length>0&&$root.ajaxLock" @click="confirm" class="btn btn-primary btn-middle">确定</button>
+            <button v-if="rejectOpinion.length>0&&$root.ajaxLock&&!isReject" @click="confirm" class="btn btn-primary btn-middle">确定</button>
             <button v-else class="btn btn-primary unable btn-middle">确定</button>
             <div class="btn btn-middle btn-default" @click="cancel">取消</div>
         </div>
@@ -18,7 +25,20 @@
       },
       data(){
           return{
-             rejectOpinion:''
+              rejectOpinion:'',
+              isReject: false,
+              errorMsg: '输入内容含有非法字符'
+          }
+      },
+      watch: {
+          'rejectOpinion'(a, b){
+              let rule = /[`~!\#$%^+*&/?|'=()]+/g;
+
+              if(rule.test(a)) {
+                  this.isReject = true;
+              } else {
+                  this.isReject = false;
+              }
           }
       },
       methods:{
@@ -50,6 +70,11 @@
   .review-reject-modal {
       text-align: center;
       overflow: hidden;
+
+      .error-msg {
+          text-align: left;
+          padding-left: 30px;
+      }
 
       textarea {
           margin-top: 20px;

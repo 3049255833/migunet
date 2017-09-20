@@ -428,7 +428,7 @@
           </div>
       </div>
 
-      <modal name="reviewRejectModal" :width="380" :height="310">
+      <modal name="reviewRejectModal" :width="380" :height="330">
           <t-modal-sub-container :title="'审批拒绝原因'" :name="'reviewRejectModal'">
               <v-review-reject-modal
                 :modal-name="'reviewRejectModal'"
