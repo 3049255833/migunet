@@ -79,7 +79,7 @@
                         <div class="btn btn-primary btn-middle"
                              v-if="canSave&&this.$parent.step1Flag&&this.$parent.step2Flag&&$root.ajaxLock"  @click="save">完成</div>
                         <div class="btn btn-primary btn-middle unable" v-else >完成</div>
-                        <div class="btn btn-default btn-middle" @click="cancel">取消</div>
+                        <div class="btn btn-default btn-middle" @click="forwardStep">上一步</div>
                     </div>
                 </div>
             </div>
@@ -173,7 +173,7 @@
             /**
              * 取消
              * */
-            cancel(){
+            forwardStep(){
                 this.$router.push({'name': 'Step2'});
             },
 

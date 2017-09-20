@@ -525,7 +525,7 @@
                              class="btn btn-primary btn-middle"
                              @click="nextStep">下一步</div>
                         <div v-else class="btn unable btn-primary btn-middle">下一步</div>
-                        <div class="btn btn-default btn-middle" @click="cancel">取消</div>
+                        <div class="btn btn-default btn-middle" @click="forwardStep">上一步</div>
                     </div>
                 </div>
             </div>
@@ -919,7 +919,7 @@
             /**
              * 取消
              * */
-            cancel(){
+            forwardStep(){
                 this.$router.push({'name': 'ContractProduct'});
             },
 
