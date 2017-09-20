@@ -365,7 +365,7 @@
              * 取消
              * */
             cancel(){
-                this.$router.push({'name': 'ContractProduct'})
+                this.$router.push({'name': 'Step1'});
             },
         },
         computed: {

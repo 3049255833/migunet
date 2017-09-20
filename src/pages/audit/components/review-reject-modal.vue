@@ -1,6 +1,6 @@
 <template>
     <div class="review-reject-modal">
-        <textarea v-model="rejectOpinion"></textarea>
+        <textarea v-model="rejectOpinion" maxlength="200"></textarea>
         <div class="btn-group btn-group-center">
             <button v-if="rejectOpinion.length>0&&$root.ajaxLock" @click="confirm" class="btn btn-primary btn-middle">确定</button>
             <button v-else class="btn btn-primary unable btn-middle">确定</button>
@@ -63,6 +63,6 @@
       .btn-group{
           margin-top: 20px;
       }
-      
+
   }
 </style>

@@ -27,7 +27,7 @@
         },
         mounted(){},
         created(){},
-        
+
         methods: {
             /**
              * 获取单品产品列表
@@ -40,7 +40,6 @@
              * expireTime 失效时间 string
              * */
             getSingleProductList(){
-                console.log('请求列表')
                 this.$http.get(this.api.getSingleProductList, {
                     params:{
                         searchKey:this.postData.searchKey||'',
@@ -98,15 +97,15 @@
                                     break;
                             }
                         });
-                        
+
                         this.productList=res.data.list;
                         this.totalItem=res.data.total;
                     }else{
-                        
+
                     }
                 })
             },
-            
+
             /**
              * 获取分页信息
              * */
@@ -115,12 +114,11 @@
                 this.postData.pageSize=res.pagingSize;
                 this.getSingleProductList();
             },
-            
+
             /**
              * 接收来自操作投
              * */
             getSingleOperateData(res){
-                console.log('接收到头部')
                 this.postData.searchKey=res.searchKey;
                 this.postData.onlineStatus=res.onlineStatus;
                 this.postData.detailStatus=res.detailStatus;
@@ -141,27 +139,27 @@
     .main-wrapper {
         background: #f4f4f4;
     }
-    
+
     .nav-wrapper {
         float: left;
     }
-    
-   
-    
+
+
+
     .main-wrapper:after {
         content: '';
         display: block;
         clear: both;
     }
-    
-  
-    
+
+
+
     .audit{
         background-color: white;
         padding-bottom: 50px;
     }
-    
+
     input {
-        
+
     }
 </style>

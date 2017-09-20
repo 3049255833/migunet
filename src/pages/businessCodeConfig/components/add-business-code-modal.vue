@@ -7,7 +7,7 @@
 
                 <div class="row-right">
                     <input class="form-input pointer w-200"
-                           type="text"
+                           type="number"
                            @input="$v.postData.serviceCode.$touch()"
                            :class="{'error':$v.postData.serviceCode.$error}"
                            v-model.trim="postData.serviceCode"
@@ -37,7 +37,7 @@
 
                 <div class="row-right">
                     <input class="form-input pointer w-200"
-                           type="text"
+                           type="number"
                            :class="{'error':$v.postData.companyCode.$error}"
                            @input="$v.postData.companyCode.$touch()"
                            v-model.trim="postData.companyCode"
@@ -78,7 +78,7 @@
                         :class="{'error':$v.postData.serviceDesc.$error}"
                         @input="$v.postData.serviceDesc.$touch()"
                         v-model.trim="postData.serviceDesc"
-                        maxlength="50"
+                        maxlength="200"
                         placeholder="请输入"></textarea>
 
                     <span class="error-msg" v-if="$v.postData.serviceDesc.$error">
@@ -209,10 +209,12 @@
         validations: {
             postData: {
                 serviceCode: {
-                    required
+                    required,
+                    numeric
                 },
                 companyCode: {
-                    required
+                    required,
+                    numeric
                 },
                 serviceName: {
                     required
