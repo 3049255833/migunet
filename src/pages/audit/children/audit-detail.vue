@@ -296,7 +296,8 @@
                       <div class="layout-row list payment-way-list">
                           <div class="row-left"> 支付方式 ：</div>
 
-                          <div class="row-right" v-for="pay in payTypeList">
+                          <div class="row-right">
+                              <div v-for="pay in payTypeList">
                               <h4>话费支付</h4>
 
                               <div class="item">
@@ -324,6 +325,7 @@
                                   <span class="left"> 产品周期 ：</span>
                                   <span class="right">{{pay.cycleUnitNum}}</span>
                               </div>
+                          </div>
                           </div>
                       </div>
 
@@ -855,7 +857,11 @@
               }
 
               .payment-way-list {
-
+                  .row-right {
+                      >div {
+                          margin-bottom: 15px;
+                      }
+                  }
               }
 
               .charges-list {
