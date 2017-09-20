@@ -27,7 +27,7 @@
                             <div class="item layout-center-y">
                                 <div class="item-img"></div>
                                 <div class="item-txt">
-                                    <p>{{productDetail.onlineStatus}}</p>
+                                    <p>{{productDetail.onlineStatus}} （ {{productDetail.detailStatus}} ）</p>
                                     <p>产品状态</p>
                                 </div>
                             </div>
@@ -682,8 +682,13 @@
                 }
                 &:nth-child(3) {
                     left: 495px;
+                    width: auto;
                     .item-img{
                         @include bg("item-3.png",40px,40px);
+                    }
+
+                    .item-txt {
+                      width: auto;
                     }
                 }
                 .item-txt{
