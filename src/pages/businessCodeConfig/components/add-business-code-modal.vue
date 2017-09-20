@@ -56,7 +56,7 @@
                 <div class="row-right">
                     <input class="form-input pointer w-200"
                            type="text"
-                           :class="{'error':$v.postData.serviceName.$error}"
+                           :class="{'error':$v.postData.serviceName.$error, 'error':isServiceName}"
                            @input="$v.postData.serviceName.$touch()"
                            v-model.trim="postData.serviceName"
                            maxlength="20"
@@ -64,6 +64,10 @@
 
                     <span class="error-msg" v-if="$v.postData.serviceName.$error">
                         {{errorMsg.serviceName}}
+                    </span>
+
+                    <span class="error-msg" v-if="isServiceName">
+                        {{errorMsg.IllegalCharacter}}
                     </span>
                 </div>
             </div>
@@ -75,7 +79,7 @@
                     <textarea
                         class="textarea-module w-200"
                         type="text"
-                        :class="{'error':$v.postData.serviceDesc.$error}"
+                        :class="{'error':$v.postData.serviceDesc.$error, 'error':isServiceDesc}"
                         @input="$v.postData.serviceDesc.$touch()"
                         v-model.trim="postData.serviceDesc"
                         maxlength="200"
@@ -83,6 +87,10 @@
 
                     <span class="error-msg" v-if="$v.postData.serviceDesc.$error">
                         {{errorMsg.serviceDesc}}
+                    </span>
+
+                    <span class="error-msg" v-if="isServiceDesc">
+                        {{errorMsg.IllegalCharacter}}
                     </span>
                 </div>
             </div>
@@ -177,8 +185,11 @@
                     companyCode: '请输入企业代码',
                     serviceName: '请输入业务代码名称',
                     serviceDesc: '请输入业务代码描述',
-                    feeAmount: '请输入资费金额'
+                    feeAmount: '请输入资费金额',
+                    IllegalCharacter: '输入内容含有非法字符'
                 },
+                isServiceName: false,
+                isServiceDesc: false,
                 selectBoxList: {
                     isManagerList: [
                         {
@@ -327,13 +338,34 @@
         },
         computed: {
             canSave(){
-
-                if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid) {
+                if (!this.$v.validationGroup.$error &&
+                    !this.$v.validationGroup.$invalid  &&
+                    !this.isServiceName && !this.isServiceDesc) {
 
                     return true;
                 } else {
 
                     return false;
+                }
+            }
+        },
+        watch: {
+            'postData.serviceName'(a, b){
+                let rule = /[`~!\#$%^+*&/?|'=()]+/g;
+
+                if(rule.test(a)) {
+                    this.isServiceName = true;
+                } else {
+                    this.isServiceName = false;
+                }
+            },
+            'postData.serviceDesc'(a, b){
+                let rule = /[`~!\#$%^+*&/?|'=()]+/g;
+
+                if(rule.test(a)) {
+                    this.isServiceDesc = true;
+                } else {
+                    this.isServiceDesc = false;
                 }
             }
         },
