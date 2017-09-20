@@ -11,7 +11,7 @@
                            @input="$v.postData.serviceCode.$touch()"
                            :class="{'error':$v.postData.serviceCode.$error}"
                            v-model.trim="postData.serviceCode"
-                           maxlength="20"
+                           maxlength="32"
                            placeholder="请输入"/>
 
                     <span class="error-msg" v-if="$v.postData.serviceCode.$error">
@@ -41,7 +41,7 @@
                            :class="{'error':$v.postData.companyCode.$error}"
                            @input="$v.postData.companyCode.$touch()"
                            v-model.trim="postData.companyCode"
-                           maxlength="20"
+                           maxlength="32"
                            placeholder="请输入"/>
 
                     <span class="error-msg" v-if="$v.postData.companyCode.$error">
@@ -59,7 +59,7 @@
                            :class="{'error':$v.postData.serviceName.$error, 'error':isServiceName}"
                            @input="$v.postData.serviceName.$touch()"
                            v-model.trim="postData.serviceName"
-                           maxlength="20"
+                           maxlength="32"
                            placeholder="请输入"/>
 
                     <span class="error-msg" v-if="$v.postData.serviceName.$error">
@@ -82,7 +82,7 @@
                         :class="{'error':$v.postData.serviceDesc.$error, 'error':isServiceDesc}"
                         @input="$v.postData.serviceDesc.$touch()"
                         v-model.trim="postData.serviceDesc"
-                        maxlength="200"
+                        maxlength="256"
                         placeholder="请输入"></textarea>
 
                     <span class="error-msg" v-if="$v.postData.serviceDesc.$error">
@@ -104,7 +104,6 @@
                            :class="{'error':$v.postData.feeAmount.$error}"
                            @input="$v.postData.feeAmount.$touch()"
                            v-model.trim="postData.feeAmount"
-                           maxlength="10"
                            placeholder="请输入"/>
 
                     <span class="error-msg" v-if="$v.postData.feeAmount.$error">
