@@ -18,7 +18,7 @@
             </li>
             <li v-show="allPage&&allPage != current && allPage != 0 " @click="current++ && goto(current++)"><span
                     class="next">></span></li>
-            <li v-if="allPage&&!showElement" class="travel-to">总共{{allPage}}页 前往第</li>
+            <li v-if="allPage&&!showElement" class="travel-to">共{{allPage}}页 前往第</li>
             <li v-if="allPage&&!showElement" class="whichPage"><input class="form-input" v-model="pageSelected"
                                                                       @keyup.enter="jumpPage" type="number">
             </li>
