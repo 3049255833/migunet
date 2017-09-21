@@ -44,7 +44,6 @@
 </template>
 <script>
     import VPaging from '@/components/paging'
-    // zqy
     import VNolist from '@/components/no-list'
     export default {
         name: 'ContractProductTable',
@@ -53,7 +52,6 @@
         },
         components: {
             VPaging,
-            // zqy
             VNolist
 
         },
@@ -65,7 +63,6 @@
         methods: {
             showSingleProductDetail(productCode){
                 this.$router.push({'name': 'SingleProductDetail',params:{'productCode':productCode}});
-                /*this.$router.push({name: 'ContactList', params: {'id': cache.userInfo.data.enterpriseId}});*/
             }
         }
 
