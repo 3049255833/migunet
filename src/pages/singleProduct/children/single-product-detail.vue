@@ -27,7 +27,21 @@
                             <div class="item layout-center-y">
                                 <div class="item-img"></div>
                                 <div class="item-txt">
-                                    <p>{{productDetail.onlineStatus}} （ {{productDetail.detailStatus}} ）</p>
+                                    <p v-if="productDetail.onlineStatus != null &&
+                                              productDetail.detailStatus == null">
+                                      {{productDetail.onlineStatus}} </p>
+
+                                    <p v-else-if="productDetail.onlineStatus == null &&
+                                              productDetail.detailStatus != null">
+                                        {{productDetail.detailStatus}} </p>
+
+                                    <p v-else-if="productDetail.onlineStatus != null &&
+                                              productDetail.detailStatus != null">
+                                      {{productDetail.onlineStatus}} （
+                                      {{productDetail.detailStatus}} ）</p>
+
+                                    <p v-else></p>
+
                                     <p>产品状态</p>
                                 </div>
                             </div>
@@ -227,6 +241,7 @@
                                 break;
                         }
 
+                        //console.log("productDetail: " + JSON.stringify(this.productDetail));
                     } else {
 
                     }
