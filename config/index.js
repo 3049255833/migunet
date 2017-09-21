@@ -204,14 +204,14 @@ module.exports = {
             },
             '/productCenter/updateAuditStatusList': {
                 /*审批*/
-                target:  proxy_service_ljy,
+                target:  proxy_service,
                 changeOrigin: true
             },
 
             /*短信模板*/
             '/smsTemplate/deleteSmsTemplate': {
               /*审批*/
-              target:  proxy_service_xl,
+              target:  proxy_service,
               changeOrigin: true
             }
         },
