@@ -2,10 +2,11 @@
 var path = require('path');
 
 var proxy_service_xhw = 'http://10.5.2.47:8080';
-var proxy_service_ljy = 'http://10.5.2.119:8080';
+var proxy_service_ljy = 'http://10.5.2.57:8080';
 var proxy_service_xl = 'http://10.5.2.38:8080';
 var proxy_service_e = 'http://10.5.2.52:8080';
 var proxy_service_cjl='http://10.5.2.123:8080';
+var proxy_service_lfy='http://10.5.2.45:8080';
 var proxy_service='http://10.5.2.243:8082';
 
 
@@ -54,7 +55,6 @@ module.exports = {
                 target: proxy_service,
                 changeOrigin: true
             },
-
 
 
             '/productCenter/getContractProductList': {
@@ -172,7 +172,7 @@ module.exports = {
             '/productCenter/deleteBossInfo': {
               /*删除业务*/
                 target: proxy_service,
-              changeOrigin: true
+                changeOrigin: true
             },
             '/productCenter/addBossInfo': {
                 /*添加业务代码*/
@@ -204,7 +204,7 @@ module.exports = {
             },
             '/productCenter/updateAuditStatusList': {
                 /*审批*/
-                target:  proxy_service,
+                target:  proxy_service_ljy,
                 changeOrigin: true
             },
 
