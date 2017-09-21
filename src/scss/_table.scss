@@ -33,7 +33,7 @@
         }
 
         td {
-            color: #6d7684;
+            color: #333;
             padding: 18px 20px;
 
             &:nth-child(1) {
@@ -41,9 +41,10 @@
             }
 
             .limit-text-length {
-              text-overflow: ellipsis;
-              overflow: hidden;
-              white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                color: #333;
             }
         }
     }
