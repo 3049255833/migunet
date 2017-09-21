@@ -109,6 +109,15 @@
             box-shadow: 0 0 3px 2px #f84545;
         }
     }
+
+    &.error1{
+        color: #f84545;
+        border: 1px solid #f84545;
+        box-shadow: 0 0 3px 2px #f84545;
+        &:hover{
+            box-shadow: 0 0 3px 2px #f84545;
+        }
+    }
 }
 
 .checkbox-module{
@@ -186,6 +195,14 @@ input {
         }
         border: 1px solid #D6E1E5 !important;
         &.error{
+            color: #f84545;
+            border: 1px solid #f84545;
+            box-shadow: 0 0 3px 2px #f84545;
+            &:hover{
+                box-shadow: 0 0 3px 2px #f84545;
+            }
+        }
+        &.error1{
             color: #f84545;
             border: 1px solid #f84545;
             box-shadow: 0 0 3px 2px #f84545;

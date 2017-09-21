@@ -11,7 +11,6 @@
                            @input="$v.postData.serviceCode.$touch()"
                            :class="{'error':$v.postData.serviceCode.$error}"
                            v-model.trim="postData.serviceCode"
-                           maxlength="32"
                            placeholder="请输入"/>
 
                     <span class="error-msg" v-if="$v.postData.serviceCode.$error">
@@ -41,7 +40,6 @@
                            :class="{'error':$v.postData.companyCode.$error}"
                            @input="$v.postData.companyCode.$touch()"
                            v-model.trim="postData.companyCode"
-                           maxlength="32"
                            placeholder="请输入"/>
 
                     <span class="error-msg" v-if="$v.postData.companyCode.$error">
@@ -56,7 +54,7 @@
                 <div class="row-right">
                     <input class="form-input pointer w-200"
                            type="text"
-                           :class="{'error':$v.postData.serviceName.$error, 'error':isServiceName}"
+                           :class="{'error1':$v.postData.serviceName.$error,'error':isServiceName}"
                            @input="$v.postData.serviceName.$touch()"
                            v-model.trim="postData.serviceName"
                            maxlength="32"
@@ -79,7 +77,7 @@
                     <textarea
                         class="textarea-module w-200"
                         type="text"
-                        :class="{'error':$v.postData.serviceDesc.$error, 'error':isServiceDesc}"
+                        :class="{'error1':$v.postData.serviceDesc.$error,'error':isServiceDesc}"
                         @input="$v.postData.serviceDesc.$touch()"
                         v-model.trim="postData.serviceDesc"
                         maxlength="256"
@@ -159,7 +157,7 @@
     import Bus from './bus';
     import VSelectBox from '@/components/select-box'
 
-    import {required, numeric, between} from 'vuelidate/lib/validators';
+    import {required, numeric, between, maxLength} from 'vuelidate/lib/validators';
 
     export default {
         name: 'AddBusinessCode',
@@ -220,11 +218,13 @@
             postData: {
                 serviceCode: {
                     required,
-                    numeric
+                    numeric,
+                    maxLength: maxLength(32)
                 },
                 companyCode: {
                     required,
-                    numeric
+                    numeric,
+                    maxLength: maxLength(32)
                 },
                 serviceName: {
                     required
@@ -365,6 +365,20 @@
                     this.isServiceDesc = true;
                 } else {
                     this.isServiceDesc = false;
+                }
+            },
+            'postData.serviceCode'(a, b){
+                if(!this.$v.postData.serviceCode.maxLength) {
+                    this.errorMsg.serviceCode = '您输入的字符超长';
+                } else {
+                    this.errorMsg.serviceCode = '请输入业务代码ID';
+                }
+            },
+            'postData.companyCode'(a, b){
+                if(!this.$v.postData.companyCode.maxLength) {
+                    this.errorMsg.companyCode = '您输入的字符超长';
+                } else {
+                    this.errorMsg.companyCode = '请输入业务代码ID';
                 }
             }
         },
