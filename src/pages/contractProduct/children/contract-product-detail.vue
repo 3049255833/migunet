@@ -326,7 +326,21 @@
 
                               <div class="item">
                                   <span class="left"> 产品周期 ：</span>
-                                  <span class="right">{{pay.cycleUnitNum}}</span>
+
+                                  <span class="left"
+                                        v-if="pay.cycleUnitNum == '-1'">永久有效</span>
+
+                                  <span class="left" v-else>
+                                      {{pay.cycleUnitNum}}
+
+                                  <span v-if="pay.feeType == '0'">天</span>
+
+                                  <span v-else-if="pay.feeType == '1'">周</span>
+
+                                  <span v-else-if="pay.feeType == '2'">月</span>
+
+                                  <span v-else-if="pay.feeType == '3'">年</span>
+                                </span>
                               </div>
                           </div>
                           </div>
