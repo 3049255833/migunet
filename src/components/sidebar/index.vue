@@ -62,24 +62,24 @@
                         },
                     ]
                 },
-                    {
+                    /*{
                         "isSubShow": false,
                         "title": "产品目录管理",
                         "haveChildrens": false,
                         "url": "/product_catalog_manage"
-                    },
+                    },*/
                     {
                         "isSubShow": false,
                         "title": "业务代码配置",
                         "haveChildrens": false,
                         "url": "/business_code_config"
                     },
-                    {
+                    /*{
                       "isSubShow": false,
                       "title": "短信模板设置",
                       "haveChildrens": false,
                       "url": "/sms_template_setting"
-                    },
+                    },*/
                     {
                         "isSubShow": false,
                         "title": "我的待办",
