@@ -7,13 +7,14 @@
 
                 <div class="row-right">
                     <input class="form-input pointer w-200"
-                           type="number"
+                           type="text"
                            @input="$v.postData.serviceCode.$touch()"
-                           :class="{'error':$v.postData.serviceCode.$error}"
+                           :class="{'error':$v.postData.serviceCode.$error, 'error1':isServiceCode}"
                            v-model.trim="postData.serviceCode"
+                           maxlength="32"
                            placeholder="请输入"/>
 
-                    <span class="error-msg" v-if="$v.postData.serviceCode.$error">
+                    <span class="error-msg" v-if="$v.postData.serviceCode.$error || isServiceCode">
                         {{errorMsg.serviceCode}}
                     </span>
                 </div>
@@ -36,13 +37,14 @@
 
                 <div class="row-right">
                     <input class="form-input pointer w-200"
-                           type="number"
-                           :class="{'error':$v.postData.companyCode.$error}"
+                           type="text"
+                           :class="{'error':$v.postData.companyCode.$error,'error1':isCompanyCode}"
                            @input="$v.postData.companyCode.$touch()"
                            v-model.trim="postData.companyCode"
+                           maxlength="32"
                            placeholder="请输入"/>
 
-                    <span class="error-msg" v-if="$v.postData.companyCode.$error">
+                    <span class="error-msg" v-if="$v.postData.companyCode.$error || isCompanyCode">
                           {{errorMsg.companyCode}}
                     </span>
                 </div>
@@ -98,13 +100,13 @@
 
                 <div class="row-right">
                     <input class="form-input pointer w-200"
-                           type="number"
-                           :class="{'error':$v.postData.feeAmount.$error}"
+                           type="text"
+                           :class="{'error':$v.postData.feeAmount.$error,'error1': isFeeAmount}"
                            @input="$v.postData.feeAmount.$touch()"
                            v-model.trim="postData.feeAmount"
                            placeholder="请输入"/>
 
-                    <span class="error-msg" v-if="$v.postData.feeAmount.$error">
+                    <span class="error-msg" v-if="$v.postData.feeAmount.$error || isFeeAmount">
                         {{errorMsg.feeAmount}}
                     </span>
                 </div>
@@ -157,7 +159,7 @@
     import Bus from './bus';
     import VSelectBox from '@/components/select-box'
 
-    import {required, numeric, between, maxLength} from 'vuelidate/lib/validators';
+    import {required, between} from 'vuelidate/lib/validators';
 
     export default {
         name: 'AddBusinessCode',
@@ -187,6 +189,9 @@
                 },
                 isServiceName: false,
                 isServiceDesc: false,
+                isServiceCode: false,
+                isCompanyCode: false,
+                isFeeAmount: false,
                 selectBoxList: {
                     isManagerList: [
                         {
@@ -217,14 +222,10 @@
         validations: {
             postData: {
                 serviceCode: {
-                    required,
-                    numeric,
-                    maxLength: maxLength(32)
+                    required
                 },
                 companyCode: {
-                    required,
-                    numeric,
-                    maxLength: maxLength(32)
+                    required
                 },
                 serviceName: {
                     required
@@ -233,8 +234,7 @@
                     required
                 },
                 feeAmount: {
-                    required,
-                    numeric
+                    required
                 }
             },
             validationGroup: [
@@ -368,17 +368,49 @@
                 }
             },
             'postData.serviceCode'(a, b){
-                if(!this.$v.postData.serviceCode.maxLength) {
-                    this.errorMsg.serviceCode = '您输入的字符超长';
+                let rule = /[^1-9]/g;
+
+
+                if (rule.test(a)) {
+
+                    this.isServiceCode = true;
+
+                    this.errorMsg.serviceCode = '请输入数字';
+
                 } else {
+
+                    this.isServiceCode = false;
+
                     this.errorMsg.serviceCode = '请输入业务代码ID';
                 }
             },
             'postData.companyCode'(a, b){
-                if(!this.$v.postData.companyCode.maxLength) {
-                    this.errorMsg.companyCode = '您输入的字符超长';
+                let rule = /[^1-9]/g;
+
+                if (rule.test(a)) {
+
+                    this.isCompanyCode = true;
+
+                    this.errorMsg.companyCode = '请输入数字';
+
                 } else {
-                    this.errorMsg.companyCode = '请输入业务代码ID';
+                    this.isCompanyCode = false;
+                    this.errorMsg.companyCode = '请输入企业代码';
+                }
+            },
+            'postData.feeAmount'(a, b){
+                let rule = /[^1-9]/g;
+
+                if (rule.test(a)) {
+
+                    this.isFeeAmount = true;
+
+                    this.errorMsg.feeAmount = '请输入数字';
+
+                } else {
+                    this.isFeeAmount = false;
+
+                    this.errorMsg.feeAmount = '请输入资费金额';
                 }
             }
         },
