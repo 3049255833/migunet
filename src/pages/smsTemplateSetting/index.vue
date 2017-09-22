@@ -25,6 +25,32 @@
             </t-modal-sub-container>
         </modal>
 
+        <modal name="confirmBatchDeleteSmsTModal" :width="390" :height="200" @before-close="beforeClose">
+            <t-modal-sub-container
+                  :title="'是否确认删除？'"
+                  :name="'confirmBatchDeleteSmsTModal'">
+
+                <v-confirm-delete-modal
+                  :functionType="'batchDeleteSmsTemplate'"
+                  :confirmInfo="'删除后，短信模板与合约产品关系解除，不可恢复！'">
+                </v-confirm-delete-modal>
+
+            </t-modal-sub-container>
+        </modal>
+
+        <modal name="confirmSingleDeleteSmsTModal" :width="390" :height="200" @before-close="beforeClose">
+            <t-modal-sub-container
+                :title="'是否确认删除？'"
+                :name="'confirmSingleDeleteSmsTModal'">
+
+                <v-confirm-delete-modal
+                  :functionType="'singleDeleteSmsTemplate'"
+                  :confirmInfo="'删除后，短信模板与合约产品关系解除，不可恢复！'">
+                </v-confirm-delete-modal>
+
+            </t-modal-sub-container>
+        </modal>
+
         <!-- 操作结果modal start -->
         <modal name="addResultMsg" :adaptive="true" :draggable="true" :width="200" :height="80">
             <v-toast :name="'addResultMsg'">{{addResultMsg}}</v-toast>
@@ -39,6 +65,7 @@
     import VUpdateSmsTemplateModal from './components/update-sms-template-modal'
     import TModalSubContainer from "@/components/modal-sub-container"
     import VToast from '@/components/toast'
+    import VConfirmDeleteModal from '@/components/confirm-delete-modal/confirm-delete-modal'
 
     export default{
         name: 'SmsTemplateSetting',
@@ -48,7 +75,8 @@
             VPaging,
             VUpdateSmsTemplateModal,
             TModalSubContainer,
-            VToast
+            VToast,
+            VConfirmDeleteModal
         },
         data () {
             return {
@@ -118,10 +146,10 @@
             });
 
             /**
-             * 接收来自删除的信息
+             * 接收删除单个短信模板成功信息
              * */
-            this.bus.$on('sendDeleteInfo', res => {
-                this.getBossInfo();
+            this.bus.$on('sendDeleteSingleSmsTemplateSuccessInfo', res => {
+                this.getFindSmsTemplate();
             });
 
             /**
@@ -144,6 +172,7 @@
                 this.smsTFlag = res;
             },
 
+            /*批量删除短信模板*/
             smsTbatchDelete(res) {
                 let that = this;
 
@@ -220,11 +249,6 @@
 
                         if(res.result.resultCode=='00000000'){
 
-                            for(var i = 0; i < res.service.list.length; i++) {
-
-                                res.data[i].isHideConfim = true;
-                            }
-
                             this.smsTemplateList = res.data;
 
                             console.log("smsTemplateList: " + JSON.stringify(this.smsTemplateList));
@@ -272,7 +296,7 @@
         destroyed() {
             this.bus.$off('addSmsTemPlateBus');
             this.bus.$off('editSmsTemplateBus');
-            this.bus.$off('sendDeleteInfo');
+            this.bus.$off('sendDeleteSingleSmsTemplateSuccessInfo');
             this.bus.$off('sendBatchAddBossInfo');
         }
     }

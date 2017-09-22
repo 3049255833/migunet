@@ -51,7 +51,7 @@
                              @click="editSmsTemplate(item)"></div>
 
                         <div class="delete icon icon-del-gray"
-                             @click="deleteBtn(index, item.id, item.serviceCode)"></div>
+                             @click="deleteSignleSmsT(index, item.id, item.serviceCode)"></div>
 
                         <v-confirm-popover-modal
                           :confirmInfo="'是否确定删除'"
@@ -67,11 +67,6 @@
         <div v-if="smsTemplateList.length <= 0" class="no-asset-box">
             <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
-
-        <v-operate-success-modal
-            :isHideOperateModal="isHideOperateModal"
-            :operateInfo="operateInfo">
-        </v-operate-success-modal>
     </div>
 </template>
 
@@ -90,12 +85,10 @@
         data() {
             return {
                 count: 0,
-                isHideOperateModal: true,
                 willDelete: {
                     id: '',
                     serviceCode: ''
                 },
-                operateInfo: '',
                 smsTCheckbox: [],
                 ifSmsTAll:[]
             }
@@ -107,14 +100,12 @@
             VNolist
         },
         methods: {
-            deleteBtn(index, id, code) {
-                this.smsTemplateList[index].isHideConfim = false;
-
+            deleteSignleSmsT(index, id, code) {
                 this.willDelete.id = id;
 
                 this.willDelete.serviceCode = code;
 
-                //console.log("willDeleteId: " + this.willDelete.id);
+                this.$modal.show('confirmSingleDeleteSmsTModal');
             },
             editSmsTemplate(item) {
 
@@ -143,51 +134,39 @@
         },
         created() {
             /**
-             * 接收来自确认modal框的信息
+             * 接收来自删除单个短信模板确认modal框的信息
              * */
-            this.bus.$on('smsTemplateComfirmInfoBus', res => {
-                this.smsTemplateList[res].isHideConfim = true;
+            this.bus.$on('singleDeleteSmsTemplateConfirmBus', res => {
 
                 let that = this;
 
-                this.$http.post(this.api.deleteBossInfo, this.willDelete).then(
-                    response => {
-                        let res = response.body;
+                this.$http.post(this.api.deleteSmsTemplate, this.willDelete).then(response => {
+                    let res = response.body;
 
-                        //console.log("businessCodeList: " + JSON.stringify(res));
+                    console.log("deleteSmsTemplate: " + JSON.stringify(res));
 
-                        if(res.resultCode=='00000000'){
+                    if(res.resultCode=='00000000'){
 
-                            this.operateInfo = '删除成功';
+                        this.$root.toastText = '删除成功';
+                        this.$root.toast = true;
 
-                            this.isHideOperateModal = false;
+                        that.bus.$emit('sendDeleteSingleSmsTemplateSuccessInfo');
+                    } else {
 
-                            setTimeout(function () {
-                                that.isHideOperateModal = true;
-
-                                that.bus.$emit('sendDeleteInfo');
-                            }, 2000);
-
-                        } else {
-                            this.operateInfo = '删除失败';
-
-                            this.isHideOperateModal = false;
-
-                            setTimeout(function () {
-                                that.isHideOperateModal = true;
-                            }, 2000);
-
-                            console.log("res: " + JSON.stringify(res));
-                        }
+                        this.$root.toastText = '删除失败';
+                        this.$root.toast = true;
                     }
-                );
+                }, (response) => {
+                    this.$root.toastText = '服务器错误';
+                    this.$root.toast = true;
+                })
             });
 
             /**
              * 接收来自取消modal框的信息
              * */
             this.bus.$on('sendCancelInfo', res => {
-                this.smsTemplateList[res].isHideConfim = true;
+
             });
         },
         destroyed(){

@@ -58,7 +58,10 @@ let api = {
     updateAuditStatusList:'productCenter/updateAuditStatusList',  //审批列表
 
     deleteSmsTemplate: 'smsTemplate/deleteSmsTemplate',           //删除短信模板
-    findSmsTemplate: 'smsTemplate/findSmsTemplate'                  //获取短信模板
+    findSmsTemplate: 'smsTemplate/findSmsTemplate',                  //获取短信模板列表
+    addSmsTemplate: 'smsTemplate/addSmsTemplate',   //添加短信模板
+    updateSmsTemplate: 'smsTemplate/updateSmsTemplate',  //更新短信模板
+    getSmsTemplate: 'smsTemplate/getSmsTemplate'  //查询一条短信模板列表
 };
 
 for (let key in api) {

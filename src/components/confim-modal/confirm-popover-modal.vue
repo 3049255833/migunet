@@ -33,7 +33,7 @@
 
                 } else if(this.details === 'smsTemplate') {
 
-                    this.bus.$emit('smsTemplateComfirmInfoBus', this.index);
+                    //this.bus.$emit('smsTemplateComfirmInfoBus', this.index);
 
                 } else {
                     //合约产品列表页

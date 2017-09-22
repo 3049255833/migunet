@@ -24,6 +24,14 @@
                 if(this.functionType === 'productCatalogManage') {
 
                     this.bus.$emit('productCatalogManageConfirmBus');
+
+                } else if(this.functionType === 'batchDeleteSmsTemplate') {
+
+                    this.bus.$emit('batchDeleteSmsTemplateComfirmBus');
+
+                } else if(this.functionType === 'singleDeleteSmsTemplate') {
+
+                  this.bus.$emit('singleDeleteSmsTemplateConfirmBus');
                 }
 
                 event.stopPropagation();
