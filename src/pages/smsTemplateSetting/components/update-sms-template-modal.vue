@@ -7,17 +7,10 @@
                 <div class="row-left required">短信模板ID：</div>
 
                 <div class="row-right">
-                    <!--<input class="form-input pointer w-200"
-                           type="text"
-                           @input="$v.postData.serviceCode.$touch()"
-                           :class="{'error':$v.postData.serviceCode.$error}"
-                           v-model.trim="postData.serviceCode"
-                           placeholder="请输入"/>
-
-                    <span class="error-msg" v-if="$v.postData.serviceCode.$error">
-                        {{errorMsg.serviceCode}}
-                    </span>-->
-                    {{postData.id}}
+                    <input class="form-input pointer w-200 unable"
+                         type="text"
+                         v-model.trim="postData.id"
+                         placeholder="请输入"/>
                 </div>
             </div>
 
@@ -282,12 +275,12 @@
         box-sizing: border-box;
 
         .form-wrap {
-            padding: 30px 80px 25px;
-            max-height: 460px;
+            padding: 20px 80px;
+            max-height: 380px;
             overflow-y: auto;
 
             .form-row {
-                padding-bottom: 15px;
+                padding-bottom: 12px;
             }
             .row-left {
                 width: 162px;
@@ -295,6 +288,11 @@
             .row-right {
                 .error-msg {
                     margin-top: 8px;
+                }
+
+                input.unable {
+                    border: none!important;
+                    pointer-events: none;
                 }
             }
         }
