@@ -20,13 +20,17 @@
                 <div class="row-right">
                     <input class="form-input pointer w-200"
                            type="text"
-                           :class="{'error':$v.postData.smsName.$error}"
+                           :class="{'error':$v.postData.smsName.$error, 'error1': isSmsName}"
                            @input="$v.postData.smsName.$touch()"
                            v-model.trim="postData.smsName"
                            placeholder="请输入"/>
 
                     <span class="error-msg" v-if="$v.postData.smsName.$error">
-                          {{errorMsg.smsName}}
+                        {{errorMsg.smsName}}
+                    </span>
+
+                    <span class="error-msg" v-if="isSmsName">
+                        {{errorMsg.IllegalCharacter}}
                     </span>
                 </div>
             </div>
@@ -58,6 +62,10 @@
                     <span class="error-msg" v-if="$v.postData.smsDesc.$error">
                           {{errorMsg.smsDesc}}
                     </span>
+
+                    <span class="error-msg" v-if="isSmsDesc">
+                        {{errorMsg.IllegalCharacter}}
+                    </span>
                 </div>
             </div>
 
@@ -75,6 +83,10 @@
 
                     <span class="error-msg" v-if="$v.postData.templateContent.$error">
                         {{errorMsg.templateContent}}
+                    </span>
+
+                    <span class="error-msg" v-if="isTemplateContent">
+                        {{errorMsg.IllegalCharacter}}
                     </span>
                 </div>
             </div>
@@ -118,7 +130,8 @@
                 errorMsg: {
                     smsName: '请输入短信模板名称',
                     smsDesc: '请输入短信模板描述',
-                    templateContent: '请输入短信模板内容'
+                    templateContent: '请输入短信模板内容',
+                    IllegalCharacter: '输入内容含有非法字符'
                 },
                 selectBoxList: {
                     smsTemplateTypeList: [
@@ -137,7 +150,10 @@
                     ]
                 },
                 isActive: false,
-                smsTypeText: '订购成功短信模板'
+                smsTypeText: '订购成功短信模板',
+                isSmsName: false,
+                isSmsDesc: false,
+                isTemplateContent: false
             }
         },
         validations: {
@@ -160,6 +176,35 @@
         },
         components: {
             VSelectBox
+        },
+        watch: {
+            'postData.smsName'(a, b){
+                let rule = /[`~!\#$%^+*&/?|'=()]+/g;
+
+                if (rule.test(a)) {
+                    this.isSmsName = true;
+                } else {
+                    this.isSmsName = false;
+                }
+            },
+            'postData.smsDesc'(a, b){
+                let rule = /[`~!\#$%^+*&/?|'=()]+/g;
+
+                if (rule.test(a)) {
+                    this.isSmsDesc = true;
+                } else {
+                    this.isSmsDesc = false;
+                }
+            },
+            'postData.templateContent'(a, b){
+                let rule = /[`~!\#$%^+*&/?|'=()]+/g;
+
+                if (rule.test(a)) {
+                    this.isTemplateContent = true;
+                } else {
+                    this.isTemplateContent = false;
+                }
+            }
         },
         methods: {
             cancel() {
@@ -243,7 +288,8 @@
         computed: {
             canSave(){
 
-                if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid) {
+                if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid &&
+                    !this.isSmsName && !this.isSmsDesc && !this.isTemplateContent) {
 
                     return true;
                 } else {
