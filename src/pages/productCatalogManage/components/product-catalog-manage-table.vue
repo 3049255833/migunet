@@ -135,11 +135,6 @@
 
                 this.$modal.hide('confirmDeleteModal');
             });
-
-            /*接收取消删除产品目录信息*/
-            this.bus.$on('productCatalogManageCancelBus', res => {
-                this.$modal.hide('confirmDeleteModal');
-            });
         },
         destroyed() {
             this.bus.$off('addCatalog');

@@ -31,7 +31,7 @@
 
                 } else if(this.functionType === 'singleDeleteSmsTemplate') {
 
-                  this.bus.$emit('singleDeleteSmsTemplateConfirmBus');
+                    this.bus.$emit('singleDeleteSmsTemplateConfirmBus');
                 }
 
                 event.stopPropagation();
@@ -39,7 +39,15 @@
             cancel() {
                 if(this.functionType === 'productCatalogManage') {
 
-                    this.bus.$emit('productCatalogManageCancelBus');
+                    this.$modal.hide('confirmDeleteModal');
+
+                } else if(this.functionType === 'batchDeleteSmsTemplate') {
+
+                    this.$modal.hide('confirmBatchDeleteSmsTModal');
+
+                } else if(this.functionType === 'singleDeleteSmsTemplate') {
+
+                    this.$modal.hide('confirmSingleDeleteSmsTModal');
                 }
 
                 event.stopPropagation();
