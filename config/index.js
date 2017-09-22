@@ -233,6 +233,11 @@ module.exports = {
               /*查询一条短信模板*/
               target: proxy_service,
               changeOrigin: true
+            },
+            '/smsTemplate/uploadSmsTemplate': {
+                /*批量导入短信模板*/
+                target: proxy_service,
+                changeOrigin: true
             }
         },
         cssSourceMap: false

@@ -40,7 +40,7 @@
         </div>
 
         <v-progress-bar
-          :isHide="isHide"
+          :isHide="isHideProgressBar"
           :percent="percent"
           :progressStyle="progressStyle.width"
           :uploadErrorInfo="uploadErrorInfo"></v-progress-bar>
@@ -57,7 +57,7 @@
         },
         data() {
             return {
-                isHide: true,
+                isHideProgressBar: true,
                 uploadErrorInfo: '',
                 percent: '',
                 progressStyle: {
@@ -105,23 +105,35 @@
 
                     formData.append('file', files[0]);
 
-                    this.$http.post(this.api.batchAddBossInfo, formData).then(
+                    this.$http.post(this.api.uploadSmsTemplate, formData).then(
                         response => {
                             let res = response.body;
 
-                            if(res.result.resultCode=='00000000'){
-                                this.isHide = false;
+                            if(res.result.resultCode=='1'){ //成功
+                                this.isHideProgressBar = false;
                                 this.percent = '100';
                                 this.progressStyle.width = '100';
 
                                 setTimeout(function () {
-                                  that.isHide = true;
+                                    that.isHideProgressBar = true;
 
-                                  that.bus.$emit('sendBatchAddBossSuccessInfo');
+                                    that.bus.$emit('sendBatchUploadSmsTemplateSuccessBus');
                                 }, 2000);
 
-                            } else {
-                                this.bus.$emit('sendBatchAddBossInfo', '上传失败');
+                            } else if(res.result.resultCode=='2') { //部分失败
+                                //this.bus.$emit('sendBatchAddBossInfo', '上传失败');
+
+                                that.bus.$emit('sendUploadWrongInfoBus', res.wrongList);
+
+                            } else if(res.result.resultCode=='3') { //部分重复导入
+
+                                that.bus.$emit('sendUploadRepeatInfoBus', res.repeatList);
+
+                            } else if(res.result.resultCode=='4') { //其他异常
+
+                            } else if(res.result.resultCode=='5') { //部分失败，部分重复
+
+                                that.bus.$emit('sendUploadWrongRepeatInfoBus', res.repeatList);
                             }
                         }
                     );

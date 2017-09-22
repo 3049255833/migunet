@@ -61,7 +61,8 @@ let api = {
     findSmsTemplate: 'smsTemplate/findSmsTemplate',                  //获取短信模板列表
     addSmsTemplate: 'smsTemplate/addSmsTemplate',   //添加短信模板
     updateSmsTemplate: 'smsTemplate/updateSmsTemplate',  //更新短信模板
-    getSmsTemplate: 'smsTemplate/getSmsTemplate'  //查询一条短信模板列表
+    getSmsTemplate: 'smsTemplate/getSmsTemplate',  //查询一条短信模板列表
+    uploadSmsTemplate: 'smsTemplate/uploadSmsTemplate'  //批量导入短信模板
 };
 
 for (let key in api) {

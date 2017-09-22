@@ -152,17 +152,13 @@
                 this.getFindSmsTemplate();
             });
 
-            /**
-             * 接收来自批量导入的信息
-             * */
-            this.bus.$on('sendBatchAddBossSuccessInfo', res => {
+            /** 接收批量导入成功的信息 */
+            this.bus.$on('sendBatchUploadSmsTemplateSuccessBus', res => {
                 this.getFindSmsTemplate();
             });
 
-            this.bus.$on('sendBatchAddBossInfo', res => {
-                let that = this;
-
-                this.addResultMsg = res;
+            /** 接收批量导入部分失败的数据 */
+            this.bus.$on('sendUploadWrongInfoBus', res => {
 
                 this.$modal.show('addResultMsg');
             });
@@ -297,7 +293,7 @@
             this.bus.$off('addSmsTemPlateBus');
             this.bus.$off('editSmsTemplateBus');
             this.bus.$off('sendDeleteSingleSmsTemplateSuccessInfo');
-            this.bus.$off('sendBatchAddBossInfo');
+            this.bus.$off('sendBatchUploadSmsTemplateSuccessBus');
         }
     }
 </script>
