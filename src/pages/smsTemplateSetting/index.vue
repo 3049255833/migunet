@@ -123,7 +123,7 @@
             this.getFindSmsTemplate();
 
             /*
-            * 接收来自添加modal的title*/
+            * 接收添加短信模板modal信息title*/
             this.bus.$on('addSmsTemPlateBus', res => {
                 this.cmd = 'add';
 
@@ -133,7 +133,7 @@
             });
 
             /**
-             * 接收来自编辑的信息
+             * 接收更新短信模板modal信息
              * */
             this.bus.$on('editSmsTemplateBus', res => {
                 this.passModal = res;

@@ -14,19 +14,20 @@
                     class="btn btn-default mr-10 btn-middle-88">取消</button>
 
             <input @change="upload" v-if="!smsTFlag"
-                   type="file" class="pointer" id="upload" name="file"/>
+                   type="file" class="ml-24 pointer" id="upload" name="file"/>
 
-            <button v-if="!smsTFlag" class="btn btn-import-module mr-10">批量导入</button>
+            <button v-if="!smsTFlag" class="btn ml-24 btn-import-module mr-10">批量导入</button>
 
-            <button v-if="!smsTFlag" class="btn btn-import-module mr-10">模板下载</button>
+            <button v-if="!smsTFlag"
+                    @click="smsTAll"
+                    class="btn btn-add-module-white batch-delete mr-10">批量删除</button>
 
             <button class="btn btn-add-module-white mr-10"
                     v-if="!smsTFlag"
                     @click="addSmsTemplate">新增短信模板</button>
 
-            <button v-if="!smsTFlag"
-                    @click="smsTAll"
-                    class="btn btn-import-module batch-delete ml-24 mr-10">批量删除</button>
+            <button v-if="!smsTFlag" class="btn btn-add-module-white mr-10">模板下载</button>
+
         </div>
 
         <div class="right">
