@@ -20,13 +20,13 @@
 
             <button v-if="!smsTFlag"
                     @click="smsTAll"
-                    class="btn btn-add-module-white batch-delete mr-10">批量删除</button>
+                    class="btn btn-batch-delete-white batch-delete mr-10">批量删除</button>
 
             <button class="btn btn-add-module-white mr-10"
                     v-if="!smsTFlag"
                     @click="addSmsTemplate">新增短信模板</button>
 
-            <button v-if="!smsTFlag" class="btn btn-add-module-white mr-10">模板下载</button>
+            <button v-if="!smsTFlag" class="btn btn-download mr-10">模板下载</button>
 
         </div>
 

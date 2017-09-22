@@ -221,6 +221,39 @@
         }
     }
 
+    &.btn-batch-delete-white {
+        width: 88px;
+        height: 34px;
+        padding: 0;
+        line-height: 32px;
+        border: 1px solid #46bafe;
+        color:  #46BAFE;
+        font-size: 12px;
+        background-color: white;
+        vertical-align: middle;
+        &:before{
+          content:'';
+          display: inline-block;
+          vertical-align: sub;
+          @include bg("icon-del.png",15px,15px);
+          margin: 0 6px 0 0;
+        }
+        &:hover{
+          background-color: #46BAFE;
+          color: white;
+          &:before{
+            @include bg("icon-del-white.png",15px,15px);
+          }
+        }
+        &:active{
+          background-color: #46BAFE;
+          color: white;
+          &:before{
+            @include bg("icon-del-white.png",15px,15px);
+          }
+        }
+    }
+
     &.btn-add-module-white{
         width: 88px;
         height: 34px;
@@ -272,12 +305,43 @@
         }
         &:hover{
             background-color: #1D9AD2;
-
         }
         &:active{
             background-color: #1D9AD2;
-
         }
+    }
+
+    &.btn-download {
+      width: 88px;
+      height: 34px;
+      line-height: 32px;
+      padding: 0;
+      border: 1px solid #46bafe;
+      color:  #46BAFE;
+      font-size: 12px;
+      background-color: white;
+      vertical-align: middle;
+      &:before{
+        content:'';
+        display: inline-block;
+        vertical-align:sub;
+        @include bg("icon-download-blue.png",15px,15px);
+        margin: 0 6px 0 0;
+      }
+      &:hover{
+        background-color: #46BAFE;
+        color:white;
+        &:before{
+          @include bg("icon-download-blue.png",15px,15px);
+        }
+      }
+      &:active{
+        background-color: #46BAFE;
+        color:white;
+        &:before{
+          @include bg("icon-download-blue.png",15px,15px);
+        }
+      }
     }
 
     &.btn-del-module{
