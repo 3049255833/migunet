@@ -14,7 +14,7 @@
 
         <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
 
-        <modal name="updateSmsTemplateModal" :width="600" :height="580" @before-close="beforeClose">
+        <modal name="updateSmsTemplateModal" :width="600" :height="500" @before-close="beforeClose">
             <t-modal-sub-container :title="modalTitle" :name="'updateSmsTemplateModal'">
                 <v-update-sms-template-modal
                   :modal-name="'updateSmsTemplateModal'"

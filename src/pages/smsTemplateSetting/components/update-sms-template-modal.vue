@@ -2,11 +2,12 @@
     <div class="update-sms-template-container">
 
         <div class="form-wrap">
-            <div class="form-row">
+
+            <div class="form-row" v-if="cmd == 'edit'">
                 <div class="row-left required">短信模板ID：</div>
 
                 <div class="row-right">
-                    <input class="form-input pointer w-200"
+                    <!--<input class="form-input pointer w-200"
                            type="text"
                            @input="$v.postData.serviceCode.$touch()"
                            :class="{'error':$v.postData.serviceCode.$error}"
@@ -15,7 +16,8 @@
 
                     <span class="error-msg" v-if="$v.postData.serviceCode.$error">
                         {{errorMsg.serviceCode}}
-                    </span>
+                    </span>-->
+                    {{postData.id}}
                 </div>
             </div>
 
@@ -25,13 +27,13 @@
                 <div class="row-right">
                     <input class="form-input pointer w-200"
                            type="text"
-                           :class="{'error':$v.postData.companyCode.$error}"
-                           @input="$v.postData.companyCode.$touch()"
-                           v-model.trim="postData.companyCode"
+                           :class="{'error':$v.postData.smsName.$error}"
+                           @input="$v.postData.smsName.$touch()"
+                           v-model.trim="postData.smsName"
                            placeholder="请输入"/>
 
-                    <span class="error-msg" v-if="$v.postData.companyCode.$error">
-                          {{errorMsg.companyCode}}
+                    <span class="error-msg" v-if="$v.postData.smsName.$error">
+                          {{errorMsg.smsName}}
                     </span>
                 </div>
             </div>
@@ -41,14 +43,10 @@
 
                 <div class="row-right">
                     <v-select-box :w="'200'"
-                        :selectTitle="'订购成功短信模板'"
-                        :selectValue="'0'"
+                        :selectTitle="smsTypeText"
+                        :selectValue="'1'"
                         :selectBoxName="'smsTemplateType'"
                         :options="selectBoxList.smsTemplateTypeList"></v-select-box>
-
-                    <span class="error-msg" v-if="$v.postData.companyCode.$error">
-                          {{errorMsg.companyCode}}
-                    </span>
                 </div>
             </div>
 
@@ -59,13 +57,13 @@
                     <textarea
                         class="textarea-module w-200"
                         type="text"
-                        :class="{'error':$v.postData.serviceDesc.$error}"
-                        @input="$v.postData.serviceDesc.$touch()"
-                        v-model.trim="postData.serviceDesc"
+                        :class="{'error':$v.postData.smsDesc.$error}"
+                        @input="$v.postData.smsDesc.$touch()"
+                        v-model.trim="postData.smsDesc"
                         placeholder="请输入"></textarea>
 
-                    <span class="error-msg" v-if="$v.postData.serviceDesc.$error">
-                          {{errorMsg.serviceDesc}}
+                    <span class="error-msg" v-if="$v.postData.smsDesc.$error">
+                          {{errorMsg.smsDesc}}
                     </span>
                 </div>
             </div>
@@ -77,13 +75,13 @@
                     <textarea
                         class="textarea-module w-200"
                         type="text"
-                        :class="{'error':$v.postData.serviceDesc.$error}"
-                        @input="$v.postData.serviceDesc.$touch()"
-                        v-model.trim="postData.serviceDesc"
+                        :class="{'error':$v.postData.templateContent.$error}"
+                        @input="$v.postData.templateContent.$touch()"
+                        v-model.trim="postData.templateContent"
                         placeholder="请输入"></textarea>
 
-                    <span class="error-msg" v-if="$v.postData.serviceDesc.$error">
-                        {{errorMsg.serviceDesc}}
+                    <span class="error-msg" v-if="$v.postData.templateContent.$error">
+                        {{errorMsg.templateContent}}
                     </span>
                 </div>
             </div>
@@ -106,7 +104,7 @@
 <script type="es6">
     import VSelectBox from '@/components/select-box'
 
-    import {required, numeric, between} from 'vuelidate/lib/validators';
+    import {required, between} from 'vuelidate/lib/validators';
 
     export default {
         name: 'UpdateSmsTemplate',
@@ -118,87 +116,53 @@
         data() {
             return {
                 postData: {
-                    serviceCode: '',
-                    companyCode: '',
-                    serviceName: '',
-                    serviceDesc: '',
-                    sharingType: '',
-                    feeAmount: '',
-                    isManager: '1'
+                    id: '',
+                    smsType: '1',
+                    smsName: '',
+                    smsDesc: '',
+                    templateContent: ''
                 },
                 errorMsg: {
-                    serviceCode: '请输入业务代码ID',
-                    companyCode: '请输入企业代码',
-                    serviceName: '请输入业务代码名称',
-                    serviceDesc: '请输入业务代码描述',
-                    feeAmount: '请输入资费金额'
+                    smsName: '请输入短信模板名称',
+                    smsDesc: '请输入短信模板描述',
+                    templateContent: '请输入短信模板内容'
                 },
                 selectBoxList: {
-                    isManagerList: [
-                        {
-                            optionText: '是',
-                            optionValue: '1'
-                        },
-                        {
-                          optionText: '否',
-                          optionValue: '0'
-                        },
-                    ],
-                    sharingTypeList: [
-                        {
-                            optionText: '分成',
-                            optionValue: '0'
-                        },
-                        {
-                            optionText: '买断',
-                            optionValue: '1'
-                        }
-                    ],
                     smsTemplateTypeList: [
                         {
                             optionText: '订购成功短信模板',
-                            optionValue: '0'
-                        },
-                        {
-                            optionText: '到期提醒短信模板',
                             optionValue: '1'
                         },
                         {
-                            optionText: '推荐短信模板',
+                            optionText: '到期提醒短信模板',
                             optionValue: '2'
+                        },
+                        {
+                            optionText: '推荐短信模板',
+                            optionValue: '3'
                         }
                     ]
                 },
                 isActive: false,
-                sharingTypeText: '分成',
-                isManagerText: '否'
+                smsTypeText: '订购成功短信模板'
             }
         },
         validations: {
             postData: {
-                serviceCode: {
+                smsName: {
                     required
                 },
-                companyCode: {
+                smsDesc: {
                     required
                 },
-                serviceName: {
+                templateContent: {
                     required
-                },
-                serviceDesc: {
-                    required
-                },
-                feeAmount: {
-                    required,
-                    numeric
                 }
             },
             validationGroup: [
-                'postData.serviceCode',
-                'postData.companyCode',
-                'postData.serviceName',
-                'postData.serviceDesc',
-                'postData.feeAmount'
+                'postData.smsName',
+                'postData.smsDesc',
+                'postData.templateContent'
             ]
         },
         components: {
@@ -215,15 +179,11 @@
 
                 if(this.cmd == 'edit') {
 
-                    delete this.postData.isHideConfim;
-
-                    //console.log("postData222: " + JSON.stringify(this.postData));
-
-                    this.$http.post(this.api.updateBossInfo, this.postData).then(
+                    this.$http.post(this.api.updateSmsTemplate, this.postData).then(
                         response => {
                             let res = response.body;
 
-                            console.log("Edit res: " + JSON.stringify(res));
+                            console.log("updateSmsTemplate: " + JSON.stringify(res));
 
                             if(res.resultCode == '00000000') {
 
@@ -237,7 +197,7 @@
                         }
                     );
                 } else {
-                    this.$http.post(this.api.addBossInfo, this.postData).then(
+                    this.$http.post(this.api.addSmsTemplate, this.postData).then(
                         response => {
                             let res = response.body;
 
@@ -262,18 +222,10 @@
              * 获取下拉框的值
              * */
             this.bus.$on('selectBoxBus', res => {
-                if (res.selectBoxName == 'isManagerSelectBox') {
+                /*获取短信模板类型*/
+                if (res.selectBoxName == 'smsTemplateType') {
 
-                    this.postData.isManager = res.selectOption.optionValue;
-                }
-
-                if (res.selectBoxName == 'sharingTypeSelectBox') {
-
-                    this.postData.sharingType = res.selectOption.optionValue;
-                }
-
-                if (res.selectBoxName == 'effectiveWaySelectBox') {
-                    this.formData.effectiveWay = res.selectOption.optionValue;
+                    this.postData.smsType = res.selectOption.optionValue;
                 }
             });
 
@@ -281,18 +233,18 @@
 
                 this.postData = this.passModal;
 
-                if(this.postData.sharingType == '1') {
-                    this.sharingTypeText = '买断';
-                } else if(this.postData.sharingType == '0') {
-                    this.sharingTypeText = '分成';
-                }
+                if(this.postData.smsType == '1') {
 
-                if(this.postData.isManager == '1') {
-                    this.isManagerText = '是'
-                } else if(this.postData.isManager == '0') {
-                    this.isManagerText = '否';
+                    this.smsTypeText = '订购成功短信模板';
+
+                } else if(this.postData.smsType == '0') {
+
+                    this.smsTypeText = '到期提醒短信模板';
+
+                } else if(this.postData.smsType == '0') {
+
+                    this.smsTypeText = '推荐短信模板';
                 }
-                //console.log("passModal: " + JSON.stringify(this.postData));
             }
         },
         computed: {
