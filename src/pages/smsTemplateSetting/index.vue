@@ -1,6 +1,7 @@
 <template>
     <div class="sms-template-setting-container">
         <v-table-operate-head
+            ref="smsTemplateHead"
             title="短信模板设置"
             v-on:smsTFlagBus="changeSmsTFlag"
             v-on:smsTbatchDeleteBus="smsTbatchDelete"
@@ -149,7 +150,11 @@
              * 接收删除单个短信模板成功信息
              * */
             this.bus.$on('sendDeleteSingleSmsTemplateSuccessInfo', res => {
-                this.getFindSmsTemplate();
+                let that = this;
+
+                setTimeout(function () {
+                    that.getFindSmsTemplate();
+                }, 2500);
             });
 
             /** 接收批量导入成功的信息 */
@@ -191,7 +196,7 @@
 
                         this.$modal.hide('confirmBatchDeleteSmsTModal');
 
-                        that.$http.post(this.api.deleteSmsTemplate1, that.postDataList).then(response=> {
+                        that.$http.post(this.api.deleteSmsTemplate, that.postDataList).then(response=> {
                             let res = response.body;
 
                             if (res.result.resultCode == '00000000') {
@@ -202,13 +207,17 @@
                                 this.$root.toast = true;
                             }
 
-                            /*this.$refs.myBacklogHead.auditFlag=false;
-                            this.auditFlag=false;
+                            this.$refs.smsTemplateHead.smsTFlag=false;
+                            this.smsTFlag=false;
                             this.postData.pageNum='1';
                             this.$refs.pagingModule.current=1;
-                            this.$refs.myBacklogTable.auditCheckbox=[];
-                            this.$refs.myBacklogTable.ifAuditAll=[]
-                            this.getContractAuditList();*/
+                            this.$refs.smsTemplateTable.smsTCheckbox=[];
+                            this.$refs.smsTemplateTable.ifSmsTAll=[];
+
+                            setTimeout(function () {
+                                that.getFindSmsTemplate();
+                            }, 2500);
+
                         }, (response) => {
                             this.$root.toastText = '服务器错误';
                             this.$root.toast = true

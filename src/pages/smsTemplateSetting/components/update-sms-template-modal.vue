@@ -233,8 +233,6 @@
                         response => {
                             let res = response.body;
 
-                            console.log("updateSmsTemplate: " + JSON.stringify(res));
-
                             if(res.result.resultCode == '00000000') {
 
                                 this.$root.toastText = '编辑成功';
@@ -247,7 +245,7 @@
                         }
                     );
                 } else {
-                    console.log("postData add: " + JSON.stringify(this.postData1));
+                    //console.log("postData add: " + JSON.stringify(this.postData1));
 
                     this.$http.post(this.api.addSmsTemplate, this.postData1).then(
                         response => {
