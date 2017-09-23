@@ -63,7 +63,7 @@
         },
         methods: {
             showSelect(e){
-                
+
             },
             hideSelect(){
                 this.isShow = false;
@@ -75,7 +75,7 @@
                 this.selectText = option.optionText;
                 this.isShow = false;
                 this.selectOption = option;
-                
+
                 this.bus.$emit('selectBoxBus', {
                     selectBoxName: this.selectBoxName,
                     selectOption: this.selectOption
@@ -88,7 +88,7 @@
                     if (!that.$el.contains(e.target)) {
                         that.isShow = false;
                     } else {
-                        
+
                         that.isShow = !that.isShow
                     }
                 });
@@ -99,7 +99,7 @@
         mounted(){
             this.documentHideOption();
         },
-        
+
         destroyed(){}
     }
 </script>
@@ -114,7 +114,7 @@
         border: 1px solid #dedede;
         background: url('../../assets/arrow-down.png') no-repeat 90% 11px;
     }
-    
+
     .select-show {
         position: relative;
         box-sizing: border-box;
@@ -148,7 +148,7 @@
         }
         transition: all .3s ease;
     }
-    
+
     .option-mask {
         box-sizing: border-box;
         position: absolute;
@@ -158,7 +158,9 @@
         display: none;
         z-index: 88;
         background: #ffffff;
-        
+        max-height: 360px;
+        overflow-y: auto;
+
         &:before {
             position: absolute;
             right: 8px;
@@ -167,7 +169,7 @@
             border: 5px solid rgba(0, 0, 0, 0);
             border-bottom-color: #d6e1e5;
         }
-        
+
         &:after {
             position: absolute;
             right: 8px;
@@ -177,7 +179,7 @@
             border-bottom-color: #fff;
         }
     }
-    
+
     .option-item {
         text-align: left;
         font-size: 12px;
@@ -186,13 +188,13 @@
         line-height: 34px;
         cursor: pointer;
         padding-right: 10px;
-        
+
         &:hover {
             color: #ffffff;
             background: #46bafe;
         }
     }
-    
+
     .opMask {
         display: block;
     }

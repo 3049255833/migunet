@@ -45,7 +45,7 @@
                     </td>-->
                     <td v-else></td>
 
-                    <td v-if="cProduct.detailStatus == 1">
+                    <!--<td v-if="cProduct.detailStatus == 1">
                         上线审批中
                     </td>
                     <td v-else-if="cProduct.detailStatus == 2">
@@ -69,10 +69,13 @@
                     <td v-else-if="cProduct.detailStatus == '8'">
                         变更报备失败
                     </td>
-                    <td v-else></td>
+                    <td v-else></td>-->
+
+                    <td>{{judgeDetailStatus}}</td>
 
                     <td>
-                        <div class="operate-list clearfix" v-if="cProduct.onlineStatus == '0'">
+                        <!--业务状态为草稿的时候-->
+                        <div class="operate-list clearfix" v-if="cProduct.onlineStatus == '00'">
                             <div @click="showContractProductDetail(cProduct.productCode)"
                                  class="mr-30 pointer cl-blue">
                                 详情
@@ -80,19 +83,38 @@
 
                             <div class="mr-30 pointer cl-blue"
                                  @click="changeInfo(cProduct)"
-                                 v-if="cProduct.detailStatus == '2' ||
-                                 cProduct.detailStatus == '4'">
+                                 v-if="cProduct.detailStatus == null ||
+                                        cProduct.detailStatus == '01' ||
+                                        cProduct.detailStatus == '19'">
                                 变更信息
                             </div>
 
-                            <div class="mr-30 pointer cl-blue revocation" @click="revocation(index)"
-                                 v-if="cProduct.detailStatus == '1'">撤销
+                            <div class="mr-30 pointer cl-blue revocation"
+                                 @click="revocation(index)"
+                                 v-if="cProduct.detailStatus == '00'">撤销</div>
 
-                                <v-confirm-popover-modal
-                                  :confirmInfo="cProduct.operateType"
-                                  :isHideConfim="cProduct.isHideConfim"
-                                  :index="index">
-                                </v-confirm-popover-modal>
+                            <div class="pointer mr-30 cl-blue more"
+                                 :class="{'active':cProduct.isShow}"
+                                 @click.stop="showSelect(index)"
+                                 v-if="cProduct.detailStatus == null ||
+                                          cProduct.detailStatus == '01' ||
+                                          cProduct.detailStatus == '19'">
+                                 更多
+                                 <i class="icon icon-arrow-down-blue"></i>
+
+                                <div class="option-mask" :class="{opMask: cProduct.isShow}">
+                                    <div class="option-item"
+                                         @click="online(index)"
+                                         v-if="cProduct.detailStatus == null ||
+                                                  cProduct.detailStatus == '01' ||
+                                                  cProduct.detailStatus == '19'">上线</div>
+
+                                    <div class="option-item"
+                                         @click="deleteBtn(index)"
+                                         v-if="cProduct.detailStatus == null ||
+                                                  cProduct.detailStatus == '01' ||
+                                                  cProduct.detailStatus == '19'">删除</div>
+                                </div>
                             </div>
                         </div>
 
@@ -106,57 +128,50 @@
 
                             <div class="mr-30 pointer cl-blue"
                                  @click="changeInfo(cProduct)"
-                                 v-if="cProduct.detailStatus == '6' ||
-                                 cProduct.detailStatus == '8' ||
-                                 cProduct.detailStatus == null">
+                                 v-if="cProduct.detailStatus == null ||
+                                        cProduct.detailStatus == '11' ||
+                                        cProduct.detailStatus == '03' ||
+                                        cProduct.detailStatus == '05' ||
+                                        cProduct.detailStatus == '13' ||
+                                        cProduct.detailStatus == '15'">
                                   变更信息
                             </div>
 
                             <div class="mr-30 pointer cl-blue revocation"
                                  @click="revocation(index)"
-                                 v-if="cProduct.detailStatus == '5'">撤销
-
-                                <v-confirm-popover-modal
-                                    :confirmInfo="cProduct.operateType"
-                                    :isHideConfim="cProduct.isHideConfim"
-                                    :index="index">
-                                </v-confirm-popover-modal>
-                            </div>
+                                 v-if="cProduct.detailStatus == '10' ||
+                                         cProduct.detailStatus == '02' ||
+                                         cProduct.detailStatus == '04'">撤销</div>
 
                             <div class="pointer mr-30 cl-blue more"
                                  :class="{'active':cProduct.isShow}"
                                  @click.stop="showSelect(index)"
-                                 v-if="cProduct.detailStatus == '6' ||
-                                        cProduct.detailStatus == null ||
-                                        cProduct.detailStatus == '8'">
+                                 v-if="cProduct.detailStatus == null ||
+                                        cProduct.detailStatus == '11' ||
+                                        cProduct.detailStatus == '03' ||
+                                        cProduct.detailStatus == '05' ||
+                                        cProduct.detailStatus == '13' ||
+                                        cProduct.detailStatus == '15'">
                                 更多
                                 <i class="icon icon-arrow-down-blue"></i>
-
-                                <v-confirm-popover-modal
-                                  :confirmInfo="cProduct.operateType"
-                                  :isHideConfim="cProduct.isHideConfim"
-                                  :index="index">
-                                </v-confirm-popover-modal>
 
                                 <div class="option-mask" :class="{opMask: cProduct.isShow}">
                                     <div class="option-item"
                                           @click="offline(index)"
-                                          v-if="cProduct.detailStatus == '6' ||
-                                                cProduct.detailStatus == null ||
-                                                cProduct.detailStatus == '8'">下线</div>
+                                          v-if="cProduct.detailStatus == null ||
+                                                  cProduct.detailStatus == '11' ||
+                                                  cProduct.detailStatus == '03' ||
+                                                  cProduct.detailStatus == '05' ||
+                                                  cProduct.detailStatus == '13' ||
+                                                  cProduct.detailStatus == '15'">下线</div>
 
                                     <div class="option-item" @click="hide(index)"
-                                           v-if="cProduct.detailStatus == '6' ||
-                                                cProduct.detailStatus == null ||
-                                                cProduct.detailStatus == '8'">隐藏</div>
-
-                                    <div class="option-item" @click="logout(index)"
-                                         v-if="cProduct.detailStatus == '6' ||
-                                                cProduct.detailStatus == null ||
-                                                cProduct.detailStatus == '8'">注销</div>
-
-                                    <!--<div class="option-item" @click="revocation(index)"
-                                         v-if="cProduct.detailStatus == '5'">撤销</div>-->
+                                           v-if="cProduct.detailStatus == null ||
+                                                  cProduct.detailStatus == '11' ||
+                                                  cProduct.detailStatus == '03' ||
+                                                  cProduct.detailStatus == '05' ||
+                                                  cProduct.detailStatus == '13' ||
+                                                  cProduct.detailStatus == '15'">隐藏</div>
                                 </div>
                             </div>
                         </div>
@@ -169,11 +184,23 @@
                                 详情
                             </div>
 
+                            <div class="mr-30 pointer cl-blue revocation"
+                                 @click="revocation(index)"
+                                 v-if="cProduct.detailStatus == '10' ||
+                                           cProduct.detailStatus == '02' ||
+                                           cProduct.detailStatus == '00' ||
+                                           cProduct.detailStatus == '06'">撤销</div>
+
                             <div class="mr-30 pointer cl-blue"
                                  @click="changeInfo(cProduct)"
                                  v-if="cProduct.detailStatus == null ||
-                                        cProduct.detailStatus == '6' ||
-                                        cProduct.detailStatus == '8'">
+                                        cProduct.detailStatus == '11' ||
+                                        cProduct.detailStatus == '03' ||
+                                        cProduct.detailStatus == '01' ||
+                                        cProduct.detailStatus == '07' ||
+                                        cProduct.detailStatus == '13' ||
+                                        cProduct.detailStatus == '19' ||
+                                        cProduct.detailStatus == '17'">
                                 变更信息
                             </div>
 
@@ -181,41 +208,46 @@
                                  :class="{'active':cProduct.isShow}"
                                  @click.stop="showSelect(index)"
                                  v-if="cProduct.detailStatus == null ||
-                                        cProduct.detailStatus == '6' ||
-                                        cProduct.detailStatus == '8' ||
-                                        cProduct.detailStatus == '5'">
+                                        cProduct.detailStatus == '11' ||
+                                        cProduct.detailStatus == '03' ||
+                                        cProduct.detailStatus == '01' ||
+                                        cProduct.detailStatus == '07' ||
+                                        cProduct.detailStatus == '13' ||
+                                        cProduct.detailStatus == '19' ||
+                                        cProduct.detailStatus == '17'">
                                 更多
                                 <i class="icon icon-arrow-down-blue"></i>
-
-                                <v-confirm-popover-modal
-                                  :confirmInfo="cProduct.operateType"
-                                  :isHideConfim="cProduct.isHideConfim"
-                                  :index="index">
-                                </v-confirm-popover-modal>
 
                                 <div class="option-mask" :class="{opMask: cProduct.isShow}">
                                     <div class="option-item" @click="online(index)"
                                        v-if="cProduct.detailStatus == null ||
-                                            cProduct.detailStatus == '6' ||
-                                            cProduct.detailStatus == '8'">上线</div>
-
-                                    <div class="option-item" @click="offline(index)"
-                                          v-if="cProduct.detailStatus == '5'">下线</div>
+                                                cProduct.detailStatus == '11' ||
+                                                cProduct.detailStatus == '03' ||
+                                                cProduct.detailStatus == '01' ||
+                                                cProduct.detailStatus == '07' ||
+                                                cProduct.detailStatus == '13' ||
+                                                cProduct.detailStatus == '19' ||
+                                                cProduct.detailStatus == '17'">上线</div>
 
                                     <div class="option-item" @click="hide(index)"
                                           v-if="cProduct.detailStatus == null ||
-                                                cProduct.detailStatus == '5' ||
-                                                cProduct.detailStatus == '6' ||
-                                                cProduct.detailStatus == '8'">隐藏</div>
+                                                  cProduct.detailStatus == '11' ||
+                                                  cProduct.detailStatus == '03' ||
+                                                  cProduct.detailStatus == '01' ||
+                                                  cProduct.detailStatus == '07' ||
+                                                  cProduct.detailStatus == '13' ||
+                                                  cProduct.detailStatus == '19' ||
+                                                  cProduct.detailStatus == '17'">隐藏</div>
 
                                     <div class="option-item" @click="logout(index)"
                                           v-if="cProduct.detailStatus == null ||
-                                          cProduct.detailStatus == '5' ||
-                                          cProduct.detailStatus == '6' ||
-                                          cProduct.detailStatus == '8'">注销</div>
-
-                                    <div class="option-item" @click="revocation(index)"
-                                          v-if="cProduct.detailStatus == '5'">撤销</div>
+                                                  cProduct.detailStatus == '11' ||
+                                                  cProduct.detailStatus == '03' ||
+                                                  cProduct.detailStatus == '01' ||
+                                                  cProduct.detailStatus == '07' ||
+                                                  cProduct.detailStatus == '13' ||
+                                                  cProduct.detailStatus == '19' ||
+                                                  cProduct.detailStatus == '17'">注销</div>
                                 </div>
                             </div>
                         </div>
@@ -228,58 +260,51 @@
                               详情
                             </div>
 
+                            <div class="mr-30 pointer cl-blue revocation"
+                                 @click="revocation(index)"
+                                 v-if="cProduct.detailStatus == '10' ||
+                                             cProduct.detailStatus == '04' ||
+                                             cProduct.detailStatus == '00'">撤销</div>
+
                             <div class="mr-30 pointer cl-blue"
                                  @click="changeInfo(cProduct)"
                                  v-if="cProduct.detailStatus == null ||
-                                 cProduct.detailStatus == '6' ||
-                                 cProduct.detailStatus == '8'">
+                                        cProduct.detailStatus == '11' ||
+                                        cProduct.detailStatus == '05' ||
+                                        cProduct.detailStatus == '01' ||
+                                        cProduct.detailStatus == '13' ||
+                                        cProduct.detailStatus == '15'">
                               变更信息
-                            </div>
-
-                            <div class="mr-30 pointer cl-blue revocation"
-                                 @click="revocation(index)"
-                                 v-if="cProduct.detailStatus == '5'">撤销
-
-                                <v-confirm-popover-modal
-                                    :confirmInfo="cProduct.operateType"
-                                    :isHideConfim="cProduct.isHideConfim"
-                                    :index="index">
-                                </v-confirm-popover-modal>
                             </div>
 
                             <div class="pointer mr-30 cl-blue more"
                                  :class="{'active':cProduct.isShow}"
                                  @click.stop="showSelect(index)"
                                  v-if="cProduct.detailStatus == null ||
-                                        cProduct.detailStatus == '6' ||
-                                        cProduct.detailStatus == '8'">
+                                        cProduct.detailStatus == '11' ||
+                                        cProduct.detailStatus == '05' ||
+                                        cProduct.detailStatus == '01' ||
+                                        cProduct.detailStatus == '13' ||
+                                        cProduct.detailStatus == '15'">
                                   更多
                                  <i class="icon icon-arrow-down-blue"></i>
-
-                                 <v-confirm-popover-modal
-                                    :confirmInfo="cProduct.operateType"
-                                    :isHideConfim="cProduct.isHideConfim"
-                                    :index="index">
-                                 </v-confirm-popover-modal>
 
                                 <div class="option-mask" :class="{opMask: cProduct.isShow}">
                                     <div class="option-item" @click="online(index)"
                                          v-if="cProduct.detailStatus == null ||
-                                         cProduct.detailStatus == '6' ||
-                                         cProduct.detailStatus == '8'">上线</div>
+                                                  cProduct.detailStatus == '11' ||
+                                                  cProduct.detailStatus == '05' ||
+                                                  cProduct.detailStatus == '01' ||
+                                                  cProduct.detailStatus == '13' ||
+                                                  cProduct.detailStatus == '15'">上线</div>
 
                                     <div class="option-item" @click="offline(index)"
                                          v-if="cProduct.detailStatus == null ||
-                                         cProduct.detailStatus == '6' ||
-                                         cProduct.detailStatus == '8'">下线</div>
-
-                                    <div class="option-item" @click="logout(index)"
-                                         v-if="cProduct.detailStatus == null ||
-                                         cProduct.detailStatus == '6' ||
-                                         cProduct.detailStatus == '8'">注销</div>
-
-                                    <!--<div class="option-item" @click="revocation(index)"
-                                         v-if="cProduct.detailStatus == '5'">撤销</div>-->
+                                                  cProduct.detailStatus == '11' ||
+                                                  cProduct.detailStatus == '05' ||
+                                                  cProduct.detailStatus == '01' ||
+                                                  cProduct.detailStatus == '13' ||
+                                                  cProduct.detailStatus == '15'">下线</div>
                                 </div>
                             </div>
                         </div>
@@ -293,15 +318,13 @@
                             </div>
 
                             <div class="mr-30 pointer cl-blue delete"
-                                 @click="deleteBtn(index,cProduct.id,cProduct.detailStatus)"
-                                v-if="cProduct.detailStatus == null">删除
-
-                                <v-confirm-popover-modal
-                                  :confirmInfo="cProduct.operateType"
-                                  :isHideConfim="cProduct.isHideConfim"
-                                  :index="index">
-                                </v-confirm-popover-modal>
+                                  @click="deleteBtn(index,cProduct.id,cProduct.detailStatus)"
+                                  v-if="cProduct.detailStatus == null || cProduct.detailStatus == '09'">删除
                             </div>
+
+                            <div class="mr-30 pointer cl-blue revocation"
+                                 @click="revocation(index)"
+                                 v-if="cProduct.detailStatus == '08'">撤销</div>
                         </div>
                     </td>
                 </tr>
@@ -346,7 +369,73 @@
             VNolist
         },
         computed: {
+            judgeDetailStatus(status){
+                let statusText = '';
 
+                if(status == '00') {
+
+                    statusText = '上线审批中';
+                } else if(status == '01') {
+
+                    statusText = '上线审批失败';
+                } else if(status == '02') {
+
+                    statusText = '隐藏审批中';
+                } else if(status == '03') {
+
+                    statusText = '隐藏审批失败';
+                } else if(status == '04') {
+
+                    statusText = '下线审批中';
+                } else if(status == '05') {
+
+                    statusText = '下线审批失败';
+                } else if(status == '06') {
+
+                    statusText = '注销审批中';
+                } else if(status == '07') {
+
+                    statusText = '注销审批失败';
+                } else if(status == '08') {
+
+                    statusText = '删除审批中';
+                } else if(status == '09') {
+
+                    statusText = '删除审批失败';
+                } else if(status == '10') {
+
+                    statusText = '变更审批中';
+                } else if(status == '11') {
+
+                    statusText = '变更审批失败';
+                } else if(status == '12') {
+
+                    statusText = '变更报备中';
+                } else if(status == '13') {
+
+                    statusText = '变更报备失败';
+                } else if(status == '14') {
+
+                    statusText = '下线报备中';
+                } else if(status == '15') {
+
+                    statusText = '下线报备失败';
+                } else if(status == '16') {
+
+                    statusText = '隐藏报备中';
+                } else if(status == '17') {
+
+                    statusText = '隐藏报备失败';
+                } else if(status == '18') {
+
+                    statusText = '上线报备中';
+                } else if(status == '19') {
+
+                    statusText = '上线报备失败';
+                }
+
+                return statusText;
+            }
         },
         methods: {
             showContractProductDetail(productCode){

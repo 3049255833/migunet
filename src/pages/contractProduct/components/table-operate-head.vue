@@ -134,44 +134,84 @@
                     },
                     {
                         optionText: '上线审批中',
-                        optionValue: '1'
+                        optionValue: '00'
                     },
                     {
                         optionText: '上线审批失败',
-                        optionValue: '2'
+                        optionValue: '01'
                     },
                     {
-                      optionText: '新增报备中',
-                      optionValue: '3'
+                        optionText: '隐藏审批中',
+                        optionValue: '02'
                     },
                     {
-                      optionText: '新增报备失败',
-                      optionValue: '4'
+                      optionText: '隐藏审批失败',
+                      optionValue: '03'
+                    },
+                    {
+                        optionText: '下线审批中',
+                        optionValue: '04'
+                    },
+                    {
+                        optionText: '下线审批失败',
+                        optionValue: '05'
+                    },
+                    {
+                        optionText: '注销审批中',
+                        optionValue: '06'
+                    },
+                    {
+                        optionText: '注销审批失败',
+                        optionValue: '07'
+                    },
+                    {
+                        optionText: '删除审批中',
+                        optionValue: '08'
+                    },
+                    {
+                        optionText: '删除审批失败',
+                        optionValue: '09'
                     },
                     {
                         optionText: '变更审批中',
-                        optionValue: '5'
+                        optionValue: '10'
                     },
                     {
                         optionText: '变更审批失败',
-                        optionValue: '6'
+                        optionValue: '11'
                     },
                     {
                         optionText: '变更报备中',
-                        optionValue: '7'
+                        optionValue: '12'
                     },
                     {
                         optionText: '变更报备失败',
-                        optionValue: '8'
-                    }/*,
-                    {
-                        optionText: '下线报备中',
-                        optionValue: ''
+                        optionValue: '13'
                     },
                     {
-                        optionText: '下线报备失败',
-                        optionValue: ''
-                    }*/
+                        optionText: '下线报备中',
+                        optionValue: '14'
+                    },
+                    {
+                      optionText: '下线报备失败',
+                      optionValue: '15'
+                    },
+                    {
+                        optionText: '隐藏报备中',
+                        optionValue: '16'
+                    },
+                    {
+                        optionText: '隐藏报备失败',
+                        optionValue: '17'
+                    },
+                    {
+                        optionText: '上线报备中',
+                        optionValue: '18'
+                    },
+                    {
+                        optionText: '上线报备失败',
+                        optionValue: '19'
+                    }
                 ],
                 distOperateList: [
                     {
