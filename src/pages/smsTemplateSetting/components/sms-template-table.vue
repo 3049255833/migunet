@@ -136,7 +136,7 @@
 
                 this.$modal.hide('confirmSingleDeleteSmsTModal');
 
-                this.$http.post(this.api.deleteSmsTemplate1, this.willDelete).then(response => {
+                this.$http.post(this.api.deleteSmsTemplate, this.willDelete).then(response => {
                     let res = response.body;
 
                     console.log("deleteSmsTemplate: " + JSON.stringify(res));

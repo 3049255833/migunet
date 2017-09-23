@@ -19,7 +19,7 @@
                 <v-update-sms-template-modal
                   :modal-name="'updateSmsTemplateModal'"
                   :passModal="passModal"
-                  v-on:sendSaveSuccess="sendSaveSuccess"
+                  v-on:sendSaveSuccessBus="sendSaveSuccess"
                   :cmd="cmd">
                 </v-update-sms-template-modal>
             </t-modal-sub-container>
@@ -173,7 +173,6 @@
                 let that = this;
 
                 if (res) {
-                    //同意审批
                     this.postDataList = [];
 
                     let _indexList = this.$refs.smsTemplateTable.smsTCheckbox;
@@ -184,14 +183,15 @@
                         _indexList.forEach(function (index) {
                             index=parseInt(index);
                             that.postDataList.push({
-                                id: that.smsTemplateList[index].id,
-                                smsName: that.smsTemplateList[index].smsName
+                                id: that.smsTemplateList[index].id
                             });
                         });
 
-                        console.log("postDataList: " + JSON.stringify(that.postDataList));
+                        console.log("Delete sms list: " + JSON.stringify(that.postDataList));
 
-                        that.$http.post(this.api.deleteSmsTemplate, that.postDataList).then(response=> {
+                        this.$modal.hide('confirmBatchDeleteSmsTModal');
+
+                        that.$http.post(this.api.deleteSmsTemplate1, that.postDataList).then(response=> {
                             let res = response.body;
 
                             if (res.result.resultCode == '00000000') {
@@ -277,17 +277,12 @@
             /**
              * 接收来自保存的信息
              * */
-            sendSaveSuccess(res) {
-
+            sendSaveSuccess() {
                 let that = this;
 
-                this.addResultMsg = res;
-
-                that.$modal.show('addResultMsg');
-
-                setTimeout(function(){
+                setTimeout(function () {
                     that.getFindSmsTemplate();
-                },2500);
+                }, 2500);
             }
         },
         computed:{
@@ -300,6 +295,8 @@
             this.bus.$off('editSmsTemplateBus');
             this.bus.$off('sendDeleteSingleSmsTemplateSuccessInfo');
             this.bus.$off('sendBatchUploadSmsTemplateSuccessBus');
+
+            this.$off('sendSaveSuccess');
         }
     }
 </script>

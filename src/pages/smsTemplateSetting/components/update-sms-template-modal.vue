@@ -125,7 +125,12 @@
                     smsType: '1',
                     smsName: '',
                     smsDesc: '',
-                    templateContent: ''
+                    templateContent: '',
+                    cmd: ''
+                },
+                postData1:{
+                    pdSmsTemplate:{},
+                    cmd: ''
                 },
                 errorMsg: {
                     smsName: '请输入短信模板名称',
@@ -213,17 +218,24 @@
             confirm() {
                 this.isActive = true;
 
+                this.postData1.pdSmsTemplate.id = this.postData.id;
+                this.postData1.pdSmsTemplate.smsType = this.postData.smsType;
+                this.postData1.pdSmsTemplate.smsName = this.postData.smsName;
+                this.postData1.pdSmsTemplate.smsDesc = this.postData.smsDesc;
+                this.postData1.pdSmsTemplate.templateContent = this.postData.templateContent;
+                this.postData1.cmd = this.cmd;
+
                 if(this.cmd == '2') {
 
-                    console.log("postData: " + JSON.stringify(this.postData));
+                    console.log("postData1: " + JSON.stringify(this.postData1));
 
-                    this.$http.post(this.api.updateSmsTemplate, this.postData, this.cmd).then(
+                    this.$http.post(this.api.updateSmsTemplate, this.postData1).then(
                         response => {
                             let res = response.body;
 
                             console.log("updateSmsTemplate: " + JSON.stringify(res));
 
-                            if(res.resultCode == '00000000') {
+                            if(res.result.resultCode == '00000000') {
 
                                 this.$root.toastText = '编辑成功';
                             } else {
@@ -235,13 +247,17 @@
                         }
                     );
                 } else {
-                    this.$http.post(this.api.addSmsTemplate, this.postData).then(
+                    console.log("postData add: " + JSON.stringify(this.postData1));
+
+                    this.$http.post(this.api.addSmsTemplate, this.postData1).then(
                         response => {
                             let res = response.body;
 
-                            if(res.resultCode == '00000000') {
+                            if(res.result.resultCode == '00000000') {
 
                                 this.$root.toastText = '添加成功';
+
+                                this.$emit('sendSaveSuccessBus');
 
                             } else {
                                 this.$root.toastText = '添加失败';
