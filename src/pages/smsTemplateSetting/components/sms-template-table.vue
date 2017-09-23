@@ -52,13 +52,6 @@
 
                         <div class="delete icon icon-del-gray"
                              @click="deleteSignleSmsT(index, item.id, item.serviceCode)"></div>
-
-                        <v-confirm-popover-modal
-                          :confirmInfo="'是否确定删除'"
-                          :isHideConfim="item.isHideConfim"
-                          :index="index"
-                          details="smsTemplate">
-                        </v-confirm-popover-modal>
                     </td>
                 </tr>
             </tbody>

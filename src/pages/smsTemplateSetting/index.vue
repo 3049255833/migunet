@@ -81,7 +81,7 @@
         data () {
             return {
                 smsTemplateList: [
-                    {
+                    /*{
                         id:"1001",
                         smsType:"推荐短信模板",
                         smsName:"短信01",
@@ -104,15 +104,15 @@
                         smsDesc:"短信03描述",
                         templateContent:"短信03内容",
                         isHideConfim: true
-                    }
+                    }*/
                 ],
                 passModal: {},
                 cmd: '',
                 modalTitle: '新增短信模板',
                 postData:{
-                    keys:'',
-                    pageSize:'3',
-                    pageNo:'1'
+                    search:'',
+                    pageSize:'5',
+                    pageNum:'1'
                 },
                 totalItem:'',
                 addResultMsg:'',
@@ -223,29 +223,35 @@
              * 接收来自头部搜索
              * */
             searchKeyWordBus(res) {
-                this.postData.keys = res.keys;
+                this.postData.search = res.keys;
 
-                this.postData.pageNo='1';
+                this.postData.pageNum='1';
                 this.$refs.pagingModule.current=1;
 
                 console.log("postData search: " + JSON.stringify(this.postData));
 
-                this.getBossInfo();
+                this.getFindSmsTemplate();
             },
 
             /**
              * 获取短信模板列表
              * */
             getFindSmsTemplate(){
-                this.$http.post(this.api.findSmsTemplate, this.postData, {showLoading:true}).then(
+
+                console.log("postData: " + JSON.stringify(this.postData));
+
+                this.$http.get(this.api.findSmsTemplate, {
+                    params: this.postData,
+                    showLoading: true
+                }).then(
                     response => {
                         let res = response.body;
-
-                        console.log("res: " + JSON.stringify(res));
 
                         if(res.result.resultCode=='00000000'){
 
                             this.smsTemplateList = res.data;
+
+                            this.totalItem = res.total;
 
                             console.log("smsTemplateList: " + JSON.stringify(this.smsTemplateList));
                         } else {
@@ -262,10 +268,10 @@
              * 获取分页信息
              * */
             getPage(res){
-                this.postData.pageNo = res.pagingValue;
+                this.postData.pageNum = res.pagingValue;
                 this.postData.pageSize = res.pagingSize;
 
-                this.getBossInfo();
+                this.getFindSmsTemplate();
             },
 
             /**
@@ -280,7 +286,7 @@
                 that.$modal.show('addResultMsg');
 
                 setTimeout(function(){
-                    that.getBossInfo();
+                    that.getFindSmsTemplate();
                 },2500);
             }
         },
