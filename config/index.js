@@ -211,27 +211,27 @@ module.exports = {
             /*短信模板*/
             '/smsTemplate/deleteSmsTemplate': {
                 /*删除短信模板*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/smsTemplate/findSmsTemplate': {
                 /*获取短信模板列表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/smsTemplate/addSmsTemplate': {
               /*添加短信模板*/
-              target: proxy_service,
+              target: proxy_service_xl,
               changeOrigin: true
             },
             '/smsTemplate/updateSmsTemplate': {
               /*更新短信模板*/
-              target: proxy_service,
+              target: proxy_service_xl,
               changeOrigin: true
             },
             '/smsTemplate/getSmsTemplate': {
               /*查询一条短信模板*/
-              target: proxy_service,
+              target: proxy_service_xl,
               changeOrigin: true
             },
             '/smsTemplate/uploadSmsTemplate': {

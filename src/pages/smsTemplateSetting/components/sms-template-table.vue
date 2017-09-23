@@ -36,9 +36,13 @@
                     <td><div class="limit-text-length code"
                              :title="item.companyCode">{{item.smsName}}</div></td>
 
-                    <td><div class="limit-text-length type"
-                           :title="item.serviceCode">{{item.smsType}}</div>
-                    </td>
+                    <td v-if="item.smsType == '1'">订购成功短信模板</td>
+
+                    <td v-else-if="item.smsType == '2'">到期提醒短信模板</td>
+
+                    <td v-else-if="item.smsType == '3'">推荐短信模板</td>
+
+                    <td v-else></td>
 
                     <td><div class="limit-text-length des"
                              :title="item.serviceDesc">{{item.smsDesc}}</div></td>
@@ -51,7 +55,7 @@
                              @click="editSmsTemplate(item)"></div>
 
                         <div class="delete icon icon-del-gray"
-                             @click="deleteSignleSmsT(index, item.id, item.serviceCode)"></div>
+                             @click="deleteSignleSmsT(item.id)"></div>
                     </td>
                 </tr>
             </tbody>
@@ -78,10 +82,11 @@
         data() {
             return {
                 count: 0,
-                willDelete: {
-                    id: '',
-                    serviceCode: ''
-                },
+                willDelete: [
+                    {
+                        id: ''
+                    }
+                ],
                 smsTCheckbox: [],
                 ifSmsTAll:[]
             }
@@ -93,10 +98,8 @@
             VNolist
         },
         methods: {
-            deleteSignleSmsT(index, id, code) {
-                this.willDelete.id = id;
-
-                this.willDelete.serviceCode = code;
+            deleteSignleSmsT(id) {
+                this.willDelete[0].id = id;
 
                 this.$modal.show('confirmSingleDeleteSmsTModal');
             },
@@ -131,28 +134,29 @@
              * */
             this.bus.$on('singleDeleteSmsTemplateConfirmBus', res => {
 
-                let that = this;
+                this.$modal.hide('confirmSingleDeleteSmsTModal');
 
-                this.$http.post(this.api.deleteSmsTemplate, this.willDelete).then(response => {
+                this.$http.post(this.api.deleteSmsTemplate1, this.willDelete).then(response => {
                     let res = response.body;
 
                     console.log("deleteSmsTemplate: " + JSON.stringify(res));
 
-                    if(res.resultCode=='00000000'){
+                    if(res.result.resultCode=='00000000'){
 
                         this.$root.toastText = '删除成功';
                         this.$root.toast = true;
 
-                        that.bus.$emit('sendDeleteSingleSmsTemplateSuccessInfo');
+                        this.bus.$emit('sendDeleteSingleSmsTemplateSuccessInfo');
                     } else {
 
                         this.$root.toastText = '删除失败';
                         this.$root.toast = true;
                     }
+
                 }, (response) => {
                     this.$root.toastText = '服务器错误';
                     this.$root.toast = true;
-                })
+                });
             });
 
             /**

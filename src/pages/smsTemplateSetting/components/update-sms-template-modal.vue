@@ -3,7 +3,7 @@
 
         <div class="form-wrap">
 
-            <div class="form-row" v-if="cmd == 'edit'">
+            <div class="form-row" v-if="cmd == '2'">
                 <div class="row-left required">短信模板ID：</div>
 
                 <div class="row-right">
@@ -211,13 +211,13 @@
                 this.$modal.hide(this.modalName);
             },
             confirm() {
-                console.log("postData: " + JSON.stringify(this.postData));
-
                 this.isActive = true;
 
-                if(this.cmd == 'edit') {
+                if(this.cmd == '2') {
 
-                    this.$http.post(this.api.updateSmsTemplate, this.postData).then(
+                    console.log("postData: " + JSON.stringify(this.postData));
+
+                    this.$http.post(this.api.updateSmsTemplate, this.postData, this.cmd).then(
                         response => {
                             let res = response.body;
 
@@ -267,7 +267,7 @@
                 }
             });
 
-            if(this.cmd == 'edit') {
+            if(this.cmd == '2') {
 
                 this.postData = this.passModal;
 

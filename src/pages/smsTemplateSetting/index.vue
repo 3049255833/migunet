@@ -107,7 +107,7 @@
                     }*/
                 ],
                 passModal: {},
-                cmd: '',
+                cmd: '', //1: 添加; 2: 编辑
                 modalTitle: '新增短信模板',
                 postData:{
                     search:'',
@@ -125,7 +125,7 @@
             /*
             * 接收添加短信模板modal信息title*/
             this.bus.$on('addSmsTemPlateBus', res => {
-                this.cmd = 'add';
+                this.cmd = '1';
 
                 this.modalTitle = '新增短信模板';
 
@@ -138,7 +138,7 @@
             this.bus.$on('editSmsTemplateBus', res => {
                 this.passModal = res;
 
-                this.cmd = 'edit';
+                this.cmd = '2';
 
                 this.modalTitle = '修改短信模板';
 
