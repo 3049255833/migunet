@@ -174,9 +174,18 @@
                       </div>
 
                       <div class="layout-row">
+                        <span class="row-left"> 是否可以赠送：</span>
+                        <span class="row-right" v-if="true">是</span>
+                        <span class="row-right" v-else>否</span>
+                      </div>
+
+                      <div class="layout-row">
                           <span class="row-left"> 创建用户：</span>
-                          <span class="row-right">
+                          <span class="row-right" v-if="cProduct.createUser != null">
                               {{cProduct.createUser}}
+                          </span>
+                          <span class="row-right" v-else>
+                              Admin
                           </span>
                       </div>
 
@@ -185,6 +194,13 @@
                           <span class="row-right">
                             {{cProduct.limitSmsAreas}}
                           </span>
+                      </div>
+
+                      <div class="layout-row">
+                        <span class="row-left"> 到期提醒短信模板：</span>
+                        <span class="row-right">
+
+                        </span>
                       </div>
 
                       <div class="layout-row">
@@ -259,15 +275,23 @@
                       </div>
 
                       <div class="layout-row">
+                        <span class="row-left"> 发送平台：</span>
+                        <span class="row-right"></span>
+                      </div>
+
+                      <div class="layout-row">
                           <span class="row-left"> 创建时间：</span>
                           <span class="row-right">{{cProduct.createTime}}</span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left">订购成功下发提示短信</span>
-                          <span class="row-right">
+                          <span class="row-right"></span>
+                      </div>
 
-                          </span>
+                      <div class="layout-row">
+                        <span class="row-left">到期提醒提前天数</span>
+                        <span class="row-right"></span>
                       </div>
 
                       <div class="layout-row">
@@ -277,6 +301,16 @@
                                   {{dItem.name}} | {{dItem.id}}
                               </span>
                           </span>
+                      </div>
+
+                      <div class="layout-row  no-pb">
+                        <div class="row-left"> CP/SP ID：</div>
+
+                        <div class="row-right">
+                          <div v-for="mutexItem in mutex">
+                            <div>{{mutexItem.name}} | {{mutexItem.id}} 假数据</div>
+                          </div>
+                        </div>
                       </div>
                   </div>
               </div>
