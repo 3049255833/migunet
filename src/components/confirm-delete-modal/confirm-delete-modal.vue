@@ -35,6 +35,9 @@
                 }else if(this.functionType === 'contractProductListConfirmModal') {
 
                     this.bus.$emit('contractProductListConfirmModalBus');
+                } else if(this.functionType === 'contractProductDetailsConfirmModal') {
+
+                    this.bus.$emit('contractProductDetailsConfirmModalBus');
                 }
 
                 event.stopPropagation();
@@ -54,6 +57,9 @@
                 } else if(this.functionType === 'contractProductListConfirmModal') {
 
                     this.$modal.hide('contractProductListConfirmModal');
+                } else if(this.functionType === 'contractProductDetailsConfirmModal') {
+
+                    this.$modal.hide('contractProductDetailsConfirmModal');
                 }
 
                 event.stopPropagation();

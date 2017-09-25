@@ -114,7 +114,11 @@
               </div>
 
               <div class="btn-group review-btn">
-                  <button class="btn btn-primary btn-middle"
+                  <button class="btn-primary btn btn-middle"
+                          v-if="changeInfoT">{{changeInfoT}}</button>
+
+                  <button class="btn btn-default btn-middle"
+                          @click="offline"
                           v-if="offlineT">{{offlineT}}</button>
 
                   <button class="btn-default btn btn-middle"
@@ -124,9 +128,7 @@
                           v-if="revocationT">{{revocationT}}</button>
 
                   <button class="btn-default btn btn-middle"
-                          v-if="changeInfoT">{{changeInfoT}}</button>
-
-                  <button class="btn-default btn btn-middle"
+                          @click="deleteCP"
                           v-if="deleteT && this.cProduct.onlineStatus == '4'">{{deleteT}}</button>
 
               </div>
@@ -485,6 +487,7 @@
                       v-if="logoutT">{{logoutT}}</button>
 
               <button class="btn-default btn btn-middle"
+                      @click="deleteCP"
                       v-if="deleteT && this.cProduct.onlineStatus == '0'">{{deleteT}}</button>
           </div>
       </div>
@@ -496,6 +499,19 @@
               </v-review-reject-modal>
           </t-modal-sub-container>
       </modal>
+
+      <modal name="contractProductDetailsConfirmModal" :width="390" :height="200" @before-close="beforeClose">
+          <t-modal-sub-container
+              :title="modalTitle"
+              :name="'contractProductDetailsConfirmModal'">
+
+              <v-confirm-delete-modal
+                :functionType="'contractProductDetailsConfirmModal'"
+                :confirmInfo="confirmInfo">
+              </v-confirm-delete-modal>
+
+          </t-modal-sub-container>
+      </modal>
   </div>
 </template>
 
@@ -503,13 +519,17 @@
     import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
     import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
     import VNolist from '@/components/no-list'
+    import TModalSubContainer from "@/components/modal-sub-container"
+    import VConfirmDeleteModal from '@/components/confirm-delete-modal/confirm-delete-modal'
 
     export default {
         name: 'Review',
         components: {
             VConfirmPopoverModal,
             VOperateSuccessModal,
-            VNolist
+            VNolist,
+            TModalSubContainer,
+            VConfirmDeleteModal
         },
         data (){
             return {
@@ -523,44 +543,70 @@
                 right: [],
                 depend: [],
                 channel: {},
-                confirmInfo: ''
+                confirmInfo: '',
+                modalTitle: ''
             }
         },
         created(){
             this.getContractProductDetail(this.productCode);
 
-            /**
-             * 接收来自确认modal框的信息
-             * */
-            this.bus.$on('contractProductDetailsConfirmInfoBus', res => {
-                this.isHideConfim = true;
-
-                this.operateInfo = '操作成功';
-
-                this.isHideOperateModal = false;
-
-                if(this.confirmInfo === '是否撤销该产品' || this.confirmInfo === '是否下线该产品') {
-
-                    this.styleOperateSuccess.top = '18%';
-                } else {
-
-                    this.styleOperateSuccess.top = '85%';
-                }
-
+            /* 接收来自确认modal框的信息 */
+            this.bus.$on('contractProductDetailsConfirmModalBus', res => {
                 let that = this;
 
-                setTimeout(function () {
+                if(this.modalTitle == "是否确认删除") {
 
-                  that.isHideOperateModal = true;
+                    this.$http.get(this.api.updateProductState,
+                        {
+                            params:{
+                                contractProductId:this.willDeleteID,
+                                onlineStatus:'5',
+                                detailStatus:this.willDeleteDetailSatus
+                            }
+                        }).then(response => {
 
-                }, 3000);
-            });
+                        let res = response.body;
 
-            /**
-             * 接收来自取消modal框的信息
-             * */
-            this.bus.$on('contractProductDetailsCancelInfoBus', res => {
-                this.isHideConfim = true;
+                        console.log("res: " + JSON.stringify(res));
+
+                        if(res.resultMessage =='成功'){
+
+                            that.$root.toastText = '删除成功';
+                            that.$root.toast = true;
+
+                            that.getContractProductDetail(that.productCode);
+                        } else {
+                            that.$root.toastText = '删除失败';
+                            that.$root.toast = true;
+                        }
+                    });
+                } else if(this.modalTitle == '是否确认下线') {
+                    this.$http.get(this.api.updateProductState,
+                        {
+                            params:{
+                                contractProductId:this.willDeleteID,
+                                onlineStatus:'5',
+                                detailStatus:this.willDeleteDetailSatus
+                            }
+                        }).then(response => {
+
+                        let res = response.body;
+
+                        console.log("res: " + JSON.stringify(res));
+
+                        if(res.resultMessage =='成功'){
+
+                            that.$root.toastText = '下线成功';
+                            that.$root.toast = true;
+
+                            that.getContractProductDetail(that.productCode);
+                        } else {
+                            that.$root.toastText = '下线失败';
+                            that.$root.toast = true;
+                        }
+                    });
+                }
+
             });
         },
         methods: {
@@ -612,44 +658,33 @@
                 })
             },
 
+            beforeClose(){},
+
             offline() {
-                this.isHideConfim = false;
 
-                this.styleComfirm.top = '19.5%';
+                this.modalTitle = '是否确认下线？';
 
-                this.styleComfirm.right = '1%';
+                this.confirmInfo = '审批通过后，产品下线成功';
 
-                this.confirmInfo = "是否下线该产品";
+                this.$modal.show('contractProductDetailsConfirmModal');
             },
 
-            revocation() {
-                this.isHideConfim = false;
+            deleteCP() {
+                this.modalTitle = '是否确认删除？';
 
-                this.styleComfirm.top = '19.5%';
+                this.confirmInfo = '删除后产品不可恢复';
 
-                this.styleComfirm.right = '2%';
-
-                this.confirmInfo = "是否撤销该产品";
+                this.$modal.show('contractProductDetailsConfirmModal');
             },
 
-            hide() {
-                this.isHideConfim = false;
+            revocation() {},
 
-                this.styleComfirm.top = '91%';
+            hide() {},
 
-                this.styleComfirm.right = '10.5%';
+            logout() {},
 
-                this.confirmInfo = "是否隐藏该产品";
-            },
-
-            logout() {
-                this.isHideConfim = false;
-
-                this.styleComfirm.top = '91%';
-
-                this.styleComfirm.right = '0.6%';
-
-                this.confirmInfo = "是否注销该产品";
+            changeInfo() {
+                //变更信息
             }
         },
         computed: {
