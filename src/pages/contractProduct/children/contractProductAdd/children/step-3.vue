@@ -7,9 +7,9 @@
                   CP/SP ID：
                 </div>
                 <div class="row-right">
-                    <div class="textarea-module"
+                    <input class="form-input pointer w-340"
                          type="text"
-                         @click="showCPSPIDModal">
+                         @click="showCPSPIDModal"/>
 
                         <table class="table-module" v-if="cPSPIDList.length>0">
                             <thead>
@@ -27,7 +27,6 @@
                         </table>
 
                         <i class="icon icon-select"></i>
-                    </div>
                 </div>
             </div>
 
@@ -109,7 +108,7 @@
                 </div>
 
                 <div class="row-right">
-                    <input class="form-input pointer w-200"
+                    <input class="form-input pointer w-340"
                          @click="showRecommendSmsModal"
                          readonly
                          placeholder="请选择"/> {{recommendSmsItem.templateContent}}
