@@ -167,6 +167,33 @@
                 </div>
             </div>
 
+            <div class="form-row">
+                <div class="row-left required">
+                  是否可以赠送：
+                </div>
+                <div class="row-right">
+                    <div class="radio-wrap">
+                        <label class="radio-module w-70">
+                            <input value="1"
+                                   v-model="formData.isGive"
+                                   name="isGive"
+                                   type="radio">
+                            <span class="mr-3"></span>
+                            <span class="txt">是</span>
+                        </label>
+
+                        <label class="radio-module">
+                            <input value="0"
+                                   v-model="formData.isGive"
+                                   name="isGive"
+                                   type="radio">
+                            <span class="mr-3"></span>
+                            <span class="txt">否</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <!--是否体验产品-->
             <div class="form-row">
                 <div class="row-left required">
@@ -199,7 +226,7 @@
             <!--体验产品填入-->
             <div class="form-row" v-if="formData.isExperience=='1'">
                 <div class="row-left required">
-                    体验产品产品周期：
+                    体验产品周期：
                 </div>
                 <div class="row-right">
                     <input v-model="formData.expCycleUnitNum"
@@ -592,7 +619,8 @@
                     pts: [],
                     ifUseServiceCode: '1',     //是否使用业务代码,
 
-                    pdFeePlanCodes: ''           //资费计划
+                    pdFeePlanCodes: '',           //资费计划
+                    isGive: ''         //是否可以赠送
                 },
                 postData:{
                     pdContract:{},

@@ -1,6 +1,64 @@
 <template>
     <div class="add-step-3">
         <div class="form-wrap ">
+            <!--CP/SP ID-->
+            <div class="form-row">
+                <div class="row-left required">
+                  CP/SP ID：
+                </div>
+                <div class="row-right">
+                    <div class="textarea-module"
+                         type="text"
+                         @click="showCPSPIDModal">
+
+                        <table class="table-module" v-if="cPSPIDList.length>0">
+                            <thead>
+                                <tr>
+                                  <td>企业代码</td>
+                                  <td>企业名称</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in cPSPIDList">
+                                    <td>{{item.planCode}}</td>
+                                    <td>{{item.planName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <i class="icon icon-select"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!--发送平台-->
+            <div class="form-row">
+                <div class="row-left required">
+                  发送平台：
+                </div>
+                <div class="row-right">
+                    <div class="radio-wrap">
+                        <label class="checkbox-module w-70">
+                            <input value="1"
+                                   v-model="formData.isGive"
+                                   name="isGive"
+                                   type="checkbox">
+                            <span class="mr-3"></span>
+                            <span class="txt">彩印</span>
+                        </label>
+
+                        <label class="checkbox-module">
+                            <input value="0"
+                                   v-model="formData.isGive"
+                                   name="isGive"
+                                   type="checkbox">
+                            <span class="mr-3"></span>
+                            <span class="txt">彩铃</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-row">
                 <div class="row-left">
                     限制发送提示短信省份：
@@ -15,32 +73,64 @@
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left">
                     订购成功下发提示短信：
                 </div>
                 <div class="row-right">
-                    <div class="textarea-module"
-                         @click="showPromptSmsModal"
-                         readonly
-                         placeholder="请选择">{{promptSmsItem.templateContent}}
-                    </div>
+                    <input class="form-input pointer w-340"
+                           v-model="formData.limitSmsAreas"
+                           type="text"
+                           @click="showPromptSmsModal"
+                           readonly
+                           placeholder="请选择"/>{{promptSmsItem.templateContent}}
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left">
                     订购成功下发推荐短信：
                 </div>
                 <div class="row-right">
-                    <div class="textarea-module"
+                    <input class="form-input pointer w-340"
                          @click="showRecommendSmsModal"
                          readonly
-                         placeholder="请选择"> {{recommendSmsItem.templateContent}}
-                    </div>
+                         placeholder="请选择"/> {{recommendSmsItem.templateContent}}
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
+            <!--到期提醒短信模板-->
+            <div class="form-row">
+                <div class="row-left">
+                    到期提醒短信模板：
+                </div>
+
+                <div class="row-right">
+                    <input class="form-input pointer w-200"
+                         @click="showRecommendSmsModal"
+                         readonly
+                         placeholder="请选择"/> {{recommendSmsItem.templateContent}}
+                    <i class="icon icon-select"></i>
+                </div>
+            </div>
+
+            <!--到期提醒提前天数-->
+            <div class="form-row">
+                <div class="row-left">
+                  到期提醒提前天数：
+                </div>
+
+                <div class="row-right">
+                    <input class=" form-input pointer w-200"
+                           v-model.trim="formData.remindDays"
+                           type="text"
+                           placeholder="请输入天数"/>
+                </div>
+            </div>
+
             <div class="form-row mutex-product-item">
                 <div class="row-left">
                     互斥产品添加：
@@ -58,6 +148,7 @@
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left">
                     依赖产品添加：
@@ -67,11 +158,11 @@
                            placeholder="请选择"
                            v-model="relyProductItem.content"
                            @click="showRelyProduct"
-
                            readonly>
                     <i class="icon icon-select"></i>
                 </div>
             </div>
+
             <div class="form-row">
                 <div class="row-left"></div>
                 <div class="row-right">
@@ -142,7 +233,8 @@
                     promptSmsCodes: '',
                     recommendCodes: '',
                     mutuallyProductCodes: '',
-                    dependentProductCodes: ''
+                    dependentProductCodes: '',
+                    remindDays: ''
                 },
                 smsTitle: '',
                 productSelectTitle: '',
@@ -151,10 +243,16 @@
                 promptSmsItem: {},
                 recommendSmsItem: {},
                 mutexProductList: [],
-                relyProductItem: {}
+                relyProductItem: {},
+                cPSPIDList: []
             }
         },
         methods: {
+            /*显示CP/SP ID modal*/
+            showCPSPIDModal() {
+
+            },
+
             /**
              * 保存数据
              * */
@@ -202,9 +300,7 @@
                 this.$modal.show('areaChoseModal');
             },
 
-            beforeClose(){
-
-            },
+            beforeClose(){},
 
             /**
              * 调用订购成功下发提示短信模板弹框

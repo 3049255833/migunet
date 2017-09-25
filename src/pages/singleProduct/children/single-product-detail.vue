@@ -159,9 +159,11 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 渠道信息：</span>
                                         <span class="row-right">
-                                            <span v-for="channelItem in productDetail.channel">
+                                            <!--<span v-for="channelItem in productDetail.channel">
                                         {{channelItem.channelCode}} | {{channelItem.channelName}}
-                                            </span>
+                                            </span>-->
+
+                                          {{productDetail.channelCode}} | {{productDetail.channelName}}
                                         </span>
                                     </div>
                                 </div>
