@@ -42,37 +42,34 @@
                     </td>
                     <td v-else></td>
 
-                    <td v-if="cProduct.detailStatus == '00'">
+                    <td v-if="cProduct.detailStatus == '0'">
                         上线审批中
                     </td>
-                    <td v-else-if="cProduct.detailStatus == '01'">
+                    <td v-else-if="cProduct.detailStatus == '1'">
                         上线审批失败
                     </td>
-                    <td v-else-if="cProduct.detailStatus == '02'">
+                    <td v-else-if="cProduct.detailStatus == '2'">
                         隐藏审批中
                     </td>
-                    <td v-else-if="cProduct.detailStatus == '03'">
+                    <td v-else-if="cProduct.detailStatus == '3'">
                         隐藏审批失败
                     </td>
-                    <td v-else-if="cProduct.detailStatus == '04'">
+                    <td v-else-if="cProduct.detailStatus == '4'">
                         下线审批中
                     </td>
-                    <td v-else-if="cProduct.detailStatus == '05'">
+                    <td v-else-if="cProduct.detailStatus == '5'">
                         下线审批失败
                     </td>
-                    <td v-else-if="cProduct.detailStatus == '06'">
+                    <td v-else-if="cProduct.detailStatus == '6'">
                         注销审批中
                     </td>
-                    <td v-else-if="cProduct.detailStatus == '07'">
+                    <td v-else-if="cProduct.detailStatus == '7'">
                         注销审批失败
                     </td>
-                    <td v-else-if="cProduct.detailStatus == '07'">
-                        变更报备失败
-                    </td>
-                    <td v-else-if="cProduct.detailStatus == '08'">
+                    <td v-else-if="cProduct.detailStatus == '8'">
                         删除审批中
                     </td>
-                    <td v-else-if="cProduct.detailStatus == '09'">
+                    <td v-else-if="cProduct.detailStatus == '9'">
                         删除审批失败
                     </td>
                     <td v-else-if="cProduct.detailStatus == '10'">
@@ -118,20 +115,20 @@
                             <div class="mr-30 pointer cl-blue"
                                  @click="changeInfo(cProduct)"
                                  v-if="cProduct.detailStatus == null ||
-                                        cProduct.detailStatus == '01' ||
+                                        cProduct.detailStatus == '1' ||
                                         cProduct.detailStatus == '19'">
                                 变更信息
                             </div>
 
                             <div class="mr-30 pointer cl-blue revocation"
                                  @click="revocation(index)"
-                                 v-if="cProduct.detailStatus == '00'">撤销</div>
+                                 v-if="cProduct.detailStatus == '0'">撤销</div>
 
                             <div class="pointer mr-30 cl-blue more"
                                  :class="{'active':cProduct.isShow}"
                                  @click.stop="showSelect(index)"
                                  v-if="cProduct.detailStatus == null ||
-                                          cProduct.detailStatus == '01' ||
+                                          cProduct.detailStatus == '1' ||
                                           cProduct.detailStatus == '19'">
                                  更多
                                  <i class="icon icon-arrow-down-blue"></i>
@@ -140,13 +137,13 @@
                                     <div class="option-item"
                                          @click="online(index)"
                                          v-if="cProduct.detailStatus == null ||
-                                                  cProduct.detailStatus == '01' ||
+                                                  cProduct.detailStatus == '1' ||
                                                   cProduct.detailStatus == '19'">上线</div>
 
                                     <div class="option-item"
                                          @click="deleteBtn(cProduct.productCode,cProduct.detailStatus)"
                                          v-if="cProduct.detailStatus == null ||
-                                                  cProduct.detailStatus == '01' ||
+                                                  cProduct.detailStatus == '1' ||
                                                   cProduct.detailStatus == '19'">删除</div>
                                 </div>
                             </div>
@@ -164,8 +161,8 @@
                                  @click="changeInfo(cProduct)"
                                  v-if="cProduct.detailStatus == null ||
                                         cProduct.detailStatus == '11' ||
-                                        cProduct.detailStatus == '03' ||
-                                        cProduct.detailStatus == '05' ||
+                                        cProduct.detailStatus == '3' ||
+                                        cProduct.detailStatus == '5' ||
                                         cProduct.detailStatus == '13' ||
                                         cProduct.detailStatus == '15'">
                                   变更信息
@@ -174,16 +171,16 @@
                             <div class="mr-30 pointer cl-blue revocation"
                                  @click="revocation(index)"
                                  v-if="cProduct.detailStatus == '10' ||
-                                         cProduct.detailStatus == '02' ||
-                                         cProduct.detailStatus == '04'">撤销</div>
+                                         cProduct.detailStatus == '2' ||
+                                         cProduct.detailStatus == '4'">撤销</div>
 
                             <div class="pointer mr-30 cl-blue more"
                                  :class="{'active':cProduct.isShow}"
                                  @click.stop="showSelect(index)"
                                  v-if="cProduct.detailStatus == null ||
                                         cProduct.detailStatus == '11' ||
-                                        cProduct.detailStatus == '03' ||
-                                        cProduct.detailStatus == '05' ||
+                                        cProduct.detailStatus == '3' ||
+                                        cProduct.detailStatus == '5' ||
                                         cProduct.detailStatus == '13' ||
                                         cProduct.detailStatus == '15'">
                                 更多
@@ -194,16 +191,16 @@
                                           @click="offline(cProduct.productCode,cProduct.detailStatus)"
                                           v-if="cProduct.detailStatus == null ||
                                                   cProduct.detailStatus == '11' ||
-                                                  cProduct.detailStatus == '03' ||
-                                                  cProduct.detailStatus == '05' ||
+                                                  cProduct.detailStatus == '3' ||
+                                                  cProduct.detailStatus == '5' ||
                                                   cProduct.detailStatus == '13' ||
                                                   cProduct.detailStatus == '15'">下线</div>
 
                                     <div class="option-item" @click="hide(index)"
                                            v-if="cProduct.detailStatus == null ||
                                                   cProduct.detailStatus == '11' ||
-                                                  cProduct.detailStatus == '03' ||
-                                                  cProduct.detailStatus == '05' ||
+                                                  cProduct.detailStatus == '3' ||
+                                                  cProduct.detailStatus == '5' ||
                                                   cProduct.detailStatus == '13' ||
                                                   cProduct.detailStatus == '15'">隐藏</div>
                                 </div>
@@ -221,17 +218,17 @@
                             <div class="mr-30 pointer cl-blue revocation"
                                  @click="revocation(index)"
                                  v-if="cProduct.detailStatus == '10' ||
-                                           cProduct.detailStatus == '02' ||
-                                           cProduct.detailStatus == '00' ||
-                                           cProduct.detailStatus == '06'">撤销</div>
+                                           cProduct.detailStatus == '2' ||
+                                           cProduct.detailStatus == '0' ||
+                                           cProduct.detailStatus == '6'">撤销</div>
 
                             <div class="mr-30 pointer cl-blue"
                                  @click="changeInfo(cProduct)"
                                  v-if="cProduct.detailStatus == null ||
                                         cProduct.detailStatus == '11' ||
-                                        cProduct.detailStatus == '03' ||
-                                        cProduct.detailStatus == '01' ||
-                                        cProduct.detailStatus == '07' ||
+                                        cProduct.detailStatus == '3' ||
+                                        cProduct.detailStatus == '1' ||
+                                        cProduct.detailStatus == '7' ||
                                         cProduct.detailStatus == '13' ||
                                         cProduct.detailStatus == '19' ||
                                         cProduct.detailStatus == '17'">
@@ -243,9 +240,9 @@
                                  @click.stop="showSelect(index)"
                                  v-if="cProduct.detailStatus == null ||
                                         cProduct.detailStatus == '11' ||
-                                        cProduct.detailStatus == '03' ||
-                                        cProduct.detailStatus == '01' ||
-                                        cProduct.detailStatus == '07' ||
+                                        cProduct.detailStatus == '3' ||
+                                        cProduct.detailStatus == '1' ||
+                                        cProduct.detailStatus == '7' ||
                                         cProduct.detailStatus == '13' ||
                                         cProduct.detailStatus == '19' ||
                                         cProduct.detailStatus == '17'">
@@ -256,9 +253,9 @@
                                     <div class="option-item" @click="online(index)"
                                        v-if="cProduct.detailStatus == null ||
                                                 cProduct.detailStatus == '11' ||
-                                                cProduct.detailStatus == '03' ||
-                                                cProduct.detailStatus == '01' ||
-                                                cProduct.detailStatus == '07' ||
+                                                cProduct.detailStatus == '3' ||
+                                                cProduct.detailStatus == '1' ||
+                                                cProduct.detailStatus == '7' ||
                                                 cProduct.detailStatus == '13' ||
                                                 cProduct.detailStatus == '19' ||
                                                 cProduct.detailStatus == '17'">上线</div>
@@ -266,9 +263,9 @@
                                     <div class="option-item" @click="hide(index)"
                                           v-if="cProduct.detailStatus == null ||
                                                   cProduct.detailStatus == '11' ||
-                                                  cProduct.detailStatus == '03' ||
-                                                  cProduct.detailStatus == '01' ||
-                                                  cProduct.detailStatus == '07' ||
+                                                  cProduct.detailStatus == '3' ||
+                                                  cProduct.detailStatus == '1' ||
+                                                  cProduct.detailStatus == '7' ||
                                                   cProduct.detailStatus == '13' ||
                                                   cProduct.detailStatus == '19' ||
                                                   cProduct.detailStatus == '17'">隐藏</div>
@@ -276,9 +273,9 @@
                                     <div class="option-item" @click="logout(index)"
                                           v-if="cProduct.detailStatus == null ||
                                                   cProduct.detailStatus == '11' ||
-                                                  cProduct.detailStatus == '03' ||
-                                                  cProduct.detailStatus == '01' ||
-                                                  cProduct.detailStatus == '07' ||
+                                                  cProduct.detailStatus == '3' ||
+                                                  cProduct.detailStatus == '1' ||
+                                                  cProduct.detailStatus == '7' ||
                                                   cProduct.detailStatus == '13' ||
                                                   cProduct.detailStatus == '19' ||
                                                   cProduct.detailStatus == '17'">注销</div>
@@ -297,15 +294,15 @@
                             <div class="mr-30 pointer cl-blue revocation"
                                  @click="revocation(index)"
                                  v-if="cProduct.detailStatus == '10' ||
-                                             cProduct.detailStatus == '04' ||
-                                             cProduct.detailStatus == '00'">撤销</div>
+                                             cProduct.detailStatus == '4' ||
+                                             cProduct.detailStatus == '0'">撤销</div>
 
                             <div class="mr-30 pointer cl-blue"
                                  @click="changeInfo(cProduct)"
                                  v-if="cProduct.detailStatus == null ||
                                         cProduct.detailStatus == '11' ||
-                                        cProduct.detailStatus == '05' ||
-                                        cProduct.detailStatus == '01' ||
+                                        cProduct.detailStatus == '5' ||
+                                        cProduct.detailStatus == '1' ||
                                         cProduct.detailStatus == '13' ||
                                         cProduct.detailStatus == '15'">
                               变更信息
@@ -316,8 +313,8 @@
                                  @click.stop="showSelect(index)"
                                  v-if="cProduct.detailStatus == null ||
                                         cProduct.detailStatus == '11' ||
-                                        cProduct.detailStatus == '05' ||
-                                        cProduct.detailStatus == '01' ||
+                                        cProduct.detailStatus == '5' ||
+                                        cProduct.detailStatus == '1' ||
                                         cProduct.detailStatus == '13' ||
                                         cProduct.detailStatus == '15'">
                                   更多
@@ -327,16 +324,16 @@
                                     <div class="option-item" @click="online(index)"
                                          v-if="cProduct.detailStatus == null ||
                                                   cProduct.detailStatus == '11' ||
-                                                  cProduct.detailStatus == '05' ||
-                                                  cProduct.detailStatus == '01' ||
+                                                  cProduct.detailStatus == '5' ||
+                                                  cProduct.detailStatus == '1' ||
                                                   cProduct.detailStatus == '13' ||
                                                   cProduct.detailStatus == '15'">上线</div>
 
                                     <div class="option-item" @click="offline(cProduct.productCode,cProduct.detailStatus)"
                                          v-if="cProduct.detailStatus == null ||
                                                   cProduct.detailStatus == '11' ||
-                                                  cProduct.detailStatus == '05' ||
-                                                  cProduct.detailStatus == '01' ||
+                                                  cProduct.detailStatus == '5' ||
+                                                  cProduct.detailStatus == '1' ||
                                                   cProduct.detailStatus == '13' ||
                                                   cProduct.detailStatus == '15'">下线</div>
                                 </div>
@@ -353,12 +350,12 @@
 
                             <div class="mr-30 pointer cl-blue delete"
                                   @click="deleteBtn(cProduct.productCode, cProduct.detailStatus)"
-                                  v-if="cProduct.detailStatus == null || cProduct.detailStatus == '09'">删除
+                                  v-if="cProduct.detailStatus == null || cProduct.detailStatus == '9'">删除
                             </div>
 
                             <div class="mr-30 pointer cl-blue revocation"
                                  @click="revocation(index)"
-                                 v-if="cProduct.detailStatus == '08'">撤销</div>
+                                 v-if="cProduct.detailStatus == '8'">撤销</div>
                         </div>
                     </td>
                 </tr>
@@ -417,7 +414,7 @@
             TModalSubContainer
         },
         computed: {
-            
+
         },
         methods: {
             beforeClose(){},

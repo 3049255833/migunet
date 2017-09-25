@@ -713,34 +713,34 @@
             cpDetailStatus() {
                 let statusText = '';
 
-                if(this.cProduct.detailStatus == '00') {
+                if(this.cProduct.detailStatus == '0') {
 
                     statusText = '上线审批中';
-                } else if(this.cProduct.detailStatus == '01') {
+                } else if(this.cProduct.detailStatus == '1') {
 
                     statusText = '上线审批失败';
-                } else if(this.cProduct.detailStatus == '02') {
+                } else if(this.cProduct.detailStatus == '2') {
 
                     statusText = '隐藏审批中';
-                } else if(this.cProduct.detailStatus == '03') {
+                } else if(this.cProduct.detailStatus == '3') {
 
                     statusText = '隐藏审批失败';
-                } else if(this.cProduct.detailStatus == '04') {
+                } else if(this.cProduct.detailStatus == '4') {
 
                     statusText = '下线审批中';
-                } else if(this.cProduct.detailStatus == '05') {
+                } else if(this.cProduct.detailStatus == '5') {
 
                     statusText = '下线审批失败';
-                } else if(this.cProduct.detailStatus == '06') {
+                } else if(this.cProduct.detailStatus == '6') {
 
                     statusText = '注销审批中';
-                } else if(this.cProduct.detailStatus == '07') {
+                } else if(this.cProduct.detailStatus == '7') {
 
                     statusText = '注销审批失败';
-                } else if(this.cProduct.detailStatus == '08') {
+                } else if(this.cProduct.detailStatus == '8') {
 
                     statusText = '删除审批中';
-                } else if(this.cProduct.detailStatus == '09') {
+                } else if(this.cProduct.detailStatus == '9') {
 
                     statusText = '删除审批失败';
                 } else if(this.cProduct.detailStatus == '10') {
@@ -793,9 +793,9 @@
               if((this.cProduct.onlineStatus == '3' &&
                     (this.cProduct.detailStatus == null ||
                     this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '03' ||
-                    this.cProduct.detailStatus == '01' ||
-                    this.cProduct.detailStatus == '07' ||
+                    this.cProduct.detailStatus == '3' ||
+                    this.cProduct.detailStatus == '1' ||
+                    this.cProduct.detailStatus == '7' ||
                     this.cProduct.detailStatus == '13' ||
                     this.cProduct.detailStatus == '19' ||
                     this.cProduct.detailStatus == '17')) ) {
@@ -824,15 +824,15 @@
                 if((this.cProduct.onlineStatus == '1' &&
                       (this.cProduct.detailStatus == null ||
                       this.cProduct.detailStatus == '11' ||
-                      this.cProduct.detailStatus == '03' ||
-                      this.cProduct.detailStatus == '05' ||
+                      this.cProduct.detailStatus == '3' ||
+                      this.cProduct.detailStatus == '5' ||
                       this.cProduct.detailStatus == '13' ||
                       this.cProduct.detailStatus == '15')) ||
                   (this.cProduct.onlineStatus == '2' &&
                       (this.cProduct.detailStatus == null ||
                       this.cProduct.detailStatus == '11' ||
-                      this.cProduct.detailStatus == '05' ||
-                      this.cProduct.detailStatus == '01' ||
+                      this.cProduct.detailStatus == '5' ||
+                      this.cProduct.detailStatus == '1' ||
                       this.cProduct.detailStatus == '13' ||
                       this.cProduct.detailStatus == '15'))) {
 
@@ -867,22 +867,22 @@
                 if((this.cProduct.onlineStatus == '3' &&
                       (this.cProduct.detailStatus == null ||
                       this.cProduct.detailStatus == '11' ||
-                      this.cProduct.detailStatus == '03' ||
-                      this.cProduct.detailStatus == '01' ||
-                      this.cProduct.detailStatus == '07' ||
+                      this.cProduct.detailStatus == '3' ||
+                      this.cProduct.detailStatus == '1' ||
+                      this.cProduct.detailStatus == '7' ||
                       this.cProduct.detailStatus == '13' ||
                       this.cProduct.detailStatus == '19' ||
                       this.cProduct.detailStatus == '19')) ||
                 (this.cProduct.onlineStatus == '2' &&
                     (this.cProduct.detailStatus == null ||
                     this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '05' ||
-                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '5' ||
+                    this.cProduct.detailStatus == '1' ||
                     this.cProduct.detailStatus == '13' ||
                     this.cProduct.detailStatus == '15')) ||
                 (this.cProduct.onlineStatus == '0' &&
                     (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '1' ||
                     this.cProduct.detailStatus == '19'))) {
 
                     return '上线';
@@ -910,16 +910,16 @@
                 if((this.cProduct.onlineStatus == '1' &&
                       (this.cProduct.detailStatus == null ||
                       this.cProduct.detailStatus == '11' ||
-                      this.cProduct.detailStatus == '03' ||
-                      this.cProduct.detailStatus == '05' ||
+                      this.cProduct.detailStatus == '3' ||
+                      this.cProduct.detailStatus == '5' ||
                       this.cProduct.detailStatus == '15' ||
                       this.cProduct.detailStatus == '13')) ||
                 (this.cProduct.onlineStatus == '3' &&
                     (this.cProduct.detailStatus == null ||
                     this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '03' ||
-                    this.cProduct.detailStatus == '01' ||
-                    this.cProduct.detailStatus == '07' ||
+                    this.cProduct.detailStatus == '3' ||
+                    this.cProduct.detailStatus == '1' ||
+                    this.cProduct.detailStatus == '7' ||
                     this.cProduct.detailStatus == '13' ||
                     this.cProduct.detailStatus == '19' ||
                     this.cProduct.detailStatus == '17'))) {
@@ -949,16 +949,16 @@
             *
             * */
             revocationT() {
-              if((this.cProduct.onlineStatus == '0' && this.cProduct.detailStatus == '00') ||
-                (this.cProduct.onlineStatus == '4' && this.cProduct.detailStatus == '08') ||
+              if((this.cProduct.onlineStatus == '0' && this.cProduct.detailStatus == '0') ||
+                (this.cProduct.onlineStatus == '4' && this.cProduct.detailStatus == '8') ||
                 (this.cProduct.onlineStatus == '1' &&
                     (this.cProduct.detailStatus == '10' ||
-                    this.cProduct.detailStatus == '02' ||
-                    this.cProduct.detailStatus == '04')) ||
+                    this.cProduct.detailStatus == '2' ||
+                    this.cProduct.detailStatus == '4')) ||
                 (this.cProduct.onlineStatus == '2' &&
                     (this.cProduct.detailStatus == '10' ||
-                    this.cProduct.detailStatus == '04' ||
-                    this.cProduct.detailStatus == '00'))) {
+                    this.cProduct.detailStatus == '4' ||
+                    this.cProduct.detailStatus == '0'))) {
 
                   return '撤销';
               }
@@ -975,11 +975,11 @@
             deleteT() {
               if((this.cProduct.onlineStatus == '0' &&
                     (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '1' ||
                     this.cProduct.detailStatus == '19')) ||
                 (this.cProduct.onlineStatus == '4' && (
                     this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '09'))) {
+                    this.cProduct.detailStatus == '9'))) {
 
                   return '删除';
               }
@@ -1016,29 +1016,29 @@
             changeInfoT() {
               if((this.cProduct.onlineStatus == '0' &&
                     (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '1' ||
                     this.cProduct.detailStatus == '19')) ||
                 (this.cProduct.onlineStatus == '1' && (
                     this.cProduct.detailStatus == null ||
                     this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '03' ||
-                    this.cProduct.detailStatus == '05' ||
+                    this.cProduct.detailStatus == '3' ||
+                    this.cProduct.detailStatus == '5' ||
                     this.cProduct.detailStatus == '13' ||
                     this.cProduct.detailStatus == '15')) ||
                 (this.cProduct.onlineStatus == '3' && (
                     this.cProduct.detailStatus == null ||
                     this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '03' ||
-                    this.cProduct.detailStatus == '01' ||
-                    this.cProduct.detailStatus == '07' ||
+                    this.cProduct.detailStatus == '3' ||
+                    this.cProduct.detailStatus == '1' ||
+                    this.cProduct.detailStatus == '7' ||
                     this.cProduct.detailStatus == '13' ||
                     this.cProduct.detailStatus == '19' ||
                     this.cProduct.detailStatus == '17')) ||
                 (this.cProduct.onlineStatus == '2' && (
                     this.cProduct.detailStatus == null ||
                     this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '05' ||
-                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '5' ||
+                    this.cProduct.detailStatus == '1' ||
                     this.cProduct.detailStatus == '13' ||
                     this.cProduct.detailStatus == '15'))) {
 

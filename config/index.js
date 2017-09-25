@@ -52,18 +52,18 @@ module.exports = {
             },
             '/product/getProductDetail': {
                 /*单品详情的IP*/
-                target: proxy_service,
+                target: proxy_service_lfy,
                 changeOrigin: true
             },
 
             '/productCenter/getContractProductList': {
                 /*合约产品列表的IP*/
-                target: proxy_service_cjk,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/productCenter/contractProductDetail': {
                 /*合约产品详情的IP*/
-                target: proxy_service_cjk,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/product/queryCpDepend': {
