@@ -197,6 +197,19 @@
             </t-modal-sub-container>
         </modal>
 
+        <!--CP/SP ID list-->
+        <!--<modal name="cpSPListModal"
+               :width="870"
+               :height="570"
+               @before-close="beforeClose">
+
+            <t-modal-sub-container :title="CP/SP ID 选择" :name="'cpSPListModal'">
+
+                <v-cp-sp-modal></v-cp-sp-modal>
+
+            </t-modal-sub-container>
+        </modal>-->
+
         <!-- 操作结果modal start -->
         <modal name="addResultMsgModal" :draggable="true" :width="200" :height="80">
             <v-toast :name="'addResultMsgModal'" >{{addResultMsg}}</v-toast>
@@ -213,6 +226,8 @@
 
     import VProductSelectModal from '../components/product-select-modal'
 
+    import VCpSpModal from '../components/cp-sp-modal.vue'
+
     export default{
         components: {
             VAreaChose,
@@ -220,7 +235,8 @@
             VSmsList,
             VPaging,
             VProductSelectModal,
-            VToast
+            VToast,
+            VCpSpModal
         },
         data(){
             return {

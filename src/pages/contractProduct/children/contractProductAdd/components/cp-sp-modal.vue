@@ -27,8 +27,7 @@
               <tbody>
                   <tr v-for="(item, index) in productList">
                       <td>
-                          <div v-if="productType==='1'"
-                               class="checkbox-module single">
+                          <div class="checkbox-module single">
 
                               <input type="checkbox"
                                      @click="getProductList(index, item.productCode, item.productName,item.id)"
@@ -61,10 +60,10 @@
 
       <div class="paging-wrap">
 
-        <v-paging ref="pagingModule"
-                  :type="'simple'"
-                  :totalItem="totalItem"
-                  v-on:pagingBus="getPage"></v-paging>
+          <v-paging ref="pagingModule"
+              :type="'simple'"
+              :totalItem="totalItem"
+              v-on:pagingBus="getPage"></v-paging>
       </div>
   </div>
 </template>
