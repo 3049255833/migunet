@@ -115,13 +115,20 @@
 
               <div class="btn-group review-btn">
                   <button class="btn btn-primary btn-middle"
-                          v-if="revocationT">{{revocationT}}</button>
-
-                  <button class="btn-default btn btn-middle"
                           v-if="offlineT">{{offlineT}}</button>
 
                   <button class="btn-default btn btn-middle"
                           v-if="onlineT">{{onlineT}}</button>
+
+                  <button class="btn-default btn btn-middle"
+                          v-if="revocationT">{{revocationT}}</button>
+
+                  <button class="btn-default btn btn-middle"
+                          v-if="changeInfoT">{{changeInfoT}}</button>
+
+                  <button class="btn-default btn btn-middle"
+                          v-if="deleteT && this.cProduct.onlineStatus == '4'">{{deleteT}}</button>
+
               </div>
           </div>
       </div>
@@ -478,8 +485,7 @@
                       v-if="logoutT">{{logoutT}}</button>
 
               <button class="btn-default btn btn-middle"
-                      v-if="deleteT">{{deleteT}}</button>
-
+                      v-if="deleteT && this.cProduct.onlineStatus == '0'">{{deleteT}}</button>
           </div>
       </div>
 
@@ -972,7 +978,7 @@
              * onlineStatus: 2 隐藏; detailStatus：13
              * onlineStatus: 2 隐藏; detailStatus：15
              * */
-            changeInfo() {
+            changeInfoT() {
               if((this.cProduct.onlineStatus == '0' &&
                     (this.cProduct.detailStatus == null ||
                     this.cProduct.detailStatus == '01' ||
