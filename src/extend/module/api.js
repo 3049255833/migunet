@@ -62,7 +62,9 @@ let api = {
     addSmsTemplate: 'smsTemplate/addSmsTemplate',   //添加短信模板
     updateSmsTemplate: 'smsTemplate/updateSmsTemplate',  //更新短信模板
     getSmsTemplate: 'smsTemplate/getSmsTemplate',  //查询一条短信模板列表
-    uploadSmsTemplate: 'smsTemplate/uploadSmsTemplate'  //批量导入短信模板
+    uploadSmsTemplate: 'smsTemplate/uploadSmsTemplate',  //批量导入短信模板
+
+    queryCpDepend: 'product/queryCpDepend'  //查询合约产品的依赖关系
 };
 
 for (let key in api) {
