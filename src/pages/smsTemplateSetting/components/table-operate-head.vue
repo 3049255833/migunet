@@ -13,10 +13,10 @@
                     v-if="smsTFlag"
                     class="btn btn-default mr-10 btn-middle-88">取消</button>
 
-            <input @change="upload" v-if="!smsTFlag"
-                   type="file" class="ml-24 pointer" id="upload" name="file"/>
+            <!-- <input @change="upload" v-if="!smsTFlag"
+                   type="file" class="ml-24 pointer" id="upload" name="file"/> -->
 
-            <button v-if="!smsTFlag" class="btn ml-24 btn-import-module mr-10">批量导入</button>
+            <button v-if="!smsTFlag" class="btn ml-24 btn-import-module mr-10" @click="maskShow">批量导入</button>
 
             <button v-if="!smsTFlag"
                     @click="smsTAll"
@@ -44,6 +44,7 @@
           :percent="percent"
           :progressStyle="progressStyle.width"
           :uploadErrorInfo="uploadErrorInfo"></v-progress-bar>
+          
     </div>
 </template>
 <script>
@@ -155,6 +156,10 @@
 
             batchDelete(){
                 this.$emit('smsTbatchDeleteBus', true);
+            },
+            maskShow(){
+                console.log(111)
+               this.$modal.show('batchUploadFailList');
             }
         }
     }
