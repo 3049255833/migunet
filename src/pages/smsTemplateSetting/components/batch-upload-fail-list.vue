@@ -8,11 +8,12 @@
         <div class="operate-list clearfix">
             <div class="left">
                 <i></i>
-                {{errorInfo}}
+                <!-- zqy -->
+                <!-- {{errorInfo}} -->
             </div>
 
             <div class="right">
-                <button type="button" class="btn" @click="fail">失败数据</button>
+                <button type="button" class="btn" @click="fail" v-bind:class="fail">失败数据</button>
 
                 <button type="button" class="btn" @click="repeat">重复数据</button>
             </div>
@@ -80,7 +81,8 @@
 <script type="text/ecmascript-6">
   export default {
       props: {
-          errorCode: String,
+        //   errorCode: String,
+          errorCode: Number,
           wrongList: Array,
           repeatList: Array
       },
@@ -99,6 +101,20 @@
   .batch-upload-fail-list-container {
       .upload-error-list {
 
+      }
+  }
+    .v--modal-box{
+        padding:20px!important;
+    }
+  .operate-list{
+      .left{
+          float: left;
+      }
+      .right{
+          float: right;
+      }
+      .btn{
+          width:auto;
       }
   }
 </style>
