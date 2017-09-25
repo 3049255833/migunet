@@ -197,7 +197,7 @@
                 }
 
                 span {
-                    width: 31px;
+                    width: auto;
                     height: 31px;
                     text-align: center;
                     line-height: 31px;
@@ -209,6 +209,8 @@
                     background-color: #fff;
                     border: 1px solid #ddd;
                     cursor: pointer;
+                    padding: 0 11px;
+
                     &:hover {
                         background: #eee;
                     }

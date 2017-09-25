@@ -12,7 +12,7 @@
                       <td>审核时间</td>
                       <td>审核人</td>
                       <td>审批结果</td>
-                      <td>审批失败原因</td>
+                      <td>审批拒绝原因</td>
                   </tr>
               </thead>
 
@@ -74,7 +74,7 @@
               <div class="item">
                   <div class="item-img"></div>
                   <div class="item-txt">
-                      <p>
+                      <p :title="cProduct.productName">
                         {{cProduct.productName}}
                       </p>
                       <p>
@@ -87,7 +87,7 @@
                   <div class="item-img"></div>
 
                   <div class="item-txt">
-                      <p> {{cProduct.productCode}}</p>
+                      <p :title="cProduct.productCode"> {{cProduct.productCode}}</p>
                       <p>产品ID</p>
                   </div>
               </div>
@@ -95,26 +95,19 @@
               <div class="item">
                   <div class="item-img"></div>
 
-                  <div class="item-txt">
-                      <p v-if="cProduct.onlineStatus == '0'">
-                          草稿
+                  <div class="item-txt status">
+                      <p>
+                          <span v-if="cpOnlineStatus != '' && cpDetailStatus != ''">
+                            {{cpOnlineStatus}} （{{cpDetailStatus}} ）
+                          </span>
+                          <span v-else-if="cpOnlineStatus != '' && cpDetailStatus == ''">
+                            {{cpOnlineStatus}}
+                          </span>
+                          <span v-else-if="cpOnlineStatus == '' && cpDetailStatus != ''">
+                            {{cpDetailStatus}}
+                          </span>
+                          <span v-else></span>
                       </p>
-                      <p v-else-if="cProduct.onlineStatus == '1'">
-                          上线
-                      </p>
-                      <p v-else-if="cProduct.onlineStatus == '2'">
-                          隐藏
-                      </p>
-                      <p v-else-if="cProduct.onlineStatus == '3'">
-                          下线
-                      </p>
-                      <p v-else-if="cProduct.onlineStatus == '4'">
-                          注销
-                      </p>
-                      <p v-else-if="cProduct.onlineStatus == '5'">
-                          删除
-                      </p>
-                      <p v-else=""></p>
 
                       <p>产品状态</p>
                   </div>
@@ -456,19 +449,6 @@
           </div>
       </div>
 
-      <v-confirm-popover-modal
-          :confirmInfo="confirmInfo"
-          :isHideConfim="isHideConfim"
-          details="contractProductDetails"
-          v-bind:style="styleComfirm">
-      </v-confirm-popover-modal>
-
-      <v-operate-success-modal
-          :isHideOperateModal="isHideOperateModal"
-          :operateInfo="operateInfo"
-          v-bind:style="styleOperateSuccess">
-      </v-operate-success-modal>
-
       <modal name="reviewRejectModal" :width="380" :height="300">
           <t-modal-sub-container :title="'审批拒绝原因'" :name="'reviewRejectModal'">
               <v-review-reject-modal
@@ -480,11 +460,6 @@
 </template>
 
 <script type="es6">
-  /*  import vNav from "@/components/common/Nav"
-    import vPop from "@/components/common/Pop"
-    import InfoTable from "@/components/common/InfoTable"
-    import ConfirmBtn from "@/components/common/Button1"
-    import CancelBtn from "@/components/common/Button2"*/
     import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
     import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
     import VNolist from '@/components/no-list'
@@ -492,9 +467,6 @@
     export default {
         name: 'Review',
         components: {
-         /*   vPop,
-            ConfirmBtn,
-            CancelBtn,*/
             VConfirmPopoverModal,
             VOperateSuccessModal,
             VNolist
@@ -652,6 +624,95 @@
             }
         },
         computed: {
+            /*合约产品的业务状态*/
+            cpOnlineStatus() {
+                let statusText = '';
+
+                if(this.cProduct.onlineStatus == '0') {
+                    statusText = '草稿';
+                } else if(this.cProduct.onlineStatus == '1') {
+                    statusText = '上线';
+                } else if(this.cProduct.onlineStatus == '2') {
+                    statusText = '隐藏';
+                } else if(this.cProduct.onlineStatus == '3') {
+                    statusText = '下线';
+                } else if(this.cProduct.onlineStatus == '4') {
+                    statusText = '注销';
+                } else if(this.cProduct.onlineStatus == '5') {
+                    statusText = '删除';
+                }
+
+                return statusText;
+            },
+
+            cpDetailStatus() {
+                let statusText = '';
+
+                if(this.cProduct.detailStatus == '00') {
+
+                    statusText = '上线审批中';
+                } else if(this.cProduct.detailStatus == '01') {
+
+                    statusText = '上线审批失败';
+                } else if(this.cProduct.detailStatus == '02') {
+
+                    statusText = '隐藏审批中';
+                } else if(this.cProduct.detailStatus == '03') {
+
+                    statusText = '隐藏审批失败';
+                } else if(this.cProduct.detailStatus == '04') {
+
+                    statusText = '下线审批中';
+                } else if(this.cProduct.detailStatus == '05') {
+
+                    statusText = '下线审批失败';
+                } else if(this.cProduct.detailStatus == '06') {
+
+                    statusText = '注销审批中';
+                } else if(this.cProduct.detailStatus == '07') {
+
+                    statusText = '注销审批失败';
+                } else if(this.cProduct.detailStatus == '08') {
+
+                    statusText = '删除审批中';
+                } else if(this.cProduct.detailStatus == '09') {
+
+                    statusText = '删除审批失败';
+                } else if(this.cProduct.detailStatus == '10') {
+
+                    statusText = '变更审批中';
+                } else if(this.cProduct.detailStatus == '11') {
+
+                    statusText = '变更审批失败';
+                } else if(this.cProduct.detailStatus == '12') {
+
+                    statusText = '变更报备中';
+                } else if(this.cProduct.detailStatus == '13') {
+
+                    statusText = '变更报备失败';
+                } else if(this.cProduct.detailStatus == '14') {
+
+                    statusText = '下线报备中';
+                } else if(this.cProduct.detailStatus == '15') {
+
+                    statusText = '下线报备失败';
+                } else if(this.cProduct.detailStatus == '16') {
+
+                    statusText = '隐藏报备中';
+                } else if(this.cProduct.detailStatus == '17') {
+
+                    statusText = '隐藏报备失败';
+                } else if(this.cProduct.detailStatus == '18') {
+
+                    statusText = '上线报备中';
+                } else if(this.cProduct.detailStatus == '19') {
+
+                    statusText = '上线报备失败';
+                }
+
+                return statusText;
+            },
+
             /*
             *注销
             * onlineStatus: 1 上线 && detailStatus：null
@@ -873,6 +934,11 @@
                       vertical-align: middle;
                       width: 165px;
 
+                      &.status {
+                          max-width: 210px;
+                          width: auto;
+                      }
+
                       p {
                           width: 100%;
                           overflow: hidden;
@@ -881,9 +947,14 @@
                       }
 
                       p:nth-child(1) {
-                          font-size: 18px;
                           margin-bottom: 11px;
+                          font-size: 18px;
                           color: #6d7684;
+
+                          span {
+                              font-size: 18px;
+                              color: #6d7684;
+                          }
                       }
 
                       p:nth-child(2) {

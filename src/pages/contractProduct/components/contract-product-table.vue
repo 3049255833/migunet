@@ -40,38 +40,72 @@
                     <td v-else-if="cProduct.onlineStatus == 4">
                         注销
                     </td>
-                    <!--<td v-else-if="cProduct.onlineStatus == 5">
-                        删除
-                    </td>-->
                     <td v-else></td>
 
-                    <!--<td v-if="cProduct.detailStatus == 1">
+                    <td v-if="cProduct.detailStatus == '00'">
                         上线审批中
                     </td>
-                    <td v-else-if="cProduct.detailStatus == 2">
+                    <td v-else-if="cProduct.detailStatus == '01'">
                         上线审批失败
                     </td>
-                    <td v-else-if="cProduct.detailStatus == 3">
-                        新增报备中
+                    <td v-else-if="cProduct.detailStatus == '02'">
+                        隐藏审批中
                     </td>
-                    <td v-else-if="cProduct.detailStatus == 4">
-                        新增报备失败
+                    <td v-else-if="cProduct.detailStatus == '03'">
+                        隐藏审批失败
                     </td>
-                    <td v-else-if="cProduct.detailStatus == 5">
-                        变更审批中
+                    <td v-else-if="cProduct.detailStatus == '04'">
+                        下线审批中
                     </td>
-                    <td v-else-if="cProduct.detailStatus == 6">
-                        变更审批失败
+                    <td v-else-if="cProduct.detailStatus == '05'">
+                        下线审批失败
                     </td>
-                    <td v-else-if="cProduct.detailStatus == 7">
-                        变更报备中
+                    <td v-else-if="cProduct.detailStatus == '06'">
+                        注销审批中
                     </td>
-                    <td v-else-if="cProduct.detailStatus == '8'">
+                    <td v-else-if="cProduct.detailStatus == '07'">
+                        注销审批失败
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '07'">
                         变更报备失败
                     </td>
-                    <td v-else></td>-->
-
-                    <td>{{judgeDetailStatus}}</td>
+                    <td v-else-if="cProduct.detailStatus == '08'">
+                        删除审批中
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '09'">
+                        删除审批失败
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '10'">
+                        变更审批中
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '11'">
+                        变更审批失败
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '12'">
+                        变更报备中
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '13'">
+                        变更报备失败
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '14'">
+                        下线报备中
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '15'">
+                        下线报备失败
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '16'">
+                        隐藏报备中
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '17'">
+                        隐藏报备失败
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '18'">
+                        上线报备中
+                    </td>
+                    <td v-else-if="cProduct.detailStatus == '19'">
+                        上线报备失败
+                    </td>
+                    <td v-else></td>
 
                     <td>
                         <!--业务状态为草稿的时候-->
@@ -383,73 +417,7 @@
             TModalSubContainer
         },
         computed: {
-            judgeDetailStatus(status){
-                let statusText = '';
-
-                if(status == '00') {
-
-                    statusText = '上线审批中';
-                } else if(status == '01') {
-
-                    statusText = '上线审批失败';
-                } else if(status == '02') {
-
-                    statusText = '隐藏审批中';
-                } else if(status == '03') {
-
-                    statusText = '隐藏审批失败';
-                } else if(status == '04') {
-
-                    statusText = '下线审批中';
-                } else if(status == '05') {
-
-                    statusText = '下线审批失败';
-                } else if(status == '06') {
-
-                    statusText = '注销审批中';
-                } else if(status == '07') {
-
-                    statusText = '注销审批失败';
-                } else if(status == '08') {
-
-                    statusText = '删除审批中';
-                } else if(status == '09') {
-
-                    statusText = '删除审批失败';
-                } else if(status == '10') {
-
-                    statusText = '变更审批中';
-                } else if(status == '11') {
-
-                    statusText = '变更审批失败';
-                } else if(status == '12') {
-
-                    statusText = '变更报备中';
-                } else if(status == '13') {
-
-                    statusText = '变更报备失败';
-                } else if(status == '14') {
-
-                    statusText = '下线报备中';
-                } else if(status == '15') {
-
-                    statusText = '下线报备失败';
-                } else if(status == '16') {
-
-                    statusText = '隐藏报备中';
-                } else if(status == '17') {
-
-                    statusText = '隐藏报备失败';
-                } else if(status == '18') {
-
-                    statusText = '上线报备中';
-                } else if(status == '19') {
-
-                    statusText = '上线报备失败';
-                }
-
-                return statusText;
-            }
+            
         },
         methods: {
             beforeClose(){},
