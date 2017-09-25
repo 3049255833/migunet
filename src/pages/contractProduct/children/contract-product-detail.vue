@@ -517,18 +517,7 @@
                 right: [],
                 depend: [],
                 channel: {},
-                confirmInfo: '',
-                isHideConfim: true,
-                isHideOperateModal: true,
-                operateInfo: '',
-                styleComfirm: {
-                    top: '19.5%',
-                    right: '2%'
-                },
-                styleOperateSuccess: {
-                  top: '18%',
-                  right: '50%'
-                }
+                confirmInfo: ''
             }
         },
         created(){
@@ -679,6 +668,7 @@
                 return statusText;
             },
 
+            /*合约产品的审批状态*/
             cpDetailStatus() {
                 let statusText = '';
 
@@ -749,33 +739,25 @@
 
             /*
             *注销
-            * onlineStatus: 1 上线 && detailStatus：null
-            * onlineStatus: 1 上线 && detailStatus：6 变更审批失败
-            * onlineStatus: 1 上线 && detailStatus：8 变更报备失败
-            *
             * onlineStatus: 3 下线 && detailStatus：null
-            * onlineStatus: 3 下线 && detailStatus：5 变更审批
-            * onlineStatus: 3 下线 && detailStatus：6 变更审批失败
-            * onlineStatus: 3 下线 && detailStatus：8 变更报备失败
-            *
-            * onlineStatus: 2 隐藏 && detailStatus：null
-            * onlineStatus: 2 隐藏 && detailStatus：6 变更审批失败
-            * onlineStatus: 2 隐藏 && detailStatus：8 变更报备失败
+            * onlineStatus: 3 下线 && detailStatus：11
+            * onlineStatus: 3 下线 && detailStatus：03
+            * onlineStatus: 3 下线 && detailStatus：01
+            * onlineStatus: 3 下线 && detailStatus：07
+            * onlineStatus: 3 下线 && detailStatus：13
+            * onlineStatus: 3 下线 && detailStatus：19
+            * onlineStatus: 3 下线 && detailStatus：17
             * */
             logoutT() {
-              if((this.cProduct.onlineStatus == '1' &&
+              if((this.cProduct.onlineStatus == '3' &&
                     (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '6' ||
-                    this.cProduct.detailStatus == '8')) ||
-                (this.cProduct.onlineStatus == '3' &&
-                    (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '5' ||
-                    this.cProduct.detailStatus == '6' ||
-                    this.cProduct.detailStatus == '8')) ||
-                (this.cProduct.onlineStatus == '2' &&
-                    (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '6' ||
-                    this.cProduct.detailStatus == '8')) ) {
+                    this.cProduct.detailStatus == '11' ||
+                    this.cProduct.detailStatus == '03' ||
+                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '07' ||
+                    this.cProduct.detailStatus == '13' ||
+                    this.cProduct.detailStatus == '19' ||
+                    this.cProduct.detailStatus == '17')) ) {
 
                   return '注销';
               }
@@ -784,26 +766,34 @@
             /*
              *下线
              * onlineStatus: 1 上线 && detailStatus：null
-             * onlineStatus: 1 上线 && detailStatus：6 变更审批失败
-             * onlineStatus: 1 上线 && detailStatus：8 变更报备失败
-             *
-             * onlineStatus: 3 下线 && detailStatus：5 变更审批
-             *
+             * onlineStatus: 1 上线 && detailStatus：11
+             * onlineStatus: 1 上线 && detailStatus：03
+             * onlineStatus: 1 上线 && detailStatus：05
+             * onlineStatus: 1 上线 && detailStatus：13
+             * onlineStatus: 1 上线 && detailStatus：15
              *
              * onlineStatus: 2 隐藏 && detailStatus：null
-             * onlineStatus: 2 隐藏 && detailStatus：6 变更审批失败
-             * onlineStatus: 2 隐藏 && detailStatus：8 变更报备失败
+             * onlineStatus: 2 隐藏 && detailStatus：11
+             * onlineStatus: 2 隐藏 && detailStatus：05
+             * onlineStatus: 2 隐藏 && detailStatus：01
+             * onlineStatus: 2 隐藏 && detailStatus：13
+             * onlineStatus: 2 隐藏 && detailStatus：15
              * */
             offlineT() {
                 if((this.cProduct.onlineStatus == '1' &&
                       (this.cProduct.detailStatus == null ||
-                      this.cProduct.detailStatus == '6' ||
-                      this.cProduct.detailStatus == '8')) ||
-                  (this.cProduct.onlineStatus == '3' && this.cProduct.detailStatus == '5') ||
+                      this.cProduct.detailStatus == '11' ||
+                      this.cProduct.detailStatus == '03' ||
+                      this.cProduct.detailStatus == '05' ||
+                      this.cProduct.detailStatus == '13' ||
+                      this.cProduct.detailStatus == '15')) ||
                   (this.cProduct.onlineStatus == '2' &&
                       (this.cProduct.detailStatus == null ||
-                      this.cProduct.detailStatus == '6' ||
-                      this.cProduct.detailStatus == '8'))) {
+                      this.cProduct.detailStatus == '11' ||
+                      this.cProduct.detailStatus == '05' ||
+                      this.cProduct.detailStatus == '01' ||
+                      this.cProduct.detailStatus == '13' ||
+                      this.cProduct.detailStatus == '15'))) {
 
                   return '下线';
                 }
@@ -812,23 +802,47 @@
             /*
              *上线
              *
+             * onlineStatus: 0 草稿 && detailStatus：null
+             * onlineStatus: 0 草稿 && detailStatus：01
+             * onlineStatus: 0 草稿 && detailStatus：19
+             *
              * onlineStatus: 3 下线 && detailStatus：null
-             * onlineStatus: 3 下线 && detailStatus：6 变更审批失败
-             * onlineStatus: 3 下线 && detailStatus：8 变更报备失败
+             * onlineStatus: 3 下线 && detailStatus：11
+             * onlineStatus: 3 下线 && detailStatus：03
+             * onlineStatus: 3 下线 && detailStatus：01
+             * onlineStatus: 3 下线 && detailStatus：07
+             * onlineStatus: 3 下线 && detailStatus：13
+             * onlineStatus: 3 下线 && detailStatus：19
+             * onlineStatus: 3 下线 && detailStatus：17
              *
              * onlineStatus: 2 隐藏 && detailStatus：null
-             * onlineStatus: 2 隐藏 && detailStatus：6 变更审批失败
-             * onlineStatus: 2 隐藏 && detailStatus：8 变更报备失败
+             * onlineStatus: 2 隐藏 && detailStatus：11
+             * onlineStatus: 2 隐藏 && detailStatus：05
+             * onlineStatus: 2 隐藏 && detailStatus：01
+             * onlineStatus: 2 隐藏 && detailStatus：13
+             * onlineStatus: 2 隐藏 && detailStatus：15
              * */
             onlineT() {
                 if((this.cProduct.onlineStatus == '3' &&
                       (this.cProduct.detailStatus == null ||
-                      this.cProduct.detailStatus == '6' ||
-                      this.cProduct.detailStatus == '8')) ||
+                      this.cProduct.detailStatus == '11' ||
+                      this.cProduct.detailStatus == '03' ||
+                      this.cProduct.detailStatus == '01' ||
+                      this.cProduct.detailStatus == '07' ||
+                      this.cProduct.detailStatus == '13' ||
+                      this.cProduct.detailStatus == '19' ||
+                      this.cProduct.detailStatus == '19')) ||
                 (this.cProduct.onlineStatus == '2' &&
                     (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '6' ||
-                    this.cProduct.detailStatus == '8'))) {
+                    this.cProduct.detailStatus == '11' ||
+                    this.cProduct.detailStatus == '05' ||
+                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '13' ||
+                    this.cProduct.detailStatus == '15')) ||
+                (this.cProduct.onlineStatus == '0' &&
+                    (this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '19'))) {
 
                     return '上线';
                 }
@@ -836,24 +850,38 @@
 
             /*隐藏*
             * onlineStatus: 1 上线 && detailStatus：null
-            * onlineStatus: 1 上线 && detailStatus：6 变更审批失败
-            * onlineStatus: 1 上线 && detailStatus：8 变更报备失败
+            * onlineStatus: 1 上线 && detailStatus：11
+            * onlineStatus: 1 上线 && detailStatus：03
+            * onlineStatus: 1 上线 && detailStatus：05
+            * onlineStatus: 1 上线 && detailStatus：15
+            * onlineStatus: 1 上线 && detailStatus：13
             *
             * onlineStatus: 3 下线 && detailStatus：null
-            * onlineStatus: 3 下线 && detailStatus：5 变更审批
-            * onlineStatus: 3 下线 && detailStatus：6 变更审批失败
-            * onlineStatus: 3 下线 && detailStatus：8 变更报备失败
+            * onlineStatus: 3 下线 && detailStatus：11
+            * onlineStatus: 3 下线 && detailStatus：03
+            * onlineStatus: 3 下线 && detailStatus：01
+            * onlineStatus: 3 下线 && detailStatus：07
+            * onlineStatus: 3 下线 && detailStatus：13
+            * onlineStatus: 3 下线 && detailStatus：19
+            * onlineStatus: 3 下线 && detailStatus：17
             * */
             hideT() {
                 if((this.cProduct.onlineStatus == '1' &&
                       (this.cProduct.detailStatus == null ||
-                      this.cProduct.detailStatus == '6' ||
-                      this.cProduct.detailStatus == '8')) ||
+                      this.cProduct.detailStatus == '11' ||
+                      this.cProduct.detailStatus == '03' ||
+                      this.cProduct.detailStatus == '05' ||
+                      this.cProduct.detailStatus == '15' ||
+                      this.cProduct.detailStatus == '13')) ||
                 (this.cProduct.onlineStatus == '3' &&
                     (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '5' ||
-                    this.cProduct.detailStatus == '6' ||
-                    this.cProduct.detailStatus == '8'))) {
+                    this.cProduct.detailStatus == '11' ||
+                    this.cProduct.detailStatus == '03' ||
+                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '07' ||
+                    this.cProduct.detailStatus == '13' ||
+                    this.cProduct.detailStatus == '19' ||
+                    this.cProduct.detailStatus == '17'))) {
 
                     return '隐藏';
                 }
@@ -861,15 +889,35 @@
 
             /*
             * 撤销
-            * onlineStatus: 0 草稿; detailStatus：1 上线审批
-            * onlineStatus: 1 上线; detailStatus：5 变更审批中
-            * onlineStatus: 2 隐藏; detailStatus：5 变更审批中
-            * onlineStatus: 3 下线; detailStatus：5 变更审批中
+            * onlineStatus: 0 草稿; detailStatus：00
+            *
+            * onlineStatus: 1 上线; detailStatus：10
+            * onlineStatus: 1 上线; detailStatus：02
+            * onlineStatus: 1 上线; detailStatus：04
+            *
+            * onlineStatus: 3 下线; detailStatus：10
+            * onlineStatus: 3 下线; detailStatus：02
+            * onlineStatus: 3 下线; detailStatus：00
+            * onlineStatus: 3 下线; detailStatus：06
+            *
+            * onlineStatus: 2 隐藏; detailStatus：10
+            * onlineStatus: 2 隐藏; detailStatus：04
+            * onlineStatus: 2 隐藏; detailStatus：00
+            *
+            * onlineStatus: 4 注销; detailStatus：08
+            *
             * */
             revocationT() {
-              if((this.cProduct.onlineStatus == '0' && this.cProduct.detailStatus == '1') ||
-                (this.cProduct.onlineStatus == '1' && this.cProduct.detailStatus == '5') ||
-                (this.cProduct.onlineStatus == '3' && this.cProduct.detailStatus == '5') ||                 (this.cProduct.onlineStatus == '2' && this.cProduct.detailStatus == '5')) {
+              if((this.cProduct.onlineStatus == '0' && this.cProduct.detailStatus == '00') ||
+                (this.cProduct.onlineStatus == '4' && this.cProduct.detailStatus == '08') ||
+                (this.cProduct.onlineStatus == '1' &&
+                    (this.cProduct.detailStatus == '10' ||
+                    this.cProduct.detailStatus == '02' ||
+                    this.cProduct.detailStatus == '04')) ||
+                (this.cProduct.onlineStatus == '2' &&
+                    (this.cProduct.detailStatus == '10' ||
+                    this.cProduct.detailStatus == '04' ||
+                    this.cProduct.detailStatus == '00'))) {
 
                   return '撤销';
               }
@@ -877,10 +925,83 @@
 
             /**删除
              * onlineStatus: 0 草稿; detailStatus：null
+             * onlineStatus: 0 草稿; detailStatus：01
+             * onlineStatus: 0 草稿; detailStatus：19
+             *
+             * onlineStatus: 4 注销; detailStatus：null
+             * onlineStatus: 4 注销; detailStatus：09
              * */
             deleteT() {
-              if(this.cProduct.onlineStatus == '4' && this.cProduct.detailStatus == null) {
+              if((this.cProduct.onlineStatus == '0' &&
+                    (this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '19')) ||
+                (this.cProduct.onlineStatus == '4' && (
+                    this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '09'))) {
+
                   return '删除';
+              }
+            },
+
+            /**变更信息
+             * onlineStatus: 0 草稿; detailStatus：null
+             * onlineStatus: 0 草稿; detailStatus：01
+             * onlineStatus: 0 草稿; detailStatus：19
+             *
+             * onlineStatus: 1 上线; detailStatus：null
+             * onlineStatus: 1 上线; detailStatus：11
+             * onlineStatus: 1 上线; detailStatus：03
+             * onlineStatus: 1 上线; detailStatus：05
+             * onlineStatus: 1 上线; detailStatus：13
+             * onlineStatus: 1 上线; detailStatus：15
+             *
+             * onlineStatus: 3 下线; detailStatus：null
+             * onlineStatus: 3 下线; detailStatus：11
+             * onlineStatus: 3 下线; detailStatus：03
+             * onlineStatus: 3 下线; detailStatus：01
+             * onlineStatus: 3 下线; detailStatus：07
+             * onlineStatus: 3 下线; detailStatus：13
+             * onlineStatus: 3 下线; detailStatus：19
+             * onlineStatus: 3 下线; detailStatus：17
+             *
+             * onlineStatus: 2 隐藏; detailStatus：null
+             * onlineStatus: 2 隐藏; detailStatus：11
+             * onlineStatus: 2 隐藏; detailStatus：05
+             * onlineStatus: 2 隐藏; detailStatus：01
+             * onlineStatus: 2 隐藏; detailStatus：13
+             * onlineStatus: 2 隐藏; detailStatus：15
+             * */
+            changeInfo() {
+              if((this.cProduct.onlineStatus == '0' &&
+                    (this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '19')) ||
+                (this.cProduct.onlineStatus == '1' && (
+                    this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '11' ||
+                    this.cProduct.detailStatus == '03' ||
+                    this.cProduct.detailStatus == '05' ||
+                    this.cProduct.detailStatus == '13' ||
+                    this.cProduct.detailStatus == '15')) ||
+                (this.cProduct.onlineStatus == '3' && (
+                    this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '11' ||
+                    this.cProduct.detailStatus == '03' ||
+                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '07' ||
+                    this.cProduct.detailStatus == '13' ||
+                    this.cProduct.detailStatus == '19' ||
+                    this.cProduct.detailStatus == '17')) ||
+                (this.cProduct.onlineStatus == '2' && (
+                    this.cProduct.detailStatus == null ||
+                    this.cProduct.detailStatus == '11' ||
+                    this.cProduct.detailStatus == '05' ||
+                    this.cProduct.detailStatus == '01' ||
+                    this.cProduct.detailStatus == '13' ||
+                    this.cProduct.detailStatus == '15'))) {
+
+                return '变更信息';
               }
             }
         },
