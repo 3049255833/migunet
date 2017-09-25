@@ -74,10 +74,6 @@
 
                             for(var i = 0; i < res.contractProductList.list.length; i++) {
                                 res.contractProductList.list[i].isShow = false;
-
-                                res.contractProductList.list[i].isHideConfim = true;
-
-                                res.contractProductList.list[i].operateType = "";
                             }
 
                             this.contractProductList = res.contractProductList.list;

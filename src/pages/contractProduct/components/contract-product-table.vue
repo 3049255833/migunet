@@ -75,7 +75,7 @@
 
                     <td>
                         <!--业务状态为草稿的时候-->
-                        <div class="operate-list clearfix" v-if="cProduct.onlineStatus == '00'">
+                        <div class="operate-list clearfix" v-if="cProduct.onlineStatus == '0'">
                             <div @click="showContractProductDetail(cProduct.productCode)"
                                  class="mr-30 pointer cl-blue">
                                 详情
@@ -336,10 +336,18 @@
             <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
 
-        <v-operate-success-modal
-            :isHideOperateModal="isHideOperateModal"
-            :operateInfo="operateInfo">
-        </v-operate-success-modal>
+        <modal name="contractProductConfirmModal" :width="390" :height="200" @before-close="beforeClose">
+            <t-modal-sub-container
+                :title="'是否确认删除？'"
+                :name="'contractProductConfirmModal'">
+
+                <v-confirm-delete-modal
+                    :functionType="'contractProductConfirmModal'"
+                    :confirmInfo="'删除后，短信模板与合约产品关系解除，不可恢复！'">
+                </v-confirm-delete-modal>
+
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 <script>
@@ -359,7 +367,9 @@
                 isHideOperateModal: true,
                 operateInfo: '',
                 willDeleteID: '',
-                willDeleteDetailSatus: ''
+                willDeleteDetailSatus: '',
+                modal: '',
+                confirmInfo: ''
             }
         },
         components: {
@@ -438,6 +448,8 @@
             }
         },
         methods: {
+            beforeClose(){},
+            
             showContractProductDetail(productCode){
                 this.$router.push({'name': 'ContractProductDetail',params: {'productCode': productCode}});
             },
@@ -472,37 +484,39 @@
             },
 
             logout(index) {
-                this.contractProductList[index].isHideConfim = false;
+                //this.contractProductList[index].operateType = "是否注销该产品";
 
-                this.contractProductList[index].operateType = "是否注销该产品";
+
             },
 
             offline(index) {
-                this.contractProductList[index].isHideConfim = false;
+                //this.contractProductList[index].isHideConfim = false;
 
-                this.contractProductList[index].operateType = "是否下线该产品";
+                //this.contractProductList[index].operateType = "是否下线该产品";
+
+
             },
 
             online(index) {
-                this.contractProductList[index].isHideConfim = false;
+                //this.contractProductList[index].isHideConfim = false;
 
                 this.contractProductList[index].operateType = "是否上线该产品";
             },
 
             hide(index) {
-                this.contractProductList[index].isHideConfim = false;
+                //this.contractProductList[index].isHideConfim = false;
 
                 this.contractProductList[index].operateType = "是否隐藏该产品";
             },
 
             revocation(index) {
-                this.contractProductList[index].isHideConfim = false;
+                //this.contractProductList[index].isHideConfim = false;
 
                 this.contractProductList[index].operateType = "是否撤销该产品";
             },
 
             deleteBtn(index, id, detailStatus) {
-                this.contractProductList[index].isHideConfim = false;
+                //this.contractProductList[index].isHideConfim = false;
 
                 this.contractProductList[index].operateType = "是否删除该产品";
 
@@ -527,7 +541,7 @@
              * 接收来自确认modal框的信息
              * */
             this.bus.$on('sendConfirmInfo', res => {
-                this.contractProductList[res].isHideConfim = true;
+                //this.contractProductList[res].isHideConfim = true;
 
                 let that = this;
 
@@ -571,7 +585,7 @@
              * 接收来自取消modal框的信息
              * */
             this.bus.$on('sendCancelInfo', res => {
-                this.contractProductList[res].isHideConfim = true;
+                //this.contractProductList[res].isHideConfim = true;
             });
         },
         destroyed(){
