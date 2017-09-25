@@ -110,7 +110,7 @@
                                                   cProduct.detailStatus == '19'">上线</div>
 
                                     <div class="option-item"
-                                         @click="deleteBtn(index)"
+                                         @click="deleteBtn(cProduct.productCode,cProduct.detailStatus)"
                                          v-if="cProduct.detailStatus == null ||
                                                   cProduct.detailStatus == '01' ||
                                                   cProduct.detailStatus == '19'">删除</div>
@@ -157,7 +157,7 @@
 
                                 <div class="option-mask" :class="{opMask: cProduct.isShow}">
                                     <div class="option-item"
-                                          @click="offline(index)"
+                                          @click="offline(cProduct.productCode,cProduct.detailStatus)"
                                           v-if="cProduct.detailStatus == null ||
                                                   cProduct.detailStatus == '11' ||
                                                   cProduct.detailStatus == '03' ||
@@ -298,7 +298,7 @@
                                                   cProduct.detailStatus == '13' ||
                                                   cProduct.detailStatus == '15'">上线</div>
 
-                                    <div class="option-item" @click="offline(index)"
+                                    <div class="option-item" @click="offline(cProduct.productCode,cProduct.detailStatus)"
                                          v-if="cProduct.detailStatus == null ||
                                                   cProduct.detailStatus == '11' ||
                                                   cProduct.detailStatus == '05' ||
@@ -318,7 +318,7 @@
                             </div>
 
                             <div class="mr-30 pointer cl-blue delete"
-                                  @click="deleteBtn(index,cProduct.id,cProduct.detailStatus)"
+                                  @click="deleteBtn(cProduct.productCode, cProduct.detailStatus)"
                                   v-if="cProduct.detailStatus == null || cProduct.detailStatus == '09'">删除
                             </div>
 
@@ -336,14 +336,14 @@
             <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
 
-        <modal name="contractProductConfirmModal" :width="390" :height="200" @before-close="beforeClose">
+        <modal name="contractProductListConfirmModal" :width="390" :height="200" @before-close="beforeClose">
             <t-modal-sub-container
-                :title="'是否确认删除？'"
-                :name="'contractProductConfirmModal'">
+                :title="modalTitle"
+                :name="'contractProductListConfirmModal'">
 
                 <v-confirm-delete-modal
-                    :functionType="'contractProductConfirmModal'"
-                    :confirmInfo="'删除后，短信模板与合约产品关系解除，不可恢复！'">
+                    :functionType="'contractProductListConfirmModal'"
+                    :confirmInfo="confirmInfo">
                 </v-confirm-delete-modal>
 
             </t-modal-sub-container>
@@ -355,6 +355,8 @@
     import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
     import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
     import VNolist from '@/components/no-list'
+    import TModalSubContainer from "@/components/modal-sub-container"
+    import VConfirmDeleteModal from '@/components/confirm-delete-modal/confirm-delete-modal'
 
     export default {
         name: 'ContractProductTable',
@@ -364,19 +366,21 @@
         data() {
             return{
                 count: 0,
-                isHideOperateModal: true,
-                operateInfo: '',
-                willDeleteID: '',
-                willDeleteDetailSatus: '',
-                modal: '',
-                confirmInfo: ''
+                modalTitle: '',      //确认信息modal的title
+                confirmInfo: '',      //modal的确认信息
+                postData: {         //给下线，删除，注销，上线等功能使用
+                    cpCode: '',
+                    status: ''
+                }
             }
         },
         components: {
             VPaging,
             VConfirmPopoverModal,
             VOperateSuccessModal,
-            VNolist
+            VNolist,
+            VConfirmDeleteModal,
+            TModalSubContainer
         },
         computed: {
             judgeDetailStatus(status){
@@ -449,7 +453,7 @@
         },
         methods: {
             beforeClose(){},
-            
+
             showContractProductDetail(productCode){
                 this.$router.push({'name': 'ContractProductDetail',params: {'productCode': productCode}});
             },
@@ -489,48 +493,45 @@
 
             },
 
-            offline(index) {
-                //this.contractProductList[index].isHideConfim = false;
+            offline(cpCode, detailStatus) {
+                this.postData.cpCode = cpCode;
 
-                //this.contractProductList[index].operateType = "是否下线该产品";
+                this.postData.status = detailStatus;
 
+                this.modalTitle = '是否确认下线？';
 
+                this.confirmInfo = '审批通过后，产品下线成功';
+
+                this.$modal.show('contractProductListConfirmModal');
+
+                console.log("offline cpCode: " + this.postData.cpCode);
+                console.log("offline status: " + this.postData.status);
             },
 
-            online(index) {
-                //this.contractProductList[index].isHideConfim = false;
+            online(index) {},
 
-                this.contractProductList[index].operateType = "是否上线该产品";
-            },
+            hide(index) {},
 
-            hide(index) {
-                //this.contractProductList[index].isHideConfim = false;
+            revocation(index) {},
 
-                this.contractProductList[index].operateType = "是否隐藏该产品";
-            },
+            deleteBtn(cpCode, detailStatus) {
 
-            revocation(index) {
-                //this.contractProductList[index].isHideConfim = false;
+                this.postData.cpCode = cpCode;
 
-                this.contractProductList[index].operateType = "是否撤销该产品";
-            },
+                this.postData.status = detailStatus;
 
-            deleteBtn(index, id, detailStatus) {
-                //this.contractProductList[index].isHideConfim = false;
+                this.modalTitle = '是否确认删除？';
 
-                this.contractProductList[index].operateType = "是否删除该产品";
+                this.confirmInfo = '删除后产品不可恢复';
 
-                this.willDeleteID = id;
+                this.$modal.show('contractProductListConfirmModal');
 
-                this.willDeleteDetailSatus = detailStatus;
-
-                //console.log("contractProductId: " + id + ', onlineStatus: ' + onlineStatus + ", detailStatus: " + detailStatus);
+                console.log("cpCode: " + this.postData.cpCode);
+                console.log("status: " + this.postData.status);
             },
 
             changeInfo(itemObj) {
-                //console.log("itemObj1: " + JSON.stringify(itemObj));
-
-                this.$router.push({ 'name': 'ContractProductUpdate'});
+                //this.$router.push({ 'name': 'ContractProductUpdate'});
             }
         },
         mounted(){
@@ -540,14 +541,10 @@
             /**
              * 接收来自确认modal框的信息
              * */
-            this.bus.$on('sendConfirmInfo', res => {
-                //this.contractProductList[res].isHideConfim = true;
-
+            this.bus.$on('contractProductListConfirmModalBus', res => {
                 let that = this;
 
-                console.log("111： " + this.contractProductList[res].operateType);
-
-                if(this.contractProductList[res].operateType == "是否删除该产品") {
+                if(this.modalTitle == "是否确认删除") {
                     console.log("id: " + this.willDeleteID);
 
                     console.log("willDeleteDetailSatus: " + this.willDeleteDetailSatus);
@@ -570,27 +567,42 @@
                             that.$root.toastText = '删除成功';
                             that.$root.toast = true;
 
-                            this.bus.$emit('sendDeleteContactProductInfo');
+                            this.bus.$emit('sendDeleteContractProductSuccessInfoBus');
                         } else {
                             that.$root.toastText = '删除失败';
                             that.$root.toast = true;
+                        }
+                    });
+                } else if(this.modalTitle == '是否确认下线') {
+                    this.$http.get(this.api.updateProductState,
+                        {
+                            params:{
+                                contractProductId:this.willDeleteID,
+                                onlineStatus:'5',
+                                detailStatus:this.willDeleteDetailSatus
+                            }
+                        }).then(response => {
 
-                            console.log("Error res: " + JSON.stringify(res));
+                        let res = response.body;
+
+                        console.log("res: " + JSON.stringify(res));
+
+                        if(res.resultMessage =='成功'){
+
+                            that.$root.toastText = '下线成功';
+                            that.$root.toast = true;
+
+                            this.bus.$emit('sendOfflineContractProductSuccessInfoBus');
+                        } else {
+                            that.$root.toastText = '下线失败';
+                            that.$root.toast = true;
                         }
                     });
                 }
             });
-
-            /**
-             * 接收来自取消modal框的信息
-             * */
-            this.bus.$on('sendCancelInfo', res => {
-                //this.contractProductList[res].isHideConfim = true;
-            });
         },
         destroyed(){
-            this.bus.$off('sendConfirmInfo');
-            this.bus.$off('sendCancelInfo');
+            this.bus.$off('contractProductListConfirmModalBus');
         }
     }
 </script>

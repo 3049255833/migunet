@@ -32,6 +32,9 @@
                 } else if(this.functionType === 'singleDeleteSmsTemplate') {
 
                     this.bus.$emit('singleDeleteSmsTemplateConfirmBus');
+                }else if(this.functionType === 'contractProductListConfirmModal') {
+
+                    this.bus.$emit('contractProductListConfirmModalBus');
                 }
 
                 event.stopPropagation();
@@ -48,6 +51,9 @@
                 } else if(this.functionType === 'singleDeleteSmsTemplate') {
 
                     this.$modal.hide('confirmSingleDeleteSmsTModal');
+                } else if(this.functionType === 'contractProductListConfirmModal') {
+
+                    this.$modal.hide('contractProductListConfirmModal');
                 }
 
                 event.stopPropagation();

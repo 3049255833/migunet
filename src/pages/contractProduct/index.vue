@@ -49,7 +49,14 @@
             /**
              * 接收来自删除的信息
              * */
-            this.bus.$on('sendDeleteContactProductInfo', res => {
+            this.bus.$on('sendDeleteContractProductSuccessInfoBus', res => {
+                this.getContractProductList();
+            });
+
+            /**
+             * 接收来自下线的信息
+             * */
+            this.bus.$on('sendOfflineContractProductSuccessInfoBus', res => {
                 this.getContractProductList();
             });
         },
@@ -120,6 +127,10 @@
             totalPage(){
                 return this.totalItem
             }
+        },
+        destroyed(){
+            this.bus.$off('sendDeleteContractProductSuccessInfoBus');
+            this.bus.$off('sendOfflineContractProductSuccessInfoBus');
         }
     }
 </script>
