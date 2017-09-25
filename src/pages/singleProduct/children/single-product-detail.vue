@@ -55,7 +55,7 @@
                             <div class="info-wrap clearfix">
                                 <div class="fl w-50">
                                     <div class="layout-row">
-                                        <span class="row-left">业务状态：</span>
+                                        <span class="row-left">产品状态：</span>
                                         <span class="row-right">
                                             {{productDetail.onlineStatus}}
                                         </span>
@@ -121,7 +121,7 @@
 
                                     <div class="layout-row no-pb">
                                       <span class="row-left"> 合作伙伴：</span>
-                                      <span class="row-right">cpCode | cpName</span>
+                                      <span class="row-right">{{productDetail.cpCode}} | {{productDetail.cpName}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -159,17 +159,8 @@
                                     <div class="layout-row">
                                         <span class="row-left"> 渠道信息：</span>
                                         <span class="row-right">
-                                              {{productDetail.channelCode}}
-                                        </span>
-                                    </div>
-
-                                    <div class="layout-row">
-                                        <span class="row-left"> 渠道ID：</span>
-                                        <span class="row-right">
-                                            <span v-for="(channelItem, index) in productDetail.channels">
-                                                {{channelItem.id}} | {{channelItem.channelCode}}
-
-                                                <span v-if="index != productDetail.channels.length-1">,</span>
+                                            <span v-for="channelItem in productDetail.channel">
+                                        {{channelItem.channelCode}} | {{channelItem.channelName}}
                                             </span>
                                         </span>
                                     </div>
@@ -244,23 +235,23 @@
                                 break
                             }
                         switch (parseInt(this.productDetail.detailStatus)){
+                            case 0:
+                                this.productDetail.detailStatus='上线审批中';
+                                break;
+                            case 1:
+                                this.productDetail.detailStatus='上线审批失败';
+                                break;
+                            case 2:
+                                this.productDetail.detailStatus='隐藏审批中';
+                                break;
                             case 3:
-                                this.productDetail.detailStatus='上线报备中';
+                                this.productDetail.detailStatus='隐藏审批失败';
                                 break;
                             case 4:
-                                this.productDetail.detailStatus='上线报备失败';
+                                this.productDetail.detailStatus='下线审批中';
                                 break;
-                            case 7:
-                                this.productDetail.detailStatus='变更报备中';
-                                break;
-                            case 8:
-                                this.productDetail.detailStatus='变更报备失败';
-                                break;
-                            case 9:
-                                this.productDetail.detailStatus='下线报备中';
-                                break;
-                            case 10:
-                                this.productDetail.detailStatus='下线报备失败';
+                            case 5:
+                                this.productDetail.detailStatus='下线审批失败';
                                 break;
                         }
 

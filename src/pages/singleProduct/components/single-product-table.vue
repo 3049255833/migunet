@@ -2,16 +2,16 @@
     <div class="table-wrap">
         <table class="table-module">
             <thead>
-            <tr>
-                <td class="td-pl-68">产品名称</td>
-                <td>产品ID</td>
-                <td>CP／SP ID</td>
-                <td>货币类型</td>
-                <td>资费(分)</td>
-                <td>业务状态</td>
-                <td>审批状态</td>
-                <td>操作</td>
-            </tr>
+                <tr>
+                    <td class="td-pl-68">产品名称</td>
+                    <td>产品ID</td>
+                    <td>CP／SP ID</td>
+                    <td>货币类型</td>
+                    <td>资费(分)</td>
+                    <td>产品状态</td>
+                    <td>审批状态</td>
+                    <td>操作</td>
+                </tr>
             </thead>
             <tbody>
             <tr v-for="(product,index) in productList">
