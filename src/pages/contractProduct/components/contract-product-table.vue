@@ -510,9 +510,6 @@
                 let that = this;
 
                 if(this.modalTitle == "是否确认删除") {
-                    console.log("id: " + this.willDeleteID);
-
-                    console.log("willDeleteDetailSatus: " + this.willDeleteDetailSatus);
 
                     this.$http.get(this.api.updateProductState,
                         {
@@ -543,7 +540,7 @@
                         {
                             params:{
                                 contractProductId:this.willDeleteID,
-                                onlineStatus:'5',
+                                onlineStatus:'1',
                                 detailStatus:this.willDeleteDetailSatus
                             }
                         }).then(response => {

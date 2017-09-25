@@ -6,6 +6,7 @@
                 <td class="td-pl-68">产品名称</td>
                 <td>产品ID</td>
                 <td>CP／SP ID</td>
+                <td>货币类型</td>
                 <td>资费(分)</td>
                 <td>业务状态</td>
                 <td>审批状态</td>
@@ -23,8 +24,11 @@
                 <td><div class="limit-text-length cp-code"
                          :title="product.cpCode">{{product.cpCode}}</div></td>
 
+                <td><div class="limit-text-length cp-code"
+                         :title="product.currencyCode">人民币<!--{{product.currencyCode}}--></div></td>
+
                 <td><div class="limit-text-length price"
-                         :title="product.contentPrice">{{product.contentPrice}}</div></td>
+                         :title="product.contentPrice">{{product.productPrice}}</div></td>
 
                 <td>{{product.onlineStatus}}</td>
                 <td>{{product.detailStatus}}</td>

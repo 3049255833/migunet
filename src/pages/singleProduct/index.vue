@@ -70,9 +70,12 @@
                     showLoading:true
                 }).then(response => {
                     let res = response.body;
+
+                    console.log("Single: " + JSON.stringify(res));
+
                     if(res.result.resultCode=='00000000'){
                         //todo: 注意，返回的字段这里list小写
-                        res.data.list.forEach(function(item){
+                        res.pageInfo.list.forEach(function(item){
                             switch (parseInt(item.onlineStatus)){
                                 case 0:
                                     item.onlineStatus='草稿';
@@ -115,9 +118,9 @@
                             }
                         });
 
-                        this.productList=res.data.list;
-                        this.totalItem=res.data.total;
-                    }else{
+                        this.productList=res.pageInfo.list;
+                        this.totalItem=res.pageInfo.total
+                    }else{;
 
                     }
                 });

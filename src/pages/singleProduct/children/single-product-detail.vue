@@ -45,10 +45,6 @@
                                     <p>产品状态</p>
                                 </div>
                             </div>
-                            <div class="btn-group layout-center-y" v-if="false">
-                                <button class="btn btn-primary btn-middle">撤销</button>
-                                <button class="btn-default btn btn-middle">下线</button>
-                            </div>
                         </div>
                     </div>
                     <div class="lay-wrapper-three">
@@ -69,19 +65,32 @@
                                         <span class="row-right">{{productDetail.searchKey}}</span>
                                     </div>
                                     <div class="layout-row">
-                                        <span class="row-left"> 生效时间：</span>
-                                        <span class="row-right">
-                                            {{productDetail.enableTime}}
-                                        </span>
+                                      <span class="row-left"> 生效方式：</span>
+                                      <span class="row-right">{{productDetail.effectiveWay}}</span>
                                     </div>
-                                    <div class="layout-row no-pb">
+
+                                    <div class="layout-row ">
                                         <span class="row-left"> 创建时间：</span>
                                         <span class="row-right">
                                            {{productDetail.createTime}}
                                         </span>
                                     </div>
 
+                                    <div class="layout-row">
+                                        <span class="row-left"> 生效时间：</span>
+                                        <span class="row-right">
+                                            {{productDetail.enableTime}}
+                                        </span>
+                                    </div>
+
+                                    <div class="layout-row no-pb">
+                                      <span class="row-left"> 创建用户：</span>
+                                      <span class="row-right">
+                                          {{productDetail.createUser}}
+                                      </span>
+                                    </div>
                                 </div>
+
                                 <div class="fl w-50">
                                     <div class="layout-row">
                                         <span class="row-left">审批状态：</span>
@@ -90,32 +99,34 @@
                                         </span>
                                     </div>
                                     <div class="layout-row">
-                                        <span class="row-left">产品描述：</span>
+                                        <span class="row-left">产品类型：</span>
                                         <span class="row-right">
-                                           {{productDetail.productDesc}}
+                                              {{productDetail.productType}}
                                         </span>
                                     </div>
-                                   <!-- <div class="layout-row" >
-                                        <span class="row-left"> 创建用户：</span>
-                                        <span class="row-right">
-                                           {{productDetail.createUser}}
-                                        </span>
-                                    </div>-->
+
+                                    <div class="layout-row">
+                                      <span class="row-left"> 更新时间：</span>
+                                      <span class="row-right">
+                                         {{productDetail.updateTime}}
+                                      </span>
+                                    </div>
+
                                     <div class="layout-row">
                                         <span class="row-left"> 失效时间：</span>
                                         <span class="row-right">
                                             {{productDetail.disableTime}}
                                         </span>
                                     </div>
-                                    <div class="layout-row  no-pb">
-                                        <span class="row-left"> 更新时间：</span>
-                                        <span class="row-right">
-                                           {{productDetail.updateTime}}
-                                        </span>
+
+                                    <div class="layout-row no-pb">
+                                      <span class="row-left"> 合作伙伴：</span>
+                                      <span class="row-right">cpCode | cpName</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="lay-wrapper">
                             <div class="lay-title">
                                 资费信息
@@ -123,14 +134,22 @@
                             <div class="layout-row-area">
                                 <div class="layout-row-wrapper">
                                     <div class="layout-row">
+                                      <span class="row-left">货币类型：</span>
+                                      <span class="row-right">
+                                          人民币
+                                      </span>
+                                    </div>
+
+                                    <div class="layout-row">
                                         <span class="row-left">资费金额（分）：</span>
                                         <span class="row-right">
-                                            {{productDetail.contentPrice}}
+                                            {{productDetail.productPrice}}
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="lay-wrapper">
                             <div class="lay-title">
                                 渠道信息
@@ -138,9 +157,20 @@
                             <div class="layout-row-area">
                                 <div class="layout-row-wrapper layout-row-wrapper1">
                                     <div class="layout-row">
-                                        <span class="row-left"> 渠道ID：</span>
+                                        <span class="row-left"> 渠道信息：</span>
                                         <span class="row-right">
                                               {{productDetail.channelCode}}
+                                        </span>
+                                    </div>
+
+                                    <div class="layout-row">
+                                        <span class="row-left"> 渠道ID：</span>
+                                        <span class="row-right">
+                                            <span v-for="(channelItem, index) in productDetail.channels">
+                                                {{channelItem.id}} | {{channelItem.channelCode}}
+
+                                                <span v-if="index != productDetail.channels.length-1">,</span>
+                                            </span>
                                         </span>
                                     </div>
                                 </div>
@@ -153,22 +183,10 @@
     </div>
 </template>
 <script type="es6">
-
-/*
-    import VDate from "@/components/date";
-    import vPop from "@/components/common/Pop";
-    import InfoTable from "@/components/common/InfoTable";
-    import ConfirmBtn from "@/components/common/Button1";
-    import CancelBtn from "@/components/common/Button2";*/
-
     export default {
         name: 'ProductDetail',
         components: {
-           /* VDate,
-            vPop,
-            InfoTable,
-            ConfirmBtn,
-            CancelBtn*/
+
         },
         data () {
             return {
@@ -197,8 +215,13 @@
                     showLoading:true
                 }).then(response => {
                     let res = response.body;
+
+                    console.log("SingleProductDetail: " + JSON.stringify(res));
+
                     if (res.result.resultCode == '00000000') {
-                        this.productDetail= res.data;
+
+                        this.productDetail= res.queryProductInfoRsp;
+
                         switch (parseInt(this.productDetail.onlineStatus)){
 
                             case 0:
