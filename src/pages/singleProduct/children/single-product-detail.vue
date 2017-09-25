@@ -253,6 +253,48 @@
                             case 5:
                                 this.productDetail.detailStatus='下线审批失败';
                                 break;
+                            case 6:
+                                this.productDetail.detailStatus='注销审批中';
+                                break;
+                            case 7:
+                                this.productDetail.detailStatus='注销审批失败';
+                                break;
+                            case 8:
+                                this.productDetail.detailStatus='删除审批中';
+                                break;
+                            case 9:
+                                this.productDetail.detailStatus='删除审批失败';
+                                break;
+                            case 10:
+                                this.productDetail.detailStatus='变更审批中';
+                                break;
+                            case 11:
+                                this.productDetail.detailStatus='变更审批失败';
+                                break;
+                            case 12:
+                                this.productDetail.detailStatus='变更报备中';
+                                break;
+                            case 13:
+                                this.productDetail.detailStatus='变更报备失败';
+                                break;
+                            case 14:
+                                this.productDetail.detailStatus='下线报备中';
+                                break;
+                            case 15:
+                                this.productDetail.detailStatus='下线报备失败';
+                                break;
+                            case 16:
+                                this.productDetail.detailStatus='隐藏报备中';
+                                break;
+                            case 17:
+                                this.productDetail.detailStatus='隐藏报备失败';
+                                break;
+                            case 18:
+                                this.productDetail.detailStatus='上线报备中';
+                                break;
+                            case 19:
+                                this.productDetail.detailStatus='上线报备失败';
+                                break;
                         }
 
                         //console.log("productDetail: " + JSON.stringify(this.productDetail));
