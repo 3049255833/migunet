@@ -136,7 +136,7 @@
                                     <div class="layout-row">
                                       <span class="row-left">货币类型：</span>
                                       <span class="row-right">
-                                          人民币
+                                          {{productDetail.currencyType}}
                                       </span>
                                     </div>
 

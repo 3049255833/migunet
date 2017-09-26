@@ -202,7 +202,21 @@ export default {
         /** 接收批量导入部分失败的数据 */
         this.bus.$on('sendUploadWrongInfoBus', res => {
 
-            this.$modal.show('addResultMsg');
+            //this.$modal.show('addResultMsg');
+
+            this.wrongList = res;
+
+            this.$modal.show('batchUploadFailList');
+        });
+
+        /** 接收批量导入部分重复的数据 */
+        this.bus.$on('sendUploadRepeatInfoBus', res => {
+
+            //this.$modal.show('addResultMsg');
+
+            this.repeatList = res;
+
+            this.$modal.show('batchUploadFailList');
         });
     },
     methods: {

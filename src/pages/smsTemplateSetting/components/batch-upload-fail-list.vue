@@ -119,7 +119,7 @@
 
 <style scoped lang="scss" rel="stylesheet/scss">
   $blue:#46bafe;
-  
+
   .batch-upload-fail-list-container {
       padding:0 30px;
 

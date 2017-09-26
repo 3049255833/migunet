@@ -13,10 +13,11 @@
                     v-if="smsTFlag"
                     class="btn btn-default mr-10 btn-middle-88">取消</button>
 
-            <!-- <input @change="upload" v-if="!smsTFlag"
-                   type="file" class="ml-24 pointer" id="upload" name="file"/> -->
+            <input @change="upload" v-if="!smsTFlag"
+                   type="file" class="ml-24 pointer" id="upload" name="file"/>
 
-            <button v-if="!smsTFlag" class="btn ml-24 btn-import-module mr-10" @click="maskShow">批量导入</button>
+            <button v-if="!smsTFlag"
+                    class="btn ml-24 btn-import-module mr-10">批量导入</button>
 
             <button v-if="!smsTFlag"
                     @click="smsTAll"
@@ -67,7 +68,8 @@
                 operateData: {
                     keys: ''  //关键字
                 },
-                smsTFlag: false
+                smsTFlag: false,
+                allData: []
             }
         },
         methods: {
@@ -101,6 +103,8 @@
                     return false;
                 }
 
+                console.log("fileTypeValid: " + fileTypeValid);
+
                 if (fileTypeValid) {
                     let formData = new FormData();
 
@@ -110,7 +114,9 @@
                         response => {
                             let res = response.body;
 
-                            if(res.result.resultCode=='1'){ //成功
+                            console.log("upload res: " + JSON.stringify(res));
+
+                            if(res.resultCode=='1'){ //成功
                                 this.isHideProgressBar = false;
                                 this.percent = '100';
                                 this.progressStyle.width = '100';
@@ -121,18 +127,23 @@
                                     that.bus.$emit('sendBatchUploadSmsTemplateSuccessBus');
                                 }, 2000);
 
-                            } else if(res.result.resultCode=='2') { //部分失败
+                            } else if(res.resultCode=='2') { //部分失败
                                 //this.bus.$emit('sendBatchAddBossInfo', '上传失败');
 
                                 that.bus.$emit('sendUploadWrongInfoBus', res.wrongList);
 
-                            } else if(res.result.resultCode=='3') { //部分重复导入
+                            } else if(res.resultCode=='3') { //部分重复导入
 
                                 that.bus.$emit('sendUploadRepeatInfoBus', res.repeatList);
 
-                            } else if(res.result.resultCode=='4') { //其他异常
+                            } else if(res.resultCode=='4') { //其他异常
 
-                            } else if(res.result.resultCode=='5') { //部分失败，部分重复
+                                that.$root.toastText = res.resultMessage;
+                                that.$root.toast = true;
+
+                            } else if(res.resultCode=='5') { //部分失败，部分重复
+
+                                //that.allData.push(res.repeatList);
 
                                 that.bus.$emit('sendUploadWrongRepeatInfoBus', res.repeatList);
                             }
@@ -140,7 +151,10 @@
                     );
                 } else {
 
-                    this.bus.$emit('sendBatchAddBossInfo', '上传格式错误');
+                    //this.bus.$emit('sendBatchAddBossInfo', '上传格式错误');
+
+                    that.$root.toastText = '上传格式错误';
+                    that.$root.toast = true;
                 }
             },
 

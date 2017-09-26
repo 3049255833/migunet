@@ -101,6 +101,8 @@
             deleteSignleSmsT(id) {
                 this.willDelete[0].id = id;
 
+                console.log("willDelete1: " + JSON.stringify(this.willDelete));
+
                 this.$modal.show('confirmSingleDeleteSmsTModal');
             },
             editSmsTemplate(item) {
@@ -135,6 +137,8 @@
             this.bus.$on('singleDeleteSmsTemplateConfirmBus', res => {
 
                 this.$modal.hide('confirmSingleDeleteSmsTModal');
+
+                console.log("willDelete2: " + JSON.stringify(this.willDelete));
 
                 this.$http.post(this.api.deleteSmsTemplate, this.willDelete).then(response => {
                     let res = response.body;
