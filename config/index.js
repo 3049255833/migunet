@@ -246,6 +246,11 @@ module.exports = {
                 /*批量导入短信模板*/
                 target: proxy_service,
                 changeOrigin: true
+            },
+            '/contractProduct/findPdCp': {
+              /*批量导入短信模板*/
+              target: proxy_service_xl,
+              changeOrigin: true
             }
         },
         cssSourceMap: false
