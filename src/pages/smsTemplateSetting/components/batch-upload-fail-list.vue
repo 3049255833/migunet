@@ -7,15 +7,17 @@
 
         <div class="operate-list clearfix">
             <div class="left">
-                <i></i>
+                <span class="blue" v-show="errorCode == 0">部分数据导入失败</span>
+                <span class="blue" v-show="errorCode == 1">重复数据系统默认忽略！</span>
                 <!-- zqy -->
                 <!-- {{errorInfo}} -->
             </div>
 
             <div class="right">
-                <button type="button" class="btn" @click="fail" v-bind:class="fail">失败数据</button>
+                <!-- <button type="button" class="btn fail" @click="fail">失败数据</button>
 
-                <button type="button" class="btn" @click="repeat">重复数据</button>
+                <button type="button" class="btn" @click="repeat">重复数据</button> -->
+                <button class="btn" v-for="(item,index) in tabsParam" @click="toggleTabs(index)" :class="{active:(index == errorCode)}">{{item}}</button>
             </div>
         </div>
 
@@ -28,11 +30,12 @@
                         <th>模板类型</th>
                         <th>短信模板描述</th>
                         <th>短信模板内容</th>
-                        <th>操作</th>
+                        <!-- <th>操作</th> -->
                     </tr>
                 </thead>
 
-                <tbody v-if="errorCode == '2'">
+                <!-- <tbody v-if="errorCode == '2'"> -->
+                <tbody v-show="errorCode == 0">
                     <tr v-for="(item, index) in wrongList">
                         <td><div class="l-app-name limit-text-length id"
                                   :title="item.serviceCode">{{item.id}}</div>
@@ -52,8 +55,10 @@
                                  :title="item.serviceName">{{item.templateContent}}</div></td>
                     </tr>
                 </tbody>
+                <!-- </tbody> -->
 
-                <tbody v-else-if="errorCode == '3'">
+                <!-- <tbody v-else-if="errorCode == '3'"> -->
+                <tbody v-show="errorCode == 1">
                     <tr v-for="(item, index) in repeatList">
                         <td><div class="l-app-name limit-text-length id"
                                  :title="item.serviceCode">{{item.id}}</div>
@@ -73,6 +78,7 @@
                                  :title="item.serviceName">{{item.templateContent}}</div></td>
                     </tr>
                 </tbody>
+                <!-- </tbody> -->
             </table>
         </div>
     </div>
@@ -80,25 +86,37 @@
 
 <script type="text/ecmascript-6">
   export default {
+      data(){
+          return {
+              tabsParam:["失败数据","重复数据"],
+              errorCode:0
+          }
+      },
       props: {
         //   errorCode: String,
-          errorCode: Number,
           wrongList: Array,
           repeatList: Array
       },
       methods: {
           fail() {
-
+              
           },
           repeat() {
 
-          }
+          },
+
+
+        toggleTabs(index) {
+            this.errorCode=index;
+        }
       }
   }
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
+  $blue:#46bafe;
   .batch-upload-fail-list-container {
+      padding:0 30px;
       .upload-error-list {
 
       }
@@ -107,14 +125,31 @@
         padding:20px!important;
     }
   .operate-list{
+      height:60px;
+      line-height: 60px;
       .left{
           float: left;
+          background: url(../error-icon.png) no-repeat left center;
+          padding-left: 20px;
+          .blue{
+              color:$blue;
+          }
       }
       .right{
           float: right;
       }
       .btn{
-          width:auto;
+          width:88px;
+          height: 35px;
+          border:1px solid $blue;
+          color: $blue;
+          background: none;
+          margin-left: 10px;
+          font-size: 12px;
+          &.active{
+              background: $blue;
+              color: #fff;
+          }
       }
   }
 </style>

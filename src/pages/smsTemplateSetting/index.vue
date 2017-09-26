@@ -40,7 +40,7 @@
         <!-- 批量导入modal zqy-->
         <modal name="batchUploadFailList" :width="800" :height="500" @before-close="beforeClose">
             <!-- <t-modal-sub-container :title="modalTitle" :name="'batchUploadFailList'"> -->
-                <v-batch-upload-fail-list :errorCode="2" :wrongList="wrongList" :modal-name="'batchUploadFailList'" :passModal="passModal" v-on:sendSaveSuccessBus="sendSaveSuccess" :cmd="cmd">
+                <v-batch-upload-fail-list :wrongList="wrongList" :repeatList="repeatList" :modal-name="'batchUploadFailList'" :passModal="passModal" v-on:sendSaveSuccessBus="sendSaveSuccess" :cmd="cmd">
                 </v-batch-upload-fail-list>
             <!-- </t-modal-sub-container> -->
         </modal>
@@ -101,6 +101,37 @@ export default {
                 id: "1001",
                 smsName: "推荐短信模板",
                 smsType: "短信01",
+                smsDesc: "短信01描述",
+                templateContent: "恭喜您业务已开通",
+            },{
+                id: "1001",
+                smsName: "推荐短信模板",
+                smsType: "短信01",
+                smsDesc: "短信01描述",
+                templateContent: "恭喜您业务已开通",
+            },{
+                id: "1001",
+                smsName: "推荐短信模板",
+                smsType: "短信01",
+                smsDesc: "短信01描述",
+                templateContent: "恭喜您业务已开通",
+            }],
+            repeatList: [{
+                id: "10012",
+                smsName: "推荐短信模板",
+                smsType: "订购成功短信模板",
+                smsDesc: "短信01描述",
+                templateContent: "恭喜您业务已开通",
+            },{
+                id: "10012",
+                smsName: "推荐短信模板",
+                smsType: "订购成功短信模板",
+                smsDesc: "短信01描述",
+                templateContent: "恭喜您业务已开通",
+            },{
+                id: "10012",
+                smsName: "推荐短信模板",
+                smsType: "订购成功短信模板",
                 smsDesc: "短信01描述",
                 templateContent: "恭喜您业务已开通",
             }],
@@ -290,6 +321,8 @@ export default {
                 that.getFindSmsTemplate();
             }, 2500);
         }
+
+ 
     },
     computed: {
         totalPage() {
