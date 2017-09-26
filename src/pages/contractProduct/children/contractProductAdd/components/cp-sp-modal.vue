@@ -144,7 +144,9 @@
 
                       this.cpspList = res.data;
 
-                      console.log("res: " + JSON.stringify(res));
+                      this.totalItem = res.total;
+
+                      //console.log("res: " + JSON.stringify(res));
 
                   } else {
 
