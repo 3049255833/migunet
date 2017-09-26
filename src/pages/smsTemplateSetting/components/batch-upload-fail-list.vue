@@ -39,9 +39,13 @@
                         <td><div class="limit-text-length code"
                                  :title="item.companyCode">{{item.smsName}}</div></td>
 
-                        <td><div class="limit-text-length type"
-                                 :title="item.serviceCode">{{item.smsType}}</div>
-                        </td>
+                        <td v-if="item.smsType == '1'">订购成功短信模板</td>
+
+                        <td v-else-if="item.smsType == '2'">到期提醒短信模板</td>
+
+                        <td v-else-if="item.smsType == '3'">推荐短信模板</td>
+
+                        <td v-else></td>
 
                         <td><div class="limit-text-length des"
                                  :title="item.serviceDesc">{{item.smsDesc}}</div></td>

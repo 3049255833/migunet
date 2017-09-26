@@ -241,6 +241,8 @@ export default {
             this.batchUploadfailData = res;
 
             this.$modal.show('batchUploadFailList');
+
+            this.getFindSmsTemplate();
         });
 
         /** 接收批量导入部分重复的数据 */
@@ -249,6 +251,8 @@ export default {
             this.batchUploadfailData = res;
 
             this.$modal.show('batchUploadFailList');
+
+            this.getFindSmsTemplate();
         });
 
         /** 接收批量导入部分失败和重复的数据 */
@@ -259,6 +263,8 @@ export default {
             console.log("batchUploadfailData 5: " + JSON.stringify(this.batchUploadfailData));
 
             this.$modal.show('batchUploadFailList');
+
+            this.getFindSmsTemplate();
         });
     },
     methods: {
