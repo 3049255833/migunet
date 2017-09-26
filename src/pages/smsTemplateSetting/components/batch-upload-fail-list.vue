@@ -82,7 +82,7 @@
             </table>
         </div>
         <div class="submit-btn">
-            <button class="btn">确定</button>
+            <button class="btn" @click="close">确定</button>
         </div>
     </div>
 </template>
@@ -102,45 +102,55 @@
       },
       methods: {
           fail() {
-              
+
           },
           repeat() {
 
           },
-
-
-        toggleTabs(index) {
-            this.errorCode=index;
-        }
+          close() {
+              this.$modal.hide('batchUploadFailList');
+          },
+          toggleTabs(index) {
+              this.errorCode=index;
+          }
       }
   }
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
   $blue:#46bafe;
+  
   .batch-upload-fail-list-container {
       padding:0 30px;
+
       .upload-error-list {
 
       }
   }
-    .v--modal-box{
-        padding:20px!important;
-    }
+
+  .v--modal-box{
+      padding:20px!important;
+  }
+
   .operate-list{
       height:60px;
       line-height: 60px;
+      margin-top: 15px;
+
       .left{
           float: left;
           background: url(../error-icon.png) no-repeat left center;
           padding-left: 20px;
+
           .blue{
               color:$blue;
           }
       }
+
       .right{
           float: right;
       }
+
       .btn{
           width:88px;
           height: 35px;
@@ -149,6 +159,7 @@
           background: none;
           margin-left: 10px;
           font-size: 12px;
+
           &.active{
               background: $blue;
               color: #fff;
@@ -157,6 +168,7 @@
   }
   .submit-btn{
       text-align: center;
+
       button{
         margin:30px 0;
         width: 100px;
@@ -164,6 +176,5 @@
         color:#fff;
         background-color: $blue;
       }
-    
   }
 </style>

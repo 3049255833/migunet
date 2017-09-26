@@ -33,15 +33,15 @@
                           <div class="checkbox-module single">
                               <input type="checkbox"
                                      :value="index"
-                                     @click="getChooseList(index, item.code, item.name,item.id)"
+                                     @click="getChooseList(index, item.cpCode, item.cpName,item.id)"
                                      v-model="cpspListCheckbox" >
                               <span></span>
                           </div>
                       </td>
 
-                      <td>{{item.code}}</td>
+                      <td>{{item.cpCode}}</td>
 
-                      <td>{{item.name}}</td>
+                      <td>{{item.cpName}}</td>
                   </tr>
               </tbody>
           </table>
@@ -83,18 +83,18 @@
               cpspList: [
                   {
                       id: '1001',
-                      code: '2001',
-                      name: '南京大于好塘广告公司'
+                      cpCode: '2001',
+                      cpName: '南京大于好塘广告公司'
                   },
                   {
                       id: '1002',
-                      code: '2002',
-                      name: '南京大于好塘广告公司'
+                      cpCode: '2002',
+                      cpName: '南京大于好塘广告公司'
                   },
                   {
                       id: '1003',
-                      code: '2003',
-                      name: '南京大于好塘广告公司'
+                      cpCode: '2003',
+                      cpName: '南京大于好塘广告公司'
                   }
               ],
               postData:{
@@ -127,7 +127,33 @@
           },
 
           /*获取cp/sp*/
-          getCpSpList() {},
+          getCpSpList() {
+              this.$http.get(this.api.findPdCp,
+                  {
+                      params:{
+                          search:this.postData.search,
+                          pageNum:this.postData.pageNum,
+                          pageSize:this.postData.pageSize
+                      },
+                      showLoading:true
+                  }).then(response => {
+
+                  let res = response.body;
+
+                  if(res.result.resultCode=='00000000'){
+
+                      this.cpspList = res.data;
+
+                      this.totalItem = res.total;
+
+                      //console.log("res: " + JSON.stringify(res));
+
+                  } else {
+
+                      console.log("res: " + JSON.stringify(res));
+                  }
+              });
+          },
 
           /*获取选中的列表*/
           getChooseList(index, code, content, id){
