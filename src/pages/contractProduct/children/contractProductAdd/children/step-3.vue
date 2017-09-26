@@ -188,6 +188,7 @@
                 <v-sms-list :modal-name="'smsListModal'" :smsType="smsType"></v-sms-list>
             </t-modal-sub-container>
         </modal>
+
         <modal name="productSelectModal"
                :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="productSelectTitle" :name="'productSelectModal'">
@@ -198,17 +199,17 @@
         </modal>
 
         <!--CP/SP ID list-->
-        <!--<modal name="cpSPListModal"
+        <modal name="cpSPListModal"
                :width="870"
                :height="570"
                @before-close="beforeClose">
 
-            <t-modal-sub-container :title="CP/SP ID 选择" :name="'cpSPListModal'">
+            <t-modal-sub-container :title="'CP/SP ID 选择'" :name="'cpSPListModal'">
 
                 <v-cp-sp-modal></v-cp-sp-modal>
 
             </t-modal-sub-container>
-        </modal>-->
+        </modal>
 
         <!-- 操作结果modal start -->
         <modal name="addResultMsgModal" :draggable="true" :width="200" :height="80">
@@ -265,7 +266,7 @@
         methods: {
             /*显示CP/SP ID modal*/
             showCPSPIDModal() {
-
+                this.$modal.show('cpSPListModal');
             },
 
             /**

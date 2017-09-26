@@ -2,18 +2,20 @@
   <div class="product-code">
       <div class="list-modal-head">
           <div class="search-wrap">
-              <input @keyup.enter="findContractByCondition"
+              <input @keyup.enter="getCpSpList"
                   class="form-input vt-middle  w-150 radius-2 mr-6"
                   v-model="postData.search"
                   type="text"
                   onfocus="this.placeholder=''"
                   onblur="this.placeholder='关键信息搜索'"
                   placeholder="关键信息搜索">
+
               <div class="search vt-middle">
-                  <i @click="findContractByCondition" class="icon pointer icon-search"></i>
+                  <i @click="getCpSpList" class="icon pointer icon-search"></i>
               </div>
           </div>
       </div>
+
       <div class="table-wrap">
           <table class="table-module">
               <thead>
@@ -25,21 +27,21 @@
               </thead>
 
               <tbody>
-                  <tr v-for="(item, index) in productList">
+                  <tr v-for="(item, index) in cpspList">
+
                       <td>
                           <div class="checkbox-module single">
-
                               <input type="checkbox"
-                                     @click="getProductList(index, item.productCode, item.productName,item.id)"
                                      :value="index"
-                                     v-model="productCheckbox" >
+                                     @click="getChooseList(index, item.code, item.name,item.id)"
+                                     v-model="cpspListCheckbox" >
                               <span></span>
                           </div>
                       </td>
 
-                      <td>{{item.productCode}}</td>
+                      <td>{{item.code}}</td>
 
-                      <td>{{item.productName}}</td>
+                      <td>{{item.name}}</td>
                   </tr>
               </tbody>
           </table>
@@ -51,8 +53,7 @@
                @click="confirm">确定</div>
 
           <div class="btn btn-primary btn-middle-100 unable"
-               v-else=""
-               @click="confirm">确定</div>
+               v-else>确定</div>
 
           <div class="btn btn-default btn-middle-100"
                @click="cancel">取消</div>
@@ -78,73 +79,91 @@
       },
       data(){
           return {
-              productCheckbox:[],
-              productList: [],
+              cpspListCheckbox:[],
+              cpspList: [
+                  {
+                      id: '1001',
+                      code: '2001',
+                      name: '南京大于好塘广告公司'
+                  },
+                  {
+                      id: '1002',
+                      code: '2002',
+                      name: '南京大于好塘广告公司'
+                  },
+                  {
+                      id: '1003',
+                      code: '2003',
+                      name: '南京大于好塘广告公司'
+                  }
+              ],
               postData:{
                   pageNum:'1',
                   pageSize:'5',
                   search:''
               },
+              totalItem: '',
+              selectCpSpList: []
           }
       },
       computed:{
           canSave(){
-
+              return (this.selectCpSpList.length > 0);
           }
       },
       mounted(){
-        /**
-         * 获取互斥和依赖产品列表
-         * */
-        this.findContractByCondition();
+          /**
+           * 获取互斥和依赖产品列表
+           * */
+          this.getCpSpList();
       },
       methods: {
           confirm() {
-
-              this.$modal.hide(this.modalName);
+              this.$modal.hide('cpSPListModal');
           },
 
           cancel() {
-            this.$modal.hide(this.modalName);
+              this.$modal.hide('cpSPListModal');
           },
 
+          /*获取cp/sp*/
+          getCpSpList() {},
+
           /*获取选中的列表*/
-          getProductList(index, productCode, content,id){
+          getChooseList(index, code, content, id){
               let that = this;
 
-              console.log(this.productList[index].active);
+              this.cpspList[index].active=!this.cpspList[index].active;
 
-              this.productList[index].active=!this.productList[index].active;
+              if(this.cpspList[index].active) {
 
-              if(this.productList[index].active) {
-                  this.selectMutexProductList.push({
-                      productCode:productCode,
+                  this.selectCpSpList.push({
+                      code:code,
                       content:content,
                       id:id
                   });
               } else {
-                  this.selectMutexProductList.forEach(function(item, cIndex){
+                  this.selectCpSpList.forEach(function(item, cIndex){
 
                       if(item.id == id) {
 
-                          that.selectMutexProductList.splice(cIndex, 1);
+                          that.selectCpSpList.splice(cIndex, 1);
 
                           return;
                       }
                   })
               }
-              //console.log("mutex：" + JSON.stringify(this.mutexProductList));
+              console.log("selectCpSpList：" + JSON.stringify(this.selectCpSpList));
           },
 
           /**
            * 获取分页信息
            * */
           getPage(res){
-            this.postData.pageNum=res.pagingValue;
-            this.postData.pageSize=res.pagingSize;
-            this.productCheckbox=[];
-            this.productRadio='';
-            this.findContractByCondition();
+              this.postData.pageNum=res.pagingValue;
+              this.postData.pageSize=res.pagingSize;
+              this.cpspListCheckbox=[];
+              this.getCpSpList();
           }
       }
   }
