@@ -147,284 +147,313 @@
       </div>
 
       <div class="info-container">
-          <div class="base-info info-list">
-              <div class="info-title">
-                  基本信息
-              </div>
+            <div class="base-info info-list">
+                <div class="info-title">
+                    基本信息
+                </div>
+           
+                <div class="info-wrap clearfix">
+                        <div class="fl w-50">
+                                <div class="layout-row">
+                                    <span class="row-left"> 产品描述：</span>
+                                    <span class="row-right">
+                                        {{cProduct.productDesc}}
+                                    </span>
+                                    </div>
+                                <div class="layout-row">
+                                    <span class="row-left"> 产品状态：</span>
+                                    <span class="row-right">
+                                        <!-- {{cProduct.productDesc}} -->
+                                    </span>
+                                </div>
+                                <div class="layout-row">
+                                    <span class="row-left"> 生效方式：</span>
+                                    <span class="row-right">
+                                        <!-- {{cProduct.productDesc}} -->
+                                    </span>
+                                </div>
+                                <div class="layout-row">
+                                    <span class="row-left"> 失效时间：</span>
+                                    <span class="row-right">{{cProduct.expireTime}}</span>
+                                </div>
 
-              <div class="info-wrap clearfix">
-                  <div class="fl w-50">
-                      <div class="layout-row">
-                          <span class="row-left"> 产品描述：</span>
-                          <span class="row-right">
-                              {{cProduct.productDesc}}
-                          </span>
-                      </div>
+                                <div class="layout-row">
+                                    <span class="row-left"> 业务归属地：</span>
+                                    <span class="row-right">
+                                        <span v-for="aItem in cProduct.attributionName">
+                                            {{aItem}}
+                                        </span>
+                                    </span>
+                                </div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 生效时间：</span>
-                          <span class="row-right">
-                            {{cProduct.effectiveTime}}
-                          </span>
-                      </div>
+                                <div class="layout-row">
+                                    <span class="row-left"> 是否会员产品：</span>
+                                    <span class="row-right" v-if="cProduct.isVip == '1'">是</span>
+                                    <span class="row-right" v-else>否</span>
+                                </div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 业务归属地：</span>
-                          <span class="row-right">
-                            <span v-for="aItem in cProduct.attributionName">
-                                {{aItem}}
-                            </span>
-                          </span>
-                      </div>
+                                <div class="layout-row">
+                                    <span class="row-left"> 是否可以赠送：</span>
+                                    <!-- <span class="row-right" v-if="cProduct.isExperience == '1'">是</span>
+                                    <span class="row-right" v-else>否</span> -->
+                                    <span class="row-right">是</span>
+                                </div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 是否会员产品：</span>
-                          <span class="row-right" v-if="cProduct.isVip == '1'">是</span>
-                          <span class="row-right" v-else>否</span>
-                      </div>
+                                <div class="layout-row">
+                                    <span class="row-left"> 创建用户：</span>
+                                    <span class="row-right">
+                                        {{cProduct.createUser}}
+                                    </span>
+                                </div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 是否体检产品：</span>
-                          <span class="row-right" v-if="cProduct.isExperience == '1'">是</span>
-                          <span class="row-right" v-else>否</span>
-                      </div>
+                                <div class="layout-row">
+                                    <span class="row-left"> 限定发送提示短信省份：</span>
+                                    <span class="row-right">{{cProduct.limitSmsAreas}}</span>
+                                </div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 创建用户：</span>
-                          <span class="row-right">
-                            {{cProduct.createUser}}
-                          </span>
-                      </div>
+                                <div class="layout-row">
+                                    <span class="row-left"> 到期提醒短信模板：</span>
+                                    <span class="row-right"> </span>
+                                </div>
+                                <div class="layout-row">
+                                    <span class="row-left">
+                                        订购成功下发送推荐短信：
+                                    </span>
+                                    <span class="row-right"></span>
+                                </div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 限定短信发送省份：</span>
-                          <span class="row-right">{{cProduct.limitSmsAreas}}</span>
-                      </div>
+                                <div class="layout-row  no-pb">
+                                    <div class="row-left"> 互斥产品：</div>
 
-                      <div class="layout-row">
-                          <span class="row-left">
-                              订购成功下发送推荐短信：
-                          </span>
-                          <span class="row-right"></span>
-                      </div>
+                                    <div class="row-right">
+                                        <div v-for="mutexItem in mutex">
+                                            <div>{{mutexItem.name}} | {{mutexItem.id}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
 
-                      <div class="layout-row  no-pb">
-                          <div class="row-left"> 互斥产品：</div>
+                    <div class="fl w-50">
+                            <div class="layout-row">
+                                    <span class="row-left"> 搜索关键字：</span>
+                                    <span class="row-right">{{cProduct.searchKey}}</span>
+                            </div>
 
-                          <div class="row-right">
-                              <div v-for="mutexItem in mutex">
-                                  <div>{{mutexItem.name}} | {{mutexItem.id}}</div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                            <div class="layout-row">
+                                    <span class="row-left"> 审批状态：</span>
+                                    <span class="row-right"></span>
+                            </div>
+                            <div class="layout-row">
+                                    <span class="row-left"> 生效时间：</span>
+                                    <span class="row-right">{{cProduct.effectiveTime}}</span>
+                            </div>
 
-                  <div class="fl w-50">
-                      <div class="layout-row">
-                          <span class="row-left"> 搜索关键字：</span>
-                          <span class="row-right">{{cProduct.searchKey}}</span>
-                      </div>
+                            <div class="layout-row">
+                                    <span class="row-left"> 产品目录：</span>
+                                    <span class="row-right">{{cProduct.catalogName}}</span>
+                            </div>
+                            <div class="layout-row">
+                                <span class="row-left"> 是否体验产品：</span>
+                                <span class="row-right" v-if="cProduct.isExperience == '1'">是</span>
+                                <span class="row-right" v-else>否</span>
+                            </div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 失效时间：</span>
-                          <span class="row-right">{{cProduct.expireTime}}</span>
-                      </div>
+                            <div class="layout-row">
+                                <span class="row-left"> 体验产品周期：</span>
+                                <span class="row-left">
+                                    <span class="row-right"
+                                            v-if="cProduct.expCycleUnitNum == '-1'">永久有效</span>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 产品目录：</span>
-                          <span class="row-right">{{cProduct.catalogName}}</span>
-                      </div>
+                                    <span class="row-right" v-else>
+                                        {{cProduct.expCycleUnitNum}}
 
-                      <!--<div class="layout-row">
-                          <span class="row-left"> 是否重复订购：</span>
-                          <span class="right" v-if="cProduct.isReorder == '1'">是</span>
-                          <span class="right" v-else>否</span>
-                      </div>-->
+                                        <span v-if="cProduct.expCycleUnit == '0'">天</span>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 体验产品周期：</span>
-                          <span class="row-left">
-                              <span class="row-right"
-                                    v-if="cProduct.expCycleUnitNum == '-1'">永久有效</span>
+                                        <span v-else-if="cProduct.expCycleUnit == '1'">周</span>
 
-                              <span class="row-right" v-else>
-                                {{cProduct.expCycleUnitNum}}
+                                        <span v-else-if="cProduct.expCycleUnit == '2'">月</span>
 
-                                <span v-if="cProduct.expCycleUnit == '0'">天</span>
+                                        <span v-else-if="cProduct.expCycleUnit == '3'">年</span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="layout-row">
+                                <span class="row-left"> 发送平台：</span>
+                                <span class="row-right"></span>
+                            </div>
+                            <div class="layout-row">
+                                <span class="row-left"> 创建时间：</span>
+                                <span class="row-right">{{cProduct.createTime}}</span>
+                            </div>
 
-                                <span v-else-if="cProduct.expCycleUnit == '1'">周</span>
+                            <div class="layout-row">
+                                <span class="row-left">订购成功下发提示短信：</span>
+                                <span class="row-right"></span>
+                            </div>
 
-                                <span v-else-if="cProduct.expCycleUnit == '2'">月</span>
+                            <div class="layout-row">
+                                <span class="row-left"> 到期提醒提前天数：</span>
+                                <span class="row-right"></span>
+                            </div>
 
-                                <span v-else-if="cProduct.expCycleUnit == '3'">年</span>
-                              </span>
-                          </span>
-                      </div>
+                            <div class="layout-row">
+                                <span class="row-left"> 依赖产品：</span>
+                                <span class="row-right">
+                                    <span v-for="dItem in depend">{{dItem.name}} | {{dItem.id}}</span>
+                                </span>
+                            </div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 创建时间：</span>
-                          <span class="row-right">{{cProduct.createTime}}</span>
-                      </div>
+                            <div class="layout-row">
+                                <span class="row-left"> CP/SP ID：</span>
+                                <span class="row-right"></span>
+                            </div>
+                    </div>
+                </div>
+            </div>
 
-                      <div class="layout-row">
-                          <span class="row-left">订购成功下发提示短信</span>
-                          <span class="row-right"></span>
-                      </div>
+            <div class="charges-info info-list">
+                <div class="info-title">
+                    资费信息
+                </div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 合作伙伴：</span>
-                          <span class="row-right"></span>
-                      </div>
+                <div class="info-wrap clearfix">
+                    <div class="fl w-50">
+                        <div class="layout-row list payment-way-list">
+                            <div class="row-left"> 支付方式 ：</div>
 
-                      <div class="layout-row">
-                          <span class="row-left"> 依赖产品：</span>
-                          <span class="row-right">
-                              <span v-for="dItem in depend">{{dItem.name}} | {{dItem.id}}</span>
-                          </span>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                            <div class="row-right">
+                                <div v-for="pay in payTypeList">
+                                <h4>话费支付</h4>
 
-          <div class="charges-info info-list">
-              <div class="info-title">
-                  资费信息
-              </div>
+                                <div class="item">
+                                    <span class="left"> 业务代码 ：</span>
+                                    <span class="right">{{pay.serviceCode}}</span>
+                                </div>
 
-              <div class="info-wrap clearfix">
-                  <div class="fl w-50">
-                      <div class="layout-row list payment-way-list">
-                          <div class="row-left"> 支付方式 ：</div>
+                                <div class="item">
+                                    <span class="left"> 资费金额（分） ：</span>
+                                    <span class="right">{{pay.price}}</span>
+                                </div>
 
-                          <div class="row-right">
-                              <div v-for="pay in payTypeList">
-                              <h4>话费支付</h4>
+                                <div class="item">
+                                    <span class="left"> 资费类型 ：</span>
+                                    <span class="right">{{pay.feeType}}</span>
+                                </div>
 
-                              <div class="item">
-                                  <span class="left"> 业务代码 ：</span>
-                                  <span class="right">{{pay.serviceCode}}</span>
-                              </div>
+                                <div class="item">
+                                    <span class="left"> 是否重复订购 ：</span>
+                                    <span class="right" v-if="pay.isReorder == '1'">是</span>
+                                    <span class="right" v-else>否</span>
+                                </div>
 
-                              <div class="item">
-                                  <span class="left"> 资费金额（分） ：</span>
-                                  <span class="right">{{pay.price}}</span>
-                              </div>
+                                <div class="item">
+                                    <span class="left"> 产品周期 ：</span>
+                                    <span class="right">{{pay.cycleUnitNum}}</span>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
 
-                              <div class="item">
-                                  <span class="left"> 资费类型 ：</span>
-                                  <span class="right">{{pay.feeType}}</span>
-                              </div>
+                        <div class="layout-row list billing-list">
+                            <div class="row-left"> 计费策略 ：</div>
 
-                              <div class="item">
-                                  <span class="left"> 是否重复订购 ：</span>
-                                  <span class="right" v-if="pay.isReorder == '1'">是</span>
-                                  <span class="right" v-else>否</span>
-                              </div>
+                            <div class="row-right">
+                                <div class="scheme-item" v-for="(rightItem, index) in right">
+                                    <div v-if="rightItem.planCode != null">
+                                        <h4>方案{{index+1}}</h4>
 
-                              <div class="item">
-                                  <span class="left"> 产品周期 ：</span>
-                                  <span class="right">{{pay.cycleUnitNum}}</span>
-                              </div>
-                          </div>
-                          </div>
-                      </div>
+                                        <div class="item">
+                                            <span class="left"> 资费ID ：</span>
+                                            <span class="right">
+                                                {{rightItem.pdFeePlan.planCode}}</span>
+                                        </div>
 
-                      <div class="layout-row list billing-list">
-                          <div class="row-left"> 计费策略 ：</div>
+                                        <div class="item">
+                                            <span class="left"> 计划名称 ：</span>
+                                            <span class="right">
+                                            {{rightItem.pdFeePlan.planName}}</span>
+                                        </div>
 
-                          <div class="row-right">
-                              <div class="scheme-item" v-for="(rightItem, index) in right">
-                                  <div v-if="rightItem.planCode != null">
-                                      <h4>方案{{index+1}}</h4>
+                                        <div class="item">
+                                            <span class="left"> 计划说明 ：</span>
+                                            <span class="right">
+                                                {{rightItem.pdFeePlan.planDesc}}</span>
+                                        </div>
+                                    </div>
+                                    <div v-else>
+                                        <h4>方案{{index+1}}</h4>
 
-                                      <div class="item">
-                                          <span class="left"> 资费ID ：</span>
-                                          <span class="right">
-                                            {{rightItem.pdFeePlan.planCode}}</span>
-                                      </div>
+                                        <div class="item">
+                                            <span class="left">免费</span>
+                                        </div>
+                                        <div class="item">
+                                            <span class="right">
+                                                满足条件：
 
-                                      <div class="item">
-                                        <span class="left"> 计划名称 ：</span>
-                                        <span class="right">
-                                          {{rightItem.pdFeePlan.planName}}</span>
-                                      </div>
+                                                <span v-for="pItem in rightItem.pdMatchList">
+                                                    {{pItem.fieldName}}
+                                                    {{pItem.operator}}
+                                                    {{pItem.matchValues}}
 
-                                      <div class="item">
-                                          <span class="left"> 计划说明 ：</span>
-                                          <span class="right">
-                                            {{rightItem.pdFeePlan.planDesc}}</span>
-                                      </div>
-                                  </div>
-                                  <div v-else>
-                                      <h4>方案{{index+1}}</h4>
+                                                    <span v-if="rightItem.isAnd == '0'">
+                                                        或者</span>
+                                                    <span v-else-if="rightItem.isAnd == '1'">
+                                                        并且</span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
 
-                                      <div class="item">
-                                          <span class="left">免费</span>
-                                      </div>
-                                      <div class="item">
-                                          <span class="right">
-                                              满足条件：
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                              <span v-for="pItem in rightItem.pdMatchList">
-                                                  {{pItem.fieldName}}
-                                                  {{pItem.operator}}
-                                                  {{pItem.matchValues}}
+                    <div class="fl w-50">
+                        <div class="layout-row charges-list list">
+                            <div class="row-left"> 资费计划 ：</div>
 
-                                                  <span v-if="rightItem.isAnd == '0'">
-                                                    或者</span>
-                                                  <span v-else-if="rightItem.isAnd == '1'">
-                                                    并且</span>
-                                              </span>
-                                          </span>
-                                      </div>
-                                  </div>
+                            <div class="row-right">
+                                <div class="item" v-for="(feePlanItem, index) in feePlanList">
+                                    <div class="">{{feePlanItem.planCode}}</div>
 
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                                    <hr/>
 
-                  <div class="fl w-50">
-                      <div class="layout-row charges-list list">
-                          <div class="row-left"> 资费计划 ：</div>
+                                    <div class="">{{feePlanItem.planName}}</div>
 
-                          <div class="row-right">
-                              <div class="item" v-for="(feePlanItem, index) in feePlanList">
-                                  <div class="">{{feePlanItem.planCode}}</div>
+                                    <hr/>
 
-                                  <hr/>
-
-                                  <div class="">{{feePlanItem.planName}}</div>
-
-                                  <hr/>
-
-                                  <div class="">{{feePlanItem.planDesc}}</div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                                    <div class="">{{feePlanItem.planDesc}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
           <div class="channel-info info-list">
-              <div class="info-title" >
-                  渠道信息
-              </div>
+                <div class="info-title" >
+                    渠道信息
+                </div>
 
-              <div class="layout-row-area">
-                  <div class="layout-row-wrapper layout-row-wrapper1">
-                      <div class="layout-row">
-                          <span class="row-left"> BOOS计费代码：</span>
-                          <span class="row-right">
-                              <span v-for="(channelItem, index) in channel">
-                                  {{channelItem.channelCode}}
+                <div class="layout-row-area">
+                    <div class="layout-row-wrapper layout-row-wrapper1">
+                        <!-- <div class="layout-row">
+                            <span class="row-left"> BOOS计费代码：</span>
+                            <span class="row-right">
+                                <span v-for="(channelItem, index) in channel">
+                                    {{channelItem.channelCode}}
 
-                                  <span v-if="index != channel.length-1">,</span>
-                              </span>
-                          </span>
-                      </div>
-                  </div>
-              </div>
+                                    <span v-if="index != channel.length-1">,</span>
+                                </span>
+                            </span>
+                        </div> -->
+                        <div class="layout-row">
+                            <span class="row-left"> 渠道ID：</span>
+                            <span class="row-right"></span>
+                        </div>
+                    </div>
+                </div>
           </div>
       </div>
 
@@ -785,7 +814,7 @@
               .info-wrap{
                   .row-left{
                       color: #666666;
-                      width: 145px;
+                      width: 170px;
                   }
 
                   .row-right{
@@ -798,12 +827,13 @@
               margin-bottom: 38px;
 
               .info-wrap {
+                  font-size: 14px;
                   .layout-row.no-pb {
                       overflow: hidden;
 
                       .row-right {
                           float: left;
-
+                          color:#333;
                           div {
                               margin-bottom: 10px;
                           }
@@ -811,7 +841,7 @@
 
                       .row-left {
                           float: left;
-                          width: 149px;
+                          width: 170px;
                       }
                   }
               }
@@ -820,6 +850,7 @@
           .charges-info {
               .list {
                   overflow: hidden;
+                  font-size: 14px;
 
                   h4 {
                       font-weight: 600;
@@ -840,8 +871,11 @@
               }
 
               .billing-list {
+                  .scheme-item{
+                      margin-bottom: 25px;
+                  }
                   .scheme-item:last-child {
-                      margin-top: 25px;
+                      margin-bottom: 0;
                   }
 
                   .scheme-item:first-child {
