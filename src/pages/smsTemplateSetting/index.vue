@@ -42,12 +42,7 @@
             <!-- <t-modal-sub-container :title="modalTitle" :name="'batchUploadFailList'"> -->
 
             <v-batch-upload-fail-list
-                :wrongList="wrongList"
-                :repeatList="repeatList"
-                :modal-name="'batchUploadFailList'"
-                :passModal="passModal"
-                v-on:sendSaveSuccessBus="sendSaveSuccess"
-                :cmd="cmd">
+                :batchUploadfailData="batchUploadfailData">
             </v-batch-upload-fail-list>
 
             <!-- </t-modal-sub-container> -->
@@ -105,7 +100,7 @@ export default {
                     isHideConfim: true
                 }*/
             ],
-            wrongList: [
+            /*wrongList: [
                 {
                   id: "1001",
                   smsName: "推荐短信模板",
@@ -143,7 +138,7 @@ export default {
                     smsDesc: "短信01描述",
                     templateContent: "恭喜您业务已开通"
                 }
-            ],
+            ],*/
             passModal: {},
             cmd: '', //1: 添加; 2: 编辑
             modalTitle: '新增短信模板',
@@ -156,7 +151,8 @@ export default {
             addResultMsg: '',
             smsTFlag: false,
             postDataList: [],
-            confirmInfo: ''
+            confirmInfo: '',
+            batchUploadfailData: {}
         }
     },
     created() {
@@ -242,9 +238,7 @@ export default {
         /** 接收批量导入部分失败的数据 */
         this.bus.$on('sendUploadWrongInfoBus', res => {
 
-            //this.$modal.show('addResultMsg');
-
-            this.wrongList = res;
+            this.batchUploadfailData = res;
 
             this.$modal.show('batchUploadFailList');
         });
@@ -252,9 +246,17 @@ export default {
         /** 接收批量导入部分重复的数据 */
         this.bus.$on('sendUploadRepeatInfoBus', res => {
 
-            //this.$modal.show('addResultMsg');
+            this.batchUploadfailData = res;
 
-            this.repeatList = res;
+            this.$modal.show('batchUploadFailList');
+        });
+
+        /** 接收批量导入部分失败和重复的数据 */
+        this.bus.$on('sendUploadWrongRepeatInfoBus', res => {
+
+            this.batchUploadfailData = res;
+
+            console.log("batchUploadfailData 5: " + JSON.stringify(this.batchUploadfailData));
 
             this.$modal.show('batchUploadFailList');
         });
@@ -387,6 +389,10 @@ export default {
         this.bus.$off('editSmsTemplateBus');
         this.bus.$off('sendDeleteSingleSmsTemplateSuccessInfo');
         this.bus.$off('sendBatchUploadSmsTemplateSuccessBus');
+
+        this.bus.$off('sendUploadWrongRepeatInfoBus');
+        this.bus.$off('sendUploadRepeatInfoBus');
+        this.bus.$off('sendUploadWrongInfoBus');
 
         this.$off('sendSaveSuccess');
     }

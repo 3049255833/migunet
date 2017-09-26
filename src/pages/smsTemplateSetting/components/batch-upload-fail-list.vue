@@ -1,23 +1,25 @@
 <template>
     <div class="batch-upload-fail-list-container">
-        <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-            </div>
-        </div>
-
         <div class="operate-list clearfix">
-            <div class="left">
-                <span class="blue" v-show="errorCode == 0">部分数据导入失败</span>
-                <span class="blue" v-show="errorCode == 1">重复数据系统默认忽略！</span>
-                <!-- zqy -->
-                <!-- {{errorInfo}} -->
+            <div class="left" v-if="errorCode == '2' || errorCode == '3'">
+                <span class="blue" v-show="errorCode == '2'">部分数据导入失败</span>
+                <span class="blue" v-show="errorCode == '3'">重复数据系统默认忽略！</span>
             </div>
 
-            <div class="right">
-                <!-- <button type="button" class="btn fail" @click="fail">失败数据</button>
+            <div class="left" v-if="errorCode == '5'">
+                <span class="blue" v-show="toggleCode == '0'">部分数据导入失败</span>
+                <span class="blue" v-show="toggleCode == '1'">重复数据系统默认忽略！</span>
+            </div>
 
-                <button type="button" class="btn" @click="repeat">重复数据</button> -->
-                <button class="btn" v-for="(item,index) in tabsParam" @click="toggleTabs(index)" :class="{active:(index == errorCode)}">{{item}}</button>
+            <div class="right" v-if="errorCode == '5'">
+                <!--<button type="button" class="btn fail" @click="fail">失败数据</button>
+
+                <button type="button" class="btn" @click="repeat">重复数据</button>-->
+
+                <button class="btn"
+                        v-for="(item,index) in tabsParam"
+                        @click="toggleTabs(index)"
+                        :class="{active:(index == toggleCode)}">{{item}}</button>
             </div>
         </div>
 
@@ -25,22 +27,15 @@
             <table class="table-module">
                 <thead>
                     <tr>
-                        <th>短信模板ID</th>
                         <th>短信模板名称</th>
                         <th>模板类型</th>
                         <th>短信模板描述</th>
                         <th>短信模板内容</th>
-                        <!-- <th>操作</th> -->
                     </tr>
                 </thead>
 
-                <!-- <tbody v-if="errorCode == '2'"> -->
-                <tbody v-show="errorCode == 0">
+                <tbody v-show="errorCode == '2' || toggleCode == '0'">
                     <tr v-for="(item, index) in wrongList">
-                        <td><div class="l-app-name limit-text-length id"
-                                  :title="item.serviceCode">{{item.id}}</div>
-                        </td>
-
                         <td><div class="limit-text-length code"
                                  :title="item.companyCode">{{item.smsName}}</div></td>
 
@@ -55,21 +50,19 @@
                                  :title="item.serviceName">{{item.templateContent}}</div></td>
                     </tr>
                 </tbody>
-                <!-- </tbody> -->
 
-                <!-- <tbody v-else-if="errorCode == '3'"> -->
-                <tbody v-show="errorCode == 1">
+                <tbody v-show="errorCode == '3' || toggleCode == '1'">
                     <tr v-for="(item, index) in repeatList">
-                        <td><div class="l-app-name limit-text-length id"
-                                 :title="item.serviceCode">{{item.id}}</div>
-                        </td>
-
                         <td><div class="limit-text-length code"
                                  :title="item.companyCode">{{item.smsName}}</div></td>
 
-                        <td><div class="limit-text-length type"
-                                 :title="item.serviceCode">{{item.smsType}}</div>
-                        </td>
+                        <td v-if="item.smsType == '1'">订购成功短信模板</td>
+
+                        <td v-else-if="item.smsType == '2'">到期提醒短信模板</td>
+
+                        <td v-else-if="item.smsType == '3'">推荐短信模板</td>
+
+                        <td v-else></td>
 
                         <td><div class="limit-text-length des"
                                  :title="item.serviceDesc">{{item.smsDesc}}</div></td>
@@ -78,7 +71,6 @@
                                  :title="item.serviceName">{{item.templateContent}}</div></td>
                     </tr>
                 </tbody>
-                <!-- </tbody> -->
             </table>
         </div>
         <div class="submit-btn">
@@ -89,16 +81,17 @@
 
 <script type="text/ecmascript-6">
   export default {
+      props: {
+          batchUploadfailData: Object
+      },
       data(){
           return {
               tabsParam:["失败数据","重复数据"],
-              errorCode:0
+              errorCode: this.batchUploadfailData.resultCode,
+              wrongList: this.batchUploadfailData.wrongList,
+              repeatList: this.batchUploadfailData.repeatList,
+              toggleCode: '0'
           }
-      },
-      props: {
-        //   errorCode: String,
-          wrongList: Array,
-          repeatList: Array
       },
       methods: {
           fail() {
@@ -111,7 +104,7 @@
               this.$modal.hide('batchUploadFailList');
           },
           toggleTabs(index) {
-              this.errorCode=index;
+              this.toggleCode = index;
           }
       }
   }

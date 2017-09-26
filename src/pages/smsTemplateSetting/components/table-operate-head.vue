@@ -68,8 +68,7 @@
                 operateData: {
                     keys: ''  //关键字
                 },
-                smsTFlag: false,
-                allData: []
+                smsTFlag: false
             }
         },
         methods: {
@@ -130,11 +129,11 @@
                             } else if(res.resultCode=='2') { //部分失败
                                 //this.bus.$emit('sendBatchAddBossInfo', '上传失败');
 
-                                that.bus.$emit('sendUploadWrongInfoBus', res.wrongList);
+                                that.bus.$emit('sendUploadWrongInfoBus', res);
 
                             } else if(res.resultCode=='3') { //部分重复导入
 
-                                that.bus.$emit('sendUploadRepeatInfoBus', res.repeatList);
+                                that.bus.$emit('sendUploadRepeatInfoBus', res);
 
                             } else if(res.resultCode=='4') { //其他异常
 
@@ -143,9 +142,9 @@
 
                             } else if(res.resultCode=='5') { //部分失败，部分重复
 
-                                that.allData.push(res.repeatList);
+                                console.log("error 5: " + JSON.stringify(res));
 
-                                that.bus.$emit('sendUploadWrongRepeatInfoBus', res.repeatList);
+                                that.bus.$emit('sendUploadWrongRepeatInfoBus', res);
                             }
                         }
                     );
