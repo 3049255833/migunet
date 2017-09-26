@@ -269,7 +269,7 @@ export default {
             let that = this;
 
             if (res) {
-                //this.postDataList = [];
+                this.postDataList = [];
 
                 let _indexList = this.$refs.smsTemplateTable.smsTCheckbox;
 
