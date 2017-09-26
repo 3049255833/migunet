@@ -44,7 +44,7 @@
           :percent="percent"
           :progressStyle="progressStyle.width"
           :uploadErrorInfo="uploadErrorInfo"></v-progress-bar>
-          
+
     </div>
 </template>
 <script>
@@ -158,8 +158,7 @@
                 this.$emit('smsTbatchDeleteBus', true);
             },
             maskShow(){
-                console.log(111)
-               this.$modal.show('batchUploadFailList');
+                this.$modal.show('batchUploadFailList');
             }
         }
     }
