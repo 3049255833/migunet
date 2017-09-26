@@ -66,7 +66,8 @@ let api = {
 
     queryCpDepend: 'product/queryCpDepend',  //查询合约产品的依赖关系
     findPdCp: 'contractProduct/findPdCp',     //获取cp/sp列表
-    judgeSmsTemplate: 'smsTemplate/judgeSmsTemplate'     //查询短信模版关联关系
+    judgeSmsTemplate: 'smsTemplate/judgeSmsTemplate',     //查询短信模版关联关系findSendPlatform
+    findSendPlatform: 'contractProduct/findSendPlatform'     //获取合约产品发送平台
 };
 
 for (let key in api) {

@@ -257,6 +257,11 @@ module.exports = {
               /*查询短信模版关联关系*/
               target: proxy_service_xl,
               changeOrigin: true
+            },
+            '/contractProduct/findSendPlatform': {
+              /*获取合约产品发送平台*/
+              target: proxy_service_xl,
+              changeOrigin: true
             }
         },
         cssSourceMap: false

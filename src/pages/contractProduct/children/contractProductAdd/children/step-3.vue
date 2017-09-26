@@ -260,10 +260,33 @@
                 recommendSmsItem: {},
                 mutexProductList: [],
                 relyProductItem: {},
-                cPSPIDList: []
+                cPSPIDList: [],
+                sendPlatform: []
             }
         },
+        created(){
+            this.getSendPlatform();
+        },
         methods: {
+            /*获取发送平台*/
+            getSendPlatform() {
+                this.$http.get(this.api.findSendPlatform, {showLoading: true}).then(
+                    response => {
+                        let res = response.body;
+
+                        if (res.result.resultCode == '00000000') {
+
+                            this.sendPlatform = res.data;
+
+                            console.log("sendPlatform: " + JSON.stringify(this.sendPlatform));
+                        } else {
+
+                            console.log("res: " + JSON.stringify(res));
+                        }
+                    }
+                );
+            },
+
             /*显示CP/SP ID modal*/
             showCPSPIDModal() {
                 this.$modal.show('cpSPListModal');
