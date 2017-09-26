@@ -81,6 +81,9 @@
                 <!-- </tbody> -->
             </table>
         </div>
+        <div class="submit-btn">
+            <button class="btn">确定</button>
+        </div>
     </div>
 </template>
 
@@ -151,5 +154,16 @@
               color: #fff;
           }
       }
+  }
+  .submit-btn{
+      text-align: center;
+      button{
+        margin:30px 0;
+        width: 100px;
+        height:35px;
+        color:#fff;
+        background-color: $blue;
+      }
+    
   }
 </style>
