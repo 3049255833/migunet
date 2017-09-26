@@ -17,6 +17,7 @@
                                        :selectType="'single'"></v-review-reject-modal>
             </t-modal-sub-container>
         </modal>
+        
     </div>
 </template>
 <script type="es6" >

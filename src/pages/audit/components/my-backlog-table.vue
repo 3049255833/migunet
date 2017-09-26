@@ -12,7 +12,8 @@
                 </td>
                 <td>产品名称</td>
                 <td>产品ID</td>
-                <td>审批类型</td>
+                <td>CP／SP ID</td>
+                <td>申请类型</td>
                 <td>申请人</td>
                 <td>申请时间</td>
                 <td>状态</td>
@@ -35,6 +36,11 @@
                 <td>
                     <div class="limit-text-length code"
                          :title="product.productCode">{{product.productCode}}
+                    </div>
+                </td>
+                <td>
+                    <div class="limit-text-length type"
+                         :title="'product.cpCode'">{{product.cpCode}}
                     </div>
                 </td>
                 <td>
