@@ -368,8 +368,7 @@
                 }
             },
             'postData.serviceCode'(a, b){
-                let rule = /[^1-9]/g;
-
+                let rule = /[^0-9]/g;
 
                 if (rule.test(a)) {
 
@@ -385,7 +384,7 @@
                 }
             },
             'postData.companyCode'(a, b){
-                let rule = /[^1-9]/g;
+                let rule = /[^0-9]/g;
 
                 if (rule.test(a)) {
 
@@ -399,7 +398,7 @@
                 }
             },
             'postData.feeAmount'(a, b){
-                let rule = /[^1-9]/g;
+                let rule = /[^0-9]/g;
 
                 if (rule.test(a)) {
 
