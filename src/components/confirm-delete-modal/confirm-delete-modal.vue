@@ -38,6 +38,9 @@
                 } else if(this.functionType === 'contractProductDetailsConfirmInfo') {
 
                     this.bus.$emit('contractProductDetailsConfirmModalBus');
+                } else if(this.functionType === 'batchDeleteSmsTemplateConfirmInfo') {
+
+                    this.bus.$emit('batchDeleteSmsTemplateConfirmBus');
                 }
 
                 event.stopPropagation();
@@ -60,6 +63,9 @@
                 } else if(this.functionType === 'contractProductDetailsConfirmInfo') {
 
                     this.$modal.hide('contractProductDetailsConfirmModal');
+                } else if(this.functionType === 'batchDeleteSmsTemplateConfirmInfo') {
+
+                    this.$modal.hide('confirmBatchDeleteSmsTModal');
                 }
 
                 event.stopPropagation();

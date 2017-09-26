@@ -252,6 +252,11 @@ module.exports = {
               /*批量导入短信模板*/
               target: proxy_service_xl,
               changeOrigin: true
+            },
+            '/smsTemplate/judgeSmsTemplate': {
+              /*查询短信模版关联关系*/
+              target: proxy_service_xl,
+              changeOrigin: true
             }
         },
         cssSourceMap: false

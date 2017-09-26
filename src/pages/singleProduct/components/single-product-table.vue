@@ -25,7 +25,7 @@
                          :title="product.cpCode">{{product.cpCode}}</div></td>
 
                 <td><div class="limit-text-length cp-code"
-                         :title="product.currencyCode">人民币<!--{{product.currencyCode}}--></div></td>
+                         :title="product.currencyCode">{{product.currencyDesc}}</div></td>
 
                 <td><div class="limit-text-length price"
                          :title="product.contentPrice">{{product.productPrice}}</div></td>

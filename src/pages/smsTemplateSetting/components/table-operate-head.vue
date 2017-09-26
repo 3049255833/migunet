@@ -143,7 +143,7 @@
 
                             } else if(res.resultCode=='5') { //部分失败，部分重复
 
-                                //that.allData.push(res.repeatList);
+                                that.allData.push(res.repeatList);
 
                                 that.bus.$emit('sendUploadWrongRepeatInfoBus', res.repeatList);
                             }

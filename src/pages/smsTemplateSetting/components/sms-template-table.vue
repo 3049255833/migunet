@@ -64,6 +64,19 @@
         <div v-if="smsTemplateList.length <= 0" class="no-asset-box">
             <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
+
+        <modal name="confirmSingleDeleteSmsTModal" :width="390" :height="200" @before-close="beforeClose">
+            <t-modal-sub-container
+                :title="'是否确认删除？'"
+                :name="'confirmSingleDeleteSmsTModal'">
+
+              <v-confirm-delete-modal
+                  :functionType="'singleDeleteSmsTemplate'"
+                  :confirmInfo="confirmInfo">
+              </v-confirm-delete-modal>
+
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 
@@ -72,6 +85,8 @@
     import VConfirmPopoverModal from '@/components/confim-modal/confirm-popover-modal'
     import VOperateSuccessModal from '@/components/operate-modal/operate-success-modal'
     import VNolist from '@/components/no-list'
+    import VConfirmDeleteModal from '@/components/confirm-delete-modal/confirm-delete-modal'
+    import TModalSubContainer from "@/components/modal-sub-container"
 
     export default {
         name: 'smsTemplateTable',
@@ -82,35 +97,56 @@
         data() {
             return {
                 count: 0,
-                willDelete: [
+                postData: [
                     {
                         id: ''
                     }
                 ],
                 smsTCheckbox: [],
-                ifSmsTAll:[]
+                ifSmsTAll:[],
+                confirmInfo: ''
             }
         },
         components: {
             VPaging,
             VConfirmPopoverModal,
             VOperateSuccessModal,
-            VNolist
+            VNolist,
+            VConfirmDeleteModal,
+            TModalSubContainer
         },
         methods: {
             deleteSignleSmsT(id) {
-                this.willDelete[0].id = id;
+                this.postData[0].id = id;
 
-                console.log("willDelete1: " + JSON.stringify(this.willDelete));
+                let that = this;
+
+                this.$http.post(this.api.judgeSmsTemplate,this.postData).then(response => {
+
+                    let res = response.body;
+
+                    console.log("res: " + JSON.stringify(res));
+
+                    if(res.result.resultCode=='00000002'){
+
+                        that.confirmInfo = '短信模板与合约产品存在关联关系';
+
+                    } else if (res.result.resultCode=='00000000') {
+
+                        that.confirmInfo = '确认通过后，短信模板不可恢复'
+                    } else {//查询失败resultCode： 00000001;
+
+                        that.confirmInfo = '确认通过后，短信模板不可恢复';
+                    }
+                });
 
                 this.$modal.show('confirmSingleDeleteSmsTModal');
             },
             editSmsTemplate(item) {
 
                 this.bus.$emit('editSmsTemplateBus', item);
-
-                //this.$modal.show('addBusinessCodeModal');
-            }
+            },
+            beforeClose() { },
         },
         watch:{
             //监听全选
@@ -138,9 +174,9 @@
 
                 this.$modal.hide('confirmSingleDeleteSmsTModal');
 
-                console.log("willDelete2: " + JSON.stringify(this.willDelete));
+                console.log("postData: " + JSON.stringify(this.postData));
 
-                this.$http.post(this.api.deleteSmsTemplate, this.willDelete).then(response => {
+                this.$http.post(this.api.deleteSmsTemplate, this.postData).then(response => {
                     let res = response.body;
 
                     console.log("deleteSmsTemplate: " + JSON.stringify(res));

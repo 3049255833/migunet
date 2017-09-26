@@ -236,6 +236,17 @@
                             if(res.result.resultCode == '00000000') {
 
                                 this.$root.toastText = '编辑成功';
+                            } else if(res.result.resultCode == '00000002') {
+
+                                this.$root.toastText = '短信模板被合约产品引用，请先进行合约产品变更流程';
+                            } else if(res.result.resultCode == '00000003') {
+
+                                this.$root.toastText = '短信模板名称重复';
+
+                            } else if(res.result.resultCode == '00000004') {
+
+                                this.$root.toastText = '短信模板包含特殊字符';
+
                             } else {
                                 this.$root.toastText = '编辑失败';
                             }
@@ -257,7 +268,16 @@
 
                                 this.$emit('sendSaveSuccessBus');
 
+                            } else if(res.result.resultCode == '00000003') {
+
+                                this.$root.toastText = '短信模板名称重复';
+
+                            } else if(res.result.resultCode == '00000004') {
+
+                                this.$root.toastText = '短信模板包含特殊字符';
+
                             } else {
+
                                 this.$root.toastText = '添加失败';
                             }
 

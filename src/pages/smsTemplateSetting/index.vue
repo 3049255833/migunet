@@ -14,19 +14,18 @@
             </t-modal-sub-container>
         </modal>
 
-        <modal name="confirmBatchDeleteSmsTModal" :width="390" :height="200" @before-close="beforeClose">
-            <t-modal-sub-container :title="'是否确认删除？'" :name="'confirmBatchDeleteSmsTModal'">
+        <modal name="confirmBatchDeleteSmsTModal"
+            :width="390"
+            :height="200"
+            @before-close="beforeClose">
 
-                <v-confirm-delete-modal :functionType="'batchDeleteSmsTemplate'" :confirmInfo="'删除后，短信模板与合约产品关系解除，不可恢复！'">
-                </v-confirm-delete-modal>
+            <t-modal-sub-container
+                :title="'是否确认删除？'"
+                :name="'confirmBatchDeleteSmsTModal'">
 
-            </t-modal-sub-container>
-        </modal>
-
-        <modal name="confirmSingleDeleteSmsTModal" :width="390" :height="200" @before-close="beforeClose">
-            <t-modal-sub-container :title="'是否确认删除？'" :name="'confirmSingleDeleteSmsTModal'">
-
-                <v-confirm-delete-modal :functionType="'singleDeleteSmsTemplate'" :confirmInfo="'删除后，短信模板与合约产品关系解除，不可恢复！'">
+                <v-confirm-delete-modal
+                    :functionType="'batchDeleteSmsTemplateConfirmInfo'"
+                    :confirmInfo="confirmInfo">
                 </v-confirm-delete-modal>
 
             </t-modal-sub-container>
@@ -106,44 +105,45 @@ export default {
                     isHideConfim: true
                 }*/
             ],
-            wrongList: [{
-                id: "1001",
-                smsName: "推荐短信模板",
-                smsType: "短信01",
-                smsDesc: "短信01描述",
-                templateContent: "恭喜您业务已开通"
-            },{
-                id: "1001",
-                smsName: "推荐短信模板",
-                smsType: "短信01",
-                smsDesc: "短信01描述",
-                templateContent: "恭喜您业务已开通"
-            },{
-                id: "1001",
-                smsName: "推荐短信模板",
-                smsType: "短信01",
-                smsDesc: "短信01描述",
-                templateContent: "恭喜您业务已开通"
-            }],
-            repeatList: [{
-                id: "10012",
-                smsName: "推荐短信模板",
-                smsType: "订购成功短信模板",
-                smsDesc: "短信01描述",
-                templateContent: "恭喜您业务已开通"
-            },{
-                id: "10012",
-                smsName: "推荐短信模板",
-                smsType: "订购成功短信模板",
-                smsDesc: "短信01描述",
-                templateContent: "恭喜您业务已开通"
-            },{
-                id: "10012",
-                smsName: "推荐短信模板",
-                smsType: "订购成功短信模板",
-                smsDesc: "短信01描述",
-                templateContent: "恭喜您业务已开通"
-            }],
+            wrongList: [
+                {
+                  id: "1001",
+                  smsName: "推荐短信模板",
+                  smsType: "短信01",
+                  smsDesc: "短信01描述",
+                  templateContent: "恭喜您业务已开通"
+                },
+                {
+                  id: "1001",
+                  smsName: "推荐短信模板",
+                  smsType: "短信01",
+                  smsDesc: "短信01描述",
+                  templateContent: "恭喜您业务已开通"
+                }
+            ],
+            repeatList: [
+                {
+                    id: "10012",
+                    smsName: "推荐短信模板",
+                    smsType: "订购成功短信模板",
+                    smsDesc: "短信01描述",
+                    templateContent: "恭喜您业务已开通"
+                },
+                {
+                    id: "10012",
+                    smsName: "推荐短信模板",
+                    smsType: "订购成功短信模板",
+                    smsDesc: "短信01描述",
+                    templateContent: "恭喜您业务已开通"
+                },
+                {
+                    id: "10012",
+                    smsName: "推荐短信模板",
+                    smsType: "订购成功短信模板",
+                    smsDesc: "短信01描述",
+                    templateContent: "恭喜您业务已开通"
+                }
+            ],
             passModal: {},
             cmd: '', //1: 添加; 2: 编辑
             modalTitle: '新增短信模板',
@@ -154,7 +154,9 @@ export default {
             },
             totalItem: '',
             addResultMsg: '',
-            smsTFlag: false
+            smsTFlag: false,
+            postDataList: [],
+            confirmInfo: ''
         }
     },
     created() {
@@ -181,6 +183,44 @@ export default {
             this.modalTitle = '修改短信模板';
 
             this.$modal.show('updateSmsTemplateModal');
+        });
+
+        /**
+         * 接收来自批量删除短信模板确认modal框的信息
+         * */
+        this.bus.$on('batchDeleteSmsTemplateConfirmBus', res => {
+            let that = this;
+
+            this.$modal.hide('confirmBatchDeleteSmsTModal');
+
+            console.log("postData: " + JSON.stringify(this.postData));
+
+            this.$http.post(this.api.deleteSmsTemplate, this.postDataList).then(response => {
+                let res = response.body;
+
+                if (res.result.resultCode == '00000000') {
+                    this.$root.toastText = '删除成功';
+                    this.$root.toast = true;
+                } else {
+                    this.$root.toastText = '删除失败';
+                    this.$root.toast = true;
+                }
+
+                this.$refs.smsTemplateHead.smsTFlag = false;
+                this.smsTFlag = false;
+                this.postData.pageNum = '1';
+                this.$refs.pagingModule.current = 1;
+                this.$refs.smsTemplateTable.smsTCheckbox = [];
+                this.$refs.smsTemplateTable.ifSmsTAll = [];
+
+                setTimeout(function() {
+                    that.getFindSmsTemplate();
+                }, 2500);
+
+            }, (response) => {
+                this.$root.toastText = '服务器错误';
+                this.$root.toast = true
+            })
         });
 
         /**
@@ -229,7 +269,7 @@ export default {
             let that = this;
 
             if (res) {
-                this.postDataList = [];
+                //this.postDataList = [];
 
                 let _indexList = this.$refs.smsTemplateTable.smsTCheckbox;
 
@@ -245,37 +285,27 @@ export default {
 
                     console.log("Delete sms list: " + JSON.stringify(that.postDataList));
 
-                    this.$modal.hide('confirmBatchDeleteSmsTModal');
+                    this.$http.post(this.api.judgeSmsTemplate,this.postDataList).then(response => {
 
-                    that.$http.post(this.api.deleteSmsTemplate, that.postDataList).then(response => {
                         let res = response.body;
 
-                        if (res.result.resultCode == '00000000') {
-                            this.$root.toastText = '删除成功';
-                            this.$root.toast = true;
-                        } else {
-                            this.$root.toastText = '删除失败';
-                            this.$root.toast = true;
+                        console.log("res: " + JSON.stringify(res));
+
+                        if(res.result.resultCode=='00000002'){
+
+                          that.confirmInfo = '短信模板与合约产品存在关联关系';
+
+                        } else if (res.result.resultCode=='00000000') {
+
+                          that.confirmInfo = '确认通过后，短信模板不可恢复'
+                        } else {//查询失败resultCode： 00000001;
+
+                          that.confirmInfo = '确认通过后，短信模板不可恢复';
                         }
+                    });
 
-                        this.$refs.smsTemplateHead.smsTFlag = false;
-                        this.smsTFlag = false;
-                        this.postData.pageNum = '1';
-                        this.$refs.pagingModule.current = 1;
-                        this.$refs.smsTemplateTable.smsTCheckbox = [];
-                        this.$refs.smsTemplateTable.ifSmsTAll = [];
-
-                        setTimeout(function() {
-                            that.getFindSmsTemplate();
-                        }, 2500);
-
-                    }, (response) => {
-                        this.$root.toastText = '服务器错误';
-                        this.$root.toast = true
-                    })
+                    this.$modal.show('confirmBatchDeleteSmsTModal');
                 }
-            } else {
-
             }
         },
 
