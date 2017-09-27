@@ -68,10 +68,35 @@
                 operateData: {
                     keys: ''  //关键字
                 },
-                smsTFlag: false
+                smsTFlag: false,
+                smsTemplateUrl: ''
             }
         },
+        created(){
+            this.downloadSmsTemplate();
+        },
         methods: {
+            downloadSmsTemplate() {
+                this.$http.get(this.api.downloadSmsTemplate, {
+                    showLoading: true
+                }).then(
+                    response => {
+                        let res = response.body;
+
+                        console.log("res: " + JSON.stringify(res));
+
+                        if (res.result.resultCode == '00000000') {
+
+                            this.smsTemplateUrl = res;
+
+                        } else {
+
+                          console.log("res: " + JSON.stringify(res));
+                        }
+                    }
+                );
+            },
+
             addSmsTemplate() {
                 this.bus.$emit('addSmsTemPlateBus');
             },

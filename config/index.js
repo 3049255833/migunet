@@ -262,6 +262,11 @@ module.exports = {
               /*获取合约产品发送平台*/
               target: proxy_service_xl,
               changeOrigin: true
+            },
+            '/smsTemplate/downloadSmsTemplate': {
+              /*下载短信模板*/
+              target: proxy_service_wc,
+              changeOrigin: true
             }
         },
         cssSourceMap: false
