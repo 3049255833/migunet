@@ -361,7 +361,7 @@
                 this.$emit('step2Bus', {
                     step: 3,
                     data: this.postData
-                })
+                });
 
                 console.log("postData2: " + JSON.stringify(this.postData));
             },

@@ -9,9 +9,10 @@
                 <div class="row-right">
                     <input class="form-input pointer w-340"
                          type="text"
+                         v-model="cPSPIDList.cpName"
                          @click="showCPSPIDModal"/>
 
-                        <table class="table-module" v-if="cPSPIDList.length>0">
+                        <!--<table class="table-module" v-if="cPSPIDList.length>0">
                             <thead>
                                 <tr>
                                   <td>企业代码</td>
@@ -19,12 +20,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="item in cPSPIDList">
-                                    <td>{{item.planCode}}</td>
-                                    <td>{{item.planName}}</td>
+                                <tr>
+                                    <td>{{cPSPIDList.planCode}}</td>
+                                    <td>{{cPSPIDList.planName}}</td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table>-->
 
                         <i class="icon icon-select"></i>
                 </div>
@@ -37,22 +38,13 @@
                 </div>
                 <div class="row-right">
                     <div class="radio-wrap">
-                        <label class="checkbox-module w-70">
-                            <input value="1"
-                                   v-model="formData.isGive"
+                        <label class="checkbox-module w-70" v-for="(item, index) in sendPlatform">
+                            <input :value="item.dictionary_code"
+                                   v-model="formData.sendPlatform"
                                    name="isGive"
                                    type="checkbox">
                             <span class="mr-3"></span>
-                            <span class="txt">彩印</span>
-                        </label>
-
-                        <label class="checkbox-module">
-                            <input value="0"
-                                   v-model="formData.isGive"
-                                   name="isGive"
-                                   type="checkbox">
-                            <span class="mr-3"></span>
-                            <span class="txt">彩铃</span>
+                            <span class="txt">{{item.dictionary_desc}}</span>
                         </label>
                     </div>
                 </div>
@@ -79,11 +71,11 @@
                 </div>
                 <div class="row-right">
                     <input class="form-input pointer w-340"
-                           v-model="formData.limitSmsAreas"
                            type="text"
                            @click="showPromptSmsModal"
                            readonly
-                           placeholder="请选择"/>{{promptSmsItem.templateContent}}
+                           v-model="promptSmsItem.templateContent"
+                           placeholder="请选择"/>
                     <i class="icon icon-select"></i>
                 </div>
             </div>
@@ -96,7 +88,8 @@
                     <input class="form-input pointer w-340"
                          @click="showRecommendSmsModal"
                          readonly
-                         placeholder="请选择"/> {{recommendSmsItem.templateContent}}
+                         v-model="recommendSmsItem.templateContent"
+                         placeholder="请选择"/>
                     <i class="icon icon-select"></i>
                 </div>
             </div>
@@ -109,9 +102,10 @@
 
                 <div class="row-right">
                     <input class="form-input pointer w-340"
-                         @click="showRecommendSmsModal"
+                         @click="showRemindSmsModal"
                          readonly
-                         placeholder="请选择"/> {{recommendSmsItem.templateContent}}
+                         v-model="RemindSmsItem.templateContent"
+                         placeholder="请选择"/>
                     <i class="icon icon-select"></i>
                 </div>
             </div>
@@ -248,9 +242,13 @@
                     //pdContractProductCodes: '', //第二步添加产品成功返回产品ID，传到第三步。
                     promptSmsCodes: '',
                     recommendCodes: '',
+                    RemindCodes: '',       //到期提醒短信
                     mutuallyProductCodes: '',
                     dependentProductCodes: '',
-                    remindDays: ''
+                    remindDays: '',  //到期提醒提前天数
+                    sendPlatform: [], //发送平台,
+                    platform: '',
+                    cpCode: ''        //CP/SP code
                 },
                 smsTitle: '',
                 productSelectTitle: '',
@@ -258,20 +256,35 @@
                 smsType: '',
                 promptSmsItem: {},
                 recommendSmsItem: {},
+                RemindSmsItem: {},
                 mutexProductList: [],
                 relyProductItem: {},
-                cPSPIDList: [],
-                sendPlatform: []
+                cPSPIDList: {},
+                sendPlatform: [],
+                postData: {
+                    limitSmsAreas: '',
+                    promptSmsCodes: '',
+                    recommendCodes: '',
+                    RemindCodes: '',
+                    mutuallyProductCodes: '',
+                    dependentProductCodes: ''
+                }
             }
         },
         created(){
             this.getSendPlatform();
         },
+        watch:{
+            'formData.sendPlatform'(a,b) {
+
+                console.log("sendPlatform: " + JSON.stringify(this.formData.sendPlatform));
+            }
+        },
         methods: {
             /*获取发送平台*/
             getSendPlatform() {
-                this.$http.get(this.api.findSendPlatform,
-                    {type: 'SEND_PLATFORM', showLoading: true}).then(
+                this.$http.get(this.api.findDictionaryType,
+                  {params: {type: 'SEND_PLATFORM'}, showLoading: true}).then(
 
                     response => {
                         let res = response.body;
@@ -298,10 +311,24 @@
              * 保存数据
              * */
             save(){
+
+                this.postData.pdContract.remindDays = this.formData.remindDays;
+                this.postData.pdContract.sendPlatform=(this.formData.sendPlatform).join(',');
+                this.postData.pdContract.cpCode = this.formData.cpCode;
+
+                this.postData.limitSmsAreas = this.formData.limitSmsAreas;
+                this.postData.promptSmsCodes = this.formData.promptSmsCodes;
+                this.postData.recommendCodes = this.formData.recommendCodes;
+                this.postData.RemindCodes = this.formData.RemindCodes;
+                this.postData.mutuallyProductCodes = this.formData.mutuallyProductCodes;
+                this.postData.dependentProductCodes = this.formData.dependentProductCodes;
+
                 this.$emit('step3Bus', {
                     step: 3,
-                    data: this.formData
-                })
+                    data: this.postData
+                });
+
+                console.log("postData3: " + JSON.stringify(this.postData));
             },
 
             test(){
@@ -344,12 +371,23 @@
             beforeClose(){},
 
             /**
+             * 调用到期提醒短信模板
+             * */
+            showRemindSmsModal(){
+              this.smsTitle = '到期提醒短信模板';
+
+              this.smsType = '2';
+
+              this.$modal.show('smsListModal');
+            },
+
+            /**
              * 调用订购成功下发提示短信模板弹框
              * */
             showPromptSmsModal(){
                 this.smsTitle = '动漫包提示短信模板选择';
 
-                this.smsType = '2';
+                this.smsType = '1';
 
                 this.$modal.show('smsListModal');
             },
@@ -360,7 +398,7 @@
             showRecommendSmsModal(){
                 this.smsTitle = '动漫包推荐短信模板选择';
 
-                this.smsType = '1';
+                this.smsType = '3';
 
                 this.$modal.show('smsListModal');
             },
@@ -416,23 +454,24 @@
             this.bus.$on('getSelectSms', res => {
                 if (res) {
 
-                    if (this.smsType === '1') {
+                    if (this.smsType === '3') {
 
                         this.recommendSmsItem = res;
 
                         this.formData.recommendCodes = this.recommendSmsItem.id;
 
-
-                    } else {
+                    } else if(this.smsType === '1') {
 
                         this.promptSmsItem = res;
 
-
                         this.formData.promptSmsCodes = this.promptSmsItem.id;
 
+                    } else if(this.smsType === '2') {
 
+                        this.RemindSmsItem = res;
+
+                        this.formData.RemindCodes = this.RemindSmsItem.id;
                     }
-
                 }
                 this.$modal.hide('smsListModal');
             });
@@ -444,7 +483,6 @@
                 let mutuallys = [];
 
                 if (res) {
-
 
                     if (this.productType === '1') {
 
@@ -467,11 +505,27 @@
 
                 }
             });
+
+            /*获取选择的CP/SP 列表*/
+            this.bus.$on('selectCpSpListBus', res => {
+                if (res) {
+
+                    this.cPSPIDList = res;
+
+                    this.formData.cpCode = this.cPSPIDList.cpCode;
+                }
+
+                console.log("CPSP: " + JSON.stringify(res));
+
+                this.$modal.hide('cpSPListModal');
+            });
         },
         destroyed(){
             this.bus.$off('getSelectSms');
 
             this.bus.$off('getSelectProduct');
+
+            this.bus.$off('selectCpSpListBus');
 
             this.bus.$off('step3Bus');
         }

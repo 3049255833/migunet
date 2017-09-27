@@ -47,7 +47,7 @@
 
         <div class="btn-group btn-group-center">
             <div class="btn btn-primary btn-middle-100" v-if="smsRadio||smsRadio=='0'"  @click="confirm">确定</div>
-            <div class="btn btn-primary btn-middle-100 unable" v-else @click="confirm">确定</div>
+            <div class="btn btn-primary btn-middle-100 unable" v-else>确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
         </div>
 
@@ -83,7 +83,7 @@
                 search:'',
                 postData:{
                     pageNum:'1',
-                    pageSize:'8',
+                    pageSize:'5',
                     search:'',
                     smsType:this.smsType
                 }
@@ -135,8 +135,10 @@
                 if(this.smsType === '1') {
 
                     this.bus.$emit('getSelectSms', this.smsTemplateList[parseInt(this.smsRadio)]);
-                } else {
+                } else if(this.smsType === '2') {
                     this.bus.$emit('getSelectSms', this.smsTemplateList[parseInt(this.smsRadio)]);
+                } else if(this.smsType === '3') {
+                  this.bus.$emit('getSelectSms', this.smsTemplateList[parseInt(this.smsRadio)]);
                 }
 
 

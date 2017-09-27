@@ -140,7 +140,7 @@
                     that.postData[context] = that.step1PostData[context];
                 });
 
-                console.log('step-1',this.postData);
+                console.log('step-1', JSON.stringify(this.postData));
             },
 
             step2Bus(res){
@@ -157,7 +157,7 @@
                     that.postData[context] = that.step2PostData[context];
                 });
 
-                console.log('step-2',this.postData);
+                console.log('step-2', JSON.stringify(this.postData));
             },
 
             step3Bus(res){
@@ -168,7 +168,8 @@
                 });
                 this.step3Flag = true;
 
-                console.log('step-3',this.postData);
+                console.log('step-3', JSON.stringify(this.postData));
+
                 if(this.step1Flag&&this.step2Flag&&this.step3Flag){
                     console.log('触发了保存');
                     this.save();
@@ -180,6 +181,8 @@
              * */
             save(){
                 let that=this;
+
+                console.log('save: ', JSON.stringify(this.postData));
 
                 this.$http.post(this.api.saveContractProduct, this.postData).then(
                     response => {

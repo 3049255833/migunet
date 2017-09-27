@@ -30,13 +30,18 @@
                   <tr v-for="(item, index) in cpspList">
 
                       <td>
-                          <div class="checkbox-module single">
-                              <input type="checkbox"
+                          <!--<div class="radio-module single">
+                              <input type="radio"
                                      :value="index"
                                      @click="getChooseList(index, item.cpCode, item.cpName,item.id)"
                                      v-model="cpspListCheckbox" >
                               <span></span>
-                          </div>
+                          </div>-->
+
+                          <label class="radio-module">
+                              <input type="radio" :value="index" v-model="cpspRadio">
+                              <span></span>
+                          </label>
                       </td>
 
                       <td>{{item.cpCode}}</td>
@@ -48,7 +53,7 @@
       </div>
 
       <div class="btn-group btn-group-center">
-          <div class="btn btn-primary btn-middle-100"
+          <!--<div class="btn btn-primary btn-middle-100"
                v-if ='canSave'
                @click="confirm">确定</div>
 
@@ -56,7 +61,11 @@
                v-else>确定</div>
 
           <div class="btn btn-default btn-middle-100"
-               @click="cancel">取消</div>
+               @click="cancel">取消</div>-->
+
+          <div class="btn btn-primary btn-middle-100" v-if="cpspRadio||cpspRadio=='0'"  @click="confirm">确定</div>
+          <div class="btn btn-primary btn-middle-100 unable" v-else>确定</div>
+          <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
       </div>
 
       <div class="paging-wrap">
@@ -79,9 +88,9 @@
       },
       data(){
           return {
-              cpspListCheckbox:[],
+              //cpspListCheckbox:[],
               cpspList: [
-                  {
+                  /*{
                       id: '1001',
                       cpCode: '2001',
                       cpName: '南京大于好塘广告公司'
@@ -95,7 +104,7 @@
                       id: '1003',
                       cpCode: '2003',
                       cpName: '南京大于好塘广告公司'
-                  }
+                  }*/
               ],
               postData:{
                   pageNum:'1',
@@ -103,13 +112,14 @@
                   search:''
               },
               totalItem: '',
-              selectCpSpList: []
+              selectCpSpList: {},
+              cpspRadio: ''
           }
       },
       computed:{
-          canSave(){
+          /*canSave(){
               return (this.selectCpSpList.length > 0);
-          }
+          }*/
       },
       mounted(){
           /**
@@ -119,7 +129,9 @@
       },
       methods: {
           confirm() {
-              this.$modal.hide('cpSPListModal');
+              this.bus.$emit('selectCpSpListBus', this.cpspList[parseInt(this.cpspRadio)]);
+
+              //this.bus.$emit('getSelectSms', this.smsTemplateList[parseInt(this.smsRadio)]);
           },
 
           cancel() {
@@ -155,7 +167,7 @@
               });
           },
 
-          /*获取选中的列表*/
+          /*/!*获取选中的列表*!/
           getChooseList(index, code, content, id){
               let that = this;
 
@@ -180,7 +192,7 @@
                   })
               }
               console.log("selectCpSpList：" + JSON.stringify(this.selectCpSpList));
-          },
+          },*/
 
           /**
            * 获取分页信息
@@ -188,7 +200,7 @@
           getPage(res){
               this.postData.pageNum=res.pagingValue;
               this.postData.pageSize=res.pagingSize;
-              this.cpspListCheckbox=[];
+              //this.cpspListCheckbox=[];
               this.getCpSpList();
           }
       }
