@@ -122,7 +122,9 @@
                     if (res.result.resultCode == '00000000') {
 
                         this.smsTemplateList = res.data;
-                        this.totalItem=res.total
+                        this.totalItem=res.total;
+
+                        console.log("smsTemplateList: " + JSON.stringify(this.smsTemplateList));
 
                     } else {
 

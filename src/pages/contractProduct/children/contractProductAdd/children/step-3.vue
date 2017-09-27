@@ -242,7 +242,7 @@
                     //pdContractProductCodes: '', //第二步添加产品成功返回产品ID，传到第三步。
                     promptSmsCodes: '',
                     recommendCodes: '',
-                    RemindCodes: '',       //到期提醒短信
+                    remindCodes: '',       //到期提醒短信
                     mutuallyProductCodes: '',
                     dependentProductCodes: '',
                     remindDays: '',  //到期提醒提前天数
@@ -265,9 +265,12 @@
                     limitSmsAreas: '',
                     promptSmsCodes: '',
                     recommendCodes: '',
-                    RemindCodes: '',
+                    remindCodes: '',
                     mutuallyProductCodes: '',
-                    dependentProductCodes: ''
+                    dependentProductCodes: '',
+                    remindDays: '',
+                    cpCode:'',
+                    sendPlatform: ''
                 }
             }
         },
@@ -312,16 +315,19 @@
              * */
             save(){
 
-                this.postData.pdContract.remindDays = this.formData.remindDays;
+                /*this.postData.pdContract.remindDays = this.formData.remindDays;
                 this.postData.pdContract.sendPlatform=(this.formData.sendPlatform).join(',');
-                this.postData.pdContract.cpCode = this.formData.cpCode;
+                this.postData.pdContract.cpCode = this.formData.cpCode;*/
 
                 this.postData.limitSmsAreas = this.formData.limitSmsAreas;
                 this.postData.promptSmsCodes = this.formData.promptSmsCodes;
                 this.postData.recommendCodes = this.formData.recommendCodes;
-                this.postData.RemindCodes = this.formData.RemindCodes;
+                this.postData.remindCodes = this.formData.remindCodes;
                 this.postData.mutuallyProductCodes = this.formData.mutuallyProductCodes;
                 this.postData.dependentProductCodes = this.formData.dependentProductCodes;
+                this.postData.remindDays = this.formData.remindDays;
+                this.postData.sendPlatform=(this.formData.sendPlatform).join(',');
+                this.postData.cpCode = this.formData.cpCode;
 
                 this.$emit('step3Bus', {
                     step: 3,
@@ -470,7 +476,7 @@
 
                         this.RemindSmsItem = res;
 
-                        this.formData.RemindCodes = this.RemindSmsItem.id;
+                        this.formData.remindCodes = this.RemindSmsItem.id;
                     }
                 }
                 this.$modal.hide('smsListModal');
