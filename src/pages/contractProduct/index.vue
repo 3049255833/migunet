@@ -79,8 +79,6 @@
                     response => {
                         let res = response.body;
 
-                        console.log("List111: " + JSON.stringify(res));
-
                         if(res.result.resultCode=='00000000'){
 
                             for(var i = 0; i < res.data.length; i++) {
@@ -91,7 +89,7 @@
 
                             this.totalItem= res.total;
 
-                            //console.log("List: " + JSON.stringify(this.contractProductList));
+                            console.log("getContractProductList: " + JSON.stringify(this.contractProductList));
                         } else {
 
                             console.log("res: " + JSON.stringify(res));
