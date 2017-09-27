@@ -8,6 +8,7 @@ var proxy_service_e = 'http://10.5.2.52:8080';
 var proxy_service_wc = 'http://10.5.2.66:8080';
 var proxy_service_cjk='http://10.5.2.84:8080';
 var proxy_service_lfy='http://10.5.2.45:8080';
+var proxy_service_yzx='http://10.5.2.212:8080';
 var proxy_service='http://10.5.2.243:8082';
 
 
@@ -201,20 +202,25 @@ module.exports = {
 
 
             /*审批*/
-            '/productCenter/getContractAuditList': {
+            '/productAudit/getAuditList': {
                 /*获取审批列表*/
-                target:  proxy_service,
+                target:  proxy_service_yzx,
                 changeOrigin: true
             },
-            '/productCenter/auditContractProduct': {
+            '/productAudit/getAuditContractProduct': {
                 /*获取审批详情*/
-                target:  proxy_service,
+                target:  proxy_service_yzx,
                 changeOrigin: true
             },
-            '/productCenter/updateAuditStatusList': {
+            '/productAudit/updateAuditStatusList': {
                 /*审批*/
-                target:  proxy_service,
+                target:  proxy_service_yzx,
                 changeOrigin: true
+            },
+            '/productAudit/onekeyAudit': {
+              /*审批的一键审批*/
+              target:  proxy_service_yzx,
+              changeOrigin: true
             },
 
             /*短信模板*/

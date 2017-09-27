@@ -89,7 +89,7 @@
 
                             this.contractProductList = res.data;
 
-                            this.totalItem= this.contractProductList.length;
+                            this.totalItem= res.total;
 
                             //console.log("List: " + JSON.stringify(this.contractProductList));
                         } else {
@@ -104,16 +104,17 @@
              * 获取来自头部的信息
              * */
             getContractOperateData(res){
-                this.postData.keys = res.keys;
+                this.postData.value = res.value;
                 this.postData.onlineStatus = res.onlineStatus;
                 this.postData.detailStatus = res.detailStatus;
                 //this.postData.productCatalog = res.productCatalog;
-                this.postData.effectiveTime = res.effectiveTime;
-                this.postData.expireTime = res.expireTime;
+                this.postData.startTime = res.startTime;
+                this.postData.endTime = res.endTime;
 
-                this.postData.pageNo='1';
+                this.postData.pageNum='1';
                 this.$refs.pagingModule.current=1;
 
+                console.log("res1111: " + JSON.stringify(res));
 
                 this.getContractProductList();
             },
@@ -122,7 +123,7 @@
              * 获取分页信息
              * */
             getPage(res){
-                this.postData.pageNo = res.pagingValue;
+                this.postData.pageNum = res.pagingValue;
                 this.postData.pageSize = res.pagingSize;
                 this.getContractProductList();
             }

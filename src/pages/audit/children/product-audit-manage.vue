@@ -44,15 +44,15 @@
 
         methods: {
             /**
-             * 获取我的代办列表
+             * 获取产品审批管理列表
              * */
             getContractAuditList(){
-                this.$http.post(this.api.getContractAuditList, {
-                    keys: this.postData.searchKey || '',
-                    onlineStatus: this.postData.onlineStatus || '',
-                    auditStatus: this.postData.auditStatus || '',
+                this.$http.post(this.api.getAuditList, {
+                    cpCode: this.postData.searchKey || '',
+                    targetStatus: this.postData.onlineStatus || '',
                     pageSize: this.postData.pageSize || '',
-                    pageNo: this.postData.pageNum || '',
+                    pageNum: this.postData.pageNum || '',
+                    auditStatus: this.postData.auditStatus || '',
                 }, {showLoading: true}).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
@@ -114,7 +114,7 @@
 
                 this.postData.pageNum='1';
                 this.$refs.pagingModule.current=1;
-                
+
                 this.getContractAuditList();
             }
         },
@@ -130,30 +130,30 @@
     .main-wrapper {
         background: #f4f4f4;
     }
-    
+
     .nav-wrapper {
         float: left;
     }
-    
+
     .table-wrapper {
     }
-    
+
     .main-wrapper:after {
         content: '';
         display: block;
         clear: both;
     }
-    
+
     .date-wrapper {
-        
+
     }
-    
+
     .single-product {
         background-color: white;
         padding-bottom: 50px;
     }
-    
+
     input {
-        
+
     }
 </style>

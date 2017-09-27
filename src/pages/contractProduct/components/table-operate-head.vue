@@ -15,7 +15,7 @@
                            placeholder="关键信息搜索"
                            onfocus="this.placeholder=''"
                            onblur="this.placeholder='关键信息搜索'"
-                           v-model="operateData.keys"
+                           v-model="operateData.value"
                            @keyup.enter="cSendOperateData"/>
 
                     <div class="search-icon" @click="cSendOperateData"></div>
@@ -56,7 +56,7 @@
                 <div class="date-container mr-10">
                     <v-date
                             defaultText="生效时间"
-                            :dateName="'effectiveTime'"
+                            :dateName="'startTime'"
                             v-on:dateBus="getTime"
                             startTime="true">
                     </v-date>
@@ -66,7 +66,7 @@
                     <v-date
                             defaultText="失效时间"
                             startTime="false"
-                            :dateName="'expireTime'"
+                            :dateName="'endTime'"
                             v-on:dateBus="getTime">
                     </v-date>
                 </div>
@@ -94,12 +94,12 @@
                 isShow: false,
                 keyWord: '',
                 operateData: {
-                    keys: '',                  //关键字
+                    value: '',                  //关键字
                     onlineStatus: '',         //产品状态
                     detailStatus: '',
-                    productCatalog: '1',         //产品目录
-                    effectiveTime: '',         //生效时间
-                    expireTime: ''             //失效时间
+                    //productCatalog: '1',         //产品目录
+                    startTime: '',         //生效时间
+                    endTime: ''             //失效时间
                 },
                 statusOperateList: [
                     {

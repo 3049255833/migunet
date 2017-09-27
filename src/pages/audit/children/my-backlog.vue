@@ -17,7 +17,7 @@
                                        :selectType="'single'"></v-review-reject-modal>
             </t-modal-sub-container>
         </modal>
-        
+
     </div>
 </template>
 <script type="es6" >
@@ -36,9 +36,8 @@
                 postData: {
                     searchKey: '',
                     onlineStatus: '',
-                    pageSize: '8',
+                    pageSize: '5',
                     pageNum: '1'
-
                 },
                 totalItem: '',
                 auditFlag: false,
@@ -66,12 +65,12 @@
              * 获取我的代办列表
              * */
             getContractAuditList(){
-                console.log(this.postData.pageNum);
-                this.$http.post(this.api.getContractAuditList, {
-                    keys: this.postData.searchKey || '',
-                    onlineStatus: this.postData.onlineStatus || '',
+
+                this.$http.post(this.api.getAuditList, {
+                    cpCode: this.postData.searchKey || '',
+                    targetStatus: this.postData.onlineStatus || '',
                     pageSize: this.postData.pageSize || '',
-                    pageNo: this.postData.pageNum || '',
+                    pageNum: this.postData.pageNum || '',
                     auditStatus: '-1'
                 }, {showLoading: true}).then(response => {
                     let res = response.body;
@@ -79,8 +78,11 @@
                     console.log("getContractAuditList:" + JSON.stringify(res));
 
                     if (res.result.resultCode == '00000000') {
-                        this.contractAuditList = res.productAuditList.list;
-                        this.totalItem = res.productAuditList.total;
+
+                        this.contractAuditList = res.data;
+
+                        this.totalItem = res.total;
+
                         this.contractAuditList.forEach(function (item) {
                             item.auditStatusNum = item.auditStatus;
                             item.targetStatusNum = item.targetStatus;
@@ -96,20 +98,23 @@
                                     break;
                             }
                             switch (parseInt(item.targetStatus)) {
-                                case 0:
-                                    item.targetStatus = '发布';
-                                    break;
                                 case 1:
-                                    item.targetStatus = '修改';
+                                    item.targetStatus = '上线审批';
                                     break;
                                 case 2:
-                                    item.targetStatus = '定价变更';
+                                    item.targetStatus = '隐藏审批';
                                     break;
                                 case 3:
-                                    item.targetStatus = '下线';
+                                    item.targetStatus = '下线审批';
                                     break;
                                 case 4:
-                                    item.targetStatus = '恢复上线';
+                                    item.targetStatus = '注销审批';
+                                    break;
+                                case 5:
+                                    item.targetStatus = '删除审批';
+                                    break;
+                                case 6:
+                                    item.targetStatus = '变更审批';
                                     break;
                             }
                         });
