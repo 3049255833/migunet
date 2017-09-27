@@ -17,6 +17,36 @@
                 </div>
             </div>
 
+            <!--所属子公司-->
+            <div class="form-row">
+                <div class="row-left required">
+                    所属子公司：
+                </div>
+                <div class="row-right">
+                    <v-sub-company-select-box :w="'200'"
+                        :selectTitle="subCompanyText"
+                        :selectValue="'10'"
+                        :selectBoxName="'subCompanySelectBox'"
+                        :options="selectBoxList.subCompanyList"></v-sub-company-select-box>
+                </div>
+            </div>
+
+            <!--产品编码-->
+            <div class="form-row">
+                <div class="row-left">产品编码：</div>
+                <div class="row-right">
+                    <input class=" form-input pointer w-200"
+                           :class="{'error':$v.formData.productCode.$error}"
+                           v-model.trim="formData.productCode" type="text"
+                           @input="$v.formData.productCode.$touch()"
+                           placeholder="请输入"/>
+
+                    <span class="error-msg"
+                          v-if="$v.formData.productCode.$error">
+                              {{errorMsg.productCode}}</span>
+                </div>
+            </div>
+
             <!--产品描述-->
             <div class="form-row">
                 <div class="row-left">产品描述（中文）：</div>
@@ -116,8 +146,11 @@
                          class="form-input w-200 pointer"
                          readonly
                          @click="choseChannelCode"
-                         v-model.trim="formData.pdChannelCodes" placeholder="请输入"/>
+                         v-model.trim="formData.pdChannelCodes"
+                         placeholder="请输入"/>
+
                     <i class="icon icon-select"></i>
+
                     <span class="error-msg"
                         v-if="$v.formData.pdChannelCodes.$error">
                         {{errorMsg.pdChannelCodes}}</span>
@@ -175,17 +208,17 @@
                     <div class="radio-wrap">
                         <label class="radio-module w-70">
                             <input value="1"
-                                   v-model="formData.isGive"
-                                   name="isGive"
+                                   v-model="formData.isGavin"
+                                   name="isGavin"
                                    type="radio">
                             <span class="mr-3"></span>
                             <span class="txt">是</span>
                         </label>
 
                         <label class="radio-module">
-                            <input value="0"
-                                   v-model="formData.isGive"
-                                   name="isGive"
+                            <input value="2"
+                                   v-model="formData.isGavin"
+                                   name="isGavin"
                                    type="radio">
                             <span class="mr-3"></span>
                             <span class="txt">否</span>
@@ -589,6 +622,7 @@
     import TModalSubContainer from "@/components/modal-sub-container";
     import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose.vue'
     import VSelectBox from '@/components/select-box'
+    import VSubCompanySelectBox from '../components/sub-company-select-box'
     import VDate from '@/components/date'
     import VServiceCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/service-code-list.vue'
     import VChannelCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/channel-code-list.vue'
@@ -620,7 +654,9 @@
                     ifUseServiceCode: '1',     //是否使用业务代码,
 
                     pdFeePlanCodes: '',           //资费计划
-                    isGive: ''         //是否可以赠送
+                    isGavin: '2',         //是否可以赠送 1：是赠送，2：否
+                    productCode: '',   //产品编码
+                    companyFrom: '' //所属子公司的code
                 },
                 postData:{
                     pdContract:{},
@@ -628,7 +664,9 @@
                     pts:[],
                     pdFeePlanCodes:'',
                     pdAttributionCodes:'',
-                    pdChannelCodes:''
+                    pdChannelCodes:''/*,
+                    pdProductCode: '',
+                    pdSubCompanyCode: ''*/
                 },
                 paytype1: {    //接收不了嵌套验证，单独提取出来，最后再添加进去
                     serviceCode: '',
@@ -708,8 +746,10 @@
                         }, {
                             optionText: '年', optionValue: '3'
                         }
-                    ]
-                }
+                    ],
+                    subCompanyList: []
+                },
+                subCompanyText: '咪咕总公司'
             }
         },
         validations: {
@@ -760,6 +800,9 @@
                 //资费计划
                 pdFeePlanCodes:{
                     required
+                },
+                productCode: {
+                    numeric
                 }
 
 
@@ -806,7 +849,7 @@
             },
 
             validationGroup: ['formData.productName', 'formData.searchKey',
-                 'formData.effectiveTime','formData.expireTime','formData.attributionText','formData.pdChannelCodes']
+                 'formData.effectiveTime','formData.expireTime','formData.attributionText','formData.pdChannelCodes', 'formData.productCode']
         },
         computed: {
             ifUseServiceCode(){
@@ -829,9 +872,9 @@
                         flag = this.formData.expCycleUnitNum.length >= 1
                     }
 
-                    if((!this.formData.paytype.contains('1'))&&(!this.formData.paytype.contains('2'))){
+                    /*if((!this.formData.paytype.contains('1'))&&(!this.formData.paytype.contains('2'))){
                         flag=false
-                    }
+                    }*/
 
                     if (this.formData.paytype.contains('1')) {
                         if(this.formData.ifUseServiceCode==1){     //使用了业务代码
@@ -903,9 +946,31 @@
             VSelectBox,
             VServiceCodeList,
             VChannelCodeList,
-            VPlanCodeList
+            VPlanCodeList,
+            VSubCompanySelectBox
         },
         methods: {
+            /*获取所属子公司*/
+            getSubCompanyList() {
+                this.$http.get(this.api.findDictionaryType,
+                    {params: {type: 'SUBCOMPANY'}, showLoading: true}).then(
+
+                    response => {
+                        let res = response.body;
+
+                        if (res.result.resultCode == '00000000') {
+
+                            this.selectBoxList.subCompanyList = res.data;
+
+                            //console.log("subCompanyList: " + JSON.stringify(this.selectBoxList.subCompanyList));
+                        } else {
+
+                            console.log("res: " + JSON.stringify(res));
+                        }
+                    }
+                );
+            },
+
             /**
              * 保存数据
              * */
@@ -935,11 +1000,17 @@
                 this.postData.pdAttributionCodes=this.formData.pdAttributionCodes;
                 this.postData.pdChannelCodes=this.formData.pdChannelCodes;
 
+                this.postData.pdContract.productCode = this.formData.productCode;
+                this.postData.pdContract.companyFrom = this.formData.companyFrom;
+                this.postData.pdContract.isGavin = this.formData.isGavin;
 
                 this.$emit('step1Bus',{
                     step:2,
                     data:this.postData
                 });
+
+                console.log("postData1: " + JSON.stringify(this.postData));
+
                 console.log('发送step-1bus');
             },
 
@@ -1101,13 +1172,23 @@
             }
         },
         created () {
+            this.getSubCompanyList();
+
             let that = this;
 
+            this.bus.$on('subCompanySelectBoxBus', res => {
 
+                if (res.selectBoxName == 'subCompanySelectBox') {
+                    this.formData.companyFrom = res.selectOption.dictionary_code;
+
+                    this.subCompanyText = res.selectOption.dictionary_desc;
+                }
+            });
             /**
              * 获取下拉框的值
              * */
             this.bus.$on('selectBoxBus', res => {
+
                 if (res.selectBoxName == 'productDistListSelectBox') {
                     this.formData.catalogId = res.selectOption.optionValue;
                 }
@@ -1117,7 +1198,6 @@
                 if (res.selectBoxName == 'effectiveWaySelectBox') {
                     this.formData.effectiveWay = res.selectOption.optionValue;
                 }
-
                 if (res.selectBoxName == 'paytype1UnitSelectBox') {               //获取支付方式1 的产品周期
                     this.paytype1.cycleUnitSelect = res.selectOption.optionValue;
                 }
@@ -1172,7 +1252,14 @@
                     res.forEach(function (item, index) {
                         channelCodeArr.push(item.channelCode);
                     });
+
                     this.formData.pdChannelCodes = channelCodeArr.join('|');
+
+                    console.log("channelCodeArr: " + JSON.stringify(channelCodeArr));
+
+                    console.log("pdChannelCodes: " + JSON.stringify(this.formData.pdChannelCodes));
+
+
                 }
             })
 
@@ -1184,6 +1271,9 @@
             this.bus.$off('serviceCodeBus');
             this.bus.$off('dateBus');
             this.bus.$off('selectBoxBus');
+
+            this.bus.$off('subCompanySelectBoxBus');
+
             this.bus.$off('step1Bus');
         }
     }

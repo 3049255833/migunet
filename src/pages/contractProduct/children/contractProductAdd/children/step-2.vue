@@ -79,11 +79,14 @@
                                                                  v-bind:options="[{'optionText':'并且','optionValue':'1'},{'optionText':'或者','optionValue':'0'}]"></v-is-and-select-box>
                                         </div>
                                         <div class="layout-inline-middle">
-                                            <v-content-limit-select-box w="200"
-                                                                        :defaultTitle="'请选择'"
-                                                                        :pmListIndex="{'index':index,'subIndex':subIndex}"
-                                                                        v-bind:options="pdMatchFiledLists"></v-content-limit-select-box>
+                                            <v-content-limit-select-box
+                                                w="200"
+                                                :defaultTitle="'请选择'"
+                                                :pmListIndex="{'index':index,'subIndex':subIndex}"
+                                                  v-bind:options="pdMatchFiledLists">
+                                            </v-content-limit-select-box>
                                         </div>
+
                                         <span class="row-text">等于</span>
                                         <div class="layout-inline-middle">
                                             <v-pd-content-select-box w="200" selectTitle=""
@@ -359,6 +362,8 @@
                     step: 3,
                     data: this.postData
                 })
+
+                console.log("postData2: " + JSON.stringify(this.postData));
             },
 
             /**

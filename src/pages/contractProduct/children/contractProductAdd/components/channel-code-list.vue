@@ -66,14 +66,14 @@
                     if (res.result.resultCode == '00000000') {
                         //todo:
                         this.channelCodeList= res.data;
-                        console.log(res.data)
+                        //console.log(res.data)
                     } else {
 
                     }
 
                 })
             },
-            
+
             cancel(){
                 this.$modal.hide(this.modalName)
             },
@@ -90,7 +90,7 @@
                         channelName: that.channelCodeList[item].channelName
                     })
                 });
-                console.log(this.channelCodeData);
+                //console.log(this.channelCodeData);
                 this.bus.$emit('channelCodeBus', this.channelCodeData);
                 this.$modal.hide(this.modalName);
             }
@@ -116,12 +116,12 @@
             right: 20px;
         }
     }
-    
+
     .table-wrap {
         height: 400px;
         overflow-y: scroll;
     }
-    
+
     .table-module {
         width: 100%;
         border-collapse: collapse;
@@ -136,7 +136,7 @@
             td {
                 color: #6d7684;
                 padding: 0 10px;
-                
+
             }
         }
         tbody {
@@ -159,10 +159,10 @@
             }
         }
         tr {
-            
+
         }
     }
-    
+
     .btn-group {
         text-align: center;
         margin-top: 33px;

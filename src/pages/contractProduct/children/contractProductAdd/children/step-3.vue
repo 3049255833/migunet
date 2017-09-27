@@ -270,7 +270,9 @@
         methods: {
             /*获取发送平台*/
             getSendPlatform() {
-                this.$http.get(this.api.findSendPlatform, {showLoading: true}).then(
+                this.$http.get(this.api.findSendPlatform,
+                    {type: 'SEND_PLATFORM', showLoading: true}).then(
+
                     response => {
                         let res = response.body;
 

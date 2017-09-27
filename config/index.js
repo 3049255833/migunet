@@ -258,7 +258,7 @@ module.exports = {
               target: proxy_service_xl,
               changeOrigin: true
             },
-            '/contractProduct/findSendPlatform': {
+            '/contractProduct/findDictionaryType': {
               /*获取合约产品发送平台*/
               target: proxy_service_xl,
               changeOrigin: true
