@@ -35,7 +35,7 @@
                 </td>
                 <td>
                     <div class="limit-text-length code"
-                         :title="product.productCode">{{product.productCode}}
+                         :title="product.productCode">{{product.productId}}
                     </div>
                 </td>
                 <td>
@@ -49,7 +49,7 @@
                     </div>
                 </td>
                 <td>{{product.createUser}}</td>
-                <td>{{product.createTime}}</td>
+                <td>{{product.auditTime}}</td>
                 <td>
                     <div class="limit-text-length type"
                          :title="product.auditStatus">{{product.auditStatus}}

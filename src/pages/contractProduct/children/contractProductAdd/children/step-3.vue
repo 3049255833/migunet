@@ -238,7 +238,7 @@
                 addResultMsg:'',
                 formData: {
                     limitSmsAreas: '',
-                    //limitSmsAreasCode: '',
+                    limitSmsAreasCode: '',
                     //pdContractProductCodes: '', //第二步添加产品成功返回产品ID，传到第三步。
                     promptSmsCodes: '',
                     recommendCodes: '',
@@ -319,7 +319,8 @@
                 this.postData.pdContract.sendPlatform=(this.formData.sendPlatform).join(',');
                 this.postData.pdContract.cpCode = this.formData.cpCode;*/
 
-                this.postData.limitSmsAreas = this.formData.limitSmsAreas;
+                //this.postData.limitSmsAreas = this.formData.limitSmsAreas;
+                this.postData.limitSmsAreasCode = this.formData.limitSmsAreasCode;
                 this.postData.promptSmsCodes = this.formData.promptSmsCodes;
                 this.postData.recommendCodes = this.formData.recommendCodes;
                 this.postData.remindCodes = this.formData.remindCodes;
@@ -363,7 +364,9 @@
                     });
 
                     this.formData.limitSmsAreas = areaNameArr.join(',');
-                    //this.formData.limitSmsAreasCode = areaCodeArr.join(',');
+                    this.formData.limitSmsAreasCode = areaCodeArr.join(',');
+
+                    //console.log("code: " + this.formData.limitSmsAreasCode);
                 }
             },
 

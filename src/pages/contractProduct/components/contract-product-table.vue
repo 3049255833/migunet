@@ -461,12 +461,14 @@
 
             offline(cpCode, onlineStatus, detailStatus) {
                 this.postData.cpCode = cpCode;
-                this.postData.onlineStatus = onlineStatus;
-                this.postData.detailStatus = detailStatus;
+                ///this.postData.onlineStatus = onlineStatus;
+                //this.postData.detailStatus = detailStatus;
 
                 let that = this;
 
                 this.modalTitle = '是否确认下线？';
+
+                console.log("res: " + this.postData.cpCode);
 
                 this.$http.get(this.api.queryCpDepend,
                     {
@@ -479,7 +481,7 @@
 
                     console.log("res: " + JSON.stringify(res));
 
-                    if(res.resultMessage =='1'){
+                    if(res.resultCode =='1'){
 
                         that.confirmInfo = '此产品已被其他产品依赖，是否同时解除依赖关系';
 
