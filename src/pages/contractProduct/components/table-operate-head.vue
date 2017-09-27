@@ -134,43 +134,43 @@
                     },
                     {
                         optionText: '上线审批中',
-                        optionValue: '00'
+                        optionValue: '0'
                     },
                     {
                         optionText: '上线审批失败',
-                        optionValue: '01'
+                        optionValue: '1'
                     },
                     {
                         optionText: '隐藏审批中',
-                        optionValue: '02'
+                        optionValue: '2'
                     },
                     {
                       optionText: '隐藏审批失败',
-                      optionValue: '03'
+                      optionValue: '3'
                     },
                     {
                         optionText: '下线审批中',
-                        optionValue: '04'
+                        optionValue: '4'
                     },
                     {
                         optionText: '下线审批失败',
-                        optionValue: '05'
+                        optionValue: '5'
                     },
                     {
                         optionText: '注销审批中',
-                        optionValue: '06'
+                        optionValue: '6'
                     },
                     {
                         optionText: '注销审批失败',
-                        optionValue: '07'
+                        optionValue: '7'
                     },
                     {
                         optionText: '删除审批中',
-                        optionValue: '08'
+                        optionValue: '8'
                     },
                     {
                         optionText: '删除审批失败',
-                        optionValue: '09'
+                        optionValue: '9'
                     },
                     {
                         optionText: '变更审批中',

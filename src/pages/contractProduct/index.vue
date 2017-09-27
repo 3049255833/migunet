@@ -7,7 +7,9 @@
                     :contractProductList="contractProductList">
             </v-contract-product-table>
 
-            <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
+            <v-paging ref="pagingModule"
+                      :totalItem="totalItem"
+                      v-on:pagingBus="getPage"></v-paging>
         </div>
     </div>
 </template>
@@ -29,11 +31,11 @@
                 contractProductList:[],
                 postData:{
                     value:'',
-                    onlineStatus:'',
-                    detailStatus: '',
+                    onlineStatus :'',
+                    detailStatus : '',
                     //productCatalog:1,
-                    effectiveTime:'',
-                    expireTime:'',
+                    startTime :'',
+                    endTime :'',
                     pageSize:'5',
                     pageNum:'1'
                 },
@@ -79,15 +81,15 @@
 
                         console.log("List111: " + JSON.stringify(res));
 
-                        if(res.code=='0'){
+                        if(res.result.resultCode=='00000000'){
 
-                            for(var i = 0; i < res.contractProductList.list.length; i++) {
-                                res.contractProductList.list[i].isShow = false;
+                            for(var i = 0; i < res.data.length; i++) {
+                                res.data[i].isShow = false;
                             }
 
-                            this.contractProductList = res.list;
+                            this.contractProductList = res.data;
 
-                            this.totalItem= res.contractProductList.total;
+                            this.totalItem= this.contractProductList.length;
 
                             //console.log("List: " + JSON.stringify(this.contractProductList));
                         } else {
