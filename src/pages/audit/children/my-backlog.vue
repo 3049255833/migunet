@@ -76,6 +76,8 @@
                 }, {showLoading: true}).then(response => {
                     let res = response.body;
 
+                    console.log("getContractAuditList:" + JSON.stringify(res));
+
                     if (res.result.resultCode == '00000000') {
                         this.contractAuditList = res.productAuditList.list;
                         this.totalItem = res.productAuditList.total;
