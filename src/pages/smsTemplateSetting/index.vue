@@ -9,7 +9,12 @@
 
         <modal name="updateSmsTemplateModal" :width="600" :height="500" @before-close="beforeClose">
             <t-modal-sub-container :title="modalTitle" :name="'updateSmsTemplateModal'">
-                <v-update-sms-template-modal :modal-name="'updateSmsTemplateModal'" :passModal="passModal" v-on:sendSaveSuccessBus="sendSaveSuccess" :cmd="cmd">
+                <v-update-sms-template-modal
+                    :modal-name="'updateSmsTemplateModal'"
+                    :passModal="passModal"
+                    v-on:sendSaveSuccessBus="sendSaveSuccess"
+                    v-on:sendEditBus="sendEdit"
+                    :cmd="cmd">
                 </v-update-sms-template-modal>
             </t-modal-sub-container>
         </modal>
@@ -381,9 +386,16 @@ export default {
             setTimeout(function() {
                 that.getFindSmsTemplate();
             }, 2500);
+        },
+
+        /*接受编辑短信模板*/
+        sendEdit() {
+            let that = this;
+
+            setTimeout(function() {
+                that.getFindSmsTemplate();
+            }, 2500);
         }
-
-
     },
     computed: {
         totalPage() {

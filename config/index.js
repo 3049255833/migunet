@@ -59,7 +59,7 @@ module.exports = {
 
             '/productCenter/getContractProductList': {
                 /*合约产品列表的IP*/
-                target: proxy_service_cjk,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/contractProductDetail': {
@@ -175,27 +175,27 @@ module.exports = {
 
             '/productCenter/getBossInfo': {
                 /*获取业务状态列表*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/deleteBossInfo': {
-              /*删除业务*/
-                target: proxy_service,
+                /*删除业务代码*/
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/addBossInfo': {
                 /*添加业务代码*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/updateBossInfo': {
                 /*编辑业务代码*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/batchAddBossInfo': {
-                /*编辑业务代码*/
-                target: proxy_service,
+                /*批量导入业务代码*/
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
 

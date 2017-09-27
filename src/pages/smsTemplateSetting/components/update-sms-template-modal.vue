@@ -253,6 +253,8 @@
                             this.$root.toast = true;
 
                             this.$modal.hide(this.modalName);
+
+                            this.$emit('sendEditBus');
                         }
                     );
                 } else {
@@ -309,11 +311,11 @@
 
                     this.smsTypeText = '订购成功短信模板';
 
-                } else if(this.postData.smsType == '0') {
+                } else if(this.postData.smsType == '2') {
 
                     this.smsTypeText = '到期提醒短信模板';
 
-                } else if(this.postData.smsType == '0') {
+                } else if(this.postData.smsType == '3') {
 
                     this.smsTypeText = '推荐短信模板';
                 }

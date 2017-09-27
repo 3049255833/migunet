@@ -28,14 +28,14 @@
             return{
                 contractProductList:[],
                 postData:{
-                    keys:'',
+                    value:'',
                     onlineStatus:'',
                     detailStatus: '',
                     //productCatalog:1,
                     effectiveTime:'',
                     expireTime:'',
                     pageSize:'5',
-                    pageNo:'1'
+                    pageNum:'1'
                 },
                 totalItem:''
             }
@@ -77,13 +77,15 @@
                     response => {
                         let res = response.body;
 
-                        if(res.result.resultCode=='00000000'){
+                        console.log("List111: " + JSON.stringify(res));
+
+                        if(res.code=='0'){
 
                             for(var i = 0; i < res.contractProductList.list.length; i++) {
                                 res.contractProductList.list[i].isShow = false;
                             }
 
-                            this.contractProductList = res.contractProductList.list;
+                            this.contractProductList = res.list;
 
                             this.totalItem= res.contractProductList.total;
 
