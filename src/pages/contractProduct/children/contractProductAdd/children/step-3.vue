@@ -3,7 +3,7 @@
         <div class="form-wrap ">
             <!--CP/SP ID-->
             <div class="form-row">
-                <div class="row-left required">
+                <div class="row-left">
                   CP/SP ID：
                 </div>
                 <div class="row-right">
@@ -33,7 +33,7 @@
 
             <!--发送平台-->
             <div class="form-row">
-                <div class="row-left required">
+                <div class="row-left">
                   发送平台：
                 </div>
                 <div class="row-right">
@@ -245,7 +245,7 @@
                     remindCodes: '',       //到期提醒短信
                     mutuallyProductCodes: '',
                     dependentProductCodes: '',
-                    remindDays: '',  //到期提醒提前天数
+                    remindDays: '5',  //到期提醒提前天数
                     sendPlatform: [], //发送平台,
                     platform: '',
                     cpCode: ''        //CP/SP code

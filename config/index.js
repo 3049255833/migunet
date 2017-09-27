@@ -267,6 +267,11 @@ module.exports = {
               /*下载短信模板*/
               target: proxy_service_wc,
               changeOrigin: true
+            },
+            '/contractProduct/checkContractCode': {
+              /*合约产品新增验证产品编码是否重复*/
+              target: proxy_service_xl,
+              changeOrigin: true
             }
         },
         cssSourceMap: false

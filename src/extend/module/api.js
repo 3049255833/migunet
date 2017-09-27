@@ -69,6 +69,8 @@ let api = {
     judgeSmsTemplate: 'smsTemplate/judgeSmsTemplate',     //查询短信模版关联关系findSendPlatform
     findDictionaryType: 'contractProduct/findDictionaryType',    //获取合约产品发送平台
     downloadSmsTemplate: 'smsTemplate/downloadSmsTemplate',    //下载短信模板
+    checkContractCode: 'contractProduct/checkContractCode'    //合约产品新增验证产品编码是否重复
+
 };
 
 for (let key in api) {

@@ -39,6 +39,7 @@
                            :class="{'error':$v.formData.productCode.$error}"
                            v-model.trim="formData.productCode" type="text"
                            @input="$v.formData.productCode.$touch()"
+                           v-on:blur="judgeRepeat"
                            placeholder="请输入"/>
 
                     <span class="error-msg"
@@ -707,7 +708,8 @@
                         price: '请输入数字类型的金额',
                         cycleUnitNum: '请输入产品周期'
                     },
-                    timeErrorMsg:''
+                    timeErrorMsg:'',
+                    productCode: '请输入数字类型的编码'
                 },
                 selectBoxList: {
                     effectiveWayList: [
@@ -749,7 +751,11 @@
                     ],
                     subCompanyList: []
                 },
-                subCompanyText: '咪咕总公司'
+                subCompanyText: '咪咕总公司',
+                judgeRepeatPost: {
+                    productCode: '',
+                    companyFrom: ''
+                }
             }
         },
         validations: {
@@ -950,6 +956,46 @@
             VSubCompanySelectBox
         },
         methods: {
+            /*根据所属子公司判断产品编码是否重复*/
+            judgeRepeat() {
+
+                //this.formData.productCode = '';
+
+                console.log("productCode: " + this.formData.productCode);
+
+                console.log("companyFrom: " + this.formData.companyFrom);
+
+                if(this.formData.productCode != '') {
+                    this.$http.get(this.api.checkContractCode,
+                        {params: {
+                            productCode: this.formData.productCode,
+                            companyFrom: this.formData.companyFrom
+                        }, showLoading: true}).then(
+
+                        response => {
+                            let res = response.body;
+
+                            console.log("judgeRepeat: " + JSON.stringify(res));
+
+                            if (res.result.resultCode == '00000000') {//不重复
+
+                            } else if(res.result.resultCode == '00000005') { //重复
+
+                                this.$root.toastText = '原始编码重复';
+
+                                this.$root.toast = true;
+                            } else {
+                                console.log("res: " + JSON.stringify(res));
+
+                                this.$root.toastText = '验重失败';
+
+                                this.$root.toast = true;
+                            }
+                        }
+                    );
+                }
+            },
+
             /*获取所属子公司*/
             getSubCompanyList() {
                 this.$http.get(this.api.findDictionaryType,
