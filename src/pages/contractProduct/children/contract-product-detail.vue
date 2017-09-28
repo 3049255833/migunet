@@ -129,7 +129,7 @@
 
                   <button class="btn-default btn btn-middle"
                           @click="deleteCP"
-                          v-if="deleteT && this.cProduct.onlineStatus == '4'">{{deleteT}}</button>
+                          v-if="deleteT && pdOnlineStatus == '4'">{{deleteT}}</button>
 
               </div>
           </div>
@@ -151,27 +151,35 @@
                       </div>
 
                       <div class="layout-row">
-                          <span class="row-left"> 业务状态：</span>
-                          <span class="row-right"></span>
+                          <span class="row-left"> 产品状态：</span>
+                          <span class="row-right">{{cpOnlineStatus}}</span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left"> 生效方式：</span>
-                          <span class="row-right">
-                            <!--{{cProduct.effectiveTime}}-->
+                          <span class="row-right" v-if="cProduct.effectiveWay == '1'">
+                            立即生效
+                          </span>
+                          <span class="row-right" v-if="cProduct.effectiveWay == '2'">
+                            下周生效
+                          </span>
+                          <span class="row-right" v-if="cProduct.effectiveWay == '3'">
+                            下月生效
                           </span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left"> 失效时间：</span>
-                          <span class="row-right">{{cProduct.expireTime}}</span>
+                          <span class="row-right">{{cProduct.effectiveTime}}</span>
                       </div>
 
                       <div class="layout-row">
                           <span class="row-left"> 业务归属地：</span>
                           <span class="row-right">
-                              <span v-for="aItem in cProduct.attributionName">
-                                  {{aItem}}
+                              <span v-for="(item, index) in pdAttribution">
+                                  {{item.pdAttribution.attributionName}}
+
+                                  <span v-if="index != pdAttribution.length - 1">|</span>
                               </span>
                           </span>
                       </div>
@@ -179,12 +187,12 @@
                       <div class="layout-row">
                           <span class="row-left"> 是否会员产品：</span>
                           <span class="row-right" v-if="cProduct.isVip == '1'">是</span>
-                          <span class="row-right" v-else>否</span>
+                          <span class="row-right" v-else>包月</span>
                       </div>
 
                       <div class="layout-row">
                         <span class="row-left"> 是否可以赠送：</span>
-                        <span class="row-right" v-if="true">是</span>
+                        <span class="row-right" v-if="cProduct.isGavin == '1'">是</span>
                         <span class="row-right" v-else>否</span>
                       </div>
 
@@ -206,10 +214,10 @@
                       </div>
 
                       <div class="layout-row">
-                        <span class="row-left"> 到期提醒短信模板：</span>
-                        <span class="row-right">
+                          <span class="row-left"> 到期提醒短信模板：</span>
+                          <span class="row-right">
 
-                        </span>
+                          </span>
                       </div>
 
                       <div class="layout-row">
@@ -238,7 +246,7 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 审批状态：</span>
-                          <span class="row-right"></span>
+                          <span class="row-right">{{cpDetailStatus}}</span>
                       </div>
 
                       <div class="layout-row">
@@ -248,7 +256,7 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 产品目录：</span>
-                          <span class="row-right">{{cProduct.catalogName}}</span>
+                          <span class="row-right">{{pdCataLog}}</span>
                       </div>
 
                       <div class="layout-row">
@@ -285,7 +293,9 @@
 
                       <div class="layout-row">
                         <span class="row-left"> 发送平台：</span>
-                        <span class="row-right"></span>
+                        <span class="row-right">
+                          {{cProduct.sendPlatform}}
+                        </span>
                       </div>
 
                       <div class="layout-row">
@@ -300,7 +310,7 @@
 
                       <div class="layout-row">
                         <span class="row-left">到期提醒提前天数</span>
-                        <span class="row-right"></span>
+                        <span class="row-right">{{cProduct.remindDays}}天</span>
                       </div>
 
                       <div class="layout-row">
@@ -316,8 +326,8 @@
                         <div class="row-left"> CP/SP ID：</div>
 
                         <div class="row-right">
-                          <div v-for="mutexItem in mutex">
-                            <div>{{mutexItem.name}} | {{mutexItem.id}} 假数据</div>
+                          <div v-for="item in cpspList">
+                            <div>{{item.pdCp.cpCode}} | {{item.pdCp.cpName}} 假数据</div>
                           </div>
                         </div>
                       </div>
@@ -351,7 +361,8 @@
 
                               <div class="item">
                                   <span class="left"> 资费类型 ：</span>
-                                  <span class="right">{{pay.feeType}}</span>
+                                  <span class="right" v-if="pay.feeType == '1'">包月</span>
+                                  <span class="right" v-else-if="pay.feeType == '2'">点播</span>
                               </div>
 
                               <div class="item">
@@ -469,7 +480,7 @@
                           <span class="row-left"> 渠道ID：</span>
                           <span class="row-right">
                               <span v-for="(channelItem, index) in channel">
-                                  {{channelItem.id}} | {{channelItem.channelCode}}
+                                  {{channelItem.id}} | {{channelItem.channelName}}
 
                                   <span v-if="index != channel.length-1">,</span>
                               </span>
@@ -488,7 +499,7 @@
 
               <button class="btn-default btn btn-middle"
                       @click="deleteCP"
-                      v-if="deleteT && this.cProduct.onlineStatus == '0'">{{deleteT}}</button>
+                      v-if="deleteT && pdOnlineStatus == '0'">{{deleteT}}</button>
           </div>
       </div>
 
@@ -538,18 +549,23 @@
                 auditstatus: '',
                 payTypeList: [],
                 feePlanList: [],
-                mutex: [],
+                mutex: [], //互斥
                 audit: [],
                 right: [],
-                depend: [],
-                channel: {},
+                depend: [], //依赖
+                channel: [],
                 confirmInfo: '',
                 modalTitle: '',
                 postData: {         //给下线，删除，注销，上线等功能使用
                     cpCode: '',
                     onlineStatus: '',
                     detailStatus: ''
-                }
+                },
+                pdOnlineStatus: '', //产品状态
+                pdDetailStatus: '', //审批状态
+                pdAttribution: [], //业务归属地
+                pdCataLog: [], //产品目录
+                cpspList: []  //CP/SP list
             }
         },
         created(){
@@ -635,7 +651,7 @@
                 this.$http.get(this.api.getContractProductDetail,
                     {
                         params: {
-                            //productCode: productCode || '',
+                            id: '',
                             productId: productCode || ''
                         }
                     }).then(response => {
@@ -646,24 +662,34 @@
 
                         if (res.result.resultCode == '00000000') {
                             //todo: 注意，返回的字段这里list小写
-                            this.cProduct = res.contractProduct;
+                            this.cProduct = res.data.contractMap.pdContractDetails[0];//基本信息
 
-                            this.audit = res.audit;
+                            this.pdOnlineStatus = res.data.contractMap.pdContractAndStatus[0].pdStatus.onlineStatus;  //产品状态
+                            this.pdDetailStatus = res.data.contractMap.pdContractAndStatus[0].pdStatus.detailStatus;  //审批状态
 
-                            this.payTypeList = res.payTypeList;
+                            this.pdAttribution = res.data.contractMap.pdContractAndAttribution; //业务归属地
 
-                            this.mutex = res.mutex;
+                            this.pdCataLog = res.data.contractMap.pdContractAndCataLog[0];//产品目录
 
-                            this.feePlanList = res.feePlanList;
+                            this.audit = res.data.auditList; //审批列表信息
 
-                            this.right = res.right;
+                            this.payTypeList = res.data.pdPayTypeList;//支付方式
 
-                            this.auditstatus = res.auditstatus;
+                            this.mutex = res.data.contractMap.pdContractAndMutex;//互斥产品
 
-                            this.depend = res.depend;
+                            this.feePlanList = res.data.pdFeePlanList;//资费计划
 
-                            this.channel = res.channel;
-                            //console.log("res: " + JSON.stringify(this.paytypes));
+                            this.right = res.data.pdRightsList;//计费策略
+
+                            this.auditstatus = res.data.auditstatus;
+
+                            this.depend = res.data.contractMap.pdContractAndDepend;//依赖
+
+                            this.channel = res.data.pdChannelList; //渠道
+
+                            this.cpspList = res.data.contractMap.pdContractAndCpSp; //渠道
+
+                            console.log("pdChannelList: " + JSON.stringify(res.data.pdChannelList));
 
                             //console.log("product: " + JSON.stringify(this.product));
 
@@ -730,17 +756,17 @@
             cpOnlineStatus() {
                 let statusText = '';
 
-                if(this.cProduct.onlineStatus == '0') {
+                if(this.pdOnlineStatus == '0') {
                     statusText = '草稿';
-                } else if(this.cProduct.onlineStatus == '1') {
+                } else if(this.pdOnlineStatus == '1') {
                     statusText = '上线';
-                } else if(this.cProduct.onlineStatus == '2') {
+                } else if(this.pdOnlineStatus == '2') {
                     statusText = '隐藏';
-                } else if(this.cProduct.onlineStatus == '3') {
+                } else if(this.pdOnlineStatus == '3') {
                     statusText = '下线';
-                } else if(this.cProduct.onlineStatus == '4') {
+                } else if(this.pdOnlineStatus == '4') {
                     statusText = '注销';
-                } else if(this.cProduct.onlineStatus == '5') {
+                } else if(this.pdOnlineStatus == '5') {
                     statusText = '删除';
                 }
 
@@ -751,64 +777,64 @@
             cpDetailStatus() {
                 let statusText = '';
 
-                if(this.cProduct.detailStatus == '0') {
+                if(this.pdDetailStatus == '0') {
 
                     statusText = '上线审批中';
-                } else if(this.cProduct.detailStatus == '1') {
+                } else if(this.pdDetailStatus == '1') {
 
                     statusText = '上线审批失败';
-                } else if(this.cProduct.detailStatus == '2') {
+                } else if(this.pdDetailStatus == '2') {
 
                     statusText = '隐藏审批中';
-                } else if(this.cProduct.detailStatus == '3') {
+                } else if(this.pdDetailStatus == '3') {
 
                     statusText = '隐藏审批失败';
-                } else if(this.cProduct.detailStatus == '4') {
+                } else if(this.pdDetailStatus == '4') {
 
                     statusText = '下线审批中';
-                } else if(this.cProduct.detailStatus == '5') {
+                } else if(this.pdDetailStatus == '5') {
 
                     statusText = '下线审批失败';
-                } else if(this.cProduct.detailStatus == '6') {
+                } else if(this.pdDetailStatus == '6') {
 
                     statusText = '注销审批中';
-                } else if(this.cProduct.detailStatus == '7') {
+                } else if(this.pdDetailStatus == '7') {
 
                     statusText = '注销审批失败';
-                } else if(this.cProduct.detailStatus == '8') {
+                } else if(this.pdDetailStatus == '8') {
 
                     statusText = '删除审批中';
-                } else if(this.cProduct.detailStatus == '9') {
+                } else if(this.pdDetailStatus == '9') {
 
                     statusText = '删除审批失败';
-                } else if(this.cProduct.detailStatus == '10') {
+                } else if(this.pdDetailStatus == '10') {
 
                     statusText = '变更审批中';
-                } else if(this.cProduct.detailStatus == '11') {
+                } else if(this.pdDetailStatus == '11') {
 
                     statusText = '变更审批失败';
-                } else if(this.cProduct.detailStatus == '12') {
+                } else if(this.pdDetailStatus == '12') {
 
                     statusText = '变更报备中';
-                } else if(this.cProduct.detailStatus == '13') {
+                } else if(this.pdDetailStatus == '13') {
 
                     statusText = '变更报备失败';
-                } else if(this.cProduct.detailStatus == '14') {
+                } else if(this.pdDetailStatus == '14') {
 
                     statusText = '下线报备中';
-                } else if(this.cProduct.detailStatus == '15') {
+                } else if(this.pdDetailStatus == '15') {
 
                     statusText = '下线报备失败';
-                } else if(this.cProduct.detailStatus == '16') {
+                } else if(this.pdDetailStatus == '16') {
 
                     statusText = '隐藏报备中';
-                } else if(this.cProduct.detailStatus == '17') {
+                } else if(this.pdDetailStatus == '17') {
 
                     statusText = '隐藏报备失败';
-                } else if(this.cProduct.detailStatus == '18') {
+                } else if(this.pdDetailStatus == '18') {
 
                     statusText = '上线报备中';
-                } else if(this.cProduct.detailStatus == '19') {
+                } else if(this.pdDetailStatus == '19') {
 
                     statusText = '上线报备失败';
                 }
@@ -828,15 +854,15 @@
             * onlineStatus: 3 下线 && detailStatus：17
             * */
             logoutT() {
-              if((this.cProduct.onlineStatus == '3' &&
-                    (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '3' ||
-                    this.cProduct.detailStatus == '1' ||
-                    this.cProduct.detailStatus == '7' ||
-                    this.cProduct.detailStatus == '13' ||
-                    this.cProduct.detailStatus == '19' ||
-                    this.cProduct.detailStatus == '17')) ) {
+              if((this.pdOnlineStatus == '3' &&
+                    (this.pdDetailStatus == null ||
+                    this.pdDetailStatus == '11' ||
+                    this.pdDetailStatus == '3' ||
+                    this.pdDetailStatus == '1' ||
+                    this.pdDetailStatus == '7' ||
+                    this.pdDetailStatus == '13' ||
+                    this.pdDetailStatus == '19' ||
+                    this.pdDetailStatus == '17')) ) {
 
                   return '注销';
               }
@@ -859,20 +885,20 @@
              * onlineStatus: 2 隐藏 && detailStatus：15
              * */
             offlineT() {
-                if((this.cProduct.onlineStatus == '1' &&
-                      (this.cProduct.detailStatus == null ||
-                      this.cProduct.detailStatus == '11' ||
-                      this.cProduct.detailStatus == '3' ||
-                      this.cProduct.detailStatus == '5' ||
-                      this.cProduct.detailStatus == '13' ||
-                      this.cProduct.detailStatus == '15')) ||
-                  (this.cProduct.onlineStatus == '2' &&
-                      (this.cProduct.detailStatus == null ||
-                      this.cProduct.detailStatus == '11' ||
-                      this.cProduct.detailStatus == '5' ||
-                      this.cProduct.detailStatus == '1' ||
-                      this.cProduct.detailStatus == '13' ||
-                      this.cProduct.detailStatus == '15'))) {
+                if((this.pdOnlineStatus == '1' &&
+                      (this.pdDetailStatus == null ||
+                      this.pdDetailStatus == '11' ||
+                      this.pdDetailStatus == '3' ||
+                      this.pdDetailStatus == '5' ||
+                      this.pdDetailStatus == '13' ||
+                      this.pdDetailStatus == '15')) ||
+                  (this.pdOnlineStatus == '2' &&
+                      (this.pdDetailStatus == null ||
+                      this.pdDetailStatus == '11' ||
+                      this.pdDetailStatus == '5' ||
+                      this.pdDetailStatus == '1' ||
+                      this.pdDetailStatus == '13' ||
+                      this.pdDetailStatus == '15'))) {
 
                   return '下线';
                 }
@@ -902,26 +928,26 @@
              * onlineStatus: 2 隐藏 && detailStatus：15
              * */
             onlineT() {
-                if((this.cProduct.onlineStatus == '3' &&
-                      (this.cProduct.detailStatus == null ||
-                      this.cProduct.detailStatus == '11' ||
-                      this.cProduct.detailStatus == '3' ||
-                      this.cProduct.detailStatus == '1' ||
-                      this.cProduct.detailStatus == '7' ||
-                      this.cProduct.detailStatus == '13' ||
-                      this.cProduct.detailStatus == '19' ||
-                      this.cProduct.detailStatus == '19')) ||
-                (this.cProduct.onlineStatus == '2' &&
-                    (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '5' ||
-                    this.cProduct.detailStatus == '1' ||
-                    this.cProduct.detailStatus == '13' ||
-                    this.cProduct.detailStatus == '15')) ||
-                (this.cProduct.onlineStatus == '0' &&
-                    (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '1' ||
-                    this.cProduct.detailStatus == '19'))) {
+                if((this.pdOnlineStatus == '3' &&
+                      (this.pdDetailStatus == null ||
+                      this.pdDetailStatus == '11' ||
+                      this.pdDetailStatus == '3' ||
+                      this.pdDetailStatus == '1' ||
+                      this.pdDetailStatus == '7' ||
+                      this.pdDetailStatus == '13' ||
+                      this.pdDetailStatus == '19' ||
+                      this.pdDetailStatus == '19')) ||
+                (this.pdOnlineStatus == '2' &&
+                    (this.pdDetailStatus == null ||
+                    this.pdDetailStatus == '11' ||
+                    this.pdDetailStatus == '5' ||
+                    this.pdDetailStatus == '1' ||
+                    this.pdDetailStatus == '13' ||
+                    this.pdDetailStatus == '15')) ||
+                (this.pdOnlineStatus == '0' &&
+                    (this.pdDetailStatus == null ||
+                    this.pdDetailStatus == '1' ||
+                    this.pdDetailStatus == '19'))) {
 
                     return '上线';
                 }
@@ -945,22 +971,22 @@
             * onlineStatus: 3 下线 && detailStatus：17
             * */
             hideT() {
-                if((this.cProduct.onlineStatus == '1' &&
-                      (this.cProduct.detailStatus == null ||
-                      this.cProduct.detailStatus == '11' ||
-                      this.cProduct.detailStatus == '3' ||
-                      this.cProduct.detailStatus == '5' ||
-                      this.cProduct.detailStatus == '15' ||
-                      this.cProduct.detailStatus == '13')) ||
-                (this.cProduct.onlineStatus == '3' &&
-                    (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '3' ||
-                    this.cProduct.detailStatus == '1' ||
-                    this.cProduct.detailStatus == '7' ||
-                    this.cProduct.detailStatus == '13' ||
-                    this.cProduct.detailStatus == '19' ||
-                    this.cProduct.detailStatus == '17'))) {
+                if((this.pdOnlineStatus == '1' &&
+                      (this.pdDetailStatus == null ||
+                      this.pdDetailStatus == '11' ||
+                      this.pdDetailStatus == '3' ||
+                      this.pdDetailStatus == '5' ||
+                      this.pdDetailStatus == '15' ||
+                      this.pdDetailStatus == '13')) ||
+                (this.pdOnlineStatus == '3' &&
+                    (this.pdDetailStatus == null ||
+                    this.pdDetailStatus == '11' ||
+                    this.pdDetailStatus == '3' ||
+                    this.pdDetailStatus == '1' ||
+                    this.pdDetailStatus == '7' ||
+                    this.pdDetailStatus == '13' ||
+                    this.pdDetailStatus == '19' ||
+                    this.pdDetailStatus == '17'))) {
 
                     return '隐藏';
                 }
@@ -987,16 +1013,16 @@
             *
             * */
             revocationT() {
-              if((this.cProduct.onlineStatus == '0' && this.cProduct.detailStatus == '0') ||
-                (this.cProduct.onlineStatus == '4' && this.cProduct.detailStatus == '8') ||
-                (this.cProduct.onlineStatus == '1' &&
-                    (this.cProduct.detailStatus == '10' ||
-                    this.cProduct.detailStatus == '2' ||
-                    this.cProduct.detailStatus == '4')) ||
-                (this.cProduct.onlineStatus == '2' &&
-                    (this.cProduct.detailStatus == '10' ||
-                    this.cProduct.detailStatus == '4' ||
-                    this.cProduct.detailStatus == '0'))) {
+              if((this.pdOnlineStatus == '0' && this.pdDetailStatus == '0') ||
+                (this.pdOnlineStatus == '4' && this.pdDetailStatus == '8') ||
+                (this.pdOnlineStatus == '1' &&
+                    (this.pdDetailStatus == '10' ||
+                    this.pdDetailStatus == '2' ||
+                    this.pdDetailStatus == '4')) ||
+                (this.pdOnlineStatus == '2' &&
+                    (this.pdDetailStatus == '10' ||
+                    this.pdDetailStatus == '4' ||
+                    this.pdDetailStatus == '0'))) {
 
                   return '撤销';
               }
@@ -1011,13 +1037,13 @@
              * onlineStatus: 4 注销; detailStatus：09
              * */
             deleteT() {
-              if((this.cProduct.onlineStatus == '0' &&
-                    (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '1' ||
-                    this.cProduct.detailStatus == '19')) ||
-                (this.cProduct.onlineStatus == '4' && (
-                    this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '9'))) {
+              if((this.pdOnlineStatus == '0' &&
+                    (this.pdDetailStatus == null ||
+                    this.pdDetailStatus == '1' ||
+                    this.pdDetailStatus == '19')) ||
+                (this.pdOnlineStatus == '4' && (
+                    this.pdDetailStatus == null ||
+                    this.pdDetailStatus == '9'))) {
 
                   return '删除';
               }
@@ -1052,33 +1078,33 @@
              * onlineStatus: 2 隐藏; detailStatus：15
              * */
             changeInfoT() {
-              if((this.cProduct.onlineStatus == '0' &&
-                    (this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '1' ||
-                    this.cProduct.detailStatus == '19')) ||
-                (this.cProduct.onlineStatus == '1' && (
-                    this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '3' ||
-                    this.cProduct.detailStatus == '5' ||
-                    this.cProduct.detailStatus == '13' ||
-                    this.cProduct.detailStatus == '15')) ||
-                (this.cProduct.onlineStatus == '3' && (
-                    this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '3' ||
-                    this.cProduct.detailStatus == '1' ||
-                    this.cProduct.detailStatus == '7' ||
-                    this.cProduct.detailStatus == '13' ||
-                    this.cProduct.detailStatus == '19' ||
-                    this.cProduct.detailStatus == '17')) ||
-                (this.cProduct.onlineStatus == '2' && (
-                    this.cProduct.detailStatus == null ||
-                    this.cProduct.detailStatus == '11' ||
-                    this.cProduct.detailStatus == '5' ||
-                    this.cProduct.detailStatus == '1' ||
-                    this.cProduct.detailStatus == '13' ||
-                    this.cProduct.detailStatus == '15'))) {
+              if((this.pdOnlineStatus == '0' &&
+                    (this.pdDetailStatus == null ||
+                    this.pdDetailStatus == '1' ||
+                    this.pdDetailStatus == '19')) ||
+                (this.pdOnlineStatus == '1' && (
+                    this.pdDetailStatus == null ||
+                    this.pdDetailStatus == '11' ||
+                    this.pdDetailStatus == '3' ||
+                    this.pdDetailStatus == '5' ||
+                    this.pdDetailStatus == '13' ||
+                    this.pdDetailStatus == '15')) ||
+                (this.pdOnlineStatus == '3' && (
+                    this.pdDetailStatus == null ||
+                    this.pdDetailStatus == '11' ||
+                    this.pdDetailStatus == '3' ||
+                    this.pdDetailStatus == '1' ||
+                    this.pdDetailStatus == '7' ||
+                    this.pdDetailStatus == '13' ||
+                    this.pdDetailStatus == '19' ||
+                    this.pdDetailStatus == '17')) ||
+                (this.pdOnlineStatus == '2' && (
+                    this.pdDetailStatus == null ||
+                    this.pdDetailStatus == '11' ||
+                    this.pdDetailStatus == '5' ||
+                    this.pdDetailStatus == '1' ||
+                    this.pdDetailStatus == '13' ||
+                    this.pdDetailStatus == '15'))) {
 
                 return '变更信息';
               }

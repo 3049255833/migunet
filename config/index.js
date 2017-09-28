@@ -204,22 +204,22 @@ module.exports = {
             /*审批*/
             '/productAudit/getAuditList': {
                 /*获取审批列表*/
-                target:  proxy_service,
+                target:  proxy_service_yzx,
                 changeOrigin: true
             },
             '/productAudit/getAuditContractProduct': {
                 /*获取审批详情*/
-                target:  proxy_service,
+                target:  proxy_service_yzx,
                 changeOrigin: true
             },
             '/productAudit/updateAuditStatusList': {
                 /*审批*/
-                target:  proxy_service,
+                target:  proxy_service_yzx,
                 changeOrigin: true
             },
             '/productAudit/onekeyAudit': {
               /*审批的一键审批*/
-              target:  proxy_service,
+              target:  proxy_service_yzx,
               changeOrigin: true
             },
 
