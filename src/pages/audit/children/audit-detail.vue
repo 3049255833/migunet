@@ -20,20 +20,23 @@
                   <tr v-for="(item, index) in audit">
                       <td>{{item.createTime}}</td>
                       <td>{{item.createUser}}</td>
-                      <td v-if="item.targetStatus == '0'">
-                          发布
-                      </td>
-                      <td v-else-if="item.targetStatus == '1'">
-                          修改
+                      <td v-if="item.targetStatus == '1'">
+                        上线审批
                       </td>
                       <td v-else-if="item.targetStatus == '2'">
-                          定价变更
+                        隐藏审批
                       </td>
                       <td v-else-if="item.targetStatus == '3'">
-                          下线
+                        下线审批
                       </td>
                       <td v-else-if="item.targetStatus == '4'">
-                          恢复上线
+                        注销审批
+                      </td>
+                      <td v-else-if="item.targetStatus == '5'">
+                        删除审批
+                      </td>
+                      <td v-else-if="item.targetStatus == '6'">
+                        变更审批
                       </td>
                       <td v-else></td>
 
@@ -51,7 +54,7 @@
 
                           <div class=" review-fail-pass" v-else-if="item.auditStatus == '0'">
                               <i class="icon icon-fail-pass mr-5"></i>
-                              <span class="cl-fail-pass vt-middle">不通过</span>
+                              <span class="cl-fail-pass vt-middle">拒绝</span>
                           </div>
                       </td>
                       <td>{{item.auditOpinion}}</td>
@@ -98,30 +101,25 @@
               <div class="item">
                   <div class="item-img"></div>
 
-                  <div class="item-txt">
-                      <p v-if="auditstatus.targetStatus == '0'">
-                        发布
-                      </p>
-                      <p v-else-if="auditstatus.targetStatus == '1'">
-                        修改
-                      </p>
-                      <p v-else-if="auditstatus.targetStatus == '2'">
-                        定价变更
-                      </p>
-                      <p v-else-if="auditstatus.targetStatus == '3'">
-                        下线
-                      </p>
-                      <p v-else-if="auditstatus.targetStatus == '4'">
-                        恢复上线
-                      </p>
-                      <p v-else=""></p>
+                  <div class="item-txt status">
                       <p>
-                          产品状态
+                          <span v-if="cpOnlineStatus != '' && cpDetailStatus != ''">
+                            {{cpOnlineStatus}} （{{cpDetailStatus}} ）
+                          </span>
+                          <span v-else-if="cpOnlineStatus != '' && cpDetailStatus == ''">
+                                  {{cpOnlineStatus}}
+                                </span>
+                          <span v-else-if="cpOnlineStatus == '' && cpDetailStatus != ''">
+                                  {{cpDetailStatus}}
+                                </span>
+                          <span v-else></span>
                       </p>
+
+                      <p>产品状态</p>
                   </div>
               </div>
 
-              <div class="btn-group review-btn" v-if="auditstatus.auditStatus == '-1'">
+              <div class="btn-group review-btn" v-if="auditstatus == '-1'">
                   <button class="btn btn-primary btn-middle"
                           @click="pass">通过</button>
 
@@ -129,11 +127,11 @@
                           @click="noPass">不通过</button>
               </div>
 
-              <div class="review-mark item" v-else-if="auditstatus.auditStatus == '1'">
+              <div class="review-mark item" v-else-if="auditstatus == '1'">
                   <img src="../../../assets/review-pass.png">
               </div>
 
-              <div class="review-mark item" v-else-if="auditstatus.auditStatus == '0'">
+              <div class="review-mark item" v-else-if="auditstatus == '0'">
                   <img src="../../../assets/review-reject.png">
               </div>
           </div>
@@ -163,25 +161,33 @@
                                 <div class="layout-row">
                                     <span class="row-left"> 产品状态：</span>
                                     <span class="row-right">
-                                        <!-- {{cProduct.productDesc}} -->
+                                        {{cpOnlineStatus}}
                                     </span>
                                 </div>
                                 <div class="layout-row">
                                     <span class="row-left"> 生效方式：</span>
-                                    <span class="row-right">
-                                        <!-- {{cProduct.productDesc}} -->
+                                    <span class="row-right" v-if="cProduct.effectiveWay == '1'">
+                                      立即生效
+                                    </span>
+                                    <span class="row-right" v-if="cProduct.effectiveWay == '2'">
+                                      下周生效
+                                    </span>
+                                    <span class="row-right" v-if="cProduct.effectiveWay == '3'">
+                                      下月生效
                                     </span>
                                 </div>
                                 <div class="layout-row">
                                     <span class="row-left"> 失效时间：</span>
-                                    <span class="row-right">{{cProduct.expireTime}}</span>
+                                    <span class="row-right">{{cProduct.effectiveTime}}</span>
                                 </div>
 
                                 <div class="layout-row">
                                     <span class="row-left"> 业务归属地：</span>
                                     <span class="row-right">
-                                        <span v-for="aItem in cProduct.attributionName">
-                                            {{aItem}}
+                                        <span v-for="(item, index) in pdAttribution">
+                                            {{item.pdAttribution.attributionName}}
+
+                                            <span v-if="index != pdAttribution.length - 1">|</span>
                                         </span>
                                     </span>
                                 </div>
@@ -189,20 +195,22 @@
                                 <div class="layout-row">
                                     <span class="row-left"> 是否会员产品：</span>
                                     <span class="row-right" v-if="cProduct.isVip == '1'">是</span>
-                                    <span class="row-right" v-else>否</span>
+                                    <span class="row-right" v-else>包月</span>
                                 </div>
 
                                 <div class="layout-row">
                                     <span class="row-left"> 是否可以赠送：</span>
-                                    <!-- <span class="row-right" v-if="cProduct.isExperience == '1'">是</span>
-                                    <span class="row-right" v-else>否</span> -->
-                                    <span class="row-right">是</span>
+                                  <span class="row-right" v-if="cProduct.isGavin == '1'">是</span>
+                                  <span class="row-right" v-else>否</span>
                                 </div>
 
                                 <div class="layout-row">
                                     <span class="row-left"> 创建用户：</span>
-                                    <span class="row-right">
+                                    <span class="row-right" v-if="cProduct.createUser != null">
                                         {{cProduct.createUser}}
+                                    </span>
+                                            <span class="row-right" v-else>
+                                        Admin
                                     </span>
                                 </div>
 
@@ -213,22 +221,22 @@
 
                                 <div class="layout-row">
                                     <span class="row-left"> 到期提醒短信模板：</span>
-                                    <span class="row-right"> </span>
+                                    <span class="row-right">{{pdRemindSms}} </span>
                                 </div>
                                 <div class="layout-row">
                                     <span class="row-left">
                                         订购成功下发送推荐短信：
                                     </span>
-                                    <span class="row-right"></span>
+                                    <span class="row-right">{{pdRecommendSms}}</span>
                                 </div>
 
                                 <div class="layout-row  no-pb">
                                     <div class="row-left"> 互斥产品：</div>
 
                                     <div class="row-right">
-                                        <div v-for="mutexItem in mutex">
-                                            <div>{{mutexItem.name}} | {{mutexItem.id}}</div>
-                                        </div>
+                                      <div v-for="mutexItem in mutex">
+                                        <div>{{mutexItem.productName}} | {{mutexItem.productCode}}</div>
+                                      </div>
                                     </div>
                                 </div>
                         </div>
@@ -241,17 +249,17 @@
 
                             <div class="layout-row">
                                     <span class="row-left"> 审批状态：</span>
-                                    <span class="row-right"></span>
+                                    <span class="row-right">{{cpDetailStatus}}</span>
                             </div>
                             <div class="layout-row">
                                     <span class="row-left"> 生效时间：</span>
                                     <span class="row-right">{{cProduct.effectiveTime}}</span>
                             </div>
 
-                            <div class="layout-row">
+                            <!--<div class="layout-row">
                                     <span class="row-left"> 产品目录：</span>
                                     <span class="row-right">{{cProduct.catalogName}}</span>
-                            </div>
+                            </div>-->
                             <div class="layout-row">
                                 <span class="row-left"> 是否体验产品：</span>
                                 <span class="row-right" v-if="cProduct.isExperience == '1'">是</span>
@@ -279,7 +287,7 @@
                             </div>
                             <div class="layout-row">
                                 <span class="row-left"> 发送平台：</span>
-                                <span class="row-right"></span>
+                                <span class="row-right">{{cProduct.sendPlatform}}</span>
                             </div>
                             <div class="layout-row">
                                 <span class="row-left"> 创建时间：</span>
@@ -288,24 +296,26 @@
 
                             <div class="layout-row">
                                 <span class="row-left">订购成功下发提示短信：</span>
-                                <span class="row-right"></span>
+                                <span class="row-right">{{pdPromptSms}}</span>
                             </div>
 
                             <div class="layout-row">
                                 <span class="row-left"> 到期提醒提前天数：</span>
-                                <span class="row-right"></span>
+                                <span class="row-right">{{cProduct.remindDays}}天</span>
                             </div>
 
                             <div class="layout-row">
                                 <span class="row-left"> 依赖产品：</span>
                                 <span class="row-right">
-                                    <span v-for="dItem in depend">{{dItem.name}} | {{dItem.id}}</span>
+                                    <span v-for="dItem in depend">
+                                        {{dItem.productName}} | {{dItem.productCode}}
+                                    </span>
                                 </span>
                             </div>
 
                             <div class="layout-row">
                                 <span class="row-left"> CP/SP ID：</span>
-                                <span class="row-right"></span>
+                                <!--<span class="row-right">{{cpspList[0].pdCp.cpName}} | {{cpspList[0].pdCp.cpCode}}</span>-->
                             </div>
                     </div>
                 </div>
@@ -332,7 +342,8 @@
 
                                 <div class="item">
                                     <span class="left"> 资费金额（分） ：</span>
-                                    <span class="right">{{pay.price}}</span>
+                                  <span class="right" v-if="pay.feeType == '1'">包月</span>
+                                  <span class="right" v-else-if="pay.feeType == '2'">点播</span>
                                 </div>
 
                                 <div class="item">
@@ -348,7 +359,20 @@
 
                                 <div class="item">
                                     <span class="left"> 产品周期 ：</span>
-                                    <span class="right">{{pay.cycleUnitNum}}</span>
+                                    <span class="left"
+                                          v-if="pay.cycleUnitNum == '-1'">永久有效</span>
+
+                                    <span class="left" v-else>
+                                        {{pay.cycleUnitNum}}
+
+                                        <span v-if="pay.feeType == '0'">天</span>
+
+                                        <span v-else-if="pay.feeType == '1'">周</span>
+
+                                        <span v-else-if="pay.feeType == '2'">月</span>
+
+                                        <span v-else-if="pay.feeType == '3'">年</span>
+                                    </span>
                                 </div>
                             </div>
                             </div>
@@ -450,7 +474,13 @@
                         </div> -->
                         <div class="layout-row">
                             <span class="row-left"> 渠道ID：</span>
-                            <span class="row-right"></span>
+                            <span class="row-right">
+                                <span v-for="(channelItem, index) in channel">
+                                    {{channelItem.id}} | {{channelItem.channelName}}
+
+                                    <span v-if="index != channel.length-1">,</span>
+                                </span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -487,9 +517,6 @@
       data (){
           return {
               productCode: this.$route.params.productCode,
-              //targetStatus: this.$route.params.targetStatus,
-              //statusId: this.$route.params.statusId,
-              //id: this.$route.params.id,
               auId: this.$route.params.auId,
               auditstatus: '',
               cProduct: {},
@@ -507,16 +534,28 @@
                   right: '2%'
               },
               postDataList: [],
+
+              pdOnlineStatus: '', //产品状态
+              pdDetailStatus: '', //审批状态
+              pdAttribution: [], //业务归属地
+              pdCataLog: [], //产品目录
+              cpspList: [],  //CP/SP list,
+              pdPromptSms: '', //订购成功下发提示短信 1
+              pdRemindSms: '', //到期提醒短信模板 2
+              pdRecommendSms: '', //推荐短信模板3
+
               auditOpinion: '',
               noPassPostDataList: [],
               pageSize: '',
-              pageNum: ''
+              pageNum: '',
+
+              targetStatus: ''//暂时
           }
       },
       created(){
           this.getAuditContractProduct(this.productCode, this.auId);
 
-          console.log("targetStatus: " + this.targetStatus);
+          //console.log("targetStatus: " + this.targetStatus);
 
           /**
            * 接收来自确认modal框的信息
@@ -530,7 +569,7 @@
                   auditStatus: '1',
                   auditOpinion: '',
                   auditTime: that.utils.getNowDate(),
-                  targetStatus: that.targetStatus,
+                  //targetStatus: that.targetStatus,
                   auditPerson: 'admin',
                   cstModified: that.utils.getNowDate(),
                   detailStatus: '',
@@ -588,29 +627,38 @@
 
                   if (res.result.resultCode == '00000000') {
                       //todo: 注意，返回的字段这里list小写
+                      this.cProduct = res.data.contractMap.pdContractDetails[0];//基本信息
 
-                      this.cProduct = res.contractProduct;
+                      this.pdOnlineStatus = res.data.contractMap.pdContractAndStatus[0].pdStatus.onlineStatus;  //产品状态
+                      this.pdDetailStatus = res.data.contractMap.pdContractAndStatus[0].pdStatus.detailStatus;  //审批状态
 
-                      this.audit = res.audit;
+                      this.pdAttribution = res.data.contractMap.pdContractAndAttribution; //业务归属地
 
-                      this.payTypeList = res.payTypeList;
+                      this.pdCataLog = res.data.contractMap.pdContractAndCataLog[0];//产品目录
 
-                      this.mutex = res.mutex;
+                      this.audit = res.data.auditList; //审批列表信息
 
-                      this.feePlanList = res.feePlanList;
+                      this.payTypeList = res.data.pdPayTypeList;//支付方式
 
-                      this.right = res.right;
+                      this.mutex = res.data.contractMap.pdContractAndMutex;//互斥产品
 
-                      this.auditstatus = res.auditstatus;
+                      this.feePlanList = res.data.pdFeePlanList;//资费计划
 
-                      this.depend = res.depend;
+                      this.right = res.data.pdRightsList;//计费策略
 
-                      this.channel = res.channel;
+                      this.pdPromptSms = res.data.contractMap.pdSSMOne;//提示短信
 
-                      //console.log("cProduct: " + JSON.stringify(this.cProduct));
-                      //console.log("contractProduct: " + JSON.stringify(res.contractProduct));
+                      this.pdRemindSms = res.data.contractMap.pdSSMTwo;//到期提醒短信
 
-                      //console.log("product: " + JSON.stringify(this.product));
+                      this.pdRecommendSms = res.data.contractMap.pdSSMThree;//推荐短信
+
+                      this.auditstatus = res.data.pdAuditDetails.auditStatus;
+
+                      this.depend = res.data.contractMap.pdContractAndDepend;//依赖
+
+                      this.channel = res.data.pdChannelList; //渠道
+
+                      this.cpspList = res.data.contractMap.pdContractAndCpSp; //渠道
                   } else {
 
                   }
@@ -628,7 +676,7 @@
                   auditStatus: '0',
                   auditOpinion: this.auditOpinion,
                   auditTime: that.utils.getNowDate(),
-                  targetStatus: this.targetStatus + '2',
+                  //targetStatus: this.targetStatus + '2',
                   auditPerson: 'admin',
                   cstModified: that.utils.getNowDate(),
                   detailStatus: ''
@@ -669,7 +717,95 @@
           }
       },
       computed: {
+          /*合约产品的业务状态*/
+          cpOnlineStatus() {
+            let statusText = '';
 
+            if(this.pdOnlineStatus == '0') {
+              statusText = '草稿';
+            } else if(this.pdOnlineStatus == '1') {
+              statusText = '上线';
+            } else if(this.pdOnlineStatus == '2') {
+              statusText = '隐藏';
+            } else if(this.pdOnlineStatus == '3') {
+              statusText = '下线';
+            } else if(this.pdOnlineStatus == '4') {
+              statusText = '注销';
+            } else if(this.pdOnlineStatus == '5') {
+              statusText = '删除';
+            }
+
+            return statusText;
+          },
+
+          /*合约产品的审批状态*/
+          cpDetailStatus() {
+            let statusText = '';
+
+            if(this.pdDetailStatus == '0') {
+
+              statusText = '上线审批中';
+            } else if(this.pdDetailStatus == '1') {
+
+              statusText = '上线审批失败';
+            } else if(this.pdDetailStatus == '2') {
+
+              statusText = '隐藏审批中';
+            } else if(this.pdDetailStatus == '3') {
+
+              statusText = '隐藏审批失败';
+            } else if(this.pdDetailStatus == '4') {
+
+              statusText = '下线审批中';
+            } else if(this.pdDetailStatus == '5') {
+
+              statusText = '下线审批失败';
+            } else if(this.pdDetailStatus == '6') {
+
+              statusText = '注销审批中';
+            } else if(this.pdDetailStatus == '7') {
+
+              statusText = '注销审批失败';
+            } else if(this.pdDetailStatus == '8') {
+
+              statusText = '删除审批中';
+            } else if(this.pdDetailStatus == '9') {
+
+              statusText = '删除审批失败';
+            } else if(this.pdDetailStatus == '10') {
+
+              statusText = '变更审批中';
+            } else if(this.pdDetailStatus == '11') {
+
+              statusText = '变更审批失败';
+            } else if(this.pdDetailStatus == '12') {
+
+              statusText = '变更报备中';
+            } else if(this.pdDetailStatus == '13') {
+
+              statusText = '变更报备失败';
+            } else if(this.pdDetailStatus == '14') {
+
+              statusText = '下线报备中';
+            } else if(this.pdDetailStatus == '15') {
+
+              statusText = '下线报备失败';
+            } else if(this.pdDetailStatus == '16') {
+
+              statusText = '隐藏报备中';
+            } else if(this.pdDetailStatus == '17') {
+
+              statusText = '隐藏报备失败';
+            } else if(this.pdDetailStatus == '18') {
+
+              statusText = '上线报备中';
+            } else if(this.pdDetailStatus == '19') {
+
+              statusText = '上线报备失败';
+            }
+
+            return statusText;
+          }
       },
       destroyed() {
           this.bus.$off('auditDetailsComfirmInfoBus');
@@ -832,7 +968,7 @@
               margin-bottom: 38px;
 
               .info-wrap {
-                  font-size: 14px;
+                  //font-size: 12px;
                   .layout-row.no-pb {
                       overflow: hidden;
 
