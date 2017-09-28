@@ -135,13 +135,6 @@
                   <img src="../../../assets/review-reject.png">
               </div>
           </div>
-
-          <v-confirm-popover-modal
-              :confirmInfo="confirmInfo"
-              :isHideConfim="isHideConfim"
-              details="auditDetails"
-              v-bind:style="styleComfirm">
-          </v-confirm-popover-modal>
       </div>
 
       <div class="info-container">
@@ -495,6 +488,23 @@
               </v-review-reject-modal>
           </t-modal-sub-container>
       </modal>
+
+      <modal name="auditDetailsConfirmModal"
+             :width="390"
+             :height="200"
+             @before-close="beforeClose">
+
+          <t-modal-sub-container
+              :title="'是否确认审核'"
+              :name="'auditDetailsConfirmModal'">
+
+              <v-confirm-delete-modal
+                :functionType="'auditDetailsPassConfirmInfo'"
+                :confirmInfo="'是否审核通过该产品'">
+              </v-confirm-delete-modal>
+
+          </t-modal-sub-container>
+      </modal>
   </div>
 </template>
 
@@ -504,6 +514,7 @@
   import VReviewRejectModal from '../components/review-reject-modal'
   import TModalSubContainer from "@/components/modal-sub-container"
   import VNolist from '@/components/no-list'
+  import VConfirmDeleteModal from '@/components/confirm-delete-modal/confirm-delete-modal'
 
   export default {
       name: 'Review',
@@ -512,12 +523,14 @@
           VConfirmPopoverModal,
           VOperateSuccessModal,
           TModalSubContainer,
-          VNolist
+          VNolist,
+          VConfirmDeleteModal
       },
       data (){
           return {
               productCode: this.$route.params.productCode,
               auId: this.$route.params.auId,
+              targetStatus: this.$route.params.targetStatus,
               auditstatus: '',
               cProduct: {},
               payTypeList: [],
@@ -527,12 +540,6 @@
               right: [],
               depend: [],
               channel: {},
-              confirmInfo: '',
-              isHideConfim: true,
-              styleComfirm: {
-                  top: '25%',
-                  right: '2%'
-              },
               postDataList: [],
 
               pdOnlineStatus: '', //产品状态
@@ -547,9 +554,7 @@
               auditOpinion: '',
               noPassPostDataList: [],
               pageSize: '',
-              pageNum: '',
-
-              targetStatus: ''//暂时
+              pageNum: ''
           }
       },
       created(){
@@ -560,16 +565,16 @@
           /**
            * 接收来自确认modal框的信息
            * */
-          this.bus.$on('auditDetailsComfirmInfoBus', res => {
+          this.bus.$on('auditDetailsPassConfirmInfoBus', res => {
               let that = this;
 
               that.postDataList.push({
-                  id: that.id,
+                  id: that.productCode,
                   statusId: that.statusId,
                   auditStatus: '1',
                   auditOpinion: '',
                   auditTime: that.utils.getNowDate(),
-                  //targetStatus: that.targetStatus,
+                  targetStatus: that.targetStatus,
                   auditPerson: 'admin',
                   cstModified: that.utils.getNowDate(),
                   detailStatus: '',
@@ -579,7 +584,7 @@
 
               console.log("postDataList: " + JSON.stringify(this.postDataList));
 
-              this.isHideConfim = true;
+              this.$modal.hide('auditDetailsConfirmModal');
 
               that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response => {
                   let res = response.body;
@@ -587,7 +592,11 @@
                   if (res.result.resultCode == '00000000') {
                       this.$root.toastText = '审批成功';
                       this.$root.toast = true;
-                      this.getAuditContractProduct(this.productCode, this.id);
+
+                      setTimeout(function(){
+                          that.getAuditContractProduct(that.productCode, that.auId);
+                      },2000);
+
                   } else {
                       this.$root.toastText = '审批失败';
                       this.$root.toast = true;
@@ -596,13 +605,6 @@
                   this.$root.toastText = '服务器错误';
                   this.$root.toast = true;
               })
-          });
-
-          /**
-           * 接收来自取消modal框的信息
-           * */
-          this.bus.$on('auditDetailsCancelInfoBus', res => {
-              this.isHideConfim = true;
           });
       },
       methods: {
@@ -671,32 +673,33 @@
               this.auditOpinion = res;
 
               that.noPassPostDataList.push({
-                  id: that.id,
+                  id: that.productCode,
                   statusId: that.statusId,
                   auditStatus: '0',
                   auditOpinion: this.auditOpinion,
                   auditTime: that.utils.getNowDate(),
-                  //targetStatus: this.targetStatus + '2',
+                  targetStatus: this.targetStatus,
                   auditPerson: 'admin',
                   cstModified: that.utils.getNowDate(),
                   detailStatus: ''
               });
 
-              console.log("no pass postDataList: " + JSON.stringify(this.noPassPostDataList));
+              this.$modal.hide('reviewRejectModal');
 
               that.$http.post(this.api.updateAuditStatusList,that.noPassPostDataList).then(response => {
                   let res = response.body;
 
                   if (res.result.resultCode == '00000000') {
-                      this.$root.toastText = '审批不通过成功';
+                      this.$root.toastText = '审批成功';
                       this.$root.toast = true;
 
-                      this.getAuditContractProduct(this.productCode, this.id);
+                      setTimeout(function(){
+                          that.getAuditContractProduct(that.productCode, that.auId);
+                      },2000);
                   } else {
-                      this.$root.toastText = '审批不通过失败';
+                      this.$root.toastText = '审批失败';
                       this.$root.toast = true;
                   }
-                  this.$modal.hide('reviewRejectModal');
 
                 }, (response) => {
                     this.$root.toastText = '服务器错误';
@@ -711,10 +714,14 @@
           },
 
           pass() {
-              this.isHideConfim = false;
+              //this.isHideConfim = false;
 
-              this.confirmInfo = "是否审核通过该产品";
-          }
+              //this.confirmInfo = "是否审核通过该产品";
+
+              this.$modal.show('auditDetailsConfirmModal');
+          },
+
+          beforeClose() {}
       },
       computed: {
           /*合约产品的业务状态*/

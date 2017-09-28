@@ -61,6 +61,9 @@
                         this.totalItem = res.total;
 
                         this.contractAuditList.forEach(function(item){
+                            item.auditStatusNum = item.auditStatus;
+                            item.targetStatusNum = item.targetStatus;
+
                             switch (parseInt(item.auditStatus)) {
                                 case 0:
                                   item.auditStatus = '拒绝';

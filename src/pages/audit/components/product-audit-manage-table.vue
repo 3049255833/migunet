@@ -19,14 +19,12 @@
                          :title="product.productName">{{product.productName}}</div></td>
 
                 <td><div class="limit-text-length code"
-                         :title="product.productCode">{{product.productCode}}</div></td>
+                         :title="product.productCode">{{product.productId}}</div></td>
                  <td><div class="limit-text-length code"
                          :title="'product.cpCode'">{{product.cpCode}}</div></td>
 
                 <td><div class="limit-text-length type"
                          :title="'product.targetStatus'">{{product.targetStatus}}</div></td>
-
-
 
                 <td>{{product.createUser}}</td>
                 <td>{{product.createTime}}</td>
@@ -37,12 +35,12 @@
                 <td>
                     <div class="operate-list">
                         <span v-if="product.auditStatus=='待审批'"
-                              @click="auditProduct(product.productCode,
-                        product.targetStatus, product.statusId, product.id)"
+                              @click="auditProduct(product.productId,
+                        product.auId, product.targetStatusNum)"
                               class="pointer mr-30 cl-blue">审批</span>
                         <span v-else
-                              @click="getAuditDetail(product.productCode,
-                        product.targetStatus, product.statusId, product.id)"
+                              @click="getAuditDetail(product.productId,
+                        product.auId, product.targetStatusNum)"
                               class="pointer mr-30 cl-blue">详情</span>
                     </div>
                 </td>
@@ -63,7 +61,7 @@
     export default {
         name: 'ProductAuditManageTable',
         props:{
-            contractAuditList: Array,
+            contractAuditList: Array
         },
         components: {
             VPaging,
@@ -77,30 +75,33 @@
 
         methods: {
             /*审批*/
-            auditProduct(productCode, targetStatus, statusId, id){
-                if(targetStatus == '发布') {
-                    targetStatus = '0';
-
-                } else if(targetStatus == '修改') {
-
+            auditProduct(productCode, auId, targetStatus){
+                /*if(targetStatus == '上线审批') {
                     targetStatus = '1';
-                } else if(targetStatus == '定价变更') {
+
+                } else if(targetStatus == '隐藏审批') {
 
                     targetStatus = '2';
-                } else if(targetStatus == '下线') {
+                } else if(targetStatus == '下线审批') {
 
                     targetStatus = '3';
-                } else if(targetStatus == '恢复上线') {
+                } else if(targetStatus == '注销审批') {
 
                     targetStatus = '4';
-                }
+                } else if(targetStatus == '删除审批') {
 
-                this.$router.push({'name': 'ProductAuditManageDetail', params: {'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
+                    targetStatus = '5';
+                } else if(targetStatus == '变更审批') {
+
+                    targetStatus = '6';
+                }*/
+
+                this.$router.push({'name': 'ProductAuditManageDetail', params: {'productCode': productCode, 'auId': auId, 'targetStatus': targetStatus}});
             },
 
             /*详情*/
-            getAuditDetail(productCode, targetStatus, statusId, id){
-                if(targetStatus == '发布') {
+            getAuditDetail(productCode, auId, targetStatus){
+                /*if(targetStatus == '发布') {
                     targetStatus = '0';
 
                 } else if(targetStatus == '修改') {
@@ -115,9 +116,11 @@
                 } else if(targetStatus == '恢复上线') {
 
                     targetStatus = '4';
-                }
+                }*/
 
-                this.$router.push({'name': 'ProductAuditManageDetail',params:{'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});
+                /*this.$router.push({'name': 'ProductAuditManageDetail',params:{'productCode': productCode, 'targetStatus': targetStatus, 'statusId': statusId,'id': id}});*/
+
+                this.$router.push({'name': 'ProductAuditManageDetail', params: {'productCode': productCode, 'auId': auId, 'targetStatus': targetStatus}});
             }
         }
 

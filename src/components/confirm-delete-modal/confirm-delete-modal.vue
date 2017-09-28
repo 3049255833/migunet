@@ -44,6 +44,9 @@
                 } else if(this.functionType === 'myBackLogOneKeyPassComfirmInfo') {
 
                     this.bus.$emit('myBackLogOneKeyPassComfirmInfoBus');
+                } else if(this.functionType === 'auditDetailsPassConfirmInfo') {
+
+                    this.bus.$emit('auditDetailsPassConfirmInfoBus');
                 }
 
                 event.stopPropagation();
@@ -72,6 +75,9 @@
                 } else if(this.functionType === 'myBackLogOneKeyPassComfirmInfo') {
 
                     this.$modal.hide('myBackLogComfirmModal');
+                } else if(this.functionType === 'auditDetailsPassConfirmInfo') {
+
+                    this.$modal.hide('auditDetailsConfirmModal');
                 }
 
                 event.stopPropagation();

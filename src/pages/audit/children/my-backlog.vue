@@ -128,8 +128,6 @@
                 }, {showLoading: true}).then(response => {
                     let res = response.body;
 
-                    console.log("getContractAuditList:" + JSON.stringify(res));
-
                     if (res.result.resultCode == '00000000') {
 
                         this.contractAuditList = res.data;
@@ -172,6 +170,8 @@
                             }
                         });
                         this.$refs.myBacklogTable.auditCheckbox=[];
+
+                        console.log("getContractAuditList:" + JSON.stringify(this.contractAuditList));
 
                     } else {
                         this.contractAuditList = [];
