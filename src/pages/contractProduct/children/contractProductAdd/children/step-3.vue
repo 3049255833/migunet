@@ -319,8 +319,8 @@
                 this.postData.pdContract.sendPlatform=(this.formData.sendPlatform).join(',');
                 this.postData.pdContract.cpCode = this.formData.cpCode;*/
 
-                //this.postData.limitSmsAreas = this.formData.limitSmsAreas;
-                this.postData.limitSmsAreasCode = this.formData.limitSmsAreasCode;
+                this.postData.limitSmsAreas = this.formData.limitSmsAreasCode;
+                //this.postData.limitSmsAreasCode = this.formData.limitSmsAreasCode;
                 this.postData.promptSmsCodes = this.formData.promptSmsCodes;
                 this.postData.recommendCodes = this.formData.recommendCodes;
                 this.postData.remindCodes = this.formData.remindCodes;
