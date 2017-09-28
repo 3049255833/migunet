@@ -461,8 +461,8 @@
 
             offline(cpCode, onlineStatus, detailStatus) {
                 this.postData.cpCode = cpCode;
-                ///this.postData.onlineStatus = onlineStatus;
-                //this.postData.detailStatus = detailStatus;
+                this.postData.onlineStatus = onlineStatus;
+                this.postData.detailStatus = detailStatus;
 
                 let that = this;
 
@@ -473,7 +473,7 @@
                 this.$http.get(this.api.queryCpDepend,
                     {
                         params:{
-                          cpCode: cpCode
+                          cpUniCode: cpCode
                         }
                     }).then(response => {
 
@@ -532,7 +532,7 @@
                     this.$http.get(this.api.updateProductState,
                         {
                             params:{
-                                cpCode:this.postData.cpCode,
+                                cpUniCode:this.postData.cpCode,
                                 onlineStatus:this.postData.onlineStatus,
                                 detailStatus:'8'
                             }
@@ -560,7 +560,7 @@
                     this.$http.get(this.api.updateProductState,
                         {
                             params:{
-                                cpCode:this.postData.cpCode,
+                                cpUniCode:this.postData.cpCode,
                                 onlineStatus:this.postData.onlineStatus,
                                 detailStatus:'4'
                             }

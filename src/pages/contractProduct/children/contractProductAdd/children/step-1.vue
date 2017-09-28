@@ -1336,6 +1336,10 @@
         color: #333333;
         box-sizing: border-box;
 
+        .radio-module {
+            width: 120px;
+        }
+
         .form-wrap {
             padding: 40px 110px;
             .form-row {
