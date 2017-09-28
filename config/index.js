@@ -49,23 +49,23 @@ module.exports = {
         proxyTable: {
             '/product/getProductList': {
                 /*单品列表*/
-                target: proxy_service,
+                target: proxy_service_lfy,
                 changeOrigin: true
             },
             '/product/getProductDetail': {
                 /*单品详情的IP*/
-                target: proxy_service,
+                target: proxy_service_lfy,
                 changeOrigin: true
             },
 
             '/productCenter/getContractProductList': {
                 /*合约产品列表的IP*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/contractProductDetail': {
                 /*合约产品详情的IP*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/product/queryCpDepend': {
@@ -126,44 +126,44 @@ module.exports = {
 
             '/contractProduct/saveContractProductOne':{
                 /*保存第一步*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/saveContractProductTwo':{
                 /*保存第二步*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/saveContractProduct':{
                 /*整体保存*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
             '/contractProduct/findContractProductByStatus': {
                 /*获取互斥和依赖产品列表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findContractBySearch':{
                 /*第二步获取产品列表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findSmsByCondition':{
                 /*短信模板*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findContractByCondition':{
                 /*产品互斥新接口*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
             '/contractProduct/saveContractProductThree': {
                 /*添加产品保存第三步*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 

@@ -19,7 +19,7 @@
                          :title="product.productName">{{product.productName}}</div></td>
 
                 <td><div class="limit-text-length code"
-                         :title="product.productCode">{{product.productCode}}</div></td>
+                         :title="product.productCode">{{product.productUniCode}}</div></td>
 
                 <td><div class="limit-text-length cp-code"
                          :title="product.cpCode">{{product.cpCode}}</div></td>
@@ -34,7 +34,7 @@
                 <td>{{product.detailStatus}}</td>
                 <td>
                     <div class="operate-list">
-                        <span @click="showSingleProductDetail(product.productCode)" class="pointer mr-30 cl-blue">详情</span>
+                        <span @click="showSingleProductDetail(product.productUniCode)" class="pointer mr-30 cl-blue">详情</span>
                     </div>
                 </td>
             </tr>
@@ -65,8 +65,8 @@
         },
 
         methods: {
-            showSingleProductDetail(productCode){
-                this.$router.push({'name': 'SingleProductDetail',params:{'productCode':productCode}});
+            showSingleProductDetail(productUniCode){
+                this.$router.push({'name': 'SingleProductDetail',params:{'productUniCode':productUniCode}});
             }
         }
 

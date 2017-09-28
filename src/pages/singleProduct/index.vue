@@ -161,7 +161,11 @@
                         });
 
                         this.productList=res.pageInfo.list;
-                        this.totalItem=res.pageInfo.total
+                        this.totalItem=res.pageInfo.total;
+
+                        console.log("productList: " + JSON.stringify(this.productList));
+
+
                     }else{;
 
                     }

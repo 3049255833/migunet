@@ -635,8 +635,8 @@
                 this.$http.get(this.api.getContractProductDetail,
                     {
                         params: {
-                            productCode: productCode || '',
-                            id: ''
+                            //productCode: productCode || '',
+                            productId: productCode || ''
                         }
                     }).then(response => {
 

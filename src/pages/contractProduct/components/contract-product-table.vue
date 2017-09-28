@@ -107,7 +107,7 @@
                     <td>
                         <!--业务状态为草稿的时候-->
                         <div class="operate-list clearfix" v-if="cProduct.onlineStatus == '0'">
-                            <div @click="showContractProductDetail(cProduct.productCode)"
+                            <div @click="showContractProductDetail(cProduct.productId)"
                                  class="mr-30 pointer cl-blue">
                                 详情
                             </div>
@@ -152,7 +152,7 @@
                         <div class="operate-list clearfix"
                              v-else-if="cProduct.onlineStatus == '1'">
 
-                            <div @click="showContractProductDetail(cProduct.productCode)"
+                            <div @click="showContractProductDetail(cProduct.productId)"
                                  class="mr-30 pointer cl-blue">
                               详情
                             </div>
@@ -210,7 +210,7 @@
                         <div class="operate-list clearfix"
                              v-else-if="cProduct.onlineStatus == '3'">
 
-                            <div @click="showContractProductDetail(cProduct.productCode)"
+                            <div @click="showContractProductDetail(cProduct.productId)"
                                  class="mr-30 pointer cl-blue">
                                 详情
                             </div>
@@ -286,7 +286,7 @@
                         <div class="operate-list clearfix"
                              v-else-if="cProduct.onlineStatus == '2'">
 
-                            <div @click="showContractProductDetail(cProduct.productCode)"
+                            <div @click="showContractProductDetail(cProduct.productId)"
                                  class="mr-30 pointer cl-blue">
                               详情
                             </div>
@@ -343,7 +343,7 @@
                         <div class="operate-list clearfix"
                              v-else-if="cProduct.onlineStatus == '4'">
 
-                            <div @click="showContractProductDetail(cProduct.productCode)"
+                            <div @click="showContractProductDetail(cProduct.productId)"
                                  class="mr-30 pointer cl-blue">
                               详情
                             </div>

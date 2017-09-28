@@ -77,7 +77,7 @@ export default new Router({
                     }
                 },
                 {
-                    path: 'single_product/single_product_detail/:productCode',
+                    path: 'single_product/single_product_detail/:productUniCode',
                     name: 'SingleProductDetail',
                     component: SingleProductDetail
                 },

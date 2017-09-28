@@ -19,8 +19,8 @@
                             <div class="item layout-center-y">
                                 <div class="item-img"></div>
                                 <div class="item-txt">
-                                    <p :title="productCode">
-                                        {{productCode}}</p>
+                                    <p :title="productUniCode">
+                                        {{productUniCode}}</p>
                                     <p>产品ID</p>
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
         },
         data () {
             return {
-                productCode: this.$route.params.productCode,
+                productUniCode: this.$route.params.productUniCode,
                 productDetail: {
                     // product: '',
                     // channel: '',
@@ -193,17 +193,17 @@
             }
         },
         created(){
-            this.getSingleProductDetail(this.productCode);
+            this.getSingleProductDetail(this.productUniCode);
         },
         methods: {
             /**
              * 获取单品详情
-             * @param productCode 产品id string
+             * @param productUniCode 产品id string
              * */
-            getSingleProductDetail(productCode){
+            getSingleProductDetail(productUniCode){
                 this.$http.get(this.api.getSingleProductDetail,{
                     params: {
-                        productCode: productCode || ''
+                        productUniCode: productUniCode || ''
                     },
                     showLoading:true
                 }).then(response => {
