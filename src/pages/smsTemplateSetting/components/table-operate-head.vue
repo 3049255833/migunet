@@ -203,6 +203,10 @@
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
+    .btn-download {
+        display: none;
+    }
+
     #upload {
         width: 88px;
         height: 33px;
