@@ -8,7 +8,7 @@
                 <button v-if="!auditFlag" @click="auditAll"
                         class="btn btn-audit-module ml-24 mr-10">批量审批
                 </button>
-                <button v-if="!auditFlag" @click="showAll" class="btn btn-add-module-white mr-10">查看全部</button>
+                <button v-if="!auditFlag" @click="oneKeyPass" class="btn btn-add-module-white mr-10">一键通过</button>
                 <button v-if="auditFlag&&$root.ajaxLock" @click="pass" class="btn btn-middle-88 ml-24 mr-10 btn-primary " >
                     通过
                 </button>
@@ -76,24 +76,28 @@
                         optionValue: ''
                     },
                     {
-                        optionText: '发布',
-                        optionValue: '0'
-                    },
-                    {
-                        optionText: '修改',
+                        optionText: '上线审批',
                         optionValue: '1'
                     },
                     {
-                        optionText: '定价变更',
+                        optionText: '隐藏审批',
                         optionValue: '2'
                     },
                     {
-                        optionText: '下线',
+                        optionText: '下线审批',
                         optionValue: '3'
                     },
                     {
-                        optionText: '恢复上线',
+                        optionText: '注销审批',
                         optionValue: '4'
+                    },
+                    {
+                        optionText: '删除审批',
+                        optionValue: '5'
+                    },
+                    {
+                      optionText: '变更审批',
+                      optionValue: '6'
                     }
                 ],
                 auditFlag: false
@@ -111,8 +115,8 @@
                 this.$emit('sendAuditDataBus', this.operateData);
             },
 
-            showAll(){
-                this.$router.push({'name': 'ProductAuditManage'})
+            oneKeyPass(){
+                this.$emit('oneKeyPassBus');
             },
 
             auditAll(){

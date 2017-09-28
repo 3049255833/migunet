@@ -148,7 +148,7 @@ export default new Router({
                             }
                         },
                         {
-                            path: 'my_backlog/audit_detail/:productCode/:targetStatus/:statusId/:id',
+                            path: 'my_backlog/audit_detail/:productCode/:auId',
                             name: 'AuditDetail',
                             components: {
                                 default:AuditDetail

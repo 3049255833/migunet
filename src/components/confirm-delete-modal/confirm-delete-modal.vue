@@ -41,6 +41,9 @@
                 } else if(this.functionType === 'batchDeleteSmsTemplateConfirmInfo') {
 
                     this.bus.$emit('batchDeleteSmsTemplateConfirmBus');
+                } else if(this.functionType === 'myBackLogOneKeyPassComfirmInfo') {
+
+                    this.bus.$emit('myBackLogOneKeyPassComfirmInfoBus');
                 }
 
                 event.stopPropagation();
@@ -66,6 +69,9 @@
                 } else if(this.functionType === 'batchDeleteSmsTemplateConfirmInfo') {
 
                     this.$modal.hide('confirmBatchDeleteSmsTModal');
+                } else if(this.functionType === 'myBackLogOneKeyPassComfirmInfo') {
+
+                    this.$modal.hide('myBackLogComfirmModal');
                 }
 
                 event.stopPropagation();

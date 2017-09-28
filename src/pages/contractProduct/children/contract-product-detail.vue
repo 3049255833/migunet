@@ -21,20 +21,23 @@
                       <td>{{item.createTime}}</td>
                       <td>{{item.createUser}}</td>
 
-                      <td v-if="item.targetStatus == '0'">
-                          发布
-                      </td>
-                      <td v-else-if="item.targetStatus == '1'">
-                          修改
+                      <td v-if="item.targetStatus == '1'">
+                          上线审批
                       </td>
                       <td v-else-if="item.targetStatus == '2'">
-                          定价变更
+                          隐藏审批
                       </td>
                       <td v-else-if="item.targetStatus == '3'">
-                          下线
+                          下线审批
                       </td>
                       <td v-else-if="item.targetStatus == '4'">
-                          恢复上线
+                          注销审批
+                      </td>
+                      <td v-else-if="item.targetStatus == '5'">
+                          删除审批
+                      </td>
+                      <td v-else-if="item.targetStatus == '6'">
+                          变更审批
                       </td>
                       <td v-else></td>
 
@@ -52,7 +55,7 @@
 
                           <div class=" review-fail-pass" v-else-if="item.auditStatus == '0'">
                               <i class="icon icon-fail-pass mr-5"></i>
-                              <span class="cl-fail-pass vt-middle">不通过</span>
+                              <span class="cl-fail-pass vt-middle">拒绝</span>
                           </div>
                       </td>
                       <td>{{item.auditOpinion}}</td>
@@ -216,7 +219,7 @@
                       <div class="layout-row">
                           <span class="row-left"> 到期提醒短信模板：</span>
                           <span class="row-right">
-
+                              {{pdRemindSms}}
                           </span>
                       </div>
 
@@ -224,7 +227,9 @@
                           <span class="row-left">
                               订购成功下发推荐短信：
                           </span>
-                          <span class="row-right"></span>
+                          <span class="row-right">
+                            {{pdRecommendSms}}
+                          </span>
                       </div>
 
                       <div class="layout-row  no-pb">
@@ -232,7 +237,7 @@
 
                           <div class="row-right">
                               <div v-for="mutexItem in mutex">
-                                  <div>{{mutexItem.name}} | {{mutexItem.id}}</div>
+                                  <div>{{mutexItem.productName}} | {{mutexItem.productCode}}</div>
                               </div>
                           </div>
                       </div>
@@ -254,10 +259,10 @@
                           <span class="row-right">{{cProduct.effectiveTime}}</span>
                       </div>
 
-                      <div class="layout-row">
+                      <!--<div class="layout-row">
                           <span class="row-left"> 产品目录：</span>
                           <span class="row-right">{{pdCataLog}}</span>
-                      </div>
+                      </div>--><!--1030实现-->
 
                       <div class="layout-row">
                           <span class="row-left"> 是否体检产品：</span>
@@ -305,7 +310,9 @@
 
                       <div class="layout-row">
                           <span class="row-left">订购成功下发提示短信</span>
-                          <span class="row-right"></span>
+                          <span class="row-right">
+                              {{pdPromptSms}}
+                          </span>
                       </div>
 
                       <div class="layout-row">
@@ -317,7 +324,7 @@
                           <span class="row-left"> 依赖产品：</span>
                           <span class="row-right">
                               <span v-for="dItem in depend">
-                                  {{dItem.name}} | {{dItem.id}}
+                                  {{dItem.productName}} | {{dItem.productCode}}
                               </span>
                           </span>
                       </div>
@@ -327,7 +334,7 @@
 
                         <div class="row-right">
                           <div v-for="item in cpspList">
-                            <div>{{item.pdCp.cpCode}} | {{item.pdCp.cpName}} 假数据</div>
+                            <div>{{item.pdCp.cpName}} | {{item.pdCp.cpCode}}</div>
                           </div>
                         </div>
                       </div>
@@ -565,7 +572,12 @@
                 pdDetailStatus: '', //审批状态
                 pdAttribution: [], //业务归属地
                 pdCataLog: [], //产品目录
-                cpspList: []  //CP/SP list
+                cpspList: [],  //CP/SP list,
+                pdPromptSms: '', //订购成功下发提示短信 1
+                pdRemindSms: '', //到期提醒短信模板 2
+                pdRecommendSms: '', //推荐短信模板3
+                pageSize: '',
+                pageNum: ''
             }
         },
         created(){
@@ -647,12 +659,15 @@
              * */
             getContractProductDetail(productCode) {
                 console.log("productCode: " + productCode);
+                let that = this;
 
                 this.$http.get(this.api.getContractProductDetail,
                     {
                         params: {
-                            id: '',
-                            productId: productCode || ''
+                            productCode: productCode || '',
+                            auditId: '',
+                            pageSize: that.pageSize || '1',
+                            pageNum: that.pageNum || '5'
                         }
                     }).then(response => {
 
@@ -680,6 +695,12 @@
                             this.feePlanList = res.data.pdFeePlanList;//资费计划
 
                             this.right = res.data.pdRightsList;//计费策略
+
+                            this.pdPromptSms = res.data.contractMap.pdSSMOne;//提示短信
+
+                            this.pdRemindSms = res.data.contractMap.pdSSMTwo;//到期提醒短信
+
+                            this.pdRecommendSms = res.data.contractMap.pdSSMThree;//推荐短信
 
                             this.auditstatus = res.data.auditstatus;
 

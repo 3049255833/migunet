@@ -151,7 +151,7 @@
                 <div class="info-title">
                     基本信息
                 </div>
-           
+
                 <div class="info-wrap clearfix">
                         <div class="fl w-50">
                                 <div class="layout-row">
@@ -487,9 +487,10 @@
       data (){
           return {
               productCode: this.$route.params.productCode,
-              targetStatus: this.$route.params.targetStatus,
-              statusId: this.$route.params.statusId,
-              id: this.$route.params.id,
+              //targetStatus: this.$route.params.targetStatus,
+              //statusId: this.$route.params.statusId,
+              //id: this.$route.params.id,
+              auId: this.$route.params.auId,
               auditstatus: '',
               cProduct: {},
               payTypeList: [],
@@ -507,11 +508,13 @@
               },
               postDataList: [],
               auditOpinion: '',
-              noPassPostDataList: []
+              noPassPostDataList: [],
+              pageSize: '',
+              pageNum: ''
           }
       },
       created(){
-          this.getAuditContractProduct(this.productCode, this.id);
+          this.getAuditContractProduct(this.productCode, this.auId);
 
           console.log("targetStatus: " + this.targetStatus);
 
@@ -568,12 +571,14 @@
            * 获取单品详情
            * @param productCode 产品 string
            * */
-          getAuditContractProduct(productCode, id) {
+          getAuditContractProduct(productCode, auId) {
               this.$http.get(this.api.getAuditContractProduct,
                   {
                     params: {
-                      productCode: productCode || '',
-                      id: id || ''
+                        productCode: productCode || '',
+                        auditId: auId || '',
+                        pageSize: this.pageSize || '1',
+                        pageNum: this.pageNum || '5'
                     }
                   }).then(response => {
 

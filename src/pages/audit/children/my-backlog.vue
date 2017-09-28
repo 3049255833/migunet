@@ -6,9 +6,14 @@
                               v-on:auditFlagBus="changeAuditFlag"
                               v-on:passBus="auditOperate"
                               title="我的待办"></v-table-operate-head>
-        <v-my-backlog-table ref="myBacklogTable" :auditFlag="auditFlag"
+
+        <v-my-backlog-table ref="myBacklogTable"
+                            :auditFlag="auditFlag"
+                            v-on:oneKeyPassBus="oneKeyPassReception"
                             :contractAuditList="contractAuditList"></v-my-backlog-table>
+
         <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
+
         <!--填入拒绝原因-->
         <modal name="reviewRejectModal" :width="450" :height="310">
             <t-modal-sub-container :title="'审批拒绝原因'" :name="'reviewRejectModal'">
@@ -18,6 +23,17 @@
             </t-modal-sub-container>
         </modal>
 
+        <modal name="myBackLogComfirmModal" :width="390" :height="200" @before-close="beforeClose">
+            <t-modal-sub-container
+                :title="'是否确认一键通过？'"
+                :name="'myBackLogComfirmModal'">
+
+                <v-confirm-delete-modal
+                  :functionType="'myBackLogOneKeyPassComfirmInfo'"
+                  :confirmInfo="'确认后，系统默认全部审批通过！'">
+                </v-confirm-delete-modal>
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 <script type="es6" >
@@ -26,6 +42,8 @@
     import VTableOperateHead from '@/pages/audit/components/table-operate-head'
     import VReviewRejectModal from '@/pages/audit/components/review-reject-modal'
     import TModalSubContainer from "@/components/modal-sub-container";
+    import VConfirmDeleteModal from '@/components/confirm-delete-modal/confirm-delete-modal'
+
     export default {
         name: 'MyBacklog',
         data(){
@@ -41,7 +59,8 @@
                 },
                 totalItem: '',
                 auditFlag: false,
-                postDataList: []
+                postDataList: [],
+                confirmInfo: ''
             }
         },
         components: {
@@ -49,7 +68,8 @@
             VTableOperateHead,
             VPaging,
             VReviewRejectModal,
-            TModalSubContainer
+            TModalSubContainer,
+            VConfirmDeleteModal
         },
         mounted(){
         },
@@ -58,9 +78,42 @@
              * 初始请求
              * */
             this.getContractAuditList();
+
+            /*接受一键通过确认信息*/
+            this.bus.$on('contractProductListConfirmInfoBus', res => {
+
+                let that = this;
+
+                this.$http.post(this.api.onekeyAudit, {showLoading:true}).then(response => {
+                    let res = response.body;
+
+                    if (res.result.resultCode == '00000000') {
+                        this.$root.toastText = '审批成功';
+                        this.$root.toast = true;
+
+                        this.$modal.hide('myBackLogComfirmModal');
+
+                        setTimeout(function(){
+                            that.getContractAuditList();
+                        },2000);
+                    } else {
+                        this.$root.toastText = '审批失败';
+                        this.$root.toast = true;
+                    }
+                }, (response) => {
+                    this.$root.toastText = '服务器错误';
+                    this.$root.toast = true;
+                });
+            });
         },
 
         methods: {
+            oneKeyPassReception(){
+                this.$modal.show('myBackLogComfirmModal');
+            },
+
+            beforeClose() {},
+
             /**
              * 获取我的代办列表
              * */
@@ -142,7 +195,7 @@
                         _indexList.forEach(function (index) {
                             index=parseInt(index);
                             that.postDataList.push({
-                                id: that.contractAuditList[index].id,
+                                id: that.contractAuditList[index].productId,
                                 statusId: that.contractAuditList[index].statusId,
                                 auditStatus: res ? '1' : '0',
                                 auditOpinion: res ? '' : '不同意',
@@ -155,6 +208,8 @@
                                 productName:that.contractAuditList[index].productName
                             });
                         });
+
+                        console.log("updateAuditStatusList: " + JSON.stringify(this.postDataList));
 
                         that.$http.post(this.api.updateAuditStatusList, that.postDataList).then(response=> {
                             let res = response.body;
@@ -186,7 +241,7 @@
                         _indexList.forEach(function (index) {
                             //list
                             that.postDataList.push({
-                                id: that.contractAuditList[index].id,
+                                id: that.contractAuditList[index].productId,
                                 statusId: that.contractAuditList[index].statusId,
                                 auditStatus: res ? '1' : '0',
                                 auditOpinion: res ? '' : '不同意',
