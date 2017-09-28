@@ -49,154 +49,154 @@ module.exports = {
         proxyTable: {
             '/product/getProductList': {
                 /*单品列表*/
-                target: proxy_service_lfy,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/product/getProductDetail': {
                 /*单品详情的IP*/
-                target: proxy_service_lfy,
+                target: proxy_service,
                 changeOrigin: true
             },
 
             '/productCenter/getContractProductList': {
                 /*合约产品列表的IP*/
-                target: proxy_service_cjk,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/productCenter/contractProductDetail': {
                 /*合约产品详情的IP*/
-                target: proxy_service_cjk,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/product/queryCpDepend': {
                 /*查询合约产品的依赖关系*/
-                target: proxy_service_cjk,
+                target: proxy_service,
                 changeOrigin: true
             },
 
 
             '/contractProduct/findCharge': {
                 /*获取业务代码详情*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findPdMatchFiled':{
                 /*获取匹配字段表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findPdContent':{
                 /*匹配内容限定*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findSmsTemplate': {
                 /*获取短信模板列表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findPdAttribution': {
                 /*获取区域选择列表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findChannel':{
                 /*获取渠道Id*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
 
             },
             '/contractProduct/findPdFeePlanByCondition':{
                 /*通过关键字查询资费计划*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
 
             '/contractProduct/findProductCatalog': {
                 /*获取产品目录*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findFeePlan': {
                 /*获取资费计划*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
             '/contractProduct/saveContractProductOne':{
                 /*保存第一步*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/saveContractProductTwo':{
                 /*保存第二步*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/saveContractProduct':{
                 /*整体保存*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
             '/contractProduct/findContractProductByStatus': {
                 /*获取互斥和依赖产品列表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findContractBySearch':{
                 /*第二步获取产品列表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findSmsByCondition':{
                 /*短信模板*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findContractByCondition':{
                 /*产品互斥新接口*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
             '/contractProduct/saveContractProductThree': {
                 /*添加产品保存第三步*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
 
             '/product/updateProductState': {
                 /*删除,下线产品*/
-                target: proxy_service_cjk,
+                target: proxy_service,
                 changeOrigin: true
             },
 
             '/productCenter/getBossInfo': {
                 /*获取业务状态列表*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/productCenter/deleteBossInfo': {
                 /*删除业务代码*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/productCenter/addBossInfo': {
                 /*添加业务代码*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/productCenter/updateBossInfo': {
                 /*编辑业务代码*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/productCenter/batchAddBossInfo': {
                 /*批量导入业务代码*/
-                target: proxy_service_ljy,
+                target: proxy_service,
                 changeOrigin: true
             },
 
@@ -204,79 +204,79 @@ module.exports = {
             /*审批*/
             '/productAudit/getAuditList': {
                 /*获取审批列表*/
-                target:  proxy_service_yzx,
+                target:  proxy_service,
                 changeOrigin: true
             },
             '/productAudit/getAuditContractProduct': {
                 /*获取审批详情*/
-                target:  proxy_service_yzx,
+                target:  proxy_service,
                 changeOrigin: true
             },
             '/productAudit/updateAuditStatusList': {
                 /*审批*/
-                target:  proxy_service_yzx,
+                target:  proxy_service,
                 changeOrigin: true
             },
             '/productAudit/onekeyAudit': {
               /*审批的一键审批*/
-              target:  proxy_service_yzx,
+              target:  proxy_service,
               changeOrigin: true
             },
 
             /*短信模板*/
             '/smsTemplate/deleteSmsTemplate': {
                 /*删除短信模板*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/smsTemplate/findSmsTemplate': {
                 /*获取短信模板列表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/smsTemplate/addSmsTemplate': {
               /*添加短信模板*/
-              target: proxy_service_xl,
+              target: proxy_service,
               changeOrigin: true
             },
             '/smsTemplate/updateSmsTemplate': {
               /*更新短信模板*/
-              target: proxy_service_xl,
+              target: proxy_service,
               changeOrigin: true
             },
             '/smsTemplate/getSmsTemplate': {
               /*查询一条短信模板*/
-              target: proxy_service_xl,
+              target: proxy_service,
               changeOrigin: true
             },
             '/smsTemplate/uploadSmsTemplate': {
                 /*批量导入短信模板*/
-                target: proxy_service_wc,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findPdCp': {
               /*批量导入短信模板*/
-              target: proxy_service_xl,
+              target: proxy_service,
               changeOrigin: true
             },
             '/smsTemplate/judgeSmsTemplate': {
               /*查询短信模版关联关系*/
-              target: proxy_service_xl,
+              target: proxy_service,
               changeOrigin: true
             },
             '/contractProduct/findDictionaryType': {
               /*获取合约产品发送平台*/
-              target: proxy_service_xl,
+              target: proxy_service,
               changeOrigin: true
             },
             '/smsTemplate/downloadSmsTemplate': {
               /*下载短信模板*/
-              target: proxy_service_wc,
+              target: proxy_service,
               changeOrigin: true
             },
             '/contractProduct/checkContractCode': {
               /*合约产品新增验证产品编码是否重复*/
-              target: proxy_service_xl,
+              target: proxy_service,
               changeOrigin: true
             }
         },
