@@ -62,12 +62,12 @@
                         },
                     ]
                 },
-                    {
+                    /*{
                         "isSubShow": false,
                         "title": "产品目录管理",
                         "haveChildrens": false,
                         "url": "/product_catalog_manage"
-                    },
+                    },*/
                     {
                         "isSubShow": false,
                         "title": "业务代码配置",
