@@ -36,14 +36,14 @@
                 <div class="row-left">产品编码：</div>
                 <div class="row-right">
                     <input class=" form-input pointer w-200"
-                           :class="{'error':$v.formData.productCode.$error}"
+                           :class="{'error':$v.formData.productCode.$error, 'error1': isProductCode}"
                            v-model.trim="formData.productCode" type="text"
                            @input="$v.formData.productCode.$touch()"
                            v-on:blur="judgeRepeat"
                            placeholder="请输入"/>
 
                     <span class="error-msg"
-                          v-if="$v.formData.productCode.$error">
+                          v-if="$v.formData.productCode.$error || isProductCode">
                               {{errorMsg.productCode}}</span>
                 </div>
             </div>
@@ -751,7 +751,8 @@
                     ],
                     subCompanyList: []
                 },
-                subCompanyText: '咪咕总公司'
+                subCompanyText: '咪咕总公司',
+                isProductCode: false
             }
         },
         validations: {
@@ -868,7 +869,7 @@
             },
             canSave(){
                 var flag = true;
-                if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid) {  //经过第一层的表单验证
+                if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid && !this.isProductCode) {  //经过第一层的表单验证
                     if (this.formData.isExperience == '1') {
                         //体验产品
                         flag = this.formData.expCycleUnitNum.length >= 1
@@ -975,13 +976,25 @@
 
                             if (res.result.resultCode == '00000000') {//不重复
 
+                                this.isProductCode = false;
+
+                                this.errorMsg.productCode = '请输入数字类型的编码';
+
                             } else if(res.result.resultCode == '00000005') { //重复
+
+                                this.isProductCode = true;
+
+                                this.errorMsg.productCode = '原始编码重复';
 
                                 this.$root.toastText = '原始编码重复';
 
                                 this.$root.toast = true;
                             } else {
                                 console.log("res: " + JSON.stringify(res));
+
+                                this.isProductCode = true;
+
+                                this.errorMsg.productCode = '验重失败';
 
                                 this.$root.toastText = '验重失败';
 
@@ -1335,6 +1348,12 @@
         font-size: 14px;
         color: #333333;
         box-sizing: border-box;
+
+        .error1 {
+            color: #f84545;
+            border: 1px solid #f84545;
+            box-shadow: 0 0 3px 2px #f84545;
+        }
 
         .radio-module {
             width: 120px;
