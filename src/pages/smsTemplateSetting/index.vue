@@ -302,7 +302,7 @@ export default {
 
                         if(res.result.resultCode=='00000002'){
 
-                          that.confirmInfo = '是否确认删除？删除后，短信模板与合约产品关系解除，不可恢复！';
+                          that.confirmInfo = '删除后，短信模板与合约产品关系解除，不可恢复！';
 
                         } else if (res.result.resultCode=='00000000') {
 
