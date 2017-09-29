@@ -35,10 +35,12 @@
                             </label>
                         </td>
                         <td>
-                            {{smsItem.id}}
+                            <div class="limit-text-length id" :title="smsItem.id">
+                              {{smsItem.id}}
+                            </div>
                         </td>
                         <td>
-                            {{smsItem.templateContent}}
+                            <div :title="smsItem.templateContent" class="limit-text-length content">{{smsItem.templateContent}}</div>
                         </td>
                     </tr>
                 </tbody>
@@ -242,6 +244,14 @@
                 &:nth-child(1) {
                     padding-left: 37px;
                 }
+            }
+
+            .id {
+                max-width: 100px;
+            }
+
+            .content {
+                max-width: 440px;
             }
         }
 

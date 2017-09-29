@@ -42,9 +42,16 @@
                             </label>
                         </td>
 
-                        <td>{{item.productUniCode}}</td>
+                        <td>
 
-                        <td>{{item.productName}}</td>
+                          <div :title="item.productUniCode" class="limit-text-length code">
+                              {{item.productUniCode}}</div>
+                        </td>
+
+                        <td>
+                          <div :title="item.productName" class="limit-text-length name">
+                              {{item.productName}}</div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -258,6 +265,14 @@
                     top: 0;
                     cursor: pointer;
                 }
+            }
+
+            .code {
+                max-width: 160px;
+            }
+
+            .name {
+                max-width: 440px;
             }
         }
 
