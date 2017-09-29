@@ -21,7 +21,7 @@
 
         <modal name="confirmBatchDeleteSmsTModal"
             :width="390"
-            :height="200"
+            :height="280"
             @before-close="beforeClose">
 
             <t-modal-sub-container
