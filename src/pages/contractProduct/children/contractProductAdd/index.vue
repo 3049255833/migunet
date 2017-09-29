@@ -339,7 +339,7 @@
 
     .step-item + .step-item {
 
-        margin-left: 145px;
+        margin-left: 130px;
     }
 
     .step-text {
