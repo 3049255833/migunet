@@ -286,8 +286,6 @@ export default {
 
                 let _indexList = this.$refs.smsTemplateTable.smsTCheckbox;
 
-                console.log("_indexList: " + _indexList);
-
                 if (_indexList.length > 0) {
                     _indexList.forEach(function(index) {
                         index = parseInt(index);
@@ -296,24 +294,22 @@ export default {
                         });
                     });
 
-                    console.log("Delete sms list: " + JSON.stringify(that.postDataList));
+                    //console.log("Delete sms list: " + JSON.stringify(that.postDataList));
 
                     this.$http.post(this.api.judgeSmsTemplate,this.postDataList).then(response => {
 
                         let res = response.body;
 
-                        console.log("res: " + JSON.stringify(res));
-
                         if(res.result.resultCode=='00000002'){
 
-                          that.confirmInfo = '短信模板与合约产品存在关联关系';
+                          that.confirmInfo = '是否确认删除？删除后，短信模板与合约产品关系解除，不可恢复！';
 
                         } else if (res.result.resultCode=='00000000') {
 
-                          that.confirmInfo = '确认通过后，短信模板不可恢复'
+                          that.confirmInfo = '是否确认删除？删除后，不可恢复！'
                         } else {//查询失败resultCode： 00000001;
 
-                          that.confirmInfo = '确认通过后，短信模板不可恢复';
+                          that.confirmInfo = '是否确认删除？删除后，不可恢复！';
                         }
                     });
 
@@ -341,8 +337,6 @@ export default {
          * */
         getFindSmsTemplate() {
 
-            console.log("postData: " + JSON.stringify(this.postData));
-
             this.$http.get(this.api.findSmsTemplate, {
                 params: this.postData,
                 showLoading: true
@@ -356,7 +350,7 @@ export default {
 
                         this.totalItem = res.total;
 
-                        console.log("smsTemplateList: " + JSON.stringify(this.smsTemplateList));
+                        //console.log("smsTemplateList: " + JSON.stringify(this.smsTemplateList));
                     } else {
 
                         console.log("res: " + JSON.stringify(res));

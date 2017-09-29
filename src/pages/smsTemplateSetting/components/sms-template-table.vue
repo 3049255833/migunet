@@ -129,14 +129,14 @@
 
                     if(res.result.resultCode=='00000002'){
 
-                        that.confirmInfo = '短信模板与合约产品存在关联关系。';
+                        that.confirmInfo = '是否确认删除？删除后，短信模板与合约产品关系解除，不可恢复！';
 
                     } else if (res.result.resultCode=='00000000') {
 
-                        that.confirmInfo = '确认通过后，短信模板不可恢复！'
+                        that.confirmInfo = '是否确认删除？删除后，不可恢复！'
                     } else {//查询失败resultCode： 00000001;
 
-                        that.confirmInfo = '确认通过后，短信模板不可恢复！';
+                        that.confirmInfo = '是否确认删除？删除后，不可恢复！';
                     }
                 });
 

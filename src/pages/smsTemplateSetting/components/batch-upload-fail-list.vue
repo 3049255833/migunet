@@ -8,7 +8,7 @@
 
             <div class="left" v-if="errorCode == '5'">
                 <span class="blue" v-show="toggleCode == '0'">部分数据导入失败</span>
-                <span class="blue" v-show="toggleCode == '1'">重复数据系统默认忽略！</span>
+                <span class="blue" v-show="toggleCode == '1'">部分数据重复导入，系统已忽略！</span>
             </div>
 
             <div class="right" v-if="errorCode == '5'">
@@ -121,7 +121,8 @@
       padding:0 30px;
 
       .upload-error-list {
-
+          max-height: 330px;
+          overflow-y: auto;
       }
   }
 
