@@ -121,7 +121,7 @@
                           v-if="changeInfoT">{{changeInfoT}}</button>
 
                   <button class="btn btn-default btn-middle"
-                          @click="offline(productCode, pdOnlineStatus, pdDetailStatus)"
+                          @click="offline"
                           v-if="offlineT">{{offlineT}}</button>
 
                   <button class="btn-default btn btn-middle"
@@ -173,7 +173,7 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 失效时间：</span>
-                          <span class="row-right">{{cProduct.effectiveTime}}</span>
+                          <span class="row-right">{{cProduct.invalidTime}}</span>
                       </div>
 
                       <div class="layout-row">
@@ -563,11 +563,7 @@
                 channel: [],
                 confirmInfo: '',
                 modalTitle: '',
-                postData: {         //给下线，删除，注销，上线等功能使用
-                    cpCode: '',
-                    onlineStatus: '',
-                    detailStatus: ''
-                },
+                productUniCode: '',  //给下线，删除等操作使用productUniCode
                 pdOnlineStatus: '', //产品状态
                 pdDetailStatus: '', //审批状态
                 pdAttribution: [], //业务归属地
@@ -594,8 +590,8 @@
                     this.$http.get(this.api.updateProductState,
                         {
                             params:{
-                                cpUniCode:this.postData.cpCode,
-                                onlineStatus:this.postData.onlineStatus,
+                                cpUniCode:that.productUniCode,
+                                onlineStatus:that.pdOnlineStatus,
                                 detailStatus:'8'
                             }
                         }).then(response => {
@@ -625,8 +621,8 @@
                     this.$http.get(this.api.updateProductState,
                         {
                             params:{
-                                cpUniCode:this.postData.cpCode,
-                                onlineStatus:this.postData.onlineStatus,
+                                cpUniCode:that.productUniCode,
+                                onlineStatus:this.pdOnlineStatus,
                                 detailStatus:'4'
                             }
                         }).then(response => {
@@ -679,6 +675,8 @@
                             //todo: 注意，返回的字段这里list小写
                             this.cProduct = res.data.contractMap.pdContractDetails[0];//基本信息
 
+                            this.productUniCode = this.cProduct.productUniCode;//productUniCode
+
                             this.pdOnlineStatus = res.data.contractMap.pdContractAndStatus[0].pdStatus.onlineStatus;  //产品状态
                             this.pdDetailStatus = res.data.contractMap.pdContractAndStatus[0].pdStatus.detailStatus;  //审批状态
 
@@ -722,19 +720,15 @@
 
             beforeClose(){},
 
-            offline(cpCode, onlineStatus, detailStatus) {
+            offline() {
                 this.modalTitle = '是否确认下线？';
-
-                this.postData.cpCode = cpCode;
-                this.postData.onlineStatus = onlineStatus;
-                this.postData.detailStatus = detailStatus;
 
                 let that = this;
 
                 this.$http.get(this.api.queryCpDepend,
                     {
                         params:{
-                            cpUniCode: cpCode
+                            cpUniCode: that.productUniCode
                         }
                     }).then(response => {
 
@@ -742,7 +736,7 @@
 
                     console.log("res: " + JSON.stringify(res));
 
-                    if(res.resultMessage =='1'){
+                    if(res.resultCode =='1'){
 
                         that.confirmInfo = '此产品已被其他产品依赖，是否同时解除依赖关系';
 
