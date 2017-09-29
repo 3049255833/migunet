@@ -171,7 +171,7 @@
                                 </div>
                                 <div class="layout-row">
                                     <span class="row-left"> 失效时间：</span>
-                                    <span class="row-right">{{cProduct.effectiveTime}}</span>
+                                    <span class="row-right">{{cProduct.invalidTime}}</span>
                                 </div>
 
                                 <div class="layout-row">

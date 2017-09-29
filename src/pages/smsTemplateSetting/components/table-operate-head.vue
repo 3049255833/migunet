@@ -29,8 +29,7 @@
 
             <button v-if="!smsTFlag" class="btn btn-download-button mr-10">模板下载</button>
 
-            <a v-if="!smsTFlag" class="btn btn-download mr-10" href="templates/短信模板信息.xls
-" download="短信模板信息">模板下载</a>
+            <a v-if="!smsTFlag" class="btn btn-download mr-10" href="static/templates/短信模板信息.xls" download="短信模板信息">模板下载</a>
 
         </div>
 
