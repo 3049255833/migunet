@@ -102,7 +102,7 @@
         }
 
         .text {
-            padding: 20px 30px;
+            padding: 20px 20px;
             font-size: 14px;
         }
 

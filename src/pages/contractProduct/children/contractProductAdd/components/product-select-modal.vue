@@ -35,7 +35,7 @@
                             </div>
 
                             <label v-else class="radio-module single"
-                                   @click="getProductItem(item.productCode, item.productName)">
+                                   @click="getProductItem(item.productUniCode, item.productName)">
                                 <input type="radio" :value="index" v-model="productRadio">
 
                                 <span ></span>

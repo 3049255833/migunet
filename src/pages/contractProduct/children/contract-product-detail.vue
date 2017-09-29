@@ -309,7 +309,7 @@
                       </div>
 
                       <div class="layout-row">
-                          <span class="row-left">订购成功下发提示短信</span>
+                          <span class="row-left">订购成功下发提示短信：</span>
                           <span class="row-right">
                               {{pdPromptSms}}
                           </span>
