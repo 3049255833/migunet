@@ -12,7 +12,7 @@
 
         <v-paging></v-paging>
 
-        <modal name="confirmDeleteModal" :width="390" :height="200" @before-close="beforeClose">
+        <modal name="confirmDeleteModal" :width="390" :height="280" @before-close="beforeClose">
             <t-modal-sub-container :title="'是否确认删除？'" :name="'confirmDeleteModal'">
                 <v-confirm-delete-modal
                   :functionType="'productCatalogManage'"

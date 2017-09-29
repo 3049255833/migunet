@@ -367,7 +367,7 @@
             <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
 
-        <modal name="contractProductListConfirmModal" :width="390" :height="200" @before-close="beforeClose">
+        <modal name="contractProductListConfirmModal" :width="390" :height="280" @before-close="beforeClose">
             <t-modal-sub-container
                 :title="modalTitle"
                 :name="'contractProductListConfirmModal'">

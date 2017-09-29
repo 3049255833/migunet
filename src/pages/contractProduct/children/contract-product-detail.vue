@@ -518,7 +518,7 @@
           </t-modal-sub-container>
       </modal>
 
-      <modal name="contractProductDetailsConfirmModal" :width="390" :height="200" @before-close="beforeClose">
+      <modal name="contractProductDetailsConfirmModal" :width="390" :height="280" @before-close="beforeClose">
           <t-modal-sub-container
               :title="modalTitle"
               :name="'contractProductDetailsConfirmModal'">

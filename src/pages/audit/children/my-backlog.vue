@@ -23,7 +23,7 @@
             </t-modal-sub-container>
         </modal>
 
-        <modal name="myBackLogComfirmModal" :width="390" :height="200" @before-close="beforeClose">
+        <modal name="myBackLogComfirmModal" :width="390" :height="280" @before-close="beforeClose">
             <t-modal-sub-container
                 :title="'是否确认一键通过？'"
                 :name="'myBackLogComfirmModal'">
