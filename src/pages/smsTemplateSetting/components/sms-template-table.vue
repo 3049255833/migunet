@@ -30,11 +30,11 @@
 
                     <td>
                         <div class="l-app-name limit-text-length id"
-                             :title="item.serviceCode">{{item.id}}</div>
+                             :title="item.id">{{item.id}}</div>
                     </td>
 
                     <td><div class="limit-text-length code"
-                             :title="item.companyCode">{{item.smsName}}</div></td>
+                             :title="item.smsName">{{item.smsName}}</div></td>
 
                     <td v-if="item.smsType == '1'">订购成功短信模板</td>
 
@@ -45,10 +45,10 @@
                     <td v-else></td>
 
                     <td><div class="limit-text-length des"
-                             :title="item.serviceDesc">{{item.smsDesc}}</div></td>
+                             :title="item.smsDesc">{{item.smsDesc}}</div></td>
 
                     <td><div class="limit-text-length content"
-                             :title="item.serviceName">{{item.templateContent}}</div></td>
+                             :title="item.templateContent">{{item.templateContent}}</div></td>
 
                     <td class="operation">
                         <div class="edit icon icon-edit-gray"
@@ -65,7 +65,7 @@
             <v-nolist :text="'暂无数据'"></v-nolist>
         </div>
 
-        <modal name="confirmSingleDeleteSmsTModal" :width="390" :height="200" @before-close="beforeClose">
+        <modal name="confirmSingleDeleteSmsTModal" :width="390" :height="280" @before-close="beforeClose">
             <t-modal-sub-container
                 :title="'是否确认删除？'"
                 :name="'confirmSingleDeleteSmsTModal'">
@@ -129,14 +129,14 @@
 
                     if(res.result.resultCode=='00000002'){
 
-                        that.confirmInfo = '短信模板与合约产品存在关联关系';
+                        that.confirmInfo = '短信模板与合约产品存在关联关系。';
 
                     } else if (res.result.resultCode=='00000000') {
 
-                        that.confirmInfo = '确认通过后，短信模板不可恢复'
+                        that.confirmInfo = '确认通过后，短信模板不可恢复！'
                     } else {//查询失败resultCode： 00000001;
 
-                        that.confirmInfo = '确认通过后，短信模板不可恢复';
+                        that.confirmInfo = '确认通过后，短信模板不可恢复！';
                     }
                 });
 
@@ -232,6 +232,10 @@
 
             .des, .name {
                 max-width: 150px;
+            }
+
+            .content {
+                max-width: 260px;
             }
 
             .id, .code {

@@ -1,6 +1,8 @@
 <template>
     <div class="confirm-delete-modal-container clearfix" :class="{hide: hideModal}">
-        <div class="text">{{confirmInfo}}?</div>
+        <img src="../../assets/confirm-delete-modal-icon.png">
+
+        <div class="text">{{confirmInfo}}</div>
 
         <div class="btn-group btn-group-center">
             <div class="btn btn-primary btn-middle-100" @click="confirm">确定</div>
@@ -89,6 +91,11 @@
 <style scoped lang="scss" rel="stylesheet/scss">
     .confirm-delete-modal-container {
         color: #6d7684;
+        text-align: center;
+
+        img {
+            margin-top: 20px;
+        }
 
         &.hide {
             display: none;
@@ -96,10 +103,15 @@
 
         .text {
             padding: 20px 30px;
+            font-size: 14px;
         }
 
         .btn-group-center {
             margin-top: 25px;
+
+            .btn {
+                margin: 0 10px;
+            }
         }
     }
 </style>
