@@ -22,11 +22,11 @@
                 <tr v-for="(item, index) in productList">
                     <td>
                         <div v-if="productType==='1'" class="checkbox-module single">
-                            <input :value="index" v-model="productCheckbox" type="checkbox" @click="getProductList(index, item.pdContract.productCode,item.pdContract.productName,item.pdContract.id)">
+                            <input :value="index" v-model="productCheckbox" type="checkbox" @click="getProductList(index, item.pdContract.productUniCode,item.pdContract.productName,item.pdContract.id)">
                             <span></span>
                         </div>
                     </td>
-                    <td>{{item.pdContract.productCode}}</td>
+                    <td>{{item.pdContract.productUniCode}}</td>
                     <td>{{item.pdContract.productName}}</td>
                 </tr>
                 </tbody>
@@ -90,7 +90,7 @@
                         }
                     })
                 }
-               
+
                 if (e && e.target) {
                     e.target.blur();
                 }
@@ -103,12 +103,12 @@
                     }).then(response => {
 
                     let res = response.body;
-                    
+
 
                     if (res.result.resultCode == '00000000') {
 
                         let that=this;
-                        
+
                         that.productCheckbox=[];   //一进页面要先清除checkbox
 
                         for (var i = 0; i < res.data.length; i++) {
@@ -132,22 +132,22 @@
                                     }
                                 });
                             });
-                            
-                            
+
+
                             //让当前框已选的值显示
-                            
+
                             data.forEach(function(item,index){
                                 that.productListCurSelected.forEach(function(subItem,subIndex){
-                                   
+
                                     if(item.pdContract.productCode==subItem.productCode){
                                         item.active=true;
                                         that.productCheckbox.push(index);
                                     }
                                 })
                             })
-                            
+
                         }
-                        
+
 
 
                         this.productList = res.data;
@@ -164,7 +164,7 @@
              */
 
             getProductList(index, productCode, content,id){
-                
+
                 let that = this;
 
                 this.productList[index].active=!this.productList[index].active;
@@ -189,15 +189,15 @@
 
 
                 }
-                
+
             },
-            
+
             /**
              * 点击确认
              * */
             confirm() {
                 let that = this;
-                
+
                 this.bus.$emit('productSelectStep2Bus', {index: this.index, data:this.productListCurSelected});
 
                 this.$modal.hide(this.modalName);
@@ -223,7 +223,7 @@
 <style lang='scss' scoped rel='stylesheet/scss'>
     .product-code {
         padding: 13px 30px 31px;
-        
+
         .table-wrap {
             max-height: 350px;
             overflow-y: auto;
@@ -234,21 +234,21 @@
                 cursor: pointer;
             }
         }
-        
+
         .sub-title {
             position: relative;
             color: #333333;
             font-size: 14px;
             padding-bottom: 23px;
             padding-left: 5px;
-            
+
             .search-wrap {
                 margin-left: 140px;
                 position: absolute;
                 top: -8px;
                 right: 0;
             }
-            
+
             .search {
                 display: inline-block;
                 width: 34px;
@@ -259,17 +259,17 @@
                 background: #46BAFE;
             }
         }
-        
+
         .btn-group {
             margin-top: 33px;
             .btn:nth-child(1) {
                 margin-right: 20px;
             }
         }
-        
+
         .list-modal-head {
             padding-bottom: 13px;
-            
+
             .search {
                 display: inline-block;
                 width: 34px;
