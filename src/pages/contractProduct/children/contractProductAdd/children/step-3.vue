@@ -38,7 +38,10 @@
                 </div>
                 <div class="row-right">
                     <div class="radio-wrap">
-                        <label class="checkbox-module w-70" v-for="(item, index) in sendPlatform">
+                        <label
+                            class="checkbox-module w-70"
+                            v-if="item.dictionary_code != '0'"
+                            v-for="(item, index) in sendPlatform">
                             <input :value="item.dictionary_code"
                                    v-model="formData.sendPlatform"
                                    name="isGive"

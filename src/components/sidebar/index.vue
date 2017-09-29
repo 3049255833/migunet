@@ -68,12 +68,12 @@
                         "haveChildrens": false,
                         "url": "/product_catalog_manage"
                     },*/
-                    {
+                    /*{
                         "isSubShow": false,
                         "title": "业务代码配置",
                         "haveChildrens": false,
                         "url": "/business_code_config"
-                    },
+                    },*/
                     {
                       "isSubShow": false,
                       "title": "短信模板设置",

@@ -27,7 +27,9 @@
                     v-if="!smsTFlag"
                     @click="addSmsTemplate">新增短信模板</button>
 
-            <button v-if="!smsTFlag" class="btn btn-download mr-10">模板下载</button>
+            <button v-if="!smsTFlag" class="btn btn-download-button mr-10">模板下载</button>
+
+            <a v-if="!smsTFlag" class="btn btn-download mr-10" href="../../../assets/短信模板信息.xls" download="短信模板信息">模板下载</a>
 
         </div>
 
@@ -73,11 +75,11 @@
             }
         },
         created(){
-            this.downloadSmsTemplate();
+            //this.downloadSmsTemplate();
         },
         methods: {
             downloadSmsTemplate() {
-                this.$http.get(this.api.downloadSmsTemplate, {
+                /*this.$http.get(this.api.downloadSmsTemplate, {
                     showLoading: true
                 }).then(
                     response => {
@@ -94,7 +96,7 @@
                             console.log("res: " + JSON.stringify(res));
                         }
                     }
-                );
+                );*/
             },
 
             addSmsTemplate() {
@@ -203,7 +205,7 @@
 </script>
 
 <style scoped lang="scss" rel="stylesheet/scss">
-    .btn-download {
+    .btn-download-button {
         display: none;
     }
 
