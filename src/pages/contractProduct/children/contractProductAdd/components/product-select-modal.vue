@@ -29,7 +29,7 @@
                         <td>
                             <div v-if="productType==='1'"
                                    class="checkbox-module single">
-                                <input type="checkbox"  @click="getProductList(index, item.productCode, item.productName,item.id)" :value="index" v-model="productCheckbox" >
+                                <input type="checkbox"  @click="getProductList(index, item.productUniCode, item.productName,item.id)" :value="index" v-model="productCheckbox" >
 
                                 <span></span>
                             </div>
@@ -42,7 +42,7 @@
                             </label>
                         </td>
 
-                        <td>{{item.productCode}}</td>
+                        <td>{{item.productUniCode}}</td>
 
                         <td>{{item.productName}}</td>
                     </tr>
@@ -155,6 +155,8 @@
                         this.productList = res.data;
 
                         this.totalItem=res.total;
+
+                        console.log("productList: " + JSON.stringify(this.productList));
 
                     } else {
 
