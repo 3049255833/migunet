@@ -121,7 +121,7 @@
                           v-if="changeInfoT">{{changeInfoT}}</button>
 
                   <button class="btn btn-default btn-middle"
-                          @click="offline"
+                          @click="offline(productCode, pdOnlineStatus, pdDetailStatus)"
                           v-if="offlineT">{{offlineT}}</button>
 
                   <button class="btn-default btn btn-middle"
@@ -594,7 +594,7 @@
                     this.$http.get(this.api.updateProductState,
                         {
                             params:{
-                                cpCode:this.postData.cpCode,
+                                cpUniCode:this.postData.cpCode,
                                 onlineStatus:this.postData.onlineStatus,
                                 detailStatus:'8'
                             }
@@ -625,7 +625,7 @@
                     this.$http.get(this.api.updateProductState,
                         {
                             params:{
-                                cpCode:this.postData.cpCode,
+                                cpUniCode:this.postData.cpCode,
                                 onlineStatus:this.postData.onlineStatus,
                                 detailStatus:'4'
                             }
@@ -654,7 +654,7 @@
         },
         methods: {
             /**
-             * 获取单品详情
+             * 获取合约详情
              * @param productCode 产品 string
              * */
             getContractProductDetail(productCode) {
@@ -734,7 +734,7 @@
                 this.$http.get(this.api.queryCpDepend,
                     {
                         params:{
-                            cpCode: cpCode
+                            cpUniCode: cpCode
                         }
                     }).then(response => {
 
