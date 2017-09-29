@@ -23,21 +23,32 @@
             </div>
         </div>
 
+        <table class="table-module">
+            <thead>
+                <tr>
+                    <th>短信模板名称</th>
+                    <th>模板类型</th>
+                    <th>短信模板描述</th>
+                    <th>短信模板内容</th>
+                </tr>
+            </thead>
+        </table>
+
         <div class="clearfix upload-error-list">
             <table class="table-module">
-                <thead>
+                <!--<thead>
                     <tr>
                         <th>短信模板名称</th>
                         <th>模板类型</th>
                         <th>短信模板描述</th>
                         <th>短信模板内容</th>
                     </tr>
-                </thead>
+                </thead>-->
 
                 <tbody v-show="errorCode == '2' || toggleCode == '0'">
                     <tr v-for="(item, index) in wrongList">
                         <td><div class="limit-text-length code"
-                                 :title="item.companyCode">{{item.smsName}}</div></td>
+                                 :title="item.smsName">{{item.smsName}}</div></td>
 
                         <td v-if="item.smsType == '1'">订购成功短信模板</td>
 
@@ -45,20 +56,20 @@
 
                         <td v-else-if="item.smsType == '3'">推荐短信模板</td>
 
-                        <td v-else></td>
+                        <td v-else class="type"></td>
 
                         <td><div class="limit-text-length des"
-                                 :title="item.serviceDesc">{{item.smsDesc}}</div></td>
+                                 :title="item.smsDesc">{{item.smsDesc}}</div></td>
 
                         <td><div class="limit-text-length content"
-                                 :title="item.serviceName">{{item.templateContent}}</div></td>
+                                 :title="item.templateContent">{{item.templateContent}}</div></td>
                     </tr>
                 </tbody>
 
                 <tbody v-show="errorCode == '3' || toggleCode == '1'">
                     <tr v-for="(item, index) in repeatList">
                         <td><div class="limit-text-length code"
-                                 :title="item.companyCode">{{item.smsName}}</div></td>
+                                 :title="item.smsName">{{item.smsName}}</div></td>
 
                         <td v-if="item.smsType == '1'">订购成功短信模板</td>
 
@@ -66,17 +77,18 @@
 
                         <td v-else-if="item.smsType == '3'">推荐短信模板</td>
 
-                        <td v-else></td>
+                        <td v-else class="type"></td>
 
                         <td><div class="limit-text-length des"
-                                 :title="item.serviceDesc">{{item.smsDesc}}</div></td>
+                                 :title="item.smsDesc">{{item.smsDesc}}</div></td>
 
                         <td><div class="limit-text-length content"
-                                 :title="item.serviceName">{{item.templateContent}}</div></td>
+                                 :title="item.templateContent">{{item.templateContent}}</div></td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
         <div class="submit-btn">
             <button class="btn" @click="close">确定</button>
         </div>
@@ -121,8 +133,16 @@
       padding:0 30px;
 
       .upload-error-list {
-          max-height: 330px;
+          max-height: 280px;
           overflow-y: auto;
+
+          .code, .des, .content {
+              max-width: 160px;
+          }
+
+          .type {
+              width: 160px;
+          }
       }
   }
 
