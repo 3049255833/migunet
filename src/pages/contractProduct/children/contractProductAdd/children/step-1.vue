@@ -292,7 +292,7 @@
                             <div class="item-head ">
                                 <label class="radio-module">
                                     <input type="radio"
-                                           value="1"
+                                           value="0"
                                            v-model="formData.paytype">
                                     <span></span>
                                     <span class="txt">话费支付</span>
@@ -300,7 +300,7 @@
                                 <i class="icon-recommend layout-center-y"></i>
                             </div>
 
-                            <div v-if="formData.paytype == '1'" class="form-wrap">
+                            <div v-if="formData.paytype == '0'" class="form-wrap">
                                 <div class="form-row pb-18">
                                     <div class="row-left w-200 required">使用业务代码：</div>
 
@@ -459,14 +459,14 @@
                         <div class="item">
                             <div class="item-head ">
                                 <label class="radio-module">
-                                    <input type="radio" value="2"
+                                    <input type="radio" value="1"
                                            v-model="formData.paytype">
                                     <span></span>
                                     <span class="txt">第三方支付</span>
                                 </label>
                             </div>
 
-                            <div v-if="formData.paytype == '2'" class="form-wrap">
+                            <div v-if="formData.paytype == '1'" class="form-wrap">
                                 <div class="form-row">
                                     <div class="row-left w-200 required">资费金额（分）：</div>
                                     <div class="row-right">
@@ -650,7 +650,7 @@
                     isExperience: '1',         //是否体验产品 1：是 0 ：正式产品
                     expCycleUnitNum: '1',  //体验产品周期数
                     expCycleUnit: '2', //体验产品周期单位 0：天 1：周 2：月 3：年
-                    paytype: {}, //支付方式 1：话费支付 2：第三方支付
+                    paytype: {}, //支付方式 0：话费支付 1：第三方支付
                     pts: [],
                     ifUseServiceCode: '1',     //是否使用业务代码,
 
@@ -672,7 +672,7 @@
                 paytype1: {    //接收不了嵌套验证，单独提取出来，最后再添加进去
                     serviceCode: '',
                     price: '',
-                    paytype: '1',
+                    paytype: '0',
                     companyCode: '',
                     feeType: '1',
                     isReorder: '0',
@@ -681,7 +681,7 @@
                     cycleUnitSelect: '0'
                 },
                 paytype2: {
-                    paytype: '2',
+                    paytype: '1',
                     price: '',
                     feeType: '2',
                     isReorder: '0',
@@ -879,7 +879,7 @@
                         flag=false
                     }*/
 
-                    if (this.formData.paytype== '1') {
+                    if (this.formData.paytype== '0') {
                         if(this.formData.ifUseServiceCode==1){     //使用了业务代码
                             if(!this.paytype1.serviceCode){
                                 flag = false
@@ -896,7 +896,7 @@
                         }
                     }
 
-                    if (this.formData.paytype=='2') {
+                    if (this.formData.paytype=='1') {
                         if (!/^\d+|-\d+$/g.test(this.paytype2.price)) {
                             flag = false
                         }
@@ -937,7 +937,7 @@
             },
             forbidChosePlanCode(){
                 //如果选了支付1且使用业务代码，则不能使用
-                return this.formData.paytype=='1'&&this.ifUseServiceCode;
+                return this.formData.paytype=='0'&&this.ifUseServiceCode;
             }
 
         },
@@ -1030,11 +1030,11 @@
              * 保存数据
              * */
             save(){
-                if(this.formData.paytype=='1'){
+                if(this.formData.paytype=='0'){
                     delete this.paytype1.companyCode;
                     this.formData.pts.push(this.paytype1)
                 }
-                if(this.formData.paytype=='2'){
+                if(this.formData.paytype=='1'){
                     this.formData.pts.push(this.paytype2)
                 }
 

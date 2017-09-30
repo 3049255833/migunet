@@ -53,9 +53,9 @@
                 cmd: '',
                 modalTitle: '新增业务代码',
                 postData:{
-                    keys:'',
+                    value:'',
                     pageSize:'5',
-                    pageNo:'1'
+                    pageNum:'1'
                 },
                 totalItem:'',
                 addResultMsg:''
@@ -114,9 +114,9 @@
              * 接收来自头部搜索
              * */
             searchKeyWordBus(res) {
-                this.postData.keys = res.keys;
+                this.postData.value = res.keys;
 
-                this.postData.pageNo='1';
+                this.postData.pageNum='1';
                 this.$refs.pagingModule.current=1;
 
                 console.log("postData search: " + JSON.stringify(this.postData));
@@ -132,14 +132,14 @@
                     response => {
                         let res = response.body;
 
-                        //console.log("res: " + JSON.stringify(res));
+                        console.log("res: " + JSON.stringify(res));
 
                         if(res.result.resultCode=='00000000'){
 
-                            for(var i = 0; i < res.service.list.length; i++) {
+                            /*for(var i = 0; i < res.service.list.length; i++) {
 
                                 res.service.list[i].isHideConfim = true;
-                            }
+                            }*/
 
                             this.businessCodeList = res.service.list;
 
@@ -160,7 +160,7 @@
              * 获取分页信息
              * */
             getPage(res){
-                this.postData.pageNo = res.pagingValue;
+                this.postData.pageNum = res.pagingValue;
                 this.postData.pageSize = res.pagingSize;
 
                 this.getBossInfo();

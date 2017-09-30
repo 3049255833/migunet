@@ -3,13 +3,14 @@
         <table class="table-module">
             <thead>
                 <tr>
-                    <th>业务代码ID</th>
+                    <th>业务代码</th>
                     <th>企业代码</th>
                     <th>业务代码名称</th>
-                    <th>业务代码描述</th>
                     <th>分成类型</th>
                     <th>资费金额（分）</th>
+                    <th>业务代码描述</th>
                     <th>是否管理员专用</th>
+                    <th>是否需要二次确认</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -27,16 +28,18 @@
                     <td><div class="limit-text-length name"
                              :title="item.serviceName">{{item.serviceName}}</div></td>
 
-                    <td><div class="limit-text-length des"
-                             :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
-
                     <td v-if="item.sharingType == '0'">分成</td>
                     <td v-else>买断</td>
 
                     <td>{{item.feeAmount}}</td>
 
+                    <td><div class="limit-text-length des"
+                             :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
+
                     <td v-if="item.isManager == '1'">是</td>
                     <td v-else>否</td>
+
+                    <td></td>
 
                     <td class="operation">
                         <div class="edit icon icon-edit-gray"
