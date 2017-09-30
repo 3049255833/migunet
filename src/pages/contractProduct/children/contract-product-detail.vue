@@ -354,49 +354,51 @@
 
                           <div class="row-right">
                               <div v-for="pay in payTypeList">
-                              <h4>话费支付</h4>
+                                  <h4 v-if="pay.paytype == '0'">话费支付</h4>
 
-                              <div class="item">
-                                  <span class="left"> 业务代码 ：</span>
-                                  <span class="right">{{pay.serviceCode}}</span>
+                                  <h4 v-else-if="pay.paytype == '1'">第三方支付</h4>
+
+                                  <div class="item">
+                                      <span class="left"> 业务代码 ：</span>
+                                      <span class="right">{{pay.serviceCode}}</span>
+                                  </div>
+
+                                  <div class="item">
+                                      <span class="left"> 资费金额（分） ：</span>
+                                      <span class="right">{{pay.price}}</span>
+                                  </div>
+
+                                  <div class="item">
+                                      <span class="left"> 资费类型 ：</span>
+                                      <span class="right" v-if="pay.feeType == '1'">包月</span>
+                                      <span class="right" v-else-if="pay.feeType == '2'">点播</span>
+                                  </div>
+
+                                  <div class="item">
+                                      <span class="left"> 是否重复订购 ：</span>
+                                      <span class="right" v-if="pay.isReorder == '1'">是</span>
+                                      <span class="right" v-else>否</span>
+                                  </div>
+
+                                  <div class="item">
+                                      <span class="left"> 产品周期 ：</span>
+
+                                      <span class="left"
+                                            v-if="pay.cycleUnitNum == '-1'">永久有效</span>
+
+                                      <span class="left" v-else>
+                                          {{pay.cycleUnitNum}}
+
+                                          <span v-if="pay.feeType == '0'">天</span>
+
+                                          <span v-else-if="pay.feeType == '1'">周</span>
+
+                                          <span v-else-if="pay.feeType == '2'">月</span>
+
+                                          <span v-else-if="pay.feeType == '3'">年</span>
+                                      </span>
+                                  </div>
                               </div>
-
-                              <div class="item">
-                                  <span class="left"> 资费金额（分） ：</span>
-                                  <span class="right">{{pay.price}}</span>
-                              </div>
-
-                              <div class="item">
-                                  <span class="left"> 资费类型 ：</span>
-                                  <span class="right" v-if="pay.feeType == '1'">包月</span>
-                                  <span class="right" v-else-if="pay.feeType == '2'">点播</span>
-                              </div>
-
-                              <div class="item">
-                                  <span class="left"> 是否重复订购 ：</span>
-                                  <span class="right" v-if="pay.isReorder == '1'">是</span>
-                                  <span class="right" v-else>否</span>
-                              </div>
-
-                              <div class="item">
-                                  <span class="left"> 产品周期 ：</span>
-
-                                  <span class="left"
-                                        v-if="pay.cycleUnitNum == '-1'">永久有效</span>
-
-                                  <span class="left" v-else>
-                                      {{pay.cycleUnitNum}}
-
-                                      <span v-if="pay.feeType == '0'">天</span>
-
-                                      <span v-else-if="pay.feeType == '1'">周</span>
-
-                                      <span v-else-if="pay.feeType == '2'">月</span>
-
-                                      <span v-else-if="pay.feeType == '3'">年</span>
-                                  </span>
-                              </div>
-                          </div>
                           </div>
                       </div>
 
@@ -708,7 +710,7 @@
 
                             this.cpspList = res.data.contractMap.pdContractAndCpSp; //渠道
 
-                            console.log("pdChannelList: " + JSON.stringify(res.data.pdChannelList));
+                            console.log("payTypeList: " + JSON.stringify(this.payTypeList));
 
                             //console.log("product: " + JSON.stringify(this.product));
 

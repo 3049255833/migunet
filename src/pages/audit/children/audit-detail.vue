@@ -326,7 +326,9 @@
 
                             <div class="row-right">
                                 <div v-for="pay in payTypeList">
-                                <h4>话费支付</h4>
+                                <h4 v-if="pay.paytype == '0'">话费支付</h4>
+
+                                <h4 v-else-if="pay.paytype == '1'">第三方支付</h4>
 
                                 <div class="item">
                                     <span class="left"> 业务代码 ：</span>
@@ -998,7 +1000,7 @@
           .charges-info {
               .list {
                   overflow: hidden;
-                  font-size: 14px;
+                  font-size: 12px;
 
                   h4 {
                       font-weight: 600;
