@@ -33,7 +33,7 @@
 
             <div class="clear-box" v-if="type == 'new-data'">
                 <button type="button" class="btn clear" @click="clear">
-                  Clear
+                  清除时间
                 </button>
             </div>
 
