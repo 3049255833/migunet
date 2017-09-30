@@ -594,7 +594,8 @@
                             params:{
                                 cpUniCode:that.productUniCode,
                                 onlineStatus:that.pdOnlineStatus,
-                                detailStatus:'8'
+                                detailStatus:'8',
+                                targetStatus: '5'
                             }
                         }).then(response => {
 
@@ -625,7 +626,8 @@
                             params:{
                                 cpUniCode:that.productUniCode,
                                 onlineStatus:this.pdOnlineStatus,
-                                detailStatus:'4'
+                                detailStatus:'4',
+                                targetStatus: '3'
                             }
                         }).then(response => {
 

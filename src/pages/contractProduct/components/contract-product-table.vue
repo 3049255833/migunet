@@ -534,7 +534,8 @@
                             params:{
                                 cpUniCode:this.postData.cpCode,
                                 onlineStatus:this.postData.onlineStatus,
-                                detailStatus:'8'
+                                detailStatus:'8',
+                                targetStatus: '5'
                             }
                         }).then(response => {
 
@@ -562,7 +563,8 @@
                             params:{
                                 cpUniCode:this.postData.cpCode,
                                 onlineStatus:this.postData.onlineStatus,
-                                detailStatus:'4'
+                                detailStatus:'4',
+                                targetStatus: '3'
                             }
                         }).then(response => {
 
