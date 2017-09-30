@@ -34,6 +34,8 @@
                     :value="calendar3.value"
                     :begin="calendar3.begin"
                     :end="calendar3.end"
+                    v-on:clearBus="clearC"
+                    :type="'new-data'"
                     @select="calendar3.select"></calendar>
             </div>
         </transition>
@@ -113,13 +115,22 @@
                 },1000);
             },
 
-            sendDate(){}
+            sendDate(){},
+
+            clearC() {
+                this.calendar3.display = '';
+
+                console.log("clear: " + this.calendar3.display);
+            }
         },
         watch:{
             /**
              * 监听选择的日期
              * */
             'calendar3.display' (a, b) {
+
+                console.log("calendar3: " + JSON.stringify(this.calendar3.display));
+
                 this.$emit('dateBus',{
                     dateName:this.dateName,
                     dateValue:this.calendar3.display
@@ -127,7 +138,13 @@
                 console.log('触发日期');
             }
         },
-        mounted(){}
+        mounted(){},
+        created () {
+
+        },
+        destroyed (){
+
+        }
     }
 </script>
 

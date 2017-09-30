@@ -192,7 +192,30 @@
                 this.postData.expireTime=res.expireTime;
                 this.postData.pageNum='1';
                 this.$refs.pagingModule.current=1;
-                this.getSingleProductList();
+
+                if(res.startTime != '' || res.endTime != '') {
+
+                    let effectiveTime = this.postData.effectiveTime;
+                    let expireTime = this.postData.expireTime;
+
+                    effectiveTime = parseInt(effectiveTime.split('-').join(''));
+
+                    expireTime = parseInt(expireTime.split('-').join(''));
+
+                    if(expireTime < effectiveTime){
+
+                        this.$root.toastText = '生效时间必须早于失效时间';
+
+                        this.$root.toast = true;
+                    }else{
+
+                        this.getSingleProductList();
+                    }
+
+                } else {
+                    this.getSingleProductList();
+                }
+
             }
         },
         computed:{

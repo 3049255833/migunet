@@ -31,8 +31,8 @@
                 </div>
             </div>
 
-            <div class="clear-box">
-                <button type="button" class="btn clear">
+            <div class="clear-box" v-if="type == 'new-data'">
+                <button type="button" class="btn clear" @click="clear">
                   Clear
                 </button>
             </div>
@@ -59,6 +59,7 @@
 import calendar from './calendar.js'
 export default {
     props: {
+        type: String,
         value: {
             type: Array,
             default: function(){
@@ -155,6 +156,11 @@ export default {
         this.init()
     },
     methods: {
+        //clear
+        clear() {
+            this.$emit('clearBus','','');
+        },
+
         // 初始化一些东西
         init(){
             let now = new Date();
