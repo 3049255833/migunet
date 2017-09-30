@@ -30,6 +30,13 @@
                     <div class="year">{{year}}</div>
                 </div>
             </div>
+
+            <div class="clear-box" v-if="type == 'new-data'">
+                <button type="button" class="btn clear" @click="clear">
+                  Clear
+                </button>
+            </div>
+
             <table cellpadding="5">
             <thead>
                 <tr>
@@ -45,8 +52,6 @@
             </tr>
             </table>
         </div>
-
-
     </div>
 </template>
 
@@ -54,6 +59,7 @@
 import calendar from './calendar.js'
 export default {
     props: {
+        type: String,
         value: {
             type: Array,
             default: function(){
@@ -150,6 +156,11 @@ export default {
         this.init()
     },
     methods: {
+        //clear
+        clear() {
+            this.$emit('clearBus','','');
+        },
+
         // 初始化一些东西
         init(){
             let now = new Date();
@@ -419,6 +430,21 @@ export default {
     font-family: "PingFang SC","Hiragino Sans GB","STHeiti","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
     user-select:none;
 }
+
+.clear-box {
+    width: 90%;
+    margin: 0 auto;
+
+    .clear {
+      margin: 10px 0;
+      border: 1px solid #eee;
+      color: #6d7684;
+      background-color: #ffffff;
+      height: 34px;
+      line-height: 34px;
+    }
+}
+
 
 .calendar-tools{
     height:40px;
