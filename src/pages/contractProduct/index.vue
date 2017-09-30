@@ -62,6 +62,7 @@
                 this.getContractProductList();
             });
         },
+
         methods: {
             /**
              * 获取单品产品列表
@@ -114,7 +115,28 @@
 
                 console.log("res1111: " + JSON.stringify(res));
 
-                this.getContractProductList();
+                if(res.startTime != '' || res.endTime != '') {
+
+                    let startTime = this.postData.startTime;
+                    let endTime = this.postData.endTime;
+
+                    startTime = parseInt(startTime.split('-').join(''));
+
+                    endTime = parseInt(endTime.split('-').join(''));
+
+                    if(endTime < startTime){
+
+                        this.$root.toastText = '生效时间必须早于失效时间';
+
+                        this.$root.toast = true;
+                    }else{
+
+                        this.getContractProductList();
+                    }
+
+                } else {
+                    this.getContractProductList();
+                }
             },
 
             /**
