@@ -19,7 +19,7 @@
                          :title="product.productName">{{product.productName}}</div></td>
 
                 <td><div class="limit-text-length code"
-                         :title="product.productCode">{{product.productId}}</div></td>
+                         :title="product.productCode">{{product.productCode}}</div></td>
                  <td><div class="limit-text-length code"
                          :title="'product.cpCode'">{{product.cpCode}}</div></td>
 

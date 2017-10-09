@@ -35,7 +35,7 @@
                 </td>
                 <td>
                     <div class="limit-text-length code"
-                         :title="product.productCode">{{product.productId}}
+                         :title="product.productCode">{{product.productCode}}
                     </div>
                 </td>
                 <td>
