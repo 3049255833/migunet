@@ -40,12 +40,12 @@
                 </td>
                 <td>
                     <div class="limit-text-length type"
-                         :title="'product.cpCode'">{{product.cpCode}}
+                         :title="product.cpCode">{{product.cpCode}}
                     </div>
                 </td>
                 <td>
                     <div class="limit-text-length type"
-                         :title="'product.targetStatus'">{{product.targetStatus}}
+                         :title="product.targetStatus">{{product.targetStatus}}
                     </div>
                 </td>
                 <td>{{product.createUser}}</td>

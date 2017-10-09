@@ -21,10 +21,10 @@
                 <td><div class="limit-text-length code"
                          :title="product.productCode">{{product.productCode}}</div></td>
                  <td><div class="limit-text-length code"
-                         :title="'product.cpCode'">{{product.cpCode}}</div></td>
+                         :title="product.cpCode">{{product.cpCode}}</div></td>
 
                 <td><div class="limit-text-length type"
-                         :title="'product.targetStatus'">{{product.targetStatus}}</div></td>
+                         :title="product.targetStatus">{{product.targetStatus}}</div></td>
 
                 <td>{{product.createUser}}</td>
                 <td>{{product.auditTime}}</td>
