@@ -93,7 +93,17 @@ export default {
         weeks: {
             type: Array,
             default:function(){
-                return window.navigator.language.toLowerCase() == "zh-cn"?['日', '一', '二', '三', '四', '五', '六']:['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+                //return window.navigator.language.toLowerCase() == "zh-cn"?['日', '一', '二', '三', '四', '五', '六']:['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+                //兼容IE9, IE10
+                if(window.navigator.appName.toLowerCase()=="microsoft internet explorer") {
+                    //alert(window.navigator.userLanguage);
+                    //alert(window.navigator.browserLanguage);
+                    return window.navigator.browserLanguage.toLowerCase() == "zh-cn"?['日', '一', '二', '三', '四', '五', '六']:['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+                } else  { //if(window.navigator.appName.toLowerCase()=="netscape" || window.navigator.appName.toLowerCase()=="firefox")
+                    return window.navigator.language.toLowerCase() == "zh-cn"?['日', '一', '二', '三', '四', '五', '六']:['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                }
             }
         },
         months:{
