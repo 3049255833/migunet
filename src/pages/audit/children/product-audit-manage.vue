@@ -77,22 +77,22 @@
                             }
                             switch (parseInt(item.targetStatus)) {
                                 case 1:
-                                  item.targetStatus = '上线审批';
+                                  item.targetStatus = '上线审批中';
                                   break;
                                 case 2:
-                                  item.targetStatus = '隐藏审批';
+                                  item.targetStatus = '隐藏审批中';
                                   break;
                                 case 3:
-                                  item.targetStatus = '下线审批';
+                                  item.targetStatus = '下线审批中';
                                   break;
                                 case 4:
-                                  item.targetStatus = '注销审批';
+                                  item.targetStatus = '注销审批中';
                                   break;
                                 case 5:
-                                  item.targetStatus = '删除审批';
+                                  item.targetStatus = '删除审批中';
                                   break;
                                 case 6:
-                                  item.targetStatus = '变更审批';
+                                  item.targetStatus = '变更审批中';
                                   break;
                             }
                         });
