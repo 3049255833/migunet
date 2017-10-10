@@ -7,7 +7,7 @@ var proxy_service_xl = 'http://10.5.2.38:8080';
 var proxy_service_e = 'http://10.5.2.52:8080';
 var proxy_service_wc = 'http://10.5.2.66:8080';
 var proxy_service_cjk='http://10.5.2.84:8080';
-var proxy_service_lfy='http://10.5.2.45:8080';
+var proxy_service_lfy='http://10.5.2.15:8080';
 var proxy_service_yzx='http://10.5.2.212:8080';
 var proxy_service='http://10.5.2.243:8082';
 
