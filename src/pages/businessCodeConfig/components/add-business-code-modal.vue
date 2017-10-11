@@ -192,7 +192,8 @@
                     sharingType: '0',
                     feeAmount: '',
                     isManager: '1',
-                    secondConfirm: '0'
+                    secondConfirm: '0',
+                    serviceStatus: '1' //李俊益要求添加字段
                 },
                 errorMsg: {
                     serviceCode: '请输入业务代码ID',

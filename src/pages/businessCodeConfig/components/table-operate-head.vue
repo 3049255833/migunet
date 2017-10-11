@@ -25,7 +25,7 @@
         </div>
 
         <v-progress-bar
-          :isHide="isHide"
+          :isHide="isHideProgressBar"
           :percent="percent"
           :progressStyle="progressStyle.width"
           :uploadErrorInfo="uploadErrorInfo"></v-progress-bar>
@@ -50,7 +50,8 @@
                 },
                 operateData: {
                     keys: ''  //关键字
-                }
+                },
+                isHideProgressBar: true
             }
         },
         methods: {

@@ -19,79 +19,79 @@
             </div>
         </div>
 
-        <table class="table-module">
+        <table class="table-list">
             <thead>
                 <tr>
-                    <th>业务代码</th>
-                    <th>企业代码</th>
-                    <th>业务代码名称</th>
-                    <th>业务代码描述</th>
-                    <th>分成类型</th>
-                    <th>货币类型</th>
-                    <th>资费金额</th>
-                    <th>自否管理员专用</th>
-                    <th>自否二次确认</th>
+                    <th style="width: 100px; padding-left: 20px">业务代码</th>
+                    <th style="width: 100px">企业代码</th>
+                    <th style="width: 130px">业务代码名称</th>
+                    <th style="width: 130px">业务代码描述</th>
+                    <th style="width: 80px">分成类型</th>
+                    <th style="width: 80px">资费金额</th>
+                    <th style="width: 100px">自否管理员专用</th>
+                    <th style="width: 100px">自否二次确认</th>
                 </tr>
             </thead>
         </table>
 
         <div class="clearfix upload-error-list">
-            <table class="table-module">
+            <table class="table-list">
 
                 <tbody v-show="errorCode == '2' || toggleCode == '0'">
                     <tr v-for="(item, index) in wrongList">
-                        <td>
+                        <td style="width: 100px; padding-left: 20px">
                             <div class="l-app-name limit-text-length id"
                                :title="item.serviceCode">{{item.serviceCode}}</div>
                         </td>
 
-                        <td><div class="limit-text-length code"
+                        <td style="width: 100px"><div class="limit-text-length code"
                                  :title="item.companyCode">{{item.companyCode}}</div></td>
 
-                        <td><div class="limit-text-length name"
+                        <td style="width: 130px"><div class="limit-text-length name"
                                  :title="item.serviceName">{{item.serviceName}}</div></td>
 
-                        <td v-if="item.sharingType == '0'">分成</td>
-                        <td v-else>买断</td>
+                        <td style="width: 130px"><div class="limit-text-length des"
+                               :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
 
-                        <td>{{item.feeAmount}}</td>
+                        <td style="width: 80px" v-if="item.sharingType == '0'">分成</td>
+                        <td style="width: 80px" v-else>买断</td>
 
-                        <td><div class="limit-text-length des"
-                                 :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
+                        <td style="width: 80px">{{item.feeAmount}}</td>
 
-                        <td v-if="item.isManager == '1'">是</td>
-                        <td v-else>否</td>
+                        <td style="width: 100px" v-if="item.isManager == '1'">是</td>
+                        <td style="width: 100px" v-else>否</td>
 
-                        <td v-if="item.secondConfirm == '1'">是</td>
-                        <td v-else>否</td>
+                        <td style="width: 100px" v-if="item.secondConfirm == '1'">是</td>
+                        <td style="width: 100px" v-else>否</td>
                     </tr>
                 </tbody>
 
                 <tbody v-show="errorCode == '3' || toggleCode == '1'">
                     <tr v-for="(item, index) in repeatList">
-                        <td><div class="l-app-name limit-text-length id"
+                        <td style="width: 100px; padding-left: 20px">
+                            <div class="l-app-name limit-text-length id"
                                :title="item.serviceCode">{{item.serviceCode}}</div>
                         </td>
 
-                        <td><div class="limit-text-length code"
+                        <td style="width: 100px"><div class="limit-text-length code"
                                  :title="item.companyCode">{{item.companyCode}}</div></td>
 
-                        <td><div class="limit-text-length name"
+                        <td style="width: 130px"><div class="limit-text-length name"
                                  :title="item.serviceName">{{item.serviceName}}</div></td>
 
-                        <td v-if="item.sharingType == '0'">分成</td>
-                        <td v-else>买断</td>
+                        <td style="width: 130px"><div class="limit-text-length des"
+                               :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
 
-                        <td>{{item.feeAmount}}</td>
+                        <td style="width: 80px" v-if="item.sharingType == '0'">分成</td>
+                        <td style="width: 80px" v-else>买断</td>
 
-                        <td><div class="limit-text-length des"
-                                 :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
+                        <td style="width: 80px">{{item.feeAmount}}</td>
 
-                        <td v-if="item.isManager == '1'">是</td>
-                        <td v-else>否</td>
+                        <td style="width: 100px" v-if="item.isManager == '1'">是</td>
+                        <td style="width: 100px" v-else>否</td>
 
-                        <td v-if="item.secondConfirm == '1'">是</td>
-                        <td v-else>否</td>
+                        <td style="width: 100px" v-if="item.secondConfirm == '1'">是</td>
+                        <td style="width: 100px" v-else>否</td>
                     </tr>
                 </tbody>
             </table>
@@ -137,19 +137,59 @@
 <style scoped lang="scss" rel="stylesheet/scss">
   $blue:#46bafe;
 
+  .table-list {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+
+      .limit-text-length {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          color: #333;
+          line-height: 18px;
+      }
+
+      thead {
+          tr {
+              width: 100%;
+              height: 56px;
+              line-height: 56px;
+              background: #F2F8FF;
+              text-align: left;
+              th {
+                  color: #6d7684;
+                  //padding: 0 20px;
+              }
+          }
+      }
+
+      tbody {
+          tr {
+              border-bottom: 1px solid #EEEEEE;
+              background: white;
+
+              td {
+                  color: #333;
+                  padding: 18px 0px;
+              }
+          }
+      }
+  }
+
   .batch-upload-fail-list-container {
-      padding:0 30px;
+      padding:0 20px;
 
       .upload-error-list {
           max-height: 280px;
           overflow-y: auto;
 
-          .code, .des, .content {
-              max-width: 160px;
+          .des, .name {
+              max-width: 100px;
           }
 
-          .type {
-              width: 160px;
+          .id, .code {
+              max-width: 80px;
           }
       }
   }

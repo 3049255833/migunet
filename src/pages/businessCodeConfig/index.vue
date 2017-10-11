@@ -39,7 +39,7 @@
         </modal>
 
         <!-- 批量导入失败或者重复数据modal-->
-        <modal name="batchUploadFailList" :width="800" :height="500" @before-close="beforeClose">
+        <modal name="batchUploadFailList" :width="960" :height="500" @before-close="beforeClose">
             <v-batch-upload-fail-list
               :batchUploadfailData="batchUploadfailData">
             </v-batch-upload-fail-list>
