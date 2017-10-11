@@ -48,13 +48,6 @@
 
                         <div class="delete icon icon-del-gray"
                              @click="deleteBtn(item.id)"></div>
-
-                        <!--<v-confirm-popover-modal
-                          :confirmInfo="'是否确定删除'"
-                          :isHideConfim="item.isHideConfim"
-                          :index="index"
-                          details="businessCodeAdmin">
-                        </v-confirm-popover-modal>-->
                     </td>
                 </tr>
             </tbody>
@@ -123,8 +116,6 @@
              * 接收来自确认modal框的信息
              * */
             this.bus.$on('deleteBusinessCodeConfirmInfoBUs', res => {
-                this.businessCodeList[res].isHideConfim = true;
-
                 let that = this;
 
                 this.$http.post(this.api.deleteBossInfo, this.postData).then(
@@ -133,7 +124,7 @@
 
                         //console.log("businessCodeList: " + JSON.stringify(res));
 
-                        if(res.resultCode=='00000000'){
+                        if(res.result.resultCode=='00000000'){
 
                             that.$root.toastText = '删除成功';
 
@@ -145,6 +136,8 @@
                             that.$root.toastText = '删除失败';
                             //console.log("res: " + JSON.stringify(res));
                         }
+
+                        that.$modal.hide('deleteBusinessCodeConfirmModal');
 
                         that.$root.toast = true;
                     }

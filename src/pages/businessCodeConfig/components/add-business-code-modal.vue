@@ -189,7 +189,7 @@
                     companyCode: '',
                     serviceName: '',
                     serviceDesc: '',
-                    sharingType: '',
+                    sharingType: '0',
                     feeAmount: '',
                     isManager: '1',
                     secondConfirm: '0'
@@ -281,6 +281,8 @@
             confirm() {
                 console.log("postData: " + JSON.stringify(this.postData));
 
+                let that = this;
+
                 this.isActive = true;
 
                 if(this.cmd == 'edit') {
@@ -291,7 +293,7 @@
 
                             console.log("Edit res: " + JSON.stringify(res));
 
-                            if(res.resultCode == '00000000') {
+                            if(res.result.resultCode == '00000000') {
 
                                 this.$root.toastText = '编辑成功';
                             } else {
@@ -307,7 +309,7 @@
                         response => {
                             let res = response.body;
 
-                            if(res.resultCode == '00000000') {
+                            if(res.result.resultCode == '00000000') {
 
                                 this.$root.toastText = '添加成功';
 
@@ -321,6 +323,10 @@
                         }
                     );
                 }
+
+                setTimeout(function () {
+                  that.bus.$emit('sendAddAndEditInfo');
+                }, 2000);
             }
         },
         created () {
@@ -355,7 +361,7 @@
                 }
 
                 if(this.postData.isManager == '1') {
-                    this.isManagerText = '是'
+                    this.isManagerText = '是';
                 } else if(this.postData.isManager == '0') {
                     this.isManagerText = '否';
                 }

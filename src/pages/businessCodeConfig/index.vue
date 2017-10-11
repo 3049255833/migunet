@@ -110,6 +110,13 @@
             });
 
             /**
+             * 接收来自添加和编辑的信息
+             * */
+            this.bus.$on('sendAddAndEditInfo', res => {
+                this.getBossInfo();
+            });
+
+            /**
              * 接收来自批量导入的信息
              * */
             this.bus.$on('sendBatchAddBossSuccessInfo', res => {
