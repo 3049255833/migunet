@@ -3,29 +3,15 @@
         <div class="form-wrap ">
             <!--CP/SP ID-->
             <div class="form-row">
-                <div class="row-left">
+                <div class="row-left required">
                   CP/SP ID：
                 </div>
                 <div class="row-right">
                     <input class="form-input pointer w-340"
                          type="text"
-                         v-model="cPSPIDList.cpName"
+                         readonly
+                         v-model.trim="formData.cpName"
                          @click="showCPSPIDModal"/>
-
-                        <!--<table class="table-module" v-if="cPSPIDList.length>0">
-                            <thead>
-                                <tr>
-                                  <td>企业代码</td>
-                                  <td>企业名称</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{cPSPIDList.planCode}}</td>
-                                    <td>{{cPSPIDList.planName}}</td>
-                                </tr>
-                            </tbody>
-                        </table>-->
 
                         <i class="icon icon-select"></i>
                 </div>
@@ -171,6 +157,7 @@
                 </div>
             </div>
         </div>
+
         <modal name="areaChoseModal" :width="800" :height="520" @before-close="beforeClose">
             <t-modal-sub-container :title="'选择业务归属地'" :name="'areaChoseModal'">
                 <v-area-chose
@@ -180,6 +167,7 @@
                 </v-area-chose>
             </t-modal-sub-container>
         </modal>
+
         <modal name="smsListModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="smsTitle" :name="'smsListModal'">
                 <v-sms-list :modal-name="'smsListModal'" :smsType="smsType"></v-sms-list>
@@ -221,10 +209,11 @@
     import VAreaChose from '@/pages/contractProduct/children/contractProductAdd/components/area-chose.vue'
     import VPaging from '@/components/paging'
     import VToast from '@/components/toast'
-
     import VProductSelectModal from '../components/product-select-modal'
-
     import VCpSpModal from '../components/cp-sp-modal.vue'
+
+    //表单注入
+    import {required} from 'vuelidate/lib/validators';
 
     export default{
         components: {
@@ -250,8 +239,8 @@
                     dependentProductCodes: '',
                     remindDays: '5',  //到期提醒提前天数
                     sendPlatform: [], //发送平台,
-                    platform: '',
-                    cpCode: ''        //CP/SP code
+                    cpCode: '',        //CP/SP code,
+                    cpName: ''
                 },
                 smsTitle: '',
                 productSelectTitle: '',
@@ -276,6 +265,14 @@
                     sendPlatform: ''
                 }
             }
+        },
+        validations: {
+            formData: {
+                cpCode: {
+                    required
+                }
+            },
+            validationGroup: ['formData.cpCode']
         },
         created(){
             this.getSendPlatform();
@@ -436,25 +433,12 @@
         computed: {
             canSave(){
                 let flag = true;
-             /*   if (!this.formData.limitSmsAreas) {
-                    flag = false
+
+                if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid) {
+
+                } else {
+                    flag=false
                 }
-
-                if (!this.formData.promptSmsCodes) {
-                    flag = false
-                }
-
-                if (!this.formData.recommendCodes) {
-                    flag = false
-                }*/
-
-              /*  if (!this.formData.mutuallyProductCodes) {
-                    flag = false
-                }
-
-                if (!this.formData.dependentProductCodes) {
-                    flag = false
-                }*/
                 return flag
             }
         },
@@ -525,6 +509,8 @@
                     this.cPSPIDList = res;
 
                     this.formData.cpCode = this.cPSPIDList.cpCode;
+
+                    this.formData.cpName = this.cPSPIDList.cpName;
                 }
 
                 console.log("CPSP: " + JSON.stringify(res));
