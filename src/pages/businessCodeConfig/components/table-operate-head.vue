@@ -82,34 +82,56 @@
                     return false;
                 }
 
+                console.log("fileTypeValid: " + fileTypeValid);
+
                 if (fileTypeValid) {
                     let formData = new FormData();
 
                     formData.append('file', files[0]);
 
-                    this.$http.post(this.api.batchAddBossInfo, formData).then(
-                        response => {
-                            let res = response.body;
+                    this.$http.post(this.api.batchAddBossInfo, formData).then(response => {
+                        let res = response.body;
 
-                            if(res.result.resultCode=='00000000'){
-                                this.isHide = false;
-                                this.percent = '100';
-                                this.progressStyle.width = '100';
+                        console.log("upload res: " + JSON.stringify(res));
 
-                                setTimeout(function () {
-                                  that.isHide = true;
+                        if(res.resultCode=='1'){ //成功
+                            this.isHideProgressBar = false;
+                            this.percent = '100';
+                            this.progressStyle.width = '100';
 
-                                  that.bus.$emit('sendBatchAddBossSuccessInfo');
-                                }, 2000);
+                            setTimeout(function () {
+                                that.isHideProgressBar = true;
 
-                            } else {
-                                this.bus.$emit('sendBatchAddBossInfo', '上传失败');
-                            }
+                                that.bus.$emit('sendBatchUploadBusinessCodeSuccessBus');
+                            }, 2000);
+
+                        } else if(res.resultCode=='2') { //部分失败
+                            //this.bus.$emit('sendBatchAddBossInfo', '上传失败');
+
+                            that.bus.$emit('sendUploadWrongInfoBus', res);
+
+                        } else if(res.resultCode=='3') { //部分重复导入
+
+                            that.bus.$emit('sendUploadRepeatInfoBus', res);
+
+                        } else if(res.resultCode=='4') { //其他异常
+
+                            that.$root.toastText = res.resultMessage;
+                            that.$root.toast = true;
+
+                        } else if(res.resultCode=='5') { //部分失败，部分重复
+
+                            console.log("error 5: " + JSON.stringify(res));
+
+                            that.bus.$emit('sendUploadWrongRepeatInfoBus', res);
                         }
-                    );
+                    });
                 } else {
 
-                    this.bus.$emit('sendBatchAddBossInfo', '上传格式错误');
+                  //this.bus.$emit('sendBatchAddBossInfo', '上传格式错误');
+
+                    that.$root.toastText = '上传格式错误';
+                    that.$root.toast = true;
                 }
             }
         }

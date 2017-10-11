@@ -37,6 +37,13 @@
                 </v-confirm-delete-modal>
             </t-modal-sub-container>
         </modal>
+
+        <!-- 批量导入失败或者重复数据modal-->
+        <modal name="batchUploadFailList" :width="800" :height="500" @before-close="beforeClose">
+            <v-batch-upload-fail-list
+              :batchUploadfailData="batchUploadfailData">
+            </v-batch-upload-fail-list>
+        </modal>
     </div>
 </template>
 
@@ -49,6 +56,7 @@
     import TModalSubContainer from "@/components/modal-sub-container"
     import VToast from '@/components/toast'
     import VConfirmDeleteModal from '@/components/confirm-delete-modal/confirm-delete-modal'
+    import VBatchUploadFailList from './components/batch-upload-fail-list.vue'
 
     export default{
         name: 'BusinessCodeConfig',
@@ -59,7 +67,8 @@
             VAddBusinessCodeModal,
             TModalSubContainer,
             VToast,
-            VConfirmDeleteModal
+            VConfirmDeleteModal,
+            VBatchUploadFailList
         },
         data () {
             return {
@@ -73,7 +82,8 @@
                     pageNum:'1'
                 },
                 totalItem:'',
-                addResultMsg:''
+                addResultMsg:'',
+                batchUploadfailData: {}
             }
         },
         created() {
@@ -110,25 +120,47 @@
             });
 
             /**
-             * 接收来自添加和编辑的信息
+             * 接收来自添加和编辑，成功或者失败的信息
              * */
             this.bus.$on('sendAddAndEditInfo', res => {
                 this.getBossInfo();
             });
 
-            /**
-             * 接收来自批量导入的信息
-             * */
-            this.bus.$on('sendBatchAddBossSuccessInfo', res => {
+            /** 接收批量导入成功的信息 */
+            this.bus.$on('sendBatchUploadBusinessCodeSuccessBus', res => {
                 this.getBossInfo();
             });
 
-            this.bus.$on('sendBatchAddBossInfo', res => {
-                let that = this;
+            /** 接收批量导入部分失败的数据 */
+            this.bus.$on('sendUploadWrongInfoBus', res => {
 
-                this.addResultMsg = res;
+                this.batchUploadfailData = res;
 
-                this.$modal.show('addResultMsg');
+                this.$modal.show('batchUploadFailList');
+
+                this.getBossInfo();
+            });
+
+            /** 接收批量导入部分重复的数据 */
+            this.bus.$on('sendUploadRepeatInfoBus', res => {
+
+                this.batchUploadfailData = res;
+
+                this.$modal.show('batchUploadFailList');
+
+                this.getBossInfo();
+            });
+
+            /** 接收批量导入部分失败和重复的数据 */
+            this.bus.$on('sendUploadWrongRepeatInfoBus', res => {
+
+                this.batchUploadfailData = res;
+
+                console.log("batchUploadfailData 5: " + JSON.stringify(this.batchUploadfailData));
+
+                this.$modal.show('batchUploadFailList');
+
+                this.getBossInfo();
             });
         },
         methods: {
@@ -213,7 +245,12 @@
             this.bus.$off('sendAddBusinessCodeTitle');
             this.bus.$off('editPassModal');
             this.bus.$off('sendDeleteInfo');
-            this.bus.$off('sendBatchAddBossInfo');
+            this.bus.$off('sendAddAndEditInfo');
+
+            this.bus.$off('sendUploadWrongRepeatInfoBus');
+            this.bus.$off('sendUploadRepeatInfoBus');
+            this.bus.$off('sendUploadWrongInfoBus');
+            this.bus.$off('sendBatchUploadBusinessCodeSuccessBus');
         }
     }
 </script>
