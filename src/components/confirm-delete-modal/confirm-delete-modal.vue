@@ -49,6 +49,9 @@
                 } else if(this.functionType === 'auditDetailsPassConfirmInfo') {
 
                     this.bus.$emit('auditDetailsPassConfirmInfoBus');
+                } else if(this.functionType === 'deleteBusinessCodeConfirmInfo') {
+
+                    this.bus.$emit('deleteBusinessCodeConfirmInfoBUs');
                 }
 
                 event.stopPropagation();
@@ -80,7 +83,11 @@
                 } else if(this.functionType === 'auditDetailsPassConfirmInfo') {
 
                     this.$modal.hide('auditDetailsConfirmModal');
+                } else if(this.functionType === 'deleteBusinessCodeConfirmInfo') {
+
+                    this.$modal.hide('deleteBusinessCodeConfirmModal');
                 }
+
 
                 event.stopPropagation();
             }

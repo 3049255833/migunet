@@ -3,7 +3,7 @@
 
         <div class="form-wrap">
             <div class="form-row">
-                <div class="row-left required">业务代码ID：</div>
+                <div class="row-left required">业务代码：</div>
 
                 <div class="row-right">
                     <input class="form-input pointer w-200"
@@ -139,6 +139,20 @@
                     </v-select-box>
                 </div>
             </div>
+
+            <div class="form-row">
+                <div class="row-left required">是否需要二次确认：</div>
+
+                <div class="row-right">
+                    <v-select-box
+                        w="200"
+                        :selectTitle="secondConfirmText"
+                        :selectValue="'0'"
+                        :selectBoxName="'isSecondConfirmSelectBox'"
+                        v-bind:options="selectBoxList.secondConfirmList">
+                    </v-select-box>
+                </div>
+            </div>
         </div>
 
         <div class="btn-group btn-group-center">
@@ -177,7 +191,8 @@
                     serviceDesc: '',
                     sharingType: '',
                     feeAmount: '',
-                    isManager: '1'
+                    isManager: '1',
+                    secondConfirm: '0'
                 },
                 errorMsg: {
                     serviceCode: '请输入业务代码ID',
@@ -203,6 +218,16 @@
                           optionValue: '0'
                         },
                     ],
+                    secondConfirmList: [
+                        {
+                            optionText: '是',
+                            optionValue: '1'
+                        },
+                        {
+                            optionText: '否',
+                            optionValue: '0'
+                        }
+                    ],
                     sharingTypeList: [
                         {
                             optionText: '分成',
@@ -216,7 +241,8 @@
                 },
                 isActive: false,
                 sharingTypeText: '分成',
-                isManagerText: '否'
+                isManagerText: '否',
+                secondConfirmText: '否'
             }
         },
         validations: {
@@ -258,10 +284,6 @@
                 this.isActive = true;
 
                 if(this.cmd == 'edit') {
-
-                    delete this.postData.isHideConfim;
-
-                    //console.log("postData222: " + JSON.stringify(this.postData));
 
                     this.$http.post(this.api.updateBossInfo, this.postData).then(
                         response => {
@@ -315,6 +337,11 @@
 
                     this.postData.sharingType = res.selectOption.optionValue;
                 }
+
+                if(res.selectBoxName == 'isSecondConfirmSelectBox') {
+
+                    this.postData.secondConfirm = res.selectOption.optionValue;
+                }
             });
 
             if(this.cmd == 'edit') {
@@ -331,6 +358,12 @@
                     this.isManagerText = '是'
                 } else if(this.postData.isManager == '0') {
                     this.isManagerText = '否';
+                }
+
+                if(this.postData.secondConfirm == '1') {
+                    this.secondConfirmText = '是'
+                } else if(this.postData.secondConfirm == '0') {
+                    this.secondConfirmText = '否';
                 }
                 //console.log("passModal: " + JSON.stringify(this.postData));
             }

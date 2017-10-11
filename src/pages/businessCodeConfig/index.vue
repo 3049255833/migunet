@@ -24,6 +24,19 @@
         <modal name="addResultMsg" :adaptive="true" :draggable="true" :width="200" :height="80">
             <v-toast :name="'addResultMsg'">{{addResultMsg}}</v-toast>
         </modal>
+
+        <!--确认删除modal-->
+        <modal name="deleteBusinessCodeConfirmModal" :width="390" :height="280" @before-close="beforeClose">
+            <t-modal-sub-container
+                :title="'是否确认删除'"
+                :name="'deleteBusinessCodeConfirmModal'">
+
+                <v-confirm-delete-modal
+                    :functionType="'deleteBusinessCodeConfirmInfo'"
+                    :confirmInfo="'是否确认删除业务代码'">
+                </v-confirm-delete-modal>
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 
@@ -35,6 +48,7 @@
     import VAddBusinessCodeModal from './components/add-business-code-modal'
     import TModalSubContainer from "@/components/modal-sub-container"
     import VToast from '@/components/toast'
+    import VConfirmDeleteModal from '@/components/confirm-delete-modal/confirm-delete-modal'
 
     export default{
         name: 'BusinessCodeConfig',
@@ -44,7 +58,8 @@
             VPaging,
             VAddBusinessCodeModal,
             TModalSubContainer,
-            VToast
+            VToast,
+            VConfirmDeleteModal
         },
         data () {
             return {
@@ -141,9 +156,9 @@
                                 res.service.list[i].isHideConfim = true;
                             }*/
 
-                            this.businessCodeList = res.service.list;
+                            this.businessCodeList = res.data;
 
-                            this.totalItem = res.service.total;
+                            this.totalItem = res.total;
 
                             //console.log("list2: " + JSON.stringify(res));
                         } else {

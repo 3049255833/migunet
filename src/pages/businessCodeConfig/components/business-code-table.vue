@@ -39,21 +39,22 @@
                     <td v-if="item.isManager == '1'">是</td>
                     <td v-else>否</td>
 
-                    <td></td>
+                    <td v-if="item.secondConfirm == '1'">是</td>
+                    <td v-else>否</td>
 
                     <td class="operation">
                         <div class="edit icon icon-edit-gray"
                              @click="editBusinessCode(item)"></div>
 
                         <div class="delete icon icon-del-gray"
-                             @click="deleteBtn(index, item.id, item.serviceCode)"></div>
+                             @click="deleteBtn(item.id)"></div>
 
-                        <v-confirm-popover-modal
+                        <!--<v-confirm-popover-modal
                           :confirmInfo="'是否确定删除'"
                           :isHideConfim="item.isHideConfim"
                           :index="index"
                           details="businessCodeAdmin">
-                        </v-confirm-popover-modal>
+                        </v-confirm-popover-modal>-->
                     </td>
                 </tr>
             </tbody>
@@ -87,10 +88,11 @@
             return {
                 count: 0,
                 isHideOperateModal: true,
-                willDelete: {
-                    id: '',
-                    serviceCode: ''
-                },
+                postData: [
+                    {
+                        id: ''
+                    }
+                ],
                 operateInfo: ''
             }
         },
@@ -101,14 +103,13 @@
             VNolist
         },
         methods: {
-            deleteBtn(index, id, code) {
-                this.businessCodeList[index].isHideConfim = false;
+            deleteBtn(id) {
 
-                this.willDelete.id = id;
+                this.postData[0].id = id;
 
-                this.willDelete.serviceCode = code;
+                this.$modal.show('deleteBusinessCodeConfirmModal');
 
-                //console.log("willDeleteId: " + this.willDelete.id);
+                console.log("Delete postData: " + this.postData[0].id);
             },
             editBusinessCode(item) {
 
@@ -121,12 +122,12 @@
             /**
              * 接收来自确认modal框的信息
              * */
-            this.bus.$on('businessCodeAdminConfirmInfoBus', res => {
+            this.bus.$on('deleteBusinessCodeConfirmInfoBUs', res => {
                 this.businessCodeList[res].isHideConfim = true;
 
                 let that = this;
 
-                this.$http.post(this.api.deleteBossInfo, this.willDelete).then(
+                this.$http.post(this.api.deleteBossInfo, this.postData).then(
                     response => {
                         let res = response.body;
 
@@ -134,36 +135,20 @@
 
                         if(res.resultCode=='00000000'){
 
-                            this.operateInfo = '删除成功';
-
-                            this.isHideOperateModal = false;
+                            that.$root.toastText = '删除成功';
 
                             setTimeout(function () {
-                                that.isHideOperateModal = true;
-
                                 that.bus.$emit('sendDeleteInfo');
                             }, 2000);
 
                         } else {
-                            this.operateInfo = '删除失败';
-
-                            this.isHideOperateModal = false;
-
-                            setTimeout(function () {
-                                that.isHideOperateModal = true;
-                            }, 2000);
-
-                            console.log("res: " + JSON.stringify(res));
+                            that.$root.toastText = '删除失败';
+                            //console.log("res: " + JSON.stringify(res));
                         }
+
+                        that.$root.toast = true;
                     }
                 );
-            });
-
-            /**
-             * 接收来自取消modal框的信息
-             * */
-            this.bus.$on('sendCancelInfo', res => {
-                this.businessCodeList[res].isHideConfim = true;
             });
         }
     }
@@ -188,11 +173,11 @@
             }
 
             .des, .name {
-                max-width: 150px;
+                max-width: 100px;
             }
 
             .id, .code {
-                max-width: 100px;
+                max-width: 72px;
             }
 
             .operation {

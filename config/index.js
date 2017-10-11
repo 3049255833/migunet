@@ -2,7 +2,7 @@
 var path = require('path');
 
 var proxy_service_xhw = 'http://10.5.2.47:8080';
-var proxy_service_ljy = 'http://10.5.2.57:8080';
+var proxy_service_ljy = 'http://10.5.2.69:8080';
 var proxy_service_xl = 'http://10.5.2.38:8080';
 var proxy_service_e = 'http://10.5.2.52:8080';
 var proxy_service_wc = 'http://10.5.2.66:8080';
@@ -176,27 +176,27 @@ module.exports = {
 
             '/productCenter/getBossInfo': {
                 /*获取业务状态列表*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/deleteBossInfo': {
                 /*删除业务代码*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/addBossInfo': {
                 /*添加业务代码*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/updateBossInfo': {
                 /*编辑业务代码*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/batchAddBossInfo': {
                 /*批量导入业务代码*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
 
