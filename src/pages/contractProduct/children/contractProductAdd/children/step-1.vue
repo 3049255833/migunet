@@ -751,7 +751,7 @@
                     ],
                     subCompanyList: []
                 },
-                subCompanyText: '咪咕总公司',
+                subCompanyText: '咪咕文化',
                 isProductCode: false
             }
         },
