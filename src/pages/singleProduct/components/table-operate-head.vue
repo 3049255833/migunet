@@ -82,32 +82,88 @@
                 keyWord: '',
                 detailStatusOperateList: [
                     {
-                        optionText: '全部',
-                        optionValue: ''
+                      optionText: '全部',
+                      optionValue: ''
                     },
                     {
-                        optionText: '上线报备中',
-                        optionValue: '3'
+                      optionText: '上线审批中',
+                      optionValue: '0'
                     },
                     {
-                        optionText: '上线报备失败',
-                        optionValue: '4'
+                      optionText: '上线审批失败',
+                      optionValue: '1'
                     },
                     {
-                        optionText: '变更报备中',
-                        optionValue: '7'
+                      optionText: '隐藏审批中',
+                      optionValue: '2'
                     },
                     {
-                        optionText: '变更报备失败',
-                        optionValue: '8'
+                      optionText: '隐藏审批失败',
+                      optionValue: '3'
                     },
                     {
-                        optionText: '下线报备中',
-                        optionValue: '9'
+                      optionText: '下线审批中',
+                      optionValue: '4'
                     },
                     {
-                        optionText: '下线报备失败',
-                        optionValue: '10'
+                      optionText: '下线审批失败',
+                      optionValue: '5'
+                    },
+                    {
+                      optionText: '注销审批中',
+                      optionValue: '6'
+                    },
+                    {
+                      optionText: '注销审批失败',
+                      optionValue: '7'
+                    },
+                    {
+                      optionText: '删除审批中',
+                      optionValue: '8'
+                    },
+                    {
+                      optionText: '删除审批失败',
+                      optionValue: '9'
+                    },
+                    {
+                      optionText: '变更审批中',
+                      optionValue: '10'
+                    },
+                    {
+                      optionText: '变更审批失败',
+                      optionValue: '11'
+                    },
+                    {
+                      optionText: '变更报备中',
+                      optionValue: '12'
+                    },
+                    {
+                      optionText: '变更报备失败',
+                      optionValue: '13'
+                    },
+                    {
+                      optionText: '下线报备中',
+                      optionValue: '14'
+                    },
+                    {
+                      optionText: '下线报备失败',
+                      optionValue: '15'
+                    },
+                    {
+                      optionText: '隐藏报备中',
+                      optionValue: '16'
+                    },
+                    {
+                      optionText: '隐藏报备失败',
+                      optionValue: '17'
+                    },
+                    {
+                      optionText: '上线报备中',
+                      optionValue: '18'
+                    },
+                    {
+                      optionText: '上线报备失败',
+                      optionValue: '19'
                     }
                 ],
                 onlineStatusOperateList: [
