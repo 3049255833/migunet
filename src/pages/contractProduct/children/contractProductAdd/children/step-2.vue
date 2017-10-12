@@ -294,7 +294,7 @@
                 pdMatchFiledLists: [],
                 initPdMatchFileDListsOption: {},
                 productAreaList: [], //出品地区列表,
-                productAreaName: ''
+                productAreaName: ''  //在页面显示中使用
             }
         },
         methods: {
@@ -413,7 +413,6 @@
             delSubItem(index, subIndex){
                 this.prmLists[index].pmLists.splice(subIndex, 1);
             },
-
 
             /**
              * 选择资费计划
@@ -593,6 +592,7 @@
 
                                     //this.productAreaList = res.data;
 
+                                    //从新组装出品列表
                                     for(let m = 0; m < res.data.length; m++) {
 
                                         let obj = {};
