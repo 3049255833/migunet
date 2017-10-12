@@ -54,7 +54,11 @@
                                :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
 
                         <td style="width: 80px" v-if="item.sharingType == '0'">分成</td>
-                        <td style="width: 80px" v-else>买断</td>
+                        <td style="width: 80px" v-else-if="item.sharingType == '1'">买断</td>
+                        <td style="width: 80px" v-else>
+                          <div class="limit-text-length"
+                               style="max-width: 80px"
+                               :title="item.sharingType">{{item.sharingType}}</div></td>
 
                         <td style="width: 80px">{{item.feeAmount}}</td>
 
@@ -83,7 +87,12 @@
                                :title="item.serviceDesc">{{item.serviceDesc}}</div></td>
 
                         <td style="width: 80px" v-if="item.sharingType == '0'">分成</td>
-                        <td style="width: 80px" v-else>买断</td>
+                        <td style="width: 80px" v-else-if="item.sharingType == '1'">买断</td>
+                        <td style="width: 80px" v-else>
+                            <div class="limit-text-length"
+                                 style="max-width: 80px"
+                               :title="item.sharingType">{{item.sharingType}}</div></td>
+                        </td>
 
                         <td style="width: 80px">{{item.feeAmount}}</td>
 
