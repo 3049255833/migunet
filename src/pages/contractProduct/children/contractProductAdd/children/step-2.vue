@@ -20,6 +20,8 @@
                                 <i class="icon icon-del-blue" @click="delItem(index)"></i>
                             </div>
                         </div>
+
+                        <!--是否免费-->
                         <div class="form-row">
                             <div class="row-left font-12 required w-100">是否免费：</div>
                             <div class="row-right">
@@ -37,6 +39,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!--收费下才有：资费计划-->
                         <div class="form-row" v-if="item.pdRights.isFree=='0'">
                             <div class="row-left font-12 required w-100">资费计划：</div>
                             <div class="row-right">
@@ -52,69 +56,95 @@
                                 <i class="icon icon-select"></i>
                             </div>
                         </div>
+
+                        <!--条件选择-->
                         <div class="form-row">
                             <div class="row-left font-12 required w-100">条件选择：</div>
                             <div class="row-right">
                                 <div class="select-group-item">
                                     <div class="radio-wrap">
                                         <label class="radio-module  w-115">
-                                            <input value="1" v-model="item.pdRights.contentLimit" type="radio">
+                                            <input value="1"
+                                                   v-model="item.pdRights.contentLimit"
+                                                   type="radio">
                                             <span></span>
                                             <span class="txt">内容限定</span>
                                         </label>
+
                                         <label class="radio-module w-115">
-                                            <input value="2" v-model="item.pdRights.contentLimit" type="radio">
+                                            <input value="2"
+                                                   v-model="item.pdRights.contentLimit"
+                                                   type="radio">
                                             <span></span>
                                             <span class="txt">产品限定</span>
                                         </label>
                                     </div>
                                 </div>
-                                <div class="content-limit" v-if="item.pdRights.contentLimit=='1'">
-                                    <div v-for="(subItem,subIndex) in item.pmLists" class="select-group-item">
-                                        <div class="layout-inline-middle mr-10" v-if="!subIndex==0">
+
+                                <!--选择框-->
+                                <div class="content-limit"
+                                     v-if="item.pdRights.contentLimit=='1'">
+
+                                    <div v-for="(subItem,subIndex) in item.pmLists"
+                                         class="select-group-item">
+
+                                        <div class="layout-inline-middle mr-10"
+                                             v-if="!subIndex==0">
                                             <v-is-and-select-box w="60"
-                                                                 :selectTitle="prmLists[index].pdRights.isAndText"
-                                                                 :pmListIndex="{'index':index,'subIndex':subIndex}"
-                                                                 :selectValue="prmLists[index].pdRights.isAnd"
-                                                                 v-bind:options="[{'optionText':'并且','optionValue':'1'},{'optionText':'或者','optionValue':'0'}]"></v-is-and-select-box>
+                                               :selectTitle="prmLists[index].pdRights.isAndText"
+                                               :pmListIndex="{'index':index,'subIndex':subIndex}"
+                                               :selectValue="prmLists[index].pdRights.isAnd"
+                                                v-bind:options="[{'optionText':'并且','optionValue':'1'},{'optionText':'或者','optionValue':'0'}]">
+                                            </v-is-and-select-box>
                                         </div>
+
                                         <div class="layout-inline-middle">
                                             <v-content-limit-select-box
-                                                w="200"
-                                                :defaultTitle="'请选择'"
-                                                :pmListIndex="{'index':index,'subIndex':subIndex}"
-                                                  v-bind:options="pdMatchFiledLists">
+                                              w="200"
+                                              :defaultTitle="'请选择'"
+                                              :pmListIndex="{'index':index,'subIndex':subIndex}"
+                                              v-bind:options="pdMatchFiledLists">
                                             </v-content-limit-select-box>
                                         </div>
 
                                         <span class="row-text">等于</span>
+
                                         <div class="layout-inline-middle">
-                                            <v-pd-content-select-box w="200" selectTitle=""
-                                                                     defaultTitle="请选择"
-                                                                     :pmListIndex="{'index':index,'subIndex':subIndex}"
-                                                                     v-bind:options="subItem.pdContentList"></v-pd-content-select-box>
+                                            <v-pd-content-select-box w="200"
+                                               selectTitle=""
+                                               defaultTitle="请选择"
+                                              :pmListIndex="{'index':index,'subIndex':subIndex}"
+                                               v-bind:options="subItem.pdContentList">
+                                            </v-pd-content-select-box>
                                         </div>
+
                                         <div class="layout-inline-middle">
-                                            <i class="icon icon-add-blue" @click="addSubItem(index,subIndex)"></i>
-                                            <i class="icon icon-del-blue" @click="delSubItem(index,subIndex)"
+                                            <i class="icon icon-add-blue"
+                                               @click="addSubItem(index,subIndex)"></i>
+
+                                            <i class="icon icon-del-blue"
+                                               @click="delSubItem(index,subIndex)"
                                                v-if="!subIndex==0"></i>
                                         </div>
                                     </div>
                                 </div>
+
+                                <!--产品限定-->
                                 <div class="product-limit" v-else>
                                     <div class="textarea-module" @click="choseProduct(index)">
-                                        <table class="table-module " v-if="item.pmLists[0].matchValues.length>0">
+                                        <table class="table-module "
+                                               v-if="item.pmLists[0].matchValues.length>0">
                                             <thead>
-                                            <tr>
-                                                <td width="40%">产品编码</td>
-                                                <td width="60%">产品名称</td>
-                                            </tr>
+                                                <tr>
+                                                    <td width="40%">产品编码</td>
+                                                    <td width="60%">产品名称</td>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                            <tr v-for="product in item.pmLists[0].productData">
-                                                <td>{{product.productCode}}</td>
-                                                <td>{{product.content}}</td>
-                                            </tr>
+                                              <tr v-for="product in item.pmLists[0].productData">
+                                                  <td>{{product.productCode}}</td>
+                                                  <td>{{product.content}}</td>
+                                              </tr>
                                             </tbody>
                                         </table>
                                         <span class="icon icon-select"></span>
@@ -123,11 +153,16 @@
                             </div>
                         </div>
                     </article>
+
                     <div class="btn-group">
-                        <div class="btn btn-primary btn-middle" v-if="canSave" @click="nextStep">下一步</div>
+                        <div class="btn btn-primary btn-middle"
+                             v-if="canSave" @click="nextStep">下一步</div>
+
                         <div class="btn btn-primary btn-middle unable" v-else>下一步</div>
+
                         <div class="btn btn-default btn-middle" @click="forwardStep">上一步</div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -136,22 +171,29 @@
                    <v-product-code-list></v-product-code-list>
                </t-modal-sub-container>
            </modal>-->
+
         <!--资费计划id modal-->
         <modal name="planCodeListModal" :width="870" :height="570" @before-close="beforeClose">
-            <t-modal-sub-container :title="'选择资费计划'" :name="'planCodeListModal'">
-                <v-plan-code-list :modalName="'planCodeListModal'" :type="'radio'" :index="planCodeIndex"
-                                  v-on:planCodeBus="getPlanCode"></v-plan-code-list>
+            <t-modal-sub-container
+                :title="'选择资费计划'"
+                :name="'planCodeListModal'">
+
+                <v-plan-code-list
+                    :modalName="'planCodeListModal'"
+                    :type="'radio'"
+                    :index="planCodeIndex"
+                    v-on:planCodeBus="getPlanCode"></v-plan-code-list>
             </t-modal-sub-container>
         </modal>
+
         <!--获取产品编码-->
-        <modal name="productSelectModal"
-               :width="870" :height="570" @before-close="beforeClose">
+        <modal name="productSelectModal" :width="870" :height="570" @before-close="beforeClose">
             <t-modal-sub-container :title="'产品选择'" :name="'productSelectModal'">
                 <v-product-select-step-2
-                        :index="productIndex"
-                        :prmLists="prmLists"
-                        :modal-name="'productSelectModal'"
-                        :productType="'1'"></v-product-select-step-2>
+                    :index="productIndex"
+                    :prmLists="prmLists"
+                    :modal-name="'productSelectModal'"
+                    :productType="'1'"></v-product-select-step-2>
             </t-modal-sub-container>
         </modal>
     </div>
@@ -196,7 +238,7 @@
                             planCode: '',
                             isAnd: '1',   //or :0 and:1
                             isAndText: '并且',   //
-                            contentLimit: '1',
+                            contentLimit: '1'
                         },
                         pmLists: [
                             {

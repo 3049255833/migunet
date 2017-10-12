@@ -82,12 +82,12 @@ module.exports = {
             },
             '/contractProduct/findPdMatchFiled':{
                 /*获取匹配字段表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findPdContent':{
                 /*匹配内容限定*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findSmsTemplate': {
@@ -136,7 +136,7 @@ module.exports = {
             },
             '/contractProduct/saveContractProduct':{
                 /*整体保存*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
@@ -176,17 +176,17 @@ module.exports = {
 
             '/productCenter/getBossInfo': {
                 /*获取业务状态列表*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/deleteBossInfo': {
                 /*删除业务代码*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/addBossInfo': {
                 /*添加业务代码*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/updateBossInfo': {
@@ -196,7 +196,7 @@ module.exports = {
             },
             '/productCenter/batchAddBossInfo': {
                 /*批量导入业务代码*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
 
