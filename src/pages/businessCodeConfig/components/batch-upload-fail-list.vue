@@ -63,10 +63,18 @@
                         <td style="width: 80px">{{item.feeAmount}}</td>
 
                         <td style="width: 100px" v-if="item.isManager == '1'">是</td>
-                        <td style="width: 100px" v-else>否</td>
+                        <td style="width: 100px" v-else-if="item.isManager == '0'">否</td>
+                        <td style="width: 100px" v-else>
+                            <div class="limit-text-length"
+                                 style="max-width: 100px"
+                                 :title="item.isManager">{{item.isManager}}</div></td>
 
                         <td style="width: 100px" v-if="item.secondConfirm == '1'">是</td>
-                        <td style="width: 100px" v-else>否</td>
+                        <td style="width: 100px" v-else-if="item.secondConfirm == '0'">否</td>
+                        <td style="width: 100px" v-else>
+                          <div class="limit-text-length"
+                               style="max-width: 100px"
+                               :title="item.secondConfirm">{{item.secondConfirm}}</div></td>
                     </tr>
                 </tbody>
 
