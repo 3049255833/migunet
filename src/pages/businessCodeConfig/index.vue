@@ -116,6 +116,15 @@
              * 接收来自删除的信息
              * */
             this.bus.$on('sendDeleteInfo', res => {
+
+                //console.log("sendDeleteInfo res: " + res);
+
+                if(res <= 1) {
+                    this.postData.pageNum = '1';
+
+                    this.$refs.pagingModule.current = 1;
+                }
+
                 this.getBossInfo();
             });
 

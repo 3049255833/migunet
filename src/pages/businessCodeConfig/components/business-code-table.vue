@@ -129,7 +129,7 @@
                             that.$root.toastText = '删除成功';
 
                             setTimeout(function () {
-                                that.bus.$emit('sendDeleteInfo');
+                                that.bus.$emit('sendDeleteInfo', that.businessCodeList.length);
                             }, 2000);
 
                         } else {
