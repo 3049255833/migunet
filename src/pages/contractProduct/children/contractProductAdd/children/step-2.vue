@@ -109,12 +109,36 @@
 
                                         <span class="row-text">等于</span>
 
-                                        <div class="layout-inline-middle">
+                                        <!--出品地区-->
+                                        <div class="layout-inline-middle"
+                                             style="position: relative"
+                                             v-if="subItem.fieldName == 'product_area'">
+
+                                            <input @click="showProductAreas"
+                                                 class="form-input w-200 pointer"
+                                                 v-model="formData.attributionText"
+                                                 type="text"
+                                                 readonly
+                                                 placeholder="请输入"/>
+                                            <i class="icon icon-select"></i>
+                                        </div>
+
+                                        <div class="layout-inline-middle"
+                                            v-else-if="subItem.fieldName == 'content_uni_code'">
+
+                                            <input type="text"
+                                                   class="form-input w-200 pointer"
+                                                   v-model="formData.attributionText"
+                                                   placeholder="请输入"/>
+                                        </div>
+
+                                        <div class="layout-inline-middle"
+                                             v-else>
                                             <v-pd-content-select-box w="200"
                                                selectTitle=""
                                                defaultTitle="请选择"
                                               :pmListIndex="{'index':index,'subIndex':subIndex}"
-                                               v-bind:options="subItem.pdContentList">
+                                              v-bind:options="subItem.pdContentList">
                                             </v-pd-content-select-box>
                                         </div>
 
@@ -196,6 +220,15 @@
                     :productType="'1'"></v-product-select-step-2>
             </t-modal-sub-container>
         </modal>
+
+        <modal name="productAreaModal" :width="560" :height="340" @before-close="beforeClose">
+            <t-modal-sub-container :title="'出品地区选择'" :name="'productAreaModal'">
+                <v-product-area-choose
+                    :modal-name="'productAreaModal'"
+                    :areaList="productAreaList"
+                    v-on:areaChoseBus="getProductArea"></v-product-area-choose>
+            </t-modal-sub-container>
+        </modal>
     </div>
 </template>
 
@@ -208,6 +241,7 @@
     import TModalSubContainer from "@/components/modal-sub-container";
     import VPlanCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/plan-code-list.vue'
     import VProductSelectStep2 from '../components/product-select-step-2'
+    import VProductAreaChoose from '../components/product-area-choose.vue'
 
     export default{
         components: {
@@ -218,7 +252,8 @@
             VContentLimitSelectBox,
             VPdContentSelectBox,
             VIsAndSelectBox,
-            VProductSelectStep2
+            VProductSelectStep2,
+            VProductAreaChoose
         },
         data(){
             return {
@@ -257,10 +292,30 @@
                     prmLists: []
                 },
                 pdMatchFiledLists: [],
-                initPdMatchFileDListsOption: {}
+                initPdMatchFileDListsOption: {},
+                productAreaList: [] //出品地区列表
             }
         },
         methods: {
+            /**
+             * 获取出品地区
+             * */
+            getProductArea(res){
+                if (res) {
+                    //拼接字符窜
+                    let attributionNameArr = [];
+                    let attributionCodeArr = [];
+                    res.forEach(function (item, index) {
+                      attributionNameArr.push(item.attributionName);
+                      attributionCodeArr.push(item.attributionCode);
+                    });
+                    this.formData.attributionText = attributionNameArr.join('|');
+                    this.formData.pdAttributionCodes = attributionCodeArr.join('|');
+                }
+            },
+            showProductAreas() {
+                this.$modal.show('productAreaModal');
+            },
             nextStep(){
                 this.save();
 
@@ -516,6 +571,9 @@
                         fieldName: ''
                     };
                     let selectOption = res.selectOption;
+
+                    console.log("selectOption: " + JSON.stringify(selectOption));
+
                     this.prmLists[index].pmLists[subIndex].tableName = selectOption.tableName;    //表名
                     this.prmLists[index].pmLists[subIndex].fieldName = selectOption.fieldName;    //字段名
                     this.prmLists[index].pmLists[subIndex].valueType = selectOption.valueType;    //数值类型
@@ -532,6 +590,13 @@
                             let res = response.body;
                             if (res.result.resultCode = '00000000') {
                                 this.prmLists[index].pmLists[subIndex].pdContentList = res.data;
+
+                                if(selectOption.fieldName == 'product_area') {
+
+                                    this.productAreaList = res.data;
+
+                                    console.log('productAreaList: ' + JSON.stringify(this.productAreaList));
+                                }
                             }
                         }
                     );

@@ -60,12 +60,12 @@ module.exports = {
 
             '/productCenter/getContractProductList': {
                 /*合约产品列表的IP*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/productCenter/contractProductDetail': {
                 /*合约产品详情的IP*/
-                target: proxy_service,
+                target: proxy_service_ljy,
                 changeOrigin: true
             },
             '/product/queryCpDepend': {
