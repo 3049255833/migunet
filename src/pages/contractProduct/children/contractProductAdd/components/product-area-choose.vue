@@ -4,15 +4,16 @@
             <div class="area-list">
                 <div class="area-item"
                     v-for="(item,index) in areaList"
-                    @click="getArea()"
-                    v-if="item != null">
-                    {{item}}
+                    :class="{'active':areaList[index].active}"
+                    @click="getArea(index,item.key)"
+                    v-if="item.key != null">
+                    {{item.key}}
                 </div>
             </div>
 
             <div class="btn-group btn-group-center">
                 <div class="btn btn-primary btn-middle-100"
-                     :class="{'unable':businessArea.length<1}"
+                     :class="{'unable':productAreaName.length<1}"
                      @click="saveArea()">确定
                 </div>
 
@@ -31,7 +32,7 @@
         data(){
             return {
                 areaNum: 0,
-                businessArea: '',
+                productAreaName: '',
                 areaSelectList: []
             }
         },
@@ -39,27 +40,32 @@
             /**
              * 获取选中的归属地
              * */
-            getArea(rowIndex, colIndex, attributionName, attributionCode, id){
+            getArea(index, areaName){
 
-                this.areaList[rowIndex].list[colIndex].active = !this.areaList[rowIndex].list[colIndex].active;
-                this.businessArea = attributionName;
+                this.areaList[index].active = !this.areaList[index].active;
+
+                this.productAreaName = areaName;
 
                 //点击push或移除某一项
-                if (this.areaList[rowIndex].list[colIndex].active) {
+                if (this.areaList[index].active) {
                     this.areaSelectList.push({
-                        attributionName: attributionName,
-                        attributionCode: attributionCode,
-                        id: id
+                        areaName: areaName
                     });
+
+                    console.log("areaSelectList: " + JSON.stringify(this.areaSelectList));
                 } else {
                     //获取当前数组所在的位置
                     this.areaSelectList.forEach(function (item, index) {
-                        if (item.attributionCode == attributionCode) {
+
+                        console.log("item: " + JSON.stringify(item));
+
+                        console.log("index: " + index);
+
+                        if (item.areaName == areaName) {
                             this.areaSelectList.splice(index, 1);
-                            return
+                            return;
                         }
                     })
-
                 }
             },
             /**

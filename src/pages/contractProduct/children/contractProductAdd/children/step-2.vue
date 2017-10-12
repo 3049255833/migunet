@@ -116,7 +116,7 @@
 
                                             <input @click="showProductAreas"
                                                  class="form-input w-200 pointer"
-                                                 v-model="formData.attributionText"
+                                                 v-model="productAreaName"
                                                  type="text"
                                                  readonly
                                                  placeholder="请输入"/>
@@ -293,7 +293,8 @@
                 },
                 pdMatchFiledLists: [],
                 initPdMatchFileDListsOption: {},
-                productAreaList: [] //出品地区列表
+                productAreaList: [], //出品地区列表,
+                productAreaName: ''
             }
         },
         methods: {
@@ -304,13 +305,10 @@
                 if (res) {
                     //拼接字符窜
                     let attributionNameArr = [];
-                    let attributionCodeArr = [];
                     res.forEach(function (item, index) {
-                      attributionNameArr.push(item.attributionName);
-                      attributionCodeArr.push(item.attributionCode);
+                        attributionNameArr.push(item.areaName);
                     });
-                    this.formData.attributionText = attributionNameArr.join('|');
-                    this.formData.pdAttributionCodes = attributionCodeArr.join('|');
+                    this.productAreaName = attributionNameArr.join(',');
                 }
             },
             showProductAreas() {
@@ -593,7 +591,16 @@
 
                                 if(selectOption.fieldName == 'product_area') {
 
-                                    this.productAreaList = res.data;
+                                    //this.productAreaList = res.data;
+
+                                    for(let m = 0; m < res.data.length; m++) {
+
+                                        let obj = {};
+
+                                        obj.key = res.data[m];
+
+                                        this.productAreaList.push(obj);
+                                    }
 
                                     console.log('productAreaList: ' + JSON.stringify(this.productAreaList));
                                 }
