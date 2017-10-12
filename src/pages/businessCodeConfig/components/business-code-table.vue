@@ -47,7 +47,7 @@
                              @click="editBusinessCode(item)"></div>
 
                         <div class="delete icon icon-del-gray"
-                             @click="deleteBtn(item.id)"></div>
+                             @click="deleteBtn(item.id,item.serviceCode)"></div>
                     </td>
                 </tr>
             </tbody>
@@ -83,7 +83,8 @@
                 isHideOperateModal: true,
                 postData: [
                     {
-                        id: ''
+                        id: '',
+                        serviceCode: ''
                     }
                 ],
                 operateInfo: ''
@@ -96,9 +97,11 @@
             VNolist
         },
         methods: {
-            deleteBtn(id) {
+            deleteBtn(id, serviceCode) {
 
                 this.postData[0].id = id;
+
+                this.postData[0].serviceCode = serviceCode;
 
                 this.$modal.show('deleteBusinessCodeConfirmModal');
 
