@@ -19,16 +19,16 @@
                          :title="product.productName">{{product.productName}}</div></td>
 
                 <td><div class="limit-text-length code"
-                         :title="product.productCode">{{product.productUniCode}}</div></td>
+                         :title="product.productUniCode">{{product.productUniCode}}</div></td>
 
                 <td><div class="limit-text-length cp-code"
                          :title="product.cpCode">{{product.cpCode}}</div></td>
 
                 <td><div class="limit-text-length cp-code"
-                         :title="product.currencyCode">{{product.currencyDesc}}</div></td>
+                         :title="product.currencyDesc">{{product.currencyDesc}}</div></td>
 
                 <td><div class="limit-text-length price"
-                         :title="product.contentPrice">{{product.productPrice}}</div></td>
+                         :title="product.productPrice">{{product.productPrice}}</div></td>
 
                 <td>{{product.onlineStatus}}</td>
                 <td>{{product.detailStatus}}</td>
