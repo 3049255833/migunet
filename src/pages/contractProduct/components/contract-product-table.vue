@@ -5,6 +5,7 @@
             <tr>
                 <th class="td-pl-68">产品名称</th>
                 <th>产品ID</th>
+                <th>CP/SP ID</th>
                 <th>业务状态</th>
                 <th>审批状态</th>
                 <th>操作</th>
@@ -21,6 +22,12 @@
                     <td>
                         <div class="limit-text-length code"
                              :title="cProduct.productCode">{{cProduct.productCode}}
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="limit-text-length cp-code"
+                             :title="cProduct.cpCode">{{cProduct.cpCode}}
                         </div>
                     </td>
 
@@ -606,6 +613,10 @@
 
             .name, .code {
                 max-width: 200px;
+            }
+
+            .cp-code {
+                max-width: 100px;
             }
 
             .more {

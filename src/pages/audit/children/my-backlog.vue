@@ -5,11 +5,11 @@
                               v-on:sendAuditDataBus="getAuditOperateData"
                               v-on:auditFlagBus="changeAuditFlag"
                               v-on:passBus="auditOperate"
+                              v-on:oneKeyPassBus="oneKeyPassReception"
                               title="我的待办"></v-table-operate-head>
 
         <v-my-backlog-table ref="myBacklogTable"
                             :auditFlag="auditFlag"
-                            v-on:oneKeyPassBus="oneKeyPassReception"
                             :contractAuditList="contractAuditList"></v-my-backlog-table>
 
         <v-paging ref="pagingModule" :totalItem="totalItem" v-on:pagingBus="getPage"></v-paging>
@@ -80,14 +80,16 @@
             this.getContractAuditList();
 
             /*接受一键通过确认信息*/
-            this.bus.$on('contractProductListConfirmInfoBus', res => {
+            this.bus.$on('myBackLogOneKeyPassComfirmInfoBus', res => {
 
                 let that = this;
 
                 this.$http.post(this.api.onekeyAudit, {showLoading:true}).then(response => {
                     let res = response.body;
 
-                    if (res.result.resultCode == '00000000') {
+                    console.log("res: " + JSON.stringify(res));
+
+                    if (res.code == '0') { //成功
                         this.$root.toastText = '审批成功';
                         this.$root.toast = true;
 
@@ -171,7 +173,7 @@
                         });
                         this.$refs.myBacklogTable.auditCheckbox=[];
 
-                        console.log("getContractAuditList:" + JSON.stringify(this.contractAuditList));
+                        //console.log("getContractAuditList:" + JSON.stringify(this.contractAuditList));
 
                     } else {
                         this.contractAuditList = [];

@@ -85,8 +85,13 @@
 
                                     <div class="layout-row no-pb">
                                       <span class="row-left"> 创建用户：</span>
-                                      <span class="row-right">
+                                      <span class="row-right"
+                                            v-if="productDetail.createUser!=null">
                                           {{productDetail.createUser}}
+                                      </span>
+                                      <span class="row-right"
+                                            v-else>
+                                          admin
                                       </span>
                                     </div>
                                 </div>
@@ -100,8 +105,8 @@
                                     </div>
                                     <div class="layout-row">
                                         <span class="row-left">产品类型：</span>
-                                        <span class="row-right">
-                                              {{productDetail.productType}}
+                                        <span class="row-right" v-if="productDetail.productType == '0'">
+                                              单品
                                         </span>
                                     </div>
 
@@ -121,7 +126,10 @@
 
                                     <div class="layout-row no-pb">
                                       <span class="row-left"> 合作伙伴：</span>
-                                      <span class="row-right">{{productDetail.cpCode}} | {{productDetail.cpName}}</span>
+                                      <span class="row-right"
+                                            v-if="productDetail.cpCode !=null && productDetail.cpName !=null">
+                                          {{productDetail.cpCode}} | {{productDetail.cpName}}
+                                      </span>
                                     </div>
                                 </div>
                             </div>
@@ -158,10 +166,8 @@
                                 <div class="layout-row-wrapper layout-row-wrapper1">
                                     <div class="layout-row">
                                         <span class="row-left"> 渠道信息：</span>
-                                        <span class="row-right">
-                                            <!--<span v-for="channelItem in productDetail.channel">
-                                        {{channelItem.channelCode}} | {{channelItem.channelName}}
-                                            </span>-->
+                                        <span class="row-right"
+                                              v-if="productDetail.channelCode !=null && productDetail.channelName !=null">
 
                                           {{productDetail.channelCode}} | {{productDetail.channelName}}
                                         </span>

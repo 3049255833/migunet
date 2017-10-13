@@ -6,9 +6,9 @@ var proxy_service_ljy = 'http://10.5.2.69:8080';
 var proxy_service_xl = 'http://10.5.2.38:8080';
 var proxy_service_e = 'http://10.5.2.52:8080';
 var proxy_service_wc = 'http://10.5.2.66:8080';
-var proxy_service_cjk='http://10.5.2.84:8080';
+var proxy_service_cjk='http://10.5.2.212:8080';
 var proxy_service_lfy='http://10.5.2.15:8080';
-var proxy_service_yzx='http://10.5.2.212:8080';
+var proxy_service_yzx='http://10.5.2.14:8080';
 var proxy_service='http://10.5.2.243:8082';
 
 
@@ -147,35 +147,35 @@ module.exports = {
 
             '/contractProduct/findContractProductByStatus': {
                 /*获取互斥和依赖产品列表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findContractBySearch':{
                 /*第二步获取产品列表*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findSmsByCondition':{
                 /*短信模板*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
             '/contractProduct/findContractByCondition':{
                 /*产品互斥新接口*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
             '/contractProduct/saveContractProductThree': {
                 /*添加产品保存第三步*/
-                target: proxy_service_xl,
+                target: proxy_service,
                 changeOrigin: true
             },
 
 
             '/product/updateProductState': {
                 /*删除,下线产品*/
-                target: proxy_service,
+                target: proxy_service_cjk,
                 changeOrigin: true
             },
 
