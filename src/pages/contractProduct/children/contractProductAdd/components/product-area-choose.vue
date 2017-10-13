@@ -24,10 +24,12 @@
 </template>
 <script>
     export default{
-        name: 'BusinessAreaChose',
+        name: 'productAreaChoose',
         props: {
             modalName: String,
-            areaList: Array
+            areaList: Array,
+            index: Number,
+            subIndex: Number
         },
         data(){
             return {
@@ -41,6 +43,8 @@
              * 获取选中的归属地
              * */
             getArea(index, areaName){
+
+                let that = this;
 
                 this.areaList[index].active = !this.areaList[index].active;
 
@@ -62,8 +66,9 @@
                         console.log("index: " + index);
 
                         if (item.areaName == areaName) {
-                            this.areaSelectList.splice(index, 1);
-                            return;
+                            that.areaSelectList.splice(index, 1);
+
+                            return false;
                         }
                     })
                 }
@@ -78,7 +83,7 @@
              * 保存归属地
              * */
             saveArea(){
-                this.$emit('areaChoseBus', this.areaSelectList);
+                this.$emit('areaChoseBus', {index:this.index,subIndex:this.subIndex,data:this.areaSelectList});
                 this.$modal.hide(this.modalName);
             },
 

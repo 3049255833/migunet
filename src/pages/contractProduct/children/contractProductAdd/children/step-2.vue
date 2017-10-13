@@ -114,15 +114,16 @@
                                              style="position: relative"
                                              v-if="subItem.fieldName == 'product_area'">
 
-                                            <input @click="showProductAreas"
+                                            <input @click="showProductAreas(index,subIndex)"
                                                  class="form-input w-200 pointer"
-                                                 v-model="productAreaName"
+                                                 v-model="subItem.matchValues"
                                                  type="text"
                                                  readonly
                                                  placeholder="请输入"/>
                                             <i class="icon icon-select"></i>
                                         </div>
 
+                                        <!--内容ID-->
                                         <div class="layout-inline-middle"
                                             v-else-if="subItem.fieldName == 'content_uni_code'">
 
@@ -130,6 +131,20 @@
                                                    class="form-input w-200 pointer"
                                                    v-model="formData.attributionText"
                                                    placeholder="请输入"/>
+                                        </div>
+
+                                        <!--cp-->
+                                        <div class="layout-inline-middle"
+                                             style="position: relative"
+                                             v-else-if="subItem.fieldName == 'cp_code'">
+
+                                            <input @click="showCpModal"
+                                                   class="form-input w-200 pointer"
+                                                   v-model="productAreaName"
+                                                   type="text"
+                                                   readonly
+                                                   placeholder="请输入"/>
+                                            <i class="icon icon-select"></i>
                                         </div>
 
                                         <div class="layout-inline-middle"
@@ -226,7 +241,21 @@
                 <v-product-area-choose
                     :modal-name="'productAreaModal'"
                     :areaList="productAreaList"
+                    :index="productAreaIndex"
+                    :subIndex="productAreaSubIndex"
                     v-on:areaChoseBus="getProductArea"></v-product-area-choose>
+            </t-modal-sub-container>
+        </modal>
+
+        <modal name="cpListModal"
+           :width="870"
+           :height="570"
+           @before-close="beforeClose">
+
+            <t-modal-sub-container :title="'CP 选择'" :name="'cpListModal'">
+
+              <v-cp-modal></v-cp-modal>
+
             </t-modal-sub-container>
         </modal>
     </div>
@@ -242,6 +271,7 @@
     import VPlanCodeList from  '@/pages/contractProduct/children/contractProductAdd/components/plan-code-list.vue'
     import VProductSelectStep2 from '../components/product-select-step-2'
     import VProductAreaChoose from '../components/product-area-choose.vue'
+    import VCpModal from '../components/cp-modal.vue'
 
     export default{
         components: {
@@ -253,7 +283,8 @@
             VPdContentSelectBox,
             VIsAndSelectBox,
             VProductSelectStep2,
-            VProductAreaChoose
+            VProductAreaChoose,
+            VCpModal
         },
         data(){
             return {
@@ -294,7 +325,10 @@
                 pdMatchFiledLists: [],
                 initPdMatchFileDListsOption: {},
                 productAreaList: [], //出品地区列表,
-                productAreaName: ''  //在页面显示中使用
+                productAreaName: '',  //在页面显示中使用
+                //cpList: [] // cp列表，给cp-modal.vue 页面使用
+                productAreaIndex: 0,
+                productAreaSubIndex: 0,
             }
         },
         methods: {
@@ -304,14 +338,26 @@
             getProductArea(res){
                 if (res) {
                     //拼接字符窜
+                    let index = res.index;
+
+                    let subIndex = res.subIndex;
+
                     let attributionNameArr = [];
-                    res.forEach(function (item, index) {
+
+                    res.data.forEach(function (item, index) {
                         attributionNameArr.push(item.areaName);
                     });
-                    this.productAreaName = attributionNameArr.join(',');
+
+                    this.prmLists[index].pmLists[subIndex].matchValues = attributionNameArr.join(',');
                 }
             },
-            showProductAreas() {
+            showCpModal() {
+                this.$modal.show('cpListModal');
+            },
+            showProductAreas(index, subIndex) {
+                this.productAreaIndex = index;
+                this.productAreaSubIndex = subIndex;
+
                 this.$modal.show('productAreaModal');
             },
             nextStep(){
@@ -579,35 +625,56 @@
                     _postData.tableName = this.prmLists[index].pmLists[subIndex].tableName;
                     _postData.fieldName = this.prmLists[index].pmLists[subIndex].fieldName;
 
-                    //请求接口
-                    this.$http.get(this.api.findPdContent, {
-                        params: _postData
-                    }).then(
-                        response => {
-                            let res = response.body;
-                            if (res.result.resultCode = '00000000') {
-                                this.prmLists[index].pmLists[subIndex].pdContentList = res.data;
+                    if(selectOption.fieldName == 'cp') {
+                        //请求获取CP接口
+                        /*this.$http.get(this.api.findPdContent, {
+                            params: _postData
+                        }).then(
+                            response => {
+                                let res = response.body;
+                                if (res.result.resultCode = '00000000') {
 
-                                if(selectOption.fieldName == 'product_area') {
+                                    this.prmLists[index].pmLists[subIndex].pdContentList = res.data;
+                                    this.cpList = res.data;
 
-                                    //this.productAreaList = res.data;
-
-                                    //从新组装出品列表
-                                    for(let m = 0; m < res.data.length; m++) {
-
-                                        let obj = {};
-
-                                        obj.key = res.data[m];
-
-                                        this.productAreaList.push(obj);
-                                    }
-
-                                    console.log('productAreaList: ' + JSON.stringify(this.productAreaList));
+                                    console.log('cpList: ' + JSON.stringify(this.cpList));
                                 }
                             }
-                        }
-                    );
+                        );*/
 
+                    } else {
+
+                        //请求接口
+                        this.$http.get(this.api.findPdContent, {
+                            params: _postData
+                        }).then(
+                            response => {
+                                let res = response.body;
+                                if (res.result.resultCode = '00000000') {
+                                    this.prmLists[index].pmLists[subIndex].pdContentList = res.data;
+
+                                    if(selectOption.fieldName == 'product_area') {
+
+                                        //this.productAreaList = res.data;
+
+                                        //从新组装出品列表
+                                        for(let m = 0; m < res.data.length; m++) {
+
+                                            if(res.data[m] != null) {
+                                                let obj = {};
+
+                                                obj.key = res.data[m];
+
+                                                this.productAreaList.push(obj);
+                                            }
+                                        }
+
+                                        console.log('productAreaList: ' + JSON.stringify(this.productAreaList));
+                                    }
+                                }
+                            }
+                        );
+                    }
                 }
             });
 
