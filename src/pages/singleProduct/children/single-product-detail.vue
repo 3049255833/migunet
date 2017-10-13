@@ -66,7 +66,14 @@
                                     </div>
                                     <div class="layout-row">
                                       <span class="row-left"> 生效方式：</span>
-                                      <span class="row-right">{{productDetail.effectiveWay}}</span>
+                                      <span class="row-right"
+                                            v-if="productDetail.effectiveWay !=null ">
+                                          {{productDetail.effectiveWay}}
+                                      </span>
+                                      <span class="row-right"
+                                            v-else>
+                                          立即生效
+                                      </span>
                                     </div>
 
                                     <div class="layout-row ">
