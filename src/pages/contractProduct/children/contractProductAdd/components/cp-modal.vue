@@ -89,7 +89,7 @@
               totalItem: '',
               selectCpList: [],
               cpCheckbox: '',
-              cpList: ''
+              cpList: []
           }
       },
       computed:{

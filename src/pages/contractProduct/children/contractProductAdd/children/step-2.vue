@@ -670,7 +670,19 @@
                             }
                         );*/
 
+                    } else if(selectOption.fieldName == 'area') {
+                        this.$http.get(this.api.findContentArea, {
+                            params: _postData
+                        }).then(
+                            response => {
+                                let res = response.body;
+                                if (res.result.resultCode = '00000000') {
+                                    this.prmLists[index].pmLists[subIndex].pdContentList = res.data;
+                                }
+                            }
+                        );
                     } else {
+                        this.productAreaList = [];
 
                         //请求接口
                         this.$http.get(this.api.findPdContent, {
