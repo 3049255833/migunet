@@ -670,7 +670,7 @@
                             }
                         );*/
 
-                    } else if(selectOption.fieldName == 'area') {
+                    } else if(selectOption.fieldName == 'areas') {
                         this.$http.get(this.api.findContentArea, {
                             params: _postData
                         }).then(

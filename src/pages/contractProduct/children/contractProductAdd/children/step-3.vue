@@ -100,16 +100,16 @@
             </div>
 
             <!--到期提醒提前天数-->
-            <div class="form-row">
+            <div class="form-row" v-if="RemindSmsItem.templateContent != null">
                 <div class="row-left">
                   到期提醒提前天数：
                 </div>
 
                 <div class="row-right">
                     <input class=" form-input pointer w-200"
-                           v-model.trim="formData.remindDays"
-                           type="text"
-                           placeholder="请输入天数"/>
+                         v-model.trim="formData.remindDays"
+                         type="text"
+                         placeholder="请输入天数"/>
                 </div>
             </div>
 
@@ -269,6 +269,9 @@
         validations: {
             formData: {
                 cpCode: {
+                    required
+                },
+                remindDays: {
                     required
                 }
             },
