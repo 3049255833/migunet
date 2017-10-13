@@ -129,7 +129,7 @@
 
                                             <input type="text"
                                                    class="form-input w-200 pointer"
-                                                   v-model="formData.attributionText"
+                                                   v-model="subItem.matchValues"
                                                    placeholder="请输入"/>
                                         </div>
 
@@ -138,9 +138,9 @@
                                              style="position: relative"
                                              v-else-if="subItem.fieldName == 'cp_code'">
 
-                                            <input @click="showCpModal"
+                                            <input @click="showCpModal(index,subIndex)"
                                                    class="form-input w-200 pointer"
-                                                   v-model="productAreaName"
+                                                   v-model="subItem.matchValues"
                                                    type="text"
                                                    readonly
                                                    placeholder="请输入"/>
@@ -254,7 +254,7 @@
 
             <t-modal-sub-container :title="'CP 选择'" :name="'cpListModal'">
 
-              <v-cp-modal></v-cp-modal>
+              <v-cp-modal :index="cpIndex" :subIndex="cpSubIndex"></v-cp-modal>
 
             </t-modal-sub-container>
         </modal>
@@ -327,8 +327,10 @@
                 productAreaList: [], //出品地区列表,
                 productAreaName: '',  //在页面显示中使用
                 //cpList: [] // cp列表，给cp-modal.vue 页面使用
-                productAreaIndex: 0,
-                productAreaSubIndex: 0,
+                productAreaIndex: 0, //出品地区使用
+                productAreaSubIndex: 0, //出品地区使用
+                cpIndex: 0,//CP使用
+                cpSubIndex: 0 //CP使用
             }
         },
         methods: {
@@ -351,7 +353,11 @@
                     this.prmLists[index].pmLists[subIndex].matchValues = attributionNameArr.join(',');
                 }
             },
-            showCpModal() {
+
+            showCpModal(index,subIndex) {
+                this.cpIndex = index;
+                this.cpSubIndex = subIndex;
+
                 this.$modal.show('cpListModal');
             },
             showProductAreas(index, subIndex) {
@@ -582,6 +588,28 @@
         created(){
             let that = this;
 
+            /*获取选择的CP/SP 列表*/
+            this.bus.$on('selectCpListBus', res => {
+
+                let index = res.index;
+
+                let subIndex = res.subIndex;
+
+                let cpListArr = [];
+
+                res.data.forEach(function (item, index) {
+                    cpListArr.push(item.code);
+                });
+
+                this.prmLists[index].pmLists[subIndex].matchValues = cpListArr.join(',');
+
+                //this.prmLists[index].pmLists[subIndex].matchValues = res.data;
+
+                this.$modal.hide('cpListModal');
+
+                console.log("cp: " + JSON.stringify(res));
+            });
+
             /**
              * 获取匹配字段表
              * */
@@ -625,7 +653,7 @@
                     _postData.tableName = this.prmLists[index].pmLists[subIndex].tableName;
                     _postData.fieldName = this.prmLists[index].pmLists[subIndex].fieldName;
 
-                    if(selectOption.fieldName == 'cp') {
+                    if(selectOption.fieldName == 'cp_code') {
                         //请求获取CP接口
                         /*this.$http.get(this.api.findPdContent, {
                             params: _postData

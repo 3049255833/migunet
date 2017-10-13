@@ -29,10 +29,17 @@
               <tbody>
                   <tr v-for="(item, index) in cpList">
                       <td>
-                          <label class="checkbox-module">
+                          <!--<label class="checkbox-module">
                               <input type="checkbox" :value="index" v-model="cpCheckbox">
                               <span></span>
-                          </label>
+                          </label>-->
+
+                          <div class="checkbox-module">
+                              <input type="checkbox"
+                                     :value="index"
+                                     @click="getChooseList(index, item.cpCode, item.cpName,item.id)">
+                              <span></span>
+                          </div>
                       </td>
 
                       <td>{{item.cpCode}}</td>
@@ -44,7 +51,9 @@
       </div>
 
       <div class="btn-group btn-group-center">
-          <div class="btn btn-primary btn-middle-100" v-if="cpCheckbox||cpCheckbox=='0'"  @click="confirm">确定</div>
+          <div class="btn btn-primary btn-middle-100"
+               v-if="canSave"
+               @click="confirm">确定</div>
           <div class="btn btn-primary btn-middle-100 unable" v-else>确定</div>
           <div class="btn btn-default btn-middle-100" @click="cancel">取消</div>
       </div>
@@ -64,7 +73,8 @@
   export default{
       name: 'ProductSelectModal',
       props: {
-          //cpList: Array
+          index:Number,
+          subIndex: Number
       },
       components:{
         VPaging
@@ -77,15 +87,15 @@
                   search:''
               },
               totalItem: '',
-              selectCpList: {},
+              selectCpList: [],
               cpCheckbox: '',
               cpList: ''
           }
       },
       computed:{
-          /*canSave(){
+          canSave(){
               return (this.selectCpList.length > 0);
-          }*/
+          }
       },
       mounted(){
           /**
@@ -95,9 +105,11 @@
       },
       methods: {
           confirm() {
-              this.bus.$emit('selectCpSpListBus', this.cpspList[parseInt(this.cpCheckbox)]);
+              //this.bus.$emit('selectCpListBus', this.cpspList[parseInt(this.cpCheckbox)]);
 
               //this.bus.$emit('getSelectSms', this.smsTemplateList[parseInt(this.smsRadio)]);
+
+              this.bus.$emit('selectCpListBus', {index:this.index,subIndex:this.subIndex,data:this.selectCpList});
           },
 
           cancel() {
@@ -124,7 +136,7 @@
 
                       this.totalItem = res.total;
 
-                      //console.log("res: " + JSON.stringify(res));
+                      console.log("getCP: " + JSON.stringify(this.cpList));
 
                   } else {
 
@@ -133,32 +145,32 @@
               });
           },
 
-          /*/!*获取选中的列表*!/
+          //获取选中的列表
           getChooseList(index, code, content, id){
               let that = this;
 
-              this.cpspList[index].active=!this.cpspList[index].active;
+              this.cpList[index].active=!this.cpList[index].active;
 
-              if(this.cpspList[index].active) {
+              if(this.cpList[index].active) {
 
-                  this.selectCpSpList.push({
+                  this.selectCpList.push({
                       code:code,
                       content:content,
                       id:id
                   });
               } else {
-                  this.selectCpSpList.forEach(function(item, cIndex){
+                  this.selectCpList.forEach(function(item, cIndex){
 
                       if(item.id == id) {
 
-                          that.selectCpSpList.splice(cIndex, 1);
+                          that.selectCpList.splice(cIndex, 1);
 
-                          return;
+                          return false;
                       }
                   })
               }
-              console.log("selectCpSpList：" + JSON.stringify(this.selectCpSpList));
-          },*/
+              console.log("selectCpList：" + JSON.stringify(this.selectCpList));
+          },
 
           /**
            * 获取分页信息
