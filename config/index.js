@@ -60,24 +60,24 @@ module.exports = {
 
             '/productCenter/getContractProductList': {
                 /*合约产品列表的IP*/
-                target: proxy_service_ljy,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/productCenter/contractProductDetail': {
                 /*合约产品详情的IP*/
-                target: proxy_service_ljy,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/product/queryCpDepend': {
                 /*查询合约产品的依赖关系*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
 
             '/contractProduct/findCharge': {
                 /*获取业务代码详情*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findPdMatchFiled':{
@@ -90,48 +90,53 @@ module.exports = {
                 target: proxy_service_xl,
                 changeOrigin: true
             },
+            '/contractProduct/findContentArea':{
+              /*获取产品权益下面的地区限定*/
+              target: proxy_service_xl,
+              changeOrigin: true
+            },
             '/contractProduct/findSmsTemplate': {
                 /*获取短信模板列表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findPdAttribution': {
                 /*获取区域选择列表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findChannel':{
                 /*获取渠道Id*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
 
             },
             '/contractProduct/findPdFeePlanByCondition':{
                 /*通过关键字查询资费计划*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
 
             '/contractProduct/findProductCatalog': {
                 /*获取产品目录*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findFeePlan': {
                 /*获取资费计划*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
             '/contractProduct/saveContractProductOne':{
                 /*保存第一步*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/saveContractProductTwo':{
                 /*保存第二步*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/saveContractProduct':{
@@ -142,28 +147,28 @@ module.exports = {
 
             '/contractProduct/findContractProductByStatus': {
                 /*获取互斥和依赖产品列表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findContractBySearch':{
                 /*第二步获取产品列表*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findSmsByCondition':{
                 /*短信模板*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
             '/contractProduct/findContractByCondition':{
                 /*产品互斥新接口*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
             '/contractProduct/saveContractProductThree': {
                 /*添加产品保存第三步*/
-                target: proxy_service,
+                target: proxy_service_xl,
                 changeOrigin: true
             },
 
