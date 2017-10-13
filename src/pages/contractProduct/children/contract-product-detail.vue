@@ -407,7 +407,7 @@
 
                           <div class="row-right">
                               <div class="scheme-item" v-for="(rightItem, index) in right">
-                                  <div v-if="rightItem.planCode != null">
+                                  <!--<div v-if="rightItem.planCode != null">
                                       <h4>方案{{index + 1}}</h4>
 
                                       <div class="item">
@@ -427,12 +427,18 @@
                                         <span class="right">
                                                     {{rightItem.pdFeePlan.planDesc}}</span>
                                       </div>
-                                  </div>
-                                  <div v-else>
+                                  </div>-->
+                                  <div>
                                       <h4>方案{{index + 1}}</h4>
 
                                       <div class="item">
-                                          <span class="left">免费</span>
+                                          <span class="left"
+                                                v-if="rightItem.pdFeePlan.isFree == '1'">
+                                                  免费</span>
+
+                                          <span class="left"
+                                                v-else-if="rightItem.pdFeePlan.isFree == '0'">
+                                                    收费</span>
                                       </div>
                                       <div class="item">
                                           <span class="right">

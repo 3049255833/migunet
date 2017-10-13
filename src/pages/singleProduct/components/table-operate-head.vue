@@ -85,7 +85,7 @@
                       optionText: '全部',
                       optionValue: ''
                     },
-                    {
+                    /*{
                       optionText: '上线审批中',
                       optionValue: '0'
                     },
@@ -132,7 +132,7 @@
                     {
                       optionText: '变更审批失败',
                       optionValue: '11'
-                    },
+                    },*/
                     {
                       optionText: '变更报备中',
                       optionValue: '12'
@@ -141,7 +141,7 @@
                       optionText: '变更报备失败',
                       optionValue: '13'
                     },
-                    {
+                    /*{
                       optionText: '下线报备中',
                       optionValue: '14'
                     },
@@ -156,7 +156,7 @@
                     {
                       optionText: '隐藏报备失败',
                       optionValue: '17'
-                    },
+                    },*/
                     {
                       optionText: '上线报备中',
                       optionValue: '18'
@@ -190,11 +190,11 @@
                     {
                         optionText: '注销',
                         optionValue: '4'
-                    },
+                    }/*,
                     {
                         optionText: '删除',
                         optionValue: '5'
-                    },
+                    },*/
 
                 ]
             }
