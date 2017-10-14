@@ -31,12 +31,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item,index) in serviceCodeList" @click="choseServiceCode(item,index)" >
+                    <!--@click="choseServiceCode(item,index)"-->
+                    <tr v-for="(item,index) in serviceCodeList"
+                        @click="choseServiceCode(item,index)">
+
                         <td>
                             <label class="radio-module radio-single">
                                 <input type="radio"
                                        :value="index"
-                                       v-model="serviceCodeRadio" name="serviceCodeRadio">
+                                       v-model="serviceCodeRadio">
                                 <span></span>
                             </label>
                         </td>
@@ -66,7 +69,7 @@
         </div>
 
         <div class="btn-group btn-group-center">
-            <div v-if="ifHasData" class="btn btn-primary btn-middle-100" @click="saveData">确定</div>
+            <div v-if="serviceCodeRadio||serviceCodeRadio=='0'" class="btn btn-primary btn-middle-100" @click="saveData">确定</div>
             <div v-else class="btn unable btn-primary btn-middle-100" >确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel()">取消</div>
         </div>
@@ -100,7 +103,7 @@
                     companyCode:'',
                     ifHasData:false
                 },
-                serviceCodeRadio:[],
+                serviceCodeRadio:'',
                 ifHasData:false,
                 postData:{
                     pageNum:'1',
@@ -121,11 +124,14 @@
             getPage(res){
                 this.postData.pageNum=res.pagingValue;
                 this.postData.pageSize=res.pagingSize;
+                this.serviceCodeRadio='';
                 this.getServiceCodeList();
             },
 
             cSendOperateData() {
                 this.postData.pageNum='1';
+
+                this.serviceCodeRadio = '';
 
                 this.getServiceCodeList();
             },
