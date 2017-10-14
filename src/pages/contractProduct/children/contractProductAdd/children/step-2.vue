@@ -746,9 +746,9 @@
                     }
                     this.prmLists[index].pmLists[0].matchValues = codeArr.join(',');
                     this.prmLists[index].pmLists[0].tableName = 'pd_contract';
-                    this.prmLists[index].pmLists[0].fieldName = 'productCode';
+                    this.prmLists[index].pmLists[0].fieldName = 'productUniCode';
                     this.prmLists[index].pmLists[0].valueType = '2';
-                    this.prmLists[index].pmLists[0].operator = '';
+                    this.prmLists[index].pmLists[0].operator = 'in';
                     this.prmLists[index].pmLists[0].productData = data;
                 }
             });

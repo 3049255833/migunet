@@ -369,6 +369,7 @@
                                              type="text"
                                              :class="{'error':$v.paytype1.price.$error}"
                                              v-model.trim="paytype1.price"
+                                             maxlength="10"
                                              @input="$v.paytype1.price.$touch()">
 
                                         <i v-show="paytype1.price"
@@ -475,6 +476,7 @@
                                              :class="{'error':$v.paytype2.price.$error}"
                                              v-model.trim="paytype2.price"
                                              @input="$v.paytype2.price.$touch()"
+                                               maxlength="10"
                                              placeholder="请输入"/>
                                         <i v-show="paytype2.price" class="icon icon-close-round"
                                            @click="remove('price','paytype2')"></i>
