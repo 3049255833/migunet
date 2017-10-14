@@ -1,18 +1,34 @@
 <template>
     <div class="sms-list">
+        <div class="list-modal-head">
+            <div class="search-wrap">
+                <input @keyup.enter="cSendOperateData"
+                     class="form-input vt-middle  w-150 radius-2 mr-6"
+                     v-model="postData.search"
+                     type="text"
+                     onfocus="this.placeholder=''"
+                     onblur="this.placeholder='关键信息搜索'"
+                     placeholder="关键信息搜索">
+
+                <div class="search vt-middle">
+                    <i @click="cSendOperateData" class="icon pointer icon-search"></i>
+                </div>
+            </div>
+        </div>
+
         <div class="table-wrap">
             <table class="table-module">
                 <thead>
-                <tr v-show="serviceCodeList.length > 0">
-                    <td>选择</td>
-                    <td>业务代码ID</td>
-                    <td>业务代码名称</td>
-                    <td>业务代码描述</td>
-                    <td>分成类型</td>
-                    <td>资费金额（分）</td>
-                    <td>是否管理员专用</td>
-                    <td>企业代码</td>
-                </tr>
+                    <tr v-show="serviceCodeList.length > 0">
+                        <td>选择</td>
+                        <td>业务代码ID</td>
+                        <td>业务代码名称</td>
+                        <td>业务代码描述</td>
+                        <td>分成类型</td>
+                        <td>资费金额（分）</td>
+                        <td>是否管理员专用</td>
+                        <td>企业代码</td>
+                    </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item,index) in serviceCodeList" @click="choseServiceCode(item,index)" >
@@ -48,13 +64,22 @@
                 <v-nolist :text="'暂无数据'"></v-nolist>
             </div>
         </div>
+
         <div class="btn-group btn-group-center">
             <div v-if="ifHasData" class="btn btn-primary btn-middle-100" @click="saveData">确定</div>
             <div v-else class="btn unable btn-primary btn-middle-100" >确定</div>
             <div class="btn btn-default btn-middle-100" @click="cancel()">取消</div>
         </div>
-        <div class="paging-wrap">
+
+        <!--<div class="paging-wrap">
             <v-paging :type="'simple'"></v-paging>
+        </div>-->
+
+        <div class="paging-wrap">
+            <v-paging ref="pagingModule"
+                :type="'simple'"
+                :totalItem="totalItem"
+                v-on:pagingBus="getPage"></v-paging>
         </div>
     </div>
 </template>
@@ -66,24 +91,7 @@
         props:{modalName: String},
         data(){
             return {
-                serviceCodeList: [{
-                    serviceCode: '10000',
-                    serviceName: '呵呵一笑a',
-                    serviceDesc: '业务代码描述1',
-                    sharingType: '分成类型1',
-                    feeAmount: '100',
-                    isManager: '是',
-                    companyCode: '10000'
-                }, {
-                    serviceCode: '10000',
-                    serviceName: '呵呵一笑a',
-                    serviceDesc: '业务代码描述1',
-                    sharingType: '分成类型1',
-                    feeAmount: '100',
-                    isManager: '是',
-                    companyCode: '10000'
-                }],
-                // serviceCodeList:[],
+                serviceCodeList: [],
                 serviceCode:'',  //业务代码
                 feeAmount:'', //资费金额
                 serviceCodeData:{
@@ -93,7 +101,13 @@
                     ifHasData:false
                 },
                 serviceCodeRadio:[],
-                ifHasData:false
+                ifHasData:false,
+                postData:{
+                    pageNum:'1',
+                    pageSize:'5',
+                    search:''
+                },
+                totalItem: ''
             }
         },
         components: {
@@ -101,17 +115,38 @@
             VNolist
         },
         methods: {
+            /**
+             * 获取分页信息
+             * */
+            getPage(res){
+                this.postData.pageNum=res.pagingValue;
+                this.postData.pageSize=res.pagingSize;
+                this.getServiceCodeList();
+            },
+
+            cSendOperateData() {
+                this.postData.pageNum='1';
+
+                this.getServiceCodeList();
+            },
+
             getServiceCodeList(){
-                this.$http.get(this.api.getServiceCodeList, {params: {}}).then(response => {
+                this.$http.get(this.api.getServiceCodeList, {
+                    params: {
+                        search:this.postData.search,
+                        pageNum:this.postData.pageNum,
+                        pageSize:this.postData.pageSize
+                    }
+                }).then(response => {
                     let res = response.body;
                     if (res.result.resultCode == '00000000') {
                         //todo:
                         res.data.forEach(function(item,index){
                                 if(item.sharingType==1){
-                                    console.log('是')
+                                    //console.log('是')
                                     item.sharingType='分成'
                                 }else{
-                                    console.log('否')
+                                    //console.log('否')
                                     item.sharingType='买断'
                                 }
 
@@ -120,8 +155,10 @@
                                 }else{
                                     item.isManager='否'
                                 }
-                        })
+                        });
                         this.serviceCodeList = res.data;
+
+                        this.totalItem = res.total;
                     } else {
 
                     }
@@ -172,11 +209,24 @@
             bottom: 32px;
             right: 20px;
         }
+
+        .list-modal-head {
+          padding-bottom: 13px;
+          .search {
+            display: inline-block;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            border-radius: 3px;
+            background: #46BAFE;
+          }
+        }
     }
 
     .table-wrap {
-        height: 400px;
-        overflow-y: scroll;
+        //height: 400px;
+        //overflow-y: scroll;
     }
 
     .table-module {

@@ -113,7 +113,7 @@
           },
 
           cancel() {
-              this.$modal.hide('cpSPListModal');
+              this.$modal.hide('cpListModal');
           },
 
           /*获取cp*/
