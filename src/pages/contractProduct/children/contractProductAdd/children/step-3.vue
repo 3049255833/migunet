@@ -275,7 +275,7 @@
                     required
                 }
             },
-            validationGroup: ['formData.cpCode']
+            validationGroup: ['formData.cpCode','formData.remindDays']
         },
         created(){
             this.getSendPlatform();
