@@ -389,13 +389,13 @@
                                       <span class="left" v-else>
                                           {{pay.cycleUnitNum}}
 
-                                          <span v-if="pay.feeType == '0'">天</span>
+                                          <span v-if="pay.cycleUnit == '0'">天</span>
 
-                                          <span v-else-if="pay.feeType == '1'">周</span>
+                                          <span v-else-if="pay.cycleUnit == '1'">周</span>
 
-                                          <span v-else-if="pay.feeType == '2'">月</span>
+                                          <span v-else-if="pay.cycleUnit == '2'">月</span>
 
-                                          <span v-else-if="pay.feeType == '3'">年</span>
+                                          <span v-else-if="pay.cycleUnit == '3'">年</span>
                                       </span>
                                   </div>
                               </div>
