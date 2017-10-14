@@ -112,7 +112,7 @@
                                         <!--出品地区-->
                                         <div class="layout-inline-middle"
                                              style="position: relative"
-                                             v-if="subItem.fieldName == 'product_area'">
+                                             v-if="subItem.fieldName == 'productArea'">
 
                                             <input @click="showProductAreas(index,subIndex)"
                                                  class="form-input w-200 pointer"
@@ -125,7 +125,7 @@
 
                                         <!--内容ID-->
                                         <div class="layout-inline-middle"
-                                            v-else-if="subItem.fieldName == 'content_uni_code'">
+                                            v-else-if="subItem.fieldName == 'contentUniCode'">
 
                                             <input type="text"
                                                    class="form-input w-200 pointer"
@@ -136,7 +136,7 @@
                                         <!--cp-->
                                         <div class="layout-inline-middle"
                                              style="position: relative"
-                                             v-else-if="subItem.fieldName == 'cp_code'">
+                                             v-else-if="subItem.fieldName == 'cpCode'">
 
                                             <input @click="showCpModal(index,subIndex)"
                                                    class="form-input w-200 pointer"
@@ -350,7 +350,7 @@
                         attributionNameArr.push(item.areaName);
                     });
 
-                    this.prmLists[index].pmLists[subIndex].matchValues = attributionNameArr.join(',');
+                    this.prmLists[index].pmLists[subIndex].matchValues = attributionNameArr.join('|');
                 }
             },
 
@@ -653,7 +653,7 @@
                     _postData.tableName = this.prmLists[index].pmLists[subIndex].tableName;
                     _postData.fieldName = this.prmLists[index].pmLists[subIndex].fieldName;
 
-                    if(selectOption.fieldName == 'cp_code') {
+                    if(selectOption.fieldName == 'cpCode') {
                         //请求获取CP接口
                         /*this.$http.get(this.api.findPdContent, {
                             params: _postData
@@ -693,7 +693,7 @@
                                 if (res.result.resultCode = '00000000') {
                                     this.prmLists[index].pmLists[subIndex].pdContentList = res.data;
 
-                                    if(selectOption.fieldName == 'product_area') {
+                                    if(selectOption.fieldName == 'productArea') {
 
                                         //this.productAreaList = res.data;
 

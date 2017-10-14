@@ -188,7 +188,7 @@
                                 <div class="layout-row">
                                     <span class="row-left"> 是否会员产品：</span>
                                     <span class="row-right" v-if="cProduct.isVip == '1'">是</span>
-                                    <span class="row-right" v-else>包月</span>
+                                    <span class="row-right" v-else-if="cProduct.isVip == '0'">否</span>
                                 </div>
 
                                 <div class="layout-row">
@@ -416,9 +416,9 @@
                                                 满足条件：
 
                                                 <span v-for="pItem in rightItem.pdMatchList">
-                                                    {{pItem.fieldName}}
-                                                    {{pItem.operator}}
-                                                    {{pItem.matchValues}}
+                                                    {{pItem.fieldName}}&nbsp;
+                                                    {{pItem.operator}}&nbsp;
+                                                    {{pItem.matchValues}}&nbsp;
 
                                                     <span v-if="rightItem.isAnd == '0'">
                                                         或者</span>

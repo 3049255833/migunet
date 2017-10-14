@@ -25,7 +25,7 @@
                 <div class="row-right">
                     <v-sub-company-select-box :w="'200'"
                         :selectTitle="subCompanyText"
-                        :selectValue="'10'"
+                        :selectValue="'11'"
                         :selectBoxName="'subCompanySelectBox'"
                         :options="selectBoxList.subCompanyList"></v-sub-company-select-box>
                 </div>
@@ -751,7 +751,7 @@
                     ],
                     subCompanyList: []
                 },
-                subCompanyText: '咪咕总公司',
+                subCompanyText: '咪咕音乐',
                 isProductCode: false
             }
         },
