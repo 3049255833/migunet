@@ -92,70 +92,67 @@
                                 case 4:
                                     item.onlineStatus='注销';
                                     break;
-                                case 5:
-                                    item.onlineStatus='删除';
-                                    break
                             }
                             switch (parseInt(item.detailStatus)){
-                                case 0:
-                                  item.detailStatus='上线审批中';
+                                /*case 0:
+                                  //item.detailStatus='上线审批中';
                                   break;
                                 case 1:
-                                  item.detailStatus='上线审批失败';
+                                  //item.detailStatus='上线审批失败';
                                   break;
                                 case 2:
-                                  item.detailStatus='隐藏审批中';
+                                  //item.detailStatus='隐藏审批中';
                                   break;
                                 case 3:
-                                  item.detailStatus='隐藏审批失败';
+                                  //item.detailStatus='隐藏审批失败';
                                   break;
                                 case 4:
-                                  item.detailStatus='下线审批中';
+                                  //item.detailStatus='下线审批中';
                                   break;
                                 case 5:
-                                  item.detailStatus='下线审批失败';
+                                  //item.detailStatus='下线审批失败';
                                   break;
                                 case 6:
-                                  item.detailStatus='注销审批中';
+                                  //item.detailStatus='注销审批中';
                                   break;
                                 case 7:
-                                  item.detailStatus='注销审批失败';
+                                  //item.detailStatus='注销审批失败';
                                   break;
                                 case 8:
-                                  item.detailStatus='删除审批中';
+                                  //item.detailStatus='删除审批中';
                                   break;
                                 case 9:
-                                  item.detailStatus='删除审批失败';
+                                  //item.detailStatus='删除审批失败';
                                   break;
                                 case 10:
-                                  item.detailStatus='变更审批中';
+                                  //item.detailStatus='变更审批中';
                                   break;
                                 case 11:
-                                  item.detailStatus='变更审批失败';
-                                  break;
+                                  //item.detailStatus='变更审批失败';
+                                  break;*/
                                 case 12:
                                   item.detailStatus='变更报备中';
                                   break;
                                 case 13:
                                   item.detailStatus='变更报备失败';
                                   break;
-                                case 14:
-                                  item.detailStatus='下线报备中';
+                                /*case 14:
+                                  //item.detailStatus='下线报备中';
                                   break;
                                 case 15:
-                                  item.detailStatus='下线报备失败';
+                                  //item.detailStatus='下线报备失败';
                                   break;
                                 case 16:
-                                  item.detailStatus='隐藏报备中';
+                                  //item.detailStatus='隐藏报备中';
                                   break;
                                 case 17:
-                                  item.detailStatus='隐藏报备失败';
-                                  break;
+                                  //item.detailStatus='隐藏报备失败';
+                                  break;*/
                                 case 18:
-                                  item.detailStatus='上线报备中';
+                                  item.detailStatus='新增报备中';
                                   break;
                                 case 19:
-                                  item.detailStatus='上线报备失败';
+                                  item.detailStatus='新增报备失败';
                                   break;
                             }
                         });

@@ -158,11 +158,11 @@
                       optionValue: '17'
                     },*/
                     {
-                      optionText: '上线报备中',
+                      optionText: '新增报备中',
                       optionValue: '18'
                     },
                     {
-                      optionText: '上线报备失败',
+                      optionText: '新增报备失败',
                       optionValue: '19'
                     }
                 ],
