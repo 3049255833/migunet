@@ -657,7 +657,7 @@
                     pdFeePlanCodes: '',           //资费计划
                     isGavin: '2',         //是否可以赠送 1：是赠送，2：否
                     productCode: '',   //产品编码
-                    companyFrom: '10' //所属子公司的code
+                    companyFrom: '11' //所属子公司的code
                 },
                 postData:{
                     pdContract:{},
