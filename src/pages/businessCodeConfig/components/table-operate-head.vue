@@ -11,6 +11,8 @@
 
             <button class="btn btn-add-module-white mr-10" @click="addBusinessCode">新增代码</button>
             <button class="btn btn-import-module mr-10 batch-delete">批量删除</button>
+
+            <a class="btn btn-download mr-10" href="static/templates/业务代码模板信息.xls" download="业务代码模板信息">模板下载</a>
         </div>
 
         <div class="right">
