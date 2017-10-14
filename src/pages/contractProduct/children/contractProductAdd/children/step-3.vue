@@ -251,7 +251,7 @@
                     cpName: ''
                 },
                 errorMsg: {
-                    remindDays: '请输入到期提醒天数'
+                    remindDays: '请输入到期提醒提前天数'
                 },
                 smsTitle: '',
                 productSelectTitle: '',
