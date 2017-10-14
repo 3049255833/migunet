@@ -5,7 +5,11 @@
                 {{title}}
             </div>
 
-            <input @change="upload" type="file" class="pointer" id="upload" name="file"/>
+            <input @change="upload"
+                   type="file"
+                   class="pointer"
+                   id="upload"
+                   name="file"/>
 
             <button class="btn btn-import-module mr-10">批量导入</button>
 
@@ -55,7 +59,8 @@
                 operateData: {
                     keys: ''  //关键字
                 },
-                isHideProgressBar: true
+                isHideProgressBar: true,
+                uploadValue: {}
             }
         },
         methods: {
@@ -75,6 +80,8 @@
             },
             upload() {
                 let that = this;
+
+                //console.log("点击了我" + this.uploadValue);
 
                 let files = document.getElementById('upload').files;
 
@@ -138,6 +145,8 @@
                     that.$root.toastText = '上传格式错误';
                     that.$root.toast = true;
                 }
+
+                document.getElementById("upload").value = '';
             }
         }
     }

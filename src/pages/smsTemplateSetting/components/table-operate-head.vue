@@ -186,6 +186,8 @@
                     that.$root.toastText = '上传格式错误';
                     that.$root.toast = true;
                 }
+
+                document.getElementById("upload").value = '';
             },
 
             smsTAll(){
