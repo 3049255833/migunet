@@ -189,8 +189,8 @@
 
                       <div class="layout-row">
                           <span class="row-left"> 是否会员产品：</span>
-                          <span class="row-right" v-if="cProduct.isVip == '1'">是</span>
-                          <span class="row-right" v-else-if="cProduct.isVip == '0'">否</span>
+                          <span class="row-right" v-if="cProduct.isVip == '1'">会员</span>
+                          <span class="row-right" v-else-if="cProduct.isVip == '0'">包月</span>
                       </div>
 
                       <div class="layout-row">

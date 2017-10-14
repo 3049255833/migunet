@@ -108,8 +108,16 @@
                 <div class="row-right">
                     <input class=" form-input pointer w-200"
                          v-model.trim="formData.remindDays"
+                         @input="$v.formData.remindDays.$touch()"
+                         :class="{'error':$v.formData.remindDays.$error,'error1':isRemindDays}"
                          type="text"
                          placeholder="请输入天数"/>
+
+                    <span class="error-msg"
+                          v-if="$v.formData.remindDays.$error || isRemindDays">
+
+                        {{errorMsg.remindDays}}
+                    </span>
                 </div>
             </div>
 
@@ -242,6 +250,9 @@
                     cpCode: '',        //CP/SP code,
                     cpName: ''
                 },
+                errorMsg: {
+                    remindDays: '请输入到期提醒天数'
+                },
                 smsTitle: '',
                 productSelectTitle: '',
                 productType: '',
@@ -263,7 +274,8 @@
                     remindDays: '',
                     cpCode:'',
                     sendPlatform: ''
-                }
+                },
+                isRemindDays: false // 判断请输入到期提醒天数为非法字符
             }
         },
         validations: {
@@ -284,7 +296,21 @@
             'formData.sendPlatform'(a,b) {
 
                 console.log("sendPlatform: " + JSON.stringify(this.formData.sendPlatform));
-            }
+            },
+            'formData.remindDays'(a, b){
+                let rule = /[^0-9]/g;
+
+                if (rule.test(a)) {
+
+                  this.isRemindDays = true;
+
+                  this.errorMsg.remindDays = '请输入数字';
+
+                } else {
+                    this.isRemindDays = false;
+                    this.errorMsg.remindDays = '请输入到期提醒天数';
+                }
+            },
         },
         methods: {
             /*获取发送平台*/
@@ -437,7 +463,7 @@
             canSave(){
                 let flag = true;
 
-                if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid) {
+                if (!this.$v.validationGroup.$error && !this.$v.validationGroup.$invalid && !this.isRemindDays) {
 
                 } else {
                     flag=false
