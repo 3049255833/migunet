@@ -101,7 +101,7 @@
 
             <!--到期提醒提前天数-->
             <div class="form-row" v-if="RemindSmsItem.templateContent != null">
-                <div class="row-left">
+                <div class="row-left required">
                   到期提醒提前天数：
                 </div>
 
