@@ -280,7 +280,20 @@
                             </div>
                             <div class="layout-row">
                                 <span class="row-left"> 发送平台：</span>
-                                <span class="row-right">{{cProduct.sendPlatform}}</span>
+                                <span class="row-right"
+                                      v-if="cProduct.sendPlatform == '1'">
+                                  发送彩印
+                                </span>
+
+                                <span class="row-right"
+                                      v-else-if="cProduct.sendPlatform == '2'">
+                                  发送彩铃
+                                </span>
+
+                                <span class="row-right"
+                                      v-else-if="cProduct.sendPlatform == '0'">
+                                  无
+                                </span>
                             </div>
                             <div class="layout-row">
                                 <span class="row-left"> 创建时间：</span>
