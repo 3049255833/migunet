@@ -828,6 +828,7 @@
       destroyed() {
           this.bus.$off('auditDetailsComfirmInfoBus');
           this.bus.$off('auditDetailsCancelInfoBus');
+          this.bus.$off('auditDetailsPassConfirmInfoBus');
       }
   }
 </script>
