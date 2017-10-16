@@ -112,7 +112,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-row business-code">
                 <div class="row-left required">分成类型：</div>
 
                 <div class="row-right">
@@ -126,7 +126,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-row business-code">
                 <div class="row-left required">是否管理员专用：</div>
 
                 <div class="row-right">
@@ -140,7 +140,7 @@
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="form-row business-code">
                 <div class="row-left required">是否需要二次确认：</div>
 
                 <div class="row-right">
@@ -481,20 +481,15 @@
             overflow-y: auto;
 
             .form-row {
-                padding-bottom: 15px;
+                padding-bottom: 10px;
             }
             .row-left {
                 width: 162px;
             }
             .row-right {
-                position: initial;
 
                 .error-msg {
                     margin-top: 8px;
-                }
-
-                .option-mask {
-                    margin-top: -25px;
                 }
             }
         }

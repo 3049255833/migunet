@@ -149,6 +149,14 @@
         transition: all .3s ease;
     }
 
+    .business-code {
+        .option-mask {
+            margin-bottom: 5px;
+            bottom: 100%;
+            top: auto;
+        }
+    }
+
     .option-mask {
         box-sizing: border-box;
         position: absolute;
