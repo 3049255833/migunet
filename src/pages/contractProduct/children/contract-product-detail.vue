@@ -1355,15 +1355,12 @@
                       margin-top: 25px;
                   }
 
-                  .scheme-item:first-child {
-                      .item:last-child {
-                          letter-spacing: 1.2px;
-                          line-height: 16px;
-                      }
-                  }
-
                   .scheme-item {
                       color: #333;
+
+                      .item:last-child {
+                          line-height: 18px;
+                      }
                   }
               }
 
