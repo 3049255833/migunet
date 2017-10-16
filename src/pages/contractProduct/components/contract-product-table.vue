@@ -5,7 +5,7 @@
             <tr>
                 <th class="td-pl-68">产品名称</th>
                 <th>产品ID</th>
-                <th>CP/SP ID</th>
+                <th>CP / SP ID</th>
                 <th>业务状态</th>
                 <th>审批状态</th>
                 <th>操作</th>
