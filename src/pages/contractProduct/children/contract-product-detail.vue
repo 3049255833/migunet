@@ -1232,10 +1232,11 @@
                           overflow: hidden;
                           white-space: nowrap;
                           text-overflow: ellipsis;
+                          line-height: 22px;
                       }
 
                       p:nth-child(1) {
-                          margin-bottom: 11px;
+                          margin-bottom: 2px;
                           font-size: 18px;
                           color: #6d7684;
 
