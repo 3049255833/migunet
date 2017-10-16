@@ -487,8 +487,14 @@
                 width: 162px;
             }
             .row-right {
+                position: initial;
+
                 .error-msg {
                     margin-top: 8px;
+                }
+
+                .option-mask {
+                    margin-top: -25px;
                 }
             }
         }
