@@ -417,15 +417,16 @@
                                             <span class="right">
                                                 满足条件：
 
-                                                <span v-for="pItem in rightItem.pdMatchList">
+                                                <span v-for="(pItem, subIndex) in rightItem.pdMatchList">
                                                     {{pItem.fieldName}}&nbsp;
                                                     {{pItem.operator}}&nbsp;
                                                     {{pItem.matchValues}}&nbsp;
 
-                                                    <span v-if="rightItem.isAnd == '0'">
-                                                        或者</span>
-                                                    <span v-else-if="rightItem.isAnd == '1'">
-                                                        并且</span>
+                                                    <span v-if="subIndex < rightItem.pdMatchList.length - 1">
+                                                    <span v-if="rightItem.pdFeePlan.isAnd == '0'">
+                                                      或者</span>
+                                                    <span v-else-if="rightItem.pdFeePlan.isAnd == '1'">
+                                                      并且</span></span>
                                                 </span>
                                             </span>
                                         </div>
