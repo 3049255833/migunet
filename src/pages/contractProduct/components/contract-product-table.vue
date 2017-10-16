@@ -147,8 +147,8 @@
                                                   cProduct.detailStatus == '1' ||
                                                   cProduct.detailStatus == '19'">上线</div>
 
+                                  <!--@click="deleteBtn(cProduct.productCode,cProduct.onlineStatus,cProduct.detailStatus)" 展示不显示10.16：17：14-->
                                     <div class="option-item"
-                                         @click="deleteBtn(cProduct.productCode,cProduct.onlineStatus,cProduct.detailStatus)"
                                          v-if="cProduct.detailStatus == null ||
                                                   cProduct.detailStatus == '1' ||
                                                   cProduct.detailStatus == '19'">删除</div>
