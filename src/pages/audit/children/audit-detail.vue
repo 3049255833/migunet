@@ -915,6 +915,11 @@
                       vertical-align: middle;
                       width: 165px;
 
+                      &.status {
+                        max-width: 210px;
+                        width: auto;
+                      }
+
                       p {
                           width: 100%;
                           overflow: hidden;
@@ -927,6 +932,11 @@
                           font-size: 18px;
                           margin-bottom: 2px;
                           color: #6d7684;
+
+                          span {
+                            font-size: 18px;
+                            color: #6d7684;
+                          }
                       }
 
                       p:nth-child(2) {
