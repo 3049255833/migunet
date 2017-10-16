@@ -338,14 +338,18 @@
                                 </div>
 
                                 <div class="item">
-                                    <span class="left"> 资费金额（分） ：</span>
-                                  <span class="right" v-if="pay.feeType == '1'">包月</span>
-                                  <span class="right" v-else-if="pay.feeType == '2'">点播</span>
+                                    <span class="left"> 资费金额（分）：</span>
+
+                                    <span class="right">{{pay.price}}</span>
                                 </div>
 
                                 <div class="item">
                                     <span class="left"> 资费类型 ：</span>
-                                    <span class="right">{{pay.feeType}}</span>
+
+                                    <span class="right"
+                                          v-if="pay.feeType == '1'">包月</span>
+                                    <span class="right"
+                                          v-else-if="pay.feeType == '2'">点播</span>
                                 </div>
 
                                 <div class="item">

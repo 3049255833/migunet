@@ -365,7 +365,7 @@
                                   </div>
 
                                   <div class="item">
-                                      <span class="left"> 资费金额（分） ：</span>
+                                      <span class="left"> 资费金额（分）：</span>
                                       <span class="right">{{pay.price}}</span>
                                   </div>
 
