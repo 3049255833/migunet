@@ -133,14 +133,7 @@
                       optionText: '变更审批失败',
                       optionValue: '11'
                     },*/
-                    {
-                      optionText: '变更报备中',
-                      optionValue: '12'
-                    },
-                    {
-                      optionText: '变更报备失败',
-                      optionValue: '13'
-                    },
+
                     /*{
                       optionText: '下线报备中',
                       optionValue: '14'
@@ -164,6 +157,14 @@
                     {
                       optionText: '新增报备失败',
                       optionValue: '19'
+                    },
+                    {
+                      optionText: '变更报备中',
+                      optionValue: '12'
+                    },
+                    {
+                      optionText: '变更报备失败',
+                      optionValue: '13'
                     }
                 ],
                 onlineStatusOperateList: [
