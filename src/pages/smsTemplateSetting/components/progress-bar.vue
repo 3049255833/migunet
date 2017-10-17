@@ -30,7 +30,7 @@
 <style lang='scss' scoped rel='stylesheet/scss'>
     .progress-bar-box {
         position: absolute;
-        width: 490px;
+        max-width: 490px;
         top: 120px;
         clear: both;
         left: 300px;

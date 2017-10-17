@@ -35,6 +35,7 @@
         <v-progress-bar
           :isHide="isHideProgressBar"
           :percent="percent"
+          :count="count"
           :progressStyle="progressStyle.width"
           :uploadErrorInfo="uploadErrorInfo"></v-progress-bar>
     </div>
@@ -60,7 +61,8 @@
                     keys: ''  //关键字
                 },
                 isHideProgressBar: true,
-                uploadValue: {}
+                uploadValue: {},
+                count: ''
             }
         },
         methods: {
@@ -107,9 +109,10 @@
                         console.log("upload res: " + JSON.stringify(res));
 
                         if(res.resultCode=='1'){ //成功
-                            this.isHideProgressBar = false;
+                            this.count = res.resultMessage;
                             this.percent = '100';
                             this.progressStyle.width = '100';
+                            this.isHideProgressBar = false;
 
                             setTimeout(function () {
                                 that.isHideProgressBar = true;
