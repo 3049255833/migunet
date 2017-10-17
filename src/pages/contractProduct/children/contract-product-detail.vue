@@ -485,7 +485,7 @@
                                                       </span>
                                                   </span>
 
-                                                  <!--<span v-else-if="pItem.fieldName == 'productArea'">
+                                                  <span v-else-if="pItem.fieldName == 'productArea'">
                                                       <span v-if="pItem.matchValues == '5109'">
                                                             全球
                                                       </span>
@@ -516,8 +516,8 @@
                                                       <span v-else>
                                                             {{pItem.matchValues}}
                                                       </span>
-                                                  </span>-->
-                                                  
+                                                  </span>
+
                                                   <span v-else>{{pItem.matchValues}}&nbsp;</span>
 
                                                   <span v-if="subIndex < rightItem.pdMatchList.length - 1">
