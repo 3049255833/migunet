@@ -48,6 +48,7 @@
 
         <v-progress-bar
           :isHide="isHideProgressBar"
+          :count="count"
           :percent="percent"
           :progressStyle="progressStyle.width"
           :uploadErrorInfo="uploadErrorInfo"></v-progress-bar>
@@ -75,7 +76,8 @@
                     keys: ''  //关键字
                 },
                 smsTFlag: false,
-                smsTemplateUrl: ''
+                smsTemplateUrl: '',
+                count: ''
             }
         },
         created(){
@@ -147,9 +149,14 @@
                             console.log("upload res: " + JSON.stringify(res));
 
                             if(res.resultCode=='1'){ //成功
-                                this.isHideProgressBar = false;
+
                                 this.percent = '100';
+
+                                this.count = res.resultMessage;
+
                                 this.progressStyle.width = '100';
+
+                                this.isHideProgressBar = false;
 
                                 setTimeout(function () {
                                     that.isHideProgressBar = true;

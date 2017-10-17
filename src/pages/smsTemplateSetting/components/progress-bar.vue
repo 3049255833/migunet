@@ -6,7 +6,9 @@
                 </div>
             </div>
 
-            <div class="count">{{percent}}%</div>
+            <div class="percent">{{percent}}%</div>
+
+            <div class="count">{{count}}</div>
         </div>
         <div v-else class="text">{{uploadErrorInfo}}</div>
     </div>
@@ -19,7 +21,8 @@
           isHide: Boolean,
           uploadErrorInfo: String,
           percent: String,
-          progressStyle: String
+          progressStyle: String,
+          count: String
       }
   }
 </script>
@@ -27,7 +30,7 @@
 <style lang='scss' scoped rel='stylesheet/scss'>
     .progress-bar-box {
         position: absolute;
-        width: 390px;
+        width: 490px;
         top: 120px;
         clear: both;
         left: 300px;
@@ -51,7 +54,7 @@
             height: 12px;
             overflow: hidden;
             background-color: #e0e0e0;
-            border-radius: 4px;
+            border-radius: 10px;
             -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
             box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
             float: left;
@@ -65,7 +68,7 @@
                 line-height: 20px;
                 color: #fff;
                 text-align: center;
-                background-color: #48baf4;
+                background-color: #46bafe;
                 -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
                 box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
                 -webkit-transition: width .6s ease;
@@ -73,9 +76,17 @@
                 transition: width .6s ease;
             }
         }
+        .percent {
+            margin-left: 10px;
+            float: left;
+            color: #46bafe;
+            font-size: 12px;
+        }
         .count {
             float: right;
-            color: #6ac4f5;
+            color: #46bafe;
+            font-size: 12px;
+            margin-left: 10px;
         }
     }
 </style>
