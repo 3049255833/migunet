@@ -35,4 +35,4 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
   最后提交时间2017.9月8号 18:54:35
 
 Test version 930
-Test
+Test code
