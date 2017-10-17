@@ -458,15 +458,73 @@
                                               满足条件：
 
                                               <span v-for="(pItem, subIndex) in rightItem.pdMatchList">
-                                                  {{pItem.fieldName}}&nbsp;
-                                                  {{pItem.operator}}&nbsp;
-                                                  {{pItem.matchValues}}&nbsp;
+                                                  <span v-if="pItem.fieldName == 'contentType'">内容类型 </span>
+                                                  <span v-else-if="pItem.fieldName == 'areas'">地区限定 </span>
+                                                  <span v-else-if="pItem.fieldName == 'productArea'">出品地区 </span>
+                                                  <span v-else-if="pItem.fieldName == 'userType'">用户类型 </span>
+                                                  <span v-else-if="pItem.fieldName == 'contentUniCode'">内容ID </span>
+                                                  <span v-else-if="pItem.fieldName == 'cpCode'">CP</span>
+
+                                                  &nbsp;{{pItem.operator}}&nbsp;
+
+                                                  <span v-if="pItem.fieldName == 'contentType'">
+                                                      <span v-if="pItem.matchValues == '3'">
+                                                          漫画
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '4'">
+                                                          动漫
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '5'">
+                                                          UGC
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '6'">
+                                                          随手拍
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '7'">
+                                                          轻小说
+                                                      </span>
+                                                  </span>
+
+                                                  <span v-else-if="pItem.fieldName == 'productArea'">
+                                                      <span v-if="pItem.matchValues == '5109'">
+                                                            全球
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '5103'">
+                                                            欧美
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '5100'">
+                                                            中国大陆
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '5102'">
+                                                            日本
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '5104'">
+                                                            韩国
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '5106'">
+                                                            香港
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '5107'">
+                                                            台湾
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '5108'">
+                                                            澳门
+                                                      </span>
+                                                      <span v-else-if="pItem.matchValues == '5105'">
+                                                            其他
+                                                      </span>
+                                                      <span v-else>
+                                                            {{pItem.matchValues}}
+                                                      </span>
+                                                  </span>
+
+                                                  <span v-else>{{pItem.matchValues}}&nbsp;</span>
 
                                                   <span v-if="subIndex < rightItem.pdMatchList.length - 1">
                                                   <span v-if="rightItem.pdFeePlan.isAnd == '0'">
-                                                    或者</span>
+                                                    或者  </span>
                                                   <span v-else-if="rightItem.pdFeePlan.isAnd == '1'">
-                                                    并且</span></span>
+                                                    并且  </span></span>
                                               </span>
                                           </span>
                                       </div>
