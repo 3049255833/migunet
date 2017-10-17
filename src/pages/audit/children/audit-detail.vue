@@ -308,9 +308,19 @@
                                 </span>
                             </div>
 
-                            <div class="layout-row">
+                            <!--<div class="layout-row">
                                 <span class="row-left"> CP/SP ID：</span>
-                                <!--<span class="row-right">{{cpspList[0].pdCp.cpName}} | {{cpspList[0].pdCp.cpCode}}</span>-->
+                                &lt;!&ndash;<span class="row-right">{{cpspList[0].pdCp.cpName}} | {{cpspList[0].pdCp.cpCode}}</span>&ndash;&gt;
+                            </div>-->
+
+                            <div class="layout-row  no-pb">
+                                <div class="row-left"> CP/SP ID：</div>
+
+                                <div class="row-right">
+                                    <div v-for="item in cpspList">
+                                        <div>{{item.pdCp.cpName}} | {{item.pdCp.cpCode}}</div>
+                                    </div>
+                                </div>
                             </div>
                     </div>
                 </div>
