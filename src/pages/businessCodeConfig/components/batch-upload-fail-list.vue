@@ -2,12 +2,28 @@
     <div class="batch-upload-fail-list-container">
         <div class="operate-list clearfix">
             <div class="left" v-if="errorCode == '2' || errorCode == '3'">
-                <span class="blue" v-show="errorCode == '2'">部分数据导入失败</span>
-                <span class="blue" v-show="errorCode == '3'">重复数据系统默认忽略！</span>
+                <span class="blue"
+                      v-show="errorCode == '2'">
+                      部分数据导入失败
+
+                      <span class="blue" v-if="errorCode == '2'">
+                        {{this.batchUploadfailData.resultMessage}}
+                      </span>
+                </span>
+                <span class="blue"
+                      v-show="errorCode == '3'">
+                      重复数据系统默认忽略！
+                </span>
             </div>
 
             <div class="left" v-if="errorCode == '5'">
-                <span class="blue" v-show="toggleCode == '0'">部分数据导入失败</span>
+                <span class="blue" v-show="toggleCode == '0'">
+                  部分数据导入失败
+
+                  <span class="blue" v-if="errorCode == '5'">
+                      {{this.batchUploadfailData.resultMessage}}
+                  </span>
+                </span>
                 <span class="blue" v-show="toggleCode == '1'">部分数据重复导入，系统已忽略！</span>
             </div>
 
