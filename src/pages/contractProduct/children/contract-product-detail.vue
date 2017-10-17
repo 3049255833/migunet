@@ -432,15 +432,27 @@
                                   <div>
                                       <h4>方案{{index + 1}}</h4>
 
-                                      <div class="item">
-                                          <span class="left"
-                                                v-if="rightItem.pdFeePlan.isFree == '1'">
-                                                  免费</span>
-
-                                          <span class="left"
-                                                v-else-if="rightItem.pdFeePlan.isFree == '0'">
-                                                    收费</span>
+                                      <div class="item" v-if="rightItem.pdFeePlan.isFree == '1'">
+                                          <span class="left">免费</span>
                                       </div>
+
+                                      <div v-else-if="rightItem.pdFeePlan.isFree == '0'">
+                                          <div class="item">
+                                              <span>资费ID：</span>
+                                              <span>{{rightItem.pdFeePlan.planCode}}</span>
+                                          </div>
+
+                                          <div class="item">
+                                              <span>计划名称：</span>
+                                              <span>{{rightItem.pdFeePlan.planName}}</span>
+                                          </div>
+
+                                          <div class="item">
+                                              <span>计划说明：</span>
+                                              <span>{{rightItem.pdFeePlan.planDesc}}</span>
+                                          </div>
+                                      </div>
+
                                       <div class="item">
                                           <span class="right">
                                               满足条件：
@@ -676,7 +688,7 @@
                             productCode: productCode || '',
                             auditId: '',
                             pageSize: that.pageSize || '1',
-                            pageNum: that.pageNum || '5'
+                            pageNum: that.pageNum || '5000' //后期解决
                         }
                     }).then(response => {
 
@@ -1232,7 +1244,7 @@
                           overflow: hidden;
                           white-space: nowrap;
                           text-overflow: ellipsis;
-                          line-height: 22px;
+                          line-height: 23px;
                       }
 
                       p:nth-child(1) {
@@ -1352,15 +1364,15 @@
               }
 
               .billing-list {
-                  .scheme-item:last-child {
-                      margin-top: 25px;
+                  .scheme-item {
+                      margin-top: 10px;
                   }
 
                   .scheme-item {
                       color: #333;
 
-                      .item:last-child {
-                          line-height: 18px;
+                      .right span {
+                        line-height: 14px;
                       }
                   }
               }
