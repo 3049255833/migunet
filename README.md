@@ -34,5 +34,5 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
   URL:SHA-1: c7042403a7b9e8c7e1f0fa742909a94d79db512d
   最后提交时间2017.9月8号 18:54:35
 
-Test version 930
-Test code
+2017.10.18号打包930版本
+  
