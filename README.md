@@ -36,3 +36,4 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 2017.10.18号打包930版本
   URL:22a6112a9b42aa52c23f1903230d85213f3f8c0a
+liubing
