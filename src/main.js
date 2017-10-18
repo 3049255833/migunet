@@ -5,6 +5,10 @@
  * */
 import Vue from 'vue'
 
+/*引入ElementUI*/
+import ElementUI from 'element-ui'
+
+import 'element-ui/lib/theme-default/index.css'
 
 /**
  * 页面唯一入口
@@ -79,11 +83,16 @@ import './scss/index.scss';
  */
 import Vmodal from 'vue-js-modal'
 
+import {
+  DatePicker
+} from 'element-ui'
 
 /**
  * 注册全局插件
  * ajax，router，mock
  * */
+Vue.use(ElementUI);
+Vue.use(DatePicker);
 Vue.use(VueRosuorce);
 Vue.use(Mock);
 Vue.use(router);

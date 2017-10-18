@@ -9,6 +9,9 @@ const SmsTemplateSetting  = resolve => require(['@/pages/SmsTemplateSetting'],re
 const productCatalogManage  = resolve => require(['@/pages/productCatalogManage'],resolve) ;
 const SingleProductDetail  = resolve => require(['@/pages/singleProduct/children/single-product-detail'],resolve) ;
 const ContractProductDetail  = resolve => require(['@/pages/contractProduct/children/contract-product-detail'],resolve) ;
+
+const TestDate  = resolve => require(['@/pages/contractProduct/children/test-date'],resolve);
+
 const ContractProductAdd  = resolve => require(['@/pages/contractProduct/children/contractProductAdd'],resolve) ;
 const ContractProductUpdate = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/update-contract-product'],resolve) ;
 const Step1 = resolve => require(['@/pages/contractProduct/children/contractProductAdd/children/step-1'],resolve) ;
@@ -53,6 +56,13 @@ export default new Router({
                     name: 'ContractProductDetail',
                     components: {
                         default: ContractProductDetail
+                    }
+                },
+                {
+                    path: 'contract_product/test_date',
+                    name: 'TestDate',
+                    components: {
+                        default: TestDate
                     }
                 },
                 {
